@@ -18,18 +18,18 @@
 {
     NSTimeInterval timeInterval = -[self timeIntervalSinceNow];
     if (timeInterval < 60) {
-        return NSEaseLocalizedString(@"NSDateCategory.text1", @"");
+        return NSLocalizedString(@"NSDateCategory.text1", @"");
     } else if (timeInterval < 3600) {
-        return [NSString stringWithFormat:NSEaseLocalizedString(@"NSDateCategory.text2", @""), timeInterval / 60];
+        return [NSString stringWithFormat:NSLocalizedString(@"NSDateCategory.text2", @""), timeInterval / 60];
     } else if (timeInterval < 86400) {
-        return [NSString stringWithFormat:NSEaseLocalizedString(@"NSDateCategory.text3", @""), timeInterval / 3600];
+        return [NSString stringWithFormat:NSLocalizedString(@"NSDateCategory.text3", @""), timeInterval / 3600];
     } else if (timeInterval < 2592000) {//within 30 days
-        return [NSString stringWithFormat:NSEaseLocalizedString(@"NSDateCategory.text4", @""), timeInterval / 86400];
+        return [NSString stringWithFormat:NSLocalizedString(@"NSDateCategory.text4", @""), timeInterval / 86400];
     } else if (timeInterval < 31536000) {//30 days to a year
-        NSDateFormatter *dateFormatter = [NSDateFormatter dateFormatterWithFormat:NSEaseLocalizedString(@"NSDateCategory.text5", @"")];
+        NSDateFormatter *dateFormatter = [NSDateFormatter dateFormatterWithFormat:NSLocalizedString(@"NSDateCategory.text5", @"")];
         return [dateFormatter stringFromDate:self];
     } else {
-        return [NSString stringWithFormat:NSEaseLocalizedString(@"NSDateCategory.text6", @""), timeInterval / 31536000];
+        return [NSString stringWithFormat:NSLocalizedString(@"NSDateCategory.text6", @""), timeInterval / 31536000];
     }
 }
 
