@@ -94,8 +94,6 @@
 /*!
  @method
  @brief 设置头像约束
- @discussion
- @result
  */
 - (void)_setupImageViewConstraint
 {
@@ -109,8 +107,6 @@
 /*!
  @method
  @brief 设置角标约束
- @discussion
- @result
  */
 - (void)_setupBadgeViewConstraint
 {

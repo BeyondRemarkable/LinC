@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		276E75111F3B9A6F00D5A917 /* BREmotionEscape.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75101F3B9A6F00D5A917 /* BREmotionEscape.m */; };
+		276E75141F3B9C5200D5A917 /* BRConvertToCommonEmoticonsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75131F3B9C5200D5A917 /* BRConvertToCommonEmoticonsHelper.m */; };
+		276E75171F3B9FCF00D5A917 /* BREmoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75161F3B9FCF00D5A917 /* BREmoji.m */; };
+		276E751A1F3BA02200D5A917 /* BREmojiEmoticons.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75191F3BA02200D5A917 /* BREmojiEmoticons.m */; };
+		276E751D1F3BA60100D5A917 /* BRMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E751C1F3BA60100D5A917 /* BRMessageViewController.m */; };
 		27CA03B11F38F21600D0F132 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CA03B01F38F21600D0F132 /* main.m */; };
 		27CA03BC1F38F21600D0F132 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27CA03BB1F38F21600D0F132 /* Assets.xcassets */; };
 		27CA03CA1F38F21600D0F132 /* LinCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CA03C91F38F21600D0F132 /* LinCTests.m */; };
@@ -46,6 +51,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		276E750F1F3B9A6F00D5A917 /* BREmotionEscape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BREmotionEscape.h; sourceTree = "<group>"; };
+		276E75101F3B9A6F00D5A917 /* BREmotionEscape.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BREmotionEscape.m; sourceTree = "<group>"; };
+		276E75121F3B9C5200D5A917 /* BRConvertToCommonEmoticonsHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRConvertToCommonEmoticonsHelper.h; sourceTree = "<group>"; };
+		276E75131F3B9C5200D5A917 /* BRConvertToCommonEmoticonsHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRConvertToCommonEmoticonsHelper.m; sourceTree = "<group>"; };
+		276E75151F3B9FCF00D5A917 /* BREmoji.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BREmoji.h; sourceTree = "<group>"; };
+		276E75161F3B9FCF00D5A917 /* BREmoji.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BREmoji.m; sourceTree = "<group>"; };
+		276E75181F3BA02200D5A917 /* BREmojiEmoticons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BREmojiEmoticons.h; sourceTree = "<group>"; };
+		276E75191F3BA02200D5A917 /* BREmojiEmoticons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BREmojiEmoticons.m; sourceTree = "<group>"; };
+		276E751B1F3BA60100D5A917 /* BRMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRMessageViewController.h; sourceTree = "<group>"; };
+		276E751C1F3BA60100D5A917 /* BRMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRMessageViewController.m; sourceTree = "<group>"; };
 		27CA03AC1F38F21600D0F132 /* LinC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LinC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27CA03B01F38F21600D0F132 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		27CA03BB1F38F21600D0F132 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -130,6 +145,47 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		276E750B1F3B99BF00D5A917 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				276E750E1F3B9A0500D5A917 /* View */,
+				276E750D1F3B99F500D5A917 /* Model */,
+				276E750C1F3B99D500D5A917 /* Controller */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
+		276E750C1F3B99D500D5A917 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				276E751B1F3BA60100D5A917 /* BRMessageViewController.h */,
+				276E751C1F3BA60100D5A917 /* BRMessageViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		276E750D1F3B99F500D5A917 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				276E750F1F3B9A6F00D5A917 /* BREmotionEscape.h */,
+				276E75101F3B9A6F00D5A917 /* BREmotionEscape.m */,
+				276E75121F3B9C5200D5A917 /* BRConvertToCommonEmoticonsHelper.h */,
+				276E75131F3B9C5200D5A917 /* BRConvertToCommonEmoticonsHelper.m */,
+				276E75151F3B9FCF00D5A917 /* BREmoji.h */,
+				276E75161F3B9FCF00D5A917 /* BREmoji.m */,
+				276E75181F3BA02200D5A917 /* BREmojiEmoticons.h */,
+				276E75191F3BA02200D5A917 /* BREmojiEmoticons.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		276E750E1F3B9A0500D5A917 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		27CA03A31F38F21600D0F132 = {
 			isa = PBXGroup;
 			children = (
@@ -192,6 +248,7 @@
 		27E9A2101F3B84F4001937A0 /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				276E750B1F3B99BF00D5A917 /* Message */,
 				27E9A23B1F3B8BE3001937A0 /* Other */,
 				27E9A2111F3B84F4001937A0 /* Conversation */,
 				27E9A21D1F3B84F4001937A0 /* Main */,
@@ -492,14 +549,19 @@
 			files = (
 				27E9A22F1F3B84F4001937A0 /* BRConversationModel.m in Sources */,
 				27E9A2331F3B84F4001937A0 /* NSDateFormatter+Category.m in Sources */,
+				276E751A1F3BA02200D5A917 /* BREmojiEmoticons.m in Sources */,
 				27E9A2351F3B84F4001937A0 /* UIView+Extension.m in Sources */,
+				276E751D1F3BA60100D5A917 /* BRMessageViewController.m in Sources */,
 				27E9A2301F3B84F4001937A0 /* BRAvatarView.m in Sources */,
+				276E75141F3B9C5200D5A917 /* BRConvertToCommonEmoticonsHelper.m in Sources */,
+				276E75111F3B9A6F00D5A917 /* BREmotionEscape.m in Sources */,
 				27E9A2341F3B84F4001937A0 /* NSString+Helper.m in Sources */,
 				27E9A2371F3B84F4001937A0 /* BRRefreshTableViewController.m in Sources */,
 				27E9A2321F3B84F4001937A0 /* NSDate+Category.m in Sources */,
 				27E9A23E1F3B8BE3001937A0 /* AppDelegate.m in Sources */,
 				27CA03B11F38F21600D0F132 /* main.m in Sources */,
 				27E9A22E1F3B84F4001937A0 /* BRConversationListViewController.m in Sources */,
+				276E75171F3B9FCF00D5A917 /* BREmoji.m in Sources */,
 				27E9A2381F3B84F4001937A0 /* BRTabBarController.m in Sources */,
 				27E9A2311F3B84F4001937A0 /* BRConversationCell.m in Sources */,
 				27E9A2361F3B84F4001937A0 /* BRNavigationController.m in Sources */,

@@ -15,11 +15,25 @@
 
 @implementation BRRefreshTableViewController
 
+- (instancetype)initWithStyle:(UITableViewStyle)style
+{
+    if (self = [super init]) {
+        _style = style;
+    }
+    
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.tableView.tableFooterView = self.defaultFooterView;
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) style:self.style];
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    _tableView.tableFooterView = self.defaultFooterView;
+    [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
+    [self.view addSubview:_tableView];
+    
     _page = 0;
     _showRefreshHeader = NO;
     _showRefreshFooter = NO;

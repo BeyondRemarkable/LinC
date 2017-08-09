@@ -7,8 +7,11 @@
 //
 
 #import "BRConversationListViewController.h"
+#import "BRMessageViewController.h"
 #import "BRConversationCell.h"
 #import "NSDate+Category.h"
+#import "BREmotionEscape.h"
+#import "BRConvertToCommonEmoticonsHelper.h"
 
 @interface BRConversationListViewController ()
 
@@ -31,7 +34,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self.view addSubview:[[UILabel alloc] initWithFrame:CGRectMake(100, 100, 10, 10)]];
     [self tableViewDidTriggerHeaderRefresh];
 }
 
@@ -64,7 +67,7 @@
     cell.model = model;
     
     
-    cell.detailLabel.attributedText =  [[EaseEmotionEscape sharedInstance] attStringFromTextForChatting:[self _latestMessageTitleForConversationModel:model]textFont:cell.detailLabel.font];
+    cell.detailLabel.attributedText =  [[BREmotionEscape sharedInstance] attStringFromTextForChatting:[self _latestMessageTitleForConversationModel:model]textFont:cell.detailLabel.font];
     
     cell.timeLabel.text = [self _latestMessageTimeForConversationModel:model];
     
@@ -83,7 +86,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     BRConversationModel *model = [self.dataArray objectAtIndex:indexPath.row];
-    EaseMessageViewController *viewController = [[EaseMessageViewController alloc] initWithConversationChatter:model.conversation.conversationId conversationType:model.conversation.type];
+    BRMessageViewController *viewController = [[BRMessageViewController alloc] initWithConversationChatter:model.conversation.conversationId conversationType:model.conversation.type];
     viewController.title = model.title;
     [self.navigationController pushViewController:viewController animated:YES];
 }
@@ -200,7 +203,7 @@
                 latestMessageTitle = NSLocalizedString(@"message.image1", @"[image]");
             } break;
             case EMMessageBodyTypeText:{
-                NSString *didReceiveText = [EaseConvertToCommonEmoticonsHelper
+                NSString *didReceiveText = [BRConvertToCommonEmoticonsHelper
                                             convertToSystemEmoticons:((EMTextMessageBody *)messageBody).text];
                 latestMessageTitle = didReceiveText;
             } break;
