@@ -15,6 +15,7 @@
 		27CA03BF1F38F21600D0F132 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27CA03BD1F38F21600D0F132 /* LaunchScreen.storyboard */; };
 		27CA03CA1F38F21600D0F132 /* LinCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CA03C91F38F21600D0F132 /* LinCTests.m */; };
 		27CA03D51F38F21600D0F132 /* LinCUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CA03D41F38F21600D0F132 /* LinCUITests.m */; };
+		9C88A170EDBF7C8F04DB8667 /* libPods-LinC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 151682A3B1B766562A1A3C95 /* libPods-LinC.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		151682A3B1B766562A1A3C95 /* libPods-LinC.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LinC.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		27CA03AC1F38F21600D0F132 /* LinC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LinC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27CA03B01F38F21600D0F132 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		27CA03B21F38F21600D0F132 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -51,6 +53,8 @@
 		27CA03D01F38F21600D0F132 /* LinCUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LinCUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		27CA03D41F38F21600D0F132 /* LinCUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LinCUITests.m; sourceTree = "<group>"; };
 		27CA03D61F38F21600D0F132 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5D2620024235296C030BBB8B /* Pods-LinC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LinC.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LinC/Pods-LinC.debug.xcconfig"; sourceTree = "<group>"; };
+		9A2592EED2BB59C82C09F214 /* Pods-LinC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LinC.release.xcconfig"; path = "Pods/Target Support Files/Pods-LinC/Pods-LinC.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C88A170EDBF7C8F04DB8667 /* libPods-LinC.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +83,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		035B9CCBC57FB4CDF0E64A03 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5D2620024235296C030BBB8B /* Pods-LinC.debug.xcconfig */,
+				9A2592EED2BB59C82C09F214 /* Pods-LinC.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		27CA03A31F38F21600D0F132 = {
 			isa = PBXGroup;
 			children = (
@@ -85,6 +99,8 @@
 				27CA03C81F38F21600D0F132 /* LinCTests */,
 				27CA03D31F38F21600D0F132 /* LinCUITests */,
 				27CA03AD1F38F21600D0F132 /* Products */,
+				035B9CCBC57FB4CDF0E64A03 /* Pods */,
+				4AEDD4C749B694C2F753630B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -140,6 +156,14 @@
 			path = LinCUITests;
 			sourceTree = "<group>";
 		};
+		4AEDD4C749B694C2F753630B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				151682A3B1B766562A1A3C95 /* libPods-LinC.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -147,9 +171,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 27CA03D91F38F21600D0F132 /* Build configuration list for PBXNativeTarget "LinC" */;
 			buildPhases = (
+				895916D0E6B3C4335A92EBBC /* [CP] Check Pods Manifest.lock */,
 				27CA03A81F38F21600D0F132 /* Sources */,
 				27CA03A91F38F21600D0F132 /* Frameworks */,
 				27CA03AA1F38F21600D0F132 /* Resources */,
+				B0D2D3E0A913B453A7FEAAE0 /* [CP] Embed Pods Frameworks */,
+				3D1116240F95A13C0BC33121 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -270,6 +297,63 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3D1116240F95A13C0BC33121 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-LinC/Pods-LinC-resources.sh",
+				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LinC/Pods-LinC-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		895916D0E6B3C4335A92EBBC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-LinC-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B0D2D3E0A913B453A7FEAAE0 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-LinC/Pods-LinC-frameworks.sh",
+				"${PODS_ROOT}/Hyphenate/ios_IM_Hyphenate_sdk_3.3.4/HyphenateFullSDK/Hyphenate.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hyphenate.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LinC/Pods-LinC-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		27CA03A81F38F21600D0F132 /* Sources */ = {
@@ -425,6 +509,7 @@
 		};
 		27CA03DA1F38F21600D0F132 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5D2620024235296C030BBB8B /* Pods-LinC.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = M4YWTY9R92;
@@ -437,6 +522,7 @@
 		};
 		27CA03DB1F38F21600D0F132 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9A2592EED2BB59C82C09F214 /* Pods-LinC.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = M4YWTY9R92;
