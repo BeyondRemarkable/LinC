@@ -10,47 +10,46 @@
 #import "BRConversationModel.h"
 #import "BRAvatarView.h"
 
-/** @brief cell的最小高度 */
+/** cell的最小高度 */
 static CGFloat BRConversationCellMinHeight = 60;
 
-/** @brief 会话列表自定义UITableViewCell */
-
+/** 会话列表自定义UITableViewCell */
 @interface BRConversationCell : UITableViewCell
 
-/** @brief 头像(用户、群组、聊天室) */
-@property (strong, nonatomic) BRAvatarView *avatarView;
+/** 头像(用户、群组、聊天室) */
+@property (weak, nonatomic) IBOutlet BRAvatarView *avatarView;
 
-/** @brief 最近一条消息的信息 */
-@property (strong, nonatomic) UILabel *detailLabel;
+/** 最近一条消息的信息 */
+@property (weak, nonatomic) IBOutlet UILabel *detailLabel;
 
-/** @brief 时间 */
-@property (strong, nonatomic) UILabel *timeLabel;
+/** 时间 */
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 
-/** @brief 会话标题 */
-@property (strong, nonatomic) UILabel *titleLabel;
+/** 会话标题 */
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
-/** @brief 会话对象 */
+/** 会话对象 */
 @property (strong, nonatomic) BRConversationModel *model;
 
-/** @brief 是否显示头像，默认为YES */
+/** 是否显示头像，默认为YES */
 @property (nonatomic) BOOL showAvatar;
 
-/** @brief title的字体 */
+/** title的字体 */
 @property (nonatomic) UIFont *titleLabelFont UI_APPEARANCE_SELECTOR;
 
-/** @brief title文字颜色 */
+/** title文字颜色 */
 @property (nonatomic) UIColor *titleLabelColor UI_APPEARANCE_SELECTOR;
 
-/** @brief 最近一条消息字体 */
+/** 最近一条消息字体 */
 @property (nonatomic) UIFont *detailLabelFont UI_APPEARANCE_SELECTOR;
 
-/** @brief 最近一条消息文字颜色 */
+/** 最近一条消息文字颜色 */
 @property (nonatomic) UIColor *detailLabelColor UI_APPEARANCE_SELECTOR;
 
-/** @brief 时间文字字体 */
+/** 时间文字字体 */
 @property (nonatomic) UIFont *timeLabelFont UI_APPEARANCE_SELECTOR;
 
-/** @brief 时间文字颜色 */
+/** 时间文字颜色 */
 @property (nonatomic) UIColor *timeLabelColor UI_APPEARANCE_SELECTOR;
 
 /*!

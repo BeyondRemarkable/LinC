@@ -12,6 +12,7 @@
 		276E75171F3B9FCF00D5A917 /* BREmoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75161F3B9FCF00D5A917 /* BREmoji.m */; };
 		276E751A1F3BA02200D5A917 /* BREmojiEmoticons.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75191F3BA02200D5A917 /* BREmojiEmoticons.m */; };
 		276E751D1F3BA60100D5A917 /* BRMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E751C1F3BA60100D5A917 /* BRMessageViewController.m */; };
+		276E751F1F3BB48D00D5A917 /* BRConversationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 276E751E1F3BB48D00D5A917 /* BRConversationCell.xib */; };
 		27CA03B11F38F21600D0F132 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CA03B01F38F21600D0F132 /* main.m */; };
 		27CA03BC1F38F21600D0F132 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27CA03BB1F38F21600D0F132 /* Assets.xcassets */; };
 		27CA03CA1F38F21600D0F132 /* LinCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CA03C91F38F21600D0F132 /* LinCTests.m */; };
@@ -61,6 +62,7 @@
 		276E75191F3BA02200D5A917 /* BREmojiEmoticons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BREmojiEmoticons.m; sourceTree = "<group>"; };
 		276E751B1F3BA60100D5A917 /* BRMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRMessageViewController.h; sourceTree = "<group>"; };
 		276E751C1F3BA60100D5A917 /* BRMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRMessageViewController.m; sourceTree = "<group>"; };
+		276E751E1F3BB48D00D5A917 /* BRConversationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRConversationCell.xib; sourceTree = "<group>"; };
 		27CA03AC1F38F21600D0F132 /* LinC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LinC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27CA03B01F38F21600D0F132 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		27CA03BB1F38F21600D0F132 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -291,6 +293,7 @@
 				27E9A21A1F3B84F4001937A0 /* BRAvatarView.m */,
 				27E9A21B1F3B84F4001937A0 /* BRConversationCell.h */,
 				27E9A21C1F3B84F4001937A0 /* BRConversationCell.m */,
+				276E751E1F3BB48D00D5A917 /* BRConversationCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -465,6 +468,7 @@
 			files = (
 				27E9A2431F3B8BFA001937A0 /* Main.storyboard in Resources */,
 				27CA03BC1F38F21600D0F132 /* Assets.xcassets in Resources */,
+				276E751F1F3BB48D00D5A917 /* BRConversationCell.xib in Resources */,
 				27E9A2421F3B8BFA001937A0 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

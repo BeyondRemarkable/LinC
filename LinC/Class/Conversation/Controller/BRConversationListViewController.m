@@ -34,7 +34,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.view addSubview:[[UILabel alloc] initWithFrame:CGRectMake(100, 100, 10, 10)]];
+    [self.tableView registerNib:[UINib nibWithNibName:@"BRConversationCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:[BRConversationCell cellIdentifierWithModel:nil]];
     [self tableViewDidTriggerHeaderRefresh];
 }
 
@@ -53,11 +53,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *CellIdentifier = [BRConversationCell cellIdentifierWithModel:nil];
-    BRConversationCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
-    if (cell == nil) {
-        cell = [[BRConversationCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    }
+    BRConversationCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     if ([self.dataArray count] <= indexPath.row) {
         return cell;
@@ -171,8 +167,8 @@
 #pragma mark - registerNotifications
 -(void)registerNotifications{
     [self unregisterNotifications];
-    [[EMClient sharedClient].chatManager addDelegate:self delegateQueue:nil];
-    [[EMClient sharedClient].groupManager addDelegate:self delegateQueue:nil];
+    [[EMClient sharedClient].chatManager addDelegate:self delegateQueue:dispatch_get_main_queue()];
+    [[EMClient sharedClient].groupManager addDelegate:self delegateQueue:dispatch_get_main_queue()];
 }
 
 -(void)unregisterNotifications{
