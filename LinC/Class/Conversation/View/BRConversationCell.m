@@ -102,7 +102,7 @@ CGFloat const BRConversationCellPadding = 10;
     }
 }
 
-- (void)setModel:(BRConversationModel *)model
+- (void)setModel:(id<IConversationModel>)model
 {
     _model = model;
     

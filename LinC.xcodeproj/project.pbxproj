@@ -13,6 +13,20 @@
 		276E751A1F3BA02200D5A917 /* BREmojiEmoticons.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75191F3BA02200D5A917 /* BREmojiEmoticons.m */; };
 		276E751D1F3BA60100D5A917 /* BRMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E751C1F3BA60100D5A917 /* BRMessageViewController.m */; };
 		276E751F1F3BB48D00D5A917 /* BRConversationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 276E751E1F3BB48D00D5A917 /* BRConversationCell.xib */; };
+		276E75221F3CD44C00D5A917 /* BRMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75211F3CD44C00D5A917 /* BRMessageModel.m */; };
+		276E75251F3CDA6B00D5A917 /* BRMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75241F3CDA6B00D5A917 /* BRMessageCell.m */; };
+		276E75281F3CDC3C00D5A917 /* BRBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75271F3CDC3C00D5A917 /* BRBubbleView.m */; };
+		276E752C1F3CDE2C00D5A917 /* BRBubbleView+Text.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E752B1F3CDE2C00D5A917 /* BRBubbleView+Text.m */; };
+		276E752F1F3CDF0500D5A917 /* BRBubbleView+Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E752E1F3CDF0500D5A917 /* BRBubbleView+Image.m */; };
+		276E75321F3CDF7D00D5A917 /* BRBubbleView+Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75311F3CDF7D00D5A917 /* BRBubbleView+Location.m */; };
+		276E75351F3CE0B700D5A917 /* BRBubbleView+Voice.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75341F3CE0B700D5A917 /* BRBubbleView+Voice.m */; };
+		276E75381F3CE12C00D5A917 /* BRBubbleView+Video.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75371F3CE12C00D5A917 /* BRBubbleView+Video.m */; };
+		276E753B1F3CE1E300D5A917 /* BRBubbleView+File.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E753A1F3CE1E300D5A917 /* BRBubbleView+File.m */; };
+		276E753E1F3CE5D600D5A917 /* BRBaseMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E753D1F3CE5D600D5A917 /* BRBaseMessageCell.m */; };
+		276E75411F3CED4F00D5A917 /* BRCustomMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75401F3CED4F00D5A917 /* BRCustomMessageCell.m */; };
+		276E75441F3CEE2F00D5A917 /* BRBubbleView+Gif.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75431F3CEE2F00D5A917 /* BRBubbleView+Gif.m */; };
+		276E754C1F3D0C1500D5A917 /* BRChatToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E754B1F3D0C1500D5A917 /* BRChatToolbar.m */; };
+		276E754F1F3D0F5000D5A917 /* BREmotionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E754E1F3D0F5000D5A917 /* BREmotionManager.m */; };
 		27CA03B11F38F21600D0F132 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CA03B01F38F21600D0F132 /* main.m */; };
 		27CA03BC1F38F21600D0F132 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27CA03BB1F38F21600D0F132 /* Assets.xcassets */; };
 		27CA03CA1F38F21600D0F132 /* LinCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CA03C91F38F21600D0F132 /* LinCTests.m */; };
@@ -63,6 +77,38 @@
 		276E751B1F3BA60100D5A917 /* BRMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRMessageViewController.h; sourceTree = "<group>"; };
 		276E751C1F3BA60100D5A917 /* BRMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRMessageViewController.m; sourceTree = "<group>"; };
 		276E751E1F3BB48D00D5A917 /* BRConversationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRConversationCell.xib; sourceTree = "<group>"; };
+		276E75201F3CD44C00D5A917 /* BRMessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRMessageModel.h; sourceTree = "<group>"; };
+		276E75211F3CD44C00D5A917 /* BRMessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRMessageModel.m; sourceTree = "<group>"; };
+		276E75231F3CDA6B00D5A917 /* BRMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRMessageCell.h; sourceTree = "<group>"; };
+		276E75241F3CDA6B00D5A917 /* BRMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRMessageCell.m; sourceTree = "<group>"; };
+		276E75261F3CDC3C00D5A917 /* BRBubbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRBubbleView.h; sourceTree = "<group>"; };
+		276E75271F3CDC3C00D5A917 /* BRBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRBubbleView.m; sourceTree = "<group>"; };
+		276E752A1F3CDE2C00D5A917 /* BRBubbleView+Text.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BRBubbleView+Text.h"; sourceTree = "<group>"; };
+		276E752B1F3CDE2C00D5A917 /* BRBubbleView+Text.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BRBubbleView+Text.m"; sourceTree = "<group>"; };
+		276E752D1F3CDF0500D5A917 /* BRBubbleView+Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BRBubbleView+Image.h"; sourceTree = "<group>"; };
+		276E752E1F3CDF0500D5A917 /* BRBubbleView+Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BRBubbleView+Image.m"; sourceTree = "<group>"; };
+		276E75301F3CDF7D00D5A917 /* BRBubbleView+Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BRBubbleView+Location.h"; sourceTree = "<group>"; };
+		276E75311F3CDF7D00D5A917 /* BRBubbleView+Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BRBubbleView+Location.m"; sourceTree = "<group>"; };
+		276E75331F3CE0B700D5A917 /* BRBubbleView+Voice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BRBubbleView+Voice.h"; sourceTree = "<group>"; };
+		276E75341F3CE0B700D5A917 /* BRBubbleView+Voice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BRBubbleView+Voice.m"; sourceTree = "<group>"; };
+		276E75361F3CE12C00D5A917 /* BRBubbleView+Video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BRBubbleView+Video.h"; sourceTree = "<group>"; };
+		276E75371F3CE12C00D5A917 /* BRBubbleView+Video.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BRBubbleView+Video.m"; sourceTree = "<group>"; };
+		276E75391F3CE1E300D5A917 /* BRBubbleView+File.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BRBubbleView+File.h"; sourceTree = "<group>"; };
+		276E753A1F3CE1E300D5A917 /* BRBubbleView+File.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BRBubbleView+File.m"; sourceTree = "<group>"; };
+		276E753C1F3CE5D600D5A917 /* BRBaseMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRBaseMessageCell.h; sourceTree = "<group>"; };
+		276E753D1F3CE5D600D5A917 /* BRBaseMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRBaseMessageCell.m; sourceTree = "<group>"; };
+		276E753F1F3CED4F00D5A917 /* BRCustomMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRCustomMessageCell.h; sourceTree = "<group>"; };
+		276E75401F3CED4F00D5A917 /* BRCustomMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRCustomMessageCell.m; sourceTree = "<group>"; };
+		276E75421F3CEE2F00D5A917 /* BRBubbleView+Gif.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BRBubbleView+Gif.h"; sourceTree = "<group>"; };
+		276E75431F3CEE2F00D5A917 /* BRBubbleView+Gif.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BRBubbleView+Gif.m"; sourceTree = "<group>"; };
+		276E75451F3CF3C500D5A917 /* IModelChatCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IModelChatCell.h; sourceTree = "<group>"; };
+		276E75461F3CF3E600D5A917 /* IMessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMessageModel.h; sourceTree = "<group>"; };
+		276E75471F3CF90B00D5A917 /* IConversationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IConversationModel.h; sourceTree = "<group>"; };
+		276E75491F3CFAB400D5A917 /* IModelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IModelCell.h; sourceTree = "<group>"; };
+		276E754A1F3D0C1500D5A917 /* BRChatToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRChatToolbar.h; sourceTree = "<group>"; };
+		276E754B1F3D0C1500D5A917 /* BRChatToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRChatToolbar.m; sourceTree = "<group>"; };
+		276E754D1F3D0F5000D5A917 /* BREmotionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BREmotionManager.h; sourceTree = "<group>"; };
+		276E754E1F3D0F5000D5A917 /* BREmotionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BREmotionManager.m; sourceTree = "<group>"; };
 		27CA03AC1F38F21600D0F132 /* LinC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LinC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27CA03B01F38F21600D0F132 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		27CA03BB1F38F21600D0F132 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -150,6 +196,7 @@
 		276E750B1F3B99BF00D5A917 /* Message */ = {
 			isa = PBXGroup;
 			children = (
+				276E75291F3CDE0700D5A917 /* Category */,
 				276E750E1F3B9A0500D5A917 /* View */,
 				276E750D1F3B99F500D5A917 /* Model */,
 				276E750C1F3B99D500D5A917 /* Controller */,
@@ -169,6 +216,8 @@
 		276E750D1F3B99F500D5A917 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				276E75461F3CF3E600D5A917 /* IMessageModel.h */,
+				276E75451F3CF3C500D5A917 /* IModelChatCell.h */,
 				276E750F1F3B9A6F00D5A917 /* BREmotionEscape.h */,
 				276E75101F3B9A6F00D5A917 /* BREmotionEscape.m */,
 				276E75121F3B9C5200D5A917 /* BRConvertToCommonEmoticonsHelper.h */,
@@ -177,6 +226,10 @@
 				276E75161F3B9FCF00D5A917 /* BREmoji.m */,
 				276E75181F3BA02200D5A917 /* BREmojiEmoticons.h */,
 				276E75191F3BA02200D5A917 /* BREmojiEmoticons.m */,
+				276E75201F3CD44C00D5A917 /* BRMessageModel.h */,
+				276E75211F3CD44C00D5A917 /* BRMessageModel.m */,
+				276E754D1F3D0F5000D5A917 /* BREmotionManager.h */,
+				276E754E1F3D0F5000D5A917 /* BREmotionManager.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -184,8 +237,47 @@
 		276E750E1F3B9A0500D5A917 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				276E75231F3CDA6B00D5A917 /* BRMessageCell.h */,
+				276E75241F3CDA6B00D5A917 /* BRMessageCell.m */,
+				276E75261F3CDC3C00D5A917 /* BRBubbleView.h */,
+				276E75271F3CDC3C00D5A917 /* BRBubbleView.m */,
+				276E753C1F3CE5D600D5A917 /* BRBaseMessageCell.h */,
+				276E753D1F3CE5D600D5A917 /* BRBaseMessageCell.m */,
+				276E753F1F3CED4F00D5A917 /* BRCustomMessageCell.h */,
+				276E75401F3CED4F00D5A917 /* BRCustomMessageCell.m */,
+				276E754A1F3D0C1500D5A917 /* BRChatToolbar.h */,
+				276E754B1F3D0C1500D5A917 /* BRChatToolbar.m */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		276E75291F3CDE0700D5A917 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				276E752A1F3CDE2C00D5A917 /* BRBubbleView+Text.h */,
+				276E752B1F3CDE2C00D5A917 /* BRBubbleView+Text.m */,
+				276E752D1F3CDF0500D5A917 /* BRBubbleView+Image.h */,
+				276E752E1F3CDF0500D5A917 /* BRBubbleView+Image.m */,
+				276E75301F3CDF7D00D5A917 /* BRBubbleView+Location.h */,
+				276E75311F3CDF7D00D5A917 /* BRBubbleView+Location.m */,
+				276E75331F3CE0B700D5A917 /* BRBubbleView+Voice.h */,
+				276E75341F3CE0B700D5A917 /* BRBubbleView+Voice.m */,
+				276E75361F3CE12C00D5A917 /* BRBubbleView+Video.h */,
+				276E75371F3CE12C00D5A917 /* BRBubbleView+Video.m */,
+				276E75391F3CE1E300D5A917 /* BRBubbleView+File.h */,
+				276E753A1F3CE1E300D5A917 /* BRBubbleView+File.m */,
+				276E75421F3CEE2F00D5A917 /* BRBubbleView+Gif.h */,
+				276E75431F3CEE2F00D5A917 /* BRBubbleView+Gif.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		276E75481F3CFAA000D5A917 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				276E75491F3CFAB400D5A917 /* IModelCell.h */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		27CA03A31F38F21600D0F132 = {
@@ -280,6 +372,7 @@
 		27E9A2151F3B84F4001937A0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				276E75471F3CF90B00D5A917 /* IConversationModel.h */,
 				27E9A2161F3B84F4001937A0 /* BRConversationModel.h */,
 				27E9A2171F3B84F4001937A0 /* BRConversationModel.m */,
 			);
@@ -301,6 +394,7 @@
 		27E9A21D1F3B84F4001937A0 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				276E75481F3CFAA000D5A917 /* Model */,
 				27E9A23F1F3B8BFA001937A0 /* View */,
 				27E9A21E1F3B84F4001937A0 /* Category */,
 				27E9A2271F3B84F4001937A0 /* Controller */,
@@ -551,24 +645,38 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				276E75381F3CE12C00D5A917 /* BRBubbleView+Video.m in Sources */,
+				276E754C1F3D0C1500D5A917 /* BRChatToolbar.m in Sources */,
 				27E9A22F1F3B84F4001937A0 /* BRConversationModel.m in Sources */,
 				27E9A2331F3B84F4001937A0 /* NSDateFormatter+Category.m in Sources */,
 				276E751A1F3BA02200D5A917 /* BREmojiEmoticons.m in Sources */,
 				27E9A2351F3B84F4001937A0 /* UIView+Extension.m in Sources */,
 				276E751D1F3BA60100D5A917 /* BRMessageViewController.m in Sources */,
 				27E9A2301F3B84F4001937A0 /* BRAvatarView.m in Sources */,
+				276E75221F3CD44C00D5A917 /* BRMessageModel.m in Sources */,
+				276E752C1F3CDE2C00D5A917 /* BRBubbleView+Text.m in Sources */,
 				276E75141F3B9C5200D5A917 /* BRConvertToCommonEmoticonsHelper.m in Sources */,
+				276E753E1F3CE5D600D5A917 /* BRBaseMessageCell.m in Sources */,
+				276E75351F3CE0B700D5A917 /* BRBubbleView+Voice.m in Sources */,
+				276E75321F3CDF7D00D5A917 /* BRBubbleView+Location.m in Sources */,
 				276E75111F3B9A6F00D5A917 /* BREmotionEscape.m in Sources */,
 				27E9A2341F3B84F4001937A0 /* NSString+Helper.m in Sources */,
 				27E9A2371F3B84F4001937A0 /* BRRefreshTableViewController.m in Sources */,
+				276E75281F3CDC3C00D5A917 /* BRBubbleView.m in Sources */,
 				27E9A2321F3B84F4001937A0 /* NSDate+Category.m in Sources */,
 				27E9A23E1F3B8BE3001937A0 /* AppDelegate.m in Sources */,
 				27CA03B11F38F21600D0F132 /* main.m in Sources */,
 				27E9A22E1F3B84F4001937A0 /* BRConversationListViewController.m in Sources */,
 				276E75171F3B9FCF00D5A917 /* BREmoji.m in Sources */,
+				276E754F1F3D0F5000D5A917 /* BREmotionManager.m in Sources */,
 				27E9A2381F3B84F4001937A0 /* BRTabBarController.m in Sources */,
+				276E75411F3CED4F00D5A917 /* BRCustomMessageCell.m in Sources */,
 				27E9A2311F3B84F4001937A0 /* BRConversationCell.m in Sources */,
+				276E752F1F3CDF0500D5A917 /* BRBubbleView+Image.m in Sources */,
 				27E9A2361F3B84F4001937A0 /* BRNavigationController.m in Sources */,
+				276E75441F3CEE2F00D5A917 /* BRBubbleView+Gif.m in Sources */,
+				276E753B1F3CE1E300D5A917 /* BRBubbleView+File.m in Sources */,
+				276E75251F3CDA6B00D5A917 /* BRMessageCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

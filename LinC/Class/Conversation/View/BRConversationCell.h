@@ -7,14 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BRConversationModel.h"
+#import "IConversationModel.h"
+#import "IModelCell.h"
 #import "BRAvatarView.h"
 
 /** cell的最小高度 */
 static CGFloat BRConversationCellMinHeight = 60;
 
 /** 会话列表自定义UITableViewCell */
-@interface BRConversationCell : UITableViewCell
+@interface BRConversationCell : UITableViewCell <IModelCell>
 
 /** 头像(用户、群组、聊天室) */
 @property (weak, nonatomic) IBOutlet BRAvatarView *avatarView;
@@ -29,7 +30,7 @@ static CGFloat BRConversationCellMinHeight = 60;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
 /** 会话对象 */
-@property (strong, nonatomic) BRConversationModel *model;
+@property (strong, nonatomic) id<IConversationModel> model;
 
 /** 是否显示头像，默认为YES */
 @property (nonatomic) BOOL showAvatar;
@@ -58,7 +59,7 @@ static CGFloat BRConversationCellMinHeight = 60;
  @param model    消息对象模型
  @return reuseIdentifier
  */
-+ (NSString *)cellIdentifierWithModel:(BRConversationModel *)model;
++ (NSString *)cellIdentifierWithModel:(id<IConversationModel>)model;
 
 /*!
  @method

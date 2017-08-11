@@ -8,6 +8,7 @@
 
 #import "BRConversationListViewController.h"
 #import "BRMessageViewController.h"
+#import "BRConversationModel.h"
 #import "BRConversationCell.h"
 #import "NSDate+Category.h"
 #import "BREmotionEscape.h"
@@ -59,7 +60,7 @@
         return cell;
     }
     
-    BRConversationModel *model = [self.dataArray objectAtIndex:indexPath.row];
+    id<IConversationModel> model = [self.dataArray objectAtIndex:indexPath.row];
     cell.model = model;
     
     
@@ -188,7 +189,7 @@
  @param conversationModel  会话model
  @result 返回传入会话model最近一条消息提示
  */
-- (NSString *)_latestMessageTitleForConversationModel:(BRConversationModel *)conversationModel
+- (NSString *)_latestMessageTitleForConversationModel:(id<IConversationModel>)conversationModel
 {
     NSString *latestMessageTitle = @"";
     EMMessage *lastMessage = [conversationModel.conversation latestMessage];
@@ -228,7 +229,7 @@
  @param conversationModel  会话model
  @result 返回传入会话model最近一条消息时间
  */
-- (NSString *)_latestMessageTimeForConversationModel:(BRConversationModel *)conversationModel
+- (NSString *)_latestMessageTimeForConversationModel:(id<IConversationModel>)conversationModel
 {
     NSString *latestMessageTime = @"";
     EMMessage *lastMessage = [conversationModel.conversation latestMessage];;
