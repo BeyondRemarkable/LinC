@@ -9,5 +9,6 @@
 #ifndef LinC_pch
 #define LinC_pch
 
+#import "Common.h"
 
 #endif /* LinC_pch */

@@ -53,6 +53,7 @@
 		276E759D1F3F4E5600D5A917 /* BRMessageReadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E759C1F3F4E5600D5A917 /* BRMessageReadManager.m */; };
 		276E75A41F421A6900D5A917 /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E75A21F421A6900D5A917 /* libopencore-amrnb.a */; };
 		276E75A51F421A6900D5A917 /* libopencore-amrwb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E75A31F421A6900D5A917 /* libopencore-amrwb.a */; };
+		276E75A81F4227AD00D5A917 /* Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75A71F4227AD00D5A917 /* Common.m */; };
 		27CA03B11F38F21600D0F132 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CA03B01F38F21600D0F132 /* main.m */; };
 		27CA03BC1F38F21600D0F132 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27CA03BB1F38F21600D0F132 /* Assets.xcassets */; };
 		27CA03CA1F38F21600D0F132 /* LinCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CA03C91F38F21600D0F132 /* LinCTests.m */; };
@@ -190,6 +191,8 @@
 		276E75A11F42057300D5A917 /* LinC.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinC.pch; sourceTree = "<group>"; };
 		276E75A21F421A6900D5A917 /* libopencore-amrnb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrnb.a"; sourceTree = "<group>"; };
 		276E75A31F421A6900D5A917 /* libopencore-amrwb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrwb.a"; sourceTree = "<group>"; };
+		276E75A61F4227AD00D5A917 /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		276E75A71F4227AD00D5A917 /* Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Common.m; sourceTree = "<group>"; };
 		27CA03AC1F38F21600D0F132 /* LinC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LinC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27CA03B01F38F21600D0F132 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		27CA03BB1F38F21600D0F132 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -571,6 +574,8 @@
 		27E9A23B1F3B8BE3001937A0 /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				276E75A61F4227AD00D5A917 /* Common.h */,
+				276E75A71F4227AD00D5A917 /* Common.m */,
 				276E75A21F421A6900D5A917 /* libopencore-amrnb.a */,
 				276E75A31F421A6900D5A917 /* libopencore-amrwb.a */,
 				276E757A1F3E2DC900D5A917 /* DemoErrorCode.h */,
@@ -833,6 +838,7 @@
 				276E75651F3E292A00D5A917 /* BRCDDeviceManager+Media.m in Sources */,
 				27E9A2311F3B84F4001937A0 /* BRConversationCell.m in Sources */,
 				276E752F1F3CDF0500D5A917 /* BRBubbleView+Image.m in Sources */,
+				276E75A81F4227AD00D5A917 /* Common.m in Sources */,
 				276E75791F3E2D7600D5A917 /* wav.mm in Sources */,
 				276E75681F3E2A2E00D5A917 /* BRAudioPlayerUtil.m in Sources */,
 				27E9A2361F3B84F4001937A0 /* BRNavigationController.m in Sources */,
@@ -973,7 +979,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = LinC/Class/Other/LinC.pch;
 				INFOPLIST_FILE = LinC/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -993,7 +999,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = LinC/Class/Other/LinC.pch;
 				INFOPLIST_FILE = LinC/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

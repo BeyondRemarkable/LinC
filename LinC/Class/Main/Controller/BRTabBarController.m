@@ -7,6 +7,8 @@
 //
 
 #import "BRTabBarController.h"
+#import "BRNavigationController.h"
+#import "BRConversationListViewController.h"
 
 @interface BRTabBarController ()
 
@@ -14,27 +16,6 @@
 
 @implementation BRTabBarController
 
-//- (ChatListViewController *)chatsVc {
-//    if (_chatsVc == nil) {
-//        _chatsVc = [[ChatListViewController alloc] init];
-//    }
-//    return _chatsVc;
-//}
-//
-//- (ContactsViewController *)contactsVc {
-//    if (_contactsVc == nil) {
-//        _contactsVc = [[ContactsViewController alloc] initWithStyle:UITableViewStyleGrouped];
-//    }
-//    return _contactsVc;
-//}
-//
-//- (ProfileViewController *)profileVc {
-//    if (_profileVc == nil) {
-//        _profileVc = [[ProfileViewController alloc] initWithStyle:UITableViewStyleGrouped];
-//    }
-//    return _profileVc;
-//}
-//
 //- (NSMutableArray *)requestList {
 //    if (_requestList == nil) {
 //        _requestList = [NSMutableArray array];
@@ -42,17 +23,19 @@
 //    return _requestList;
 //}
 
-//- (instancetype)init {
-//    if (self = [super init]) {
-//        // 设置tabBar的四个子控制器
-//        //    UIViewController *home = [[UITableViewController alloc] init];
-//        //    [self setupChildVc:home title:@"Home" imageName:@"tabbar_home_normal" selectedImageName:@"tabbar_home_selected"];
-//        [self setupChildVc:self.chatsVc title:@"Chats" imageName:@"tabbar_chats_normal" selectedImageName:@"tabbar_chats_selected"];
+- (instancetype)init {
+    if (self = [super init]) {
+        // 设置tabBar的四个子控制器
+        //    UIViewController *home = [[UITableViewController alloc] init];
+        //    [self setupChildVc:home title:@"Home" imageName:@"tabbar_home_normal" selectedImageName:@"tabbar_home_selected"];
+        UIStoryboard *chatsStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        BRConversationListViewController *chatsVc = [chatsStoryboard instantiateInitialViewController];
+        [self setupChildVc:chatsVc title:@"LinC" imageName:@"tabbar_chats_normal" selectedImageName:@"tabbar_chats_selected"];
 //        [self setupChildVc:self.contactsVc title:@"Contacts" imageName:@"tabbar_contacts_normal" selectedImageName:@"tabbar_contacts_selected"];
 //        [self setupChildVc:self.profileVc title:@"Me" imageName:@"tabbar_me_normal" selectedImageName:@"tabbar_me_selected"];
-//    }
-//    return self;
-//}
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -78,22 +61,22 @@
 //    }
 }
 
-//#pragma mark - private methods
-//- (void)setupChildVc:(UIViewController *)childVc title:(NSString *)title imageName:(NSString *)imageName selectedImageName:(NSString *)selectedImageName {
-//    // 设置子控制器的标题和图标
-//    childVc.title = title; //set up tabbar and navigation bar
-//    childVc.tabBarItem.image = [[UIImage imageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-//    
-//    childVc.tabBarItem.selectedImage = [[UIImage imageNamed:selectedImageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-//    
-//    // 设置tabBarItem的文字颜色属性
-//    [childVc.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:BRColor(94, 94, 94)} forState:UIControlStateNormal];
-//    [childVc.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:BRColor(82, 190, 61)} forState:UIControlStateSelected];
-//    
-//    NavigationController *navigationVc = [[NavigationController alloc] initWithRootViewController:childVc];
-//    [self addChildViewController:navigationVc];
-//}
-//
+#pragma mark - private methods
+- (void)setupChildVc:(UIViewController *)childVc title:(NSString *)title imageName:(NSString *)imageName selectedImageName:(NSString *)selectedImageName {
+    // 设置子控制器的标题和图标
+    childVc.title = title; //set up tabbar and navigation bar
+    childVc.tabBarItem.image = [[UIImage imageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
+    childVc.tabBarItem.selectedImage = [[UIImage imageNamed:selectedImageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
+    // 设置tabBarItem的文字颜色属性
+    [childVc.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:BRColor(94, 94, 94)} forState:UIControlStateNormal];
+    [childVc.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:BRColor(82, 190, 61)} forState:UIControlStateSelected];
+    
+    BRNavigationController *navigationVc = [[BRNavigationController alloc] initWithRootViewController:childVc];
+    [self addChildViewController:navigationVc];
+}
+
 //- (void)addChatBadgeBy:(NSInteger)number {
 //    if (number == 0) {
 //        return;
