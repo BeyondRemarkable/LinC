@@ -51,6 +51,8 @@
 		276E75971F3E5AA600D5A917 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E75961F3E5AA600D5A917 /* AVKit.framework */; };
 		276E759A1F3E5C8E00D5A917 /* BRMessageTimeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75991F3E5C8E00D5A917 /* BRMessageTimeCell.m */; };
 		276E759D1F3F4E5600D5A917 /* BRMessageReadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E759C1F3F4E5600D5A917 /* BRMessageReadManager.m */; };
+		276E75A41F421A6900D5A917 /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E75A21F421A6900D5A917 /* libopencore-amrnb.a */; };
+		276E75A51F421A6900D5A917 /* libopencore-amrwb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E75A31F421A6900D5A917 /* libopencore-amrwb.a */; };
 		27CA03B11F38F21600D0F132 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CA03B01F38F21600D0F132 /* main.m */; };
 		27CA03BC1F38F21600D0F132 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27CA03BB1F38F21600D0F132 /* Assets.xcassets */; };
 		27CA03CA1F38F21600D0F132 /* LinCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CA03C91F38F21600D0F132 /* LinCTests.m */; };
@@ -186,6 +188,8 @@
 		276E759B1F3F4E5600D5A917 /* BRMessageReadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRMessageReadManager.h; sourceTree = "<group>"; };
 		276E759C1F3F4E5600D5A917 /* BRMessageReadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRMessageReadManager.m; sourceTree = "<group>"; };
 		276E75A11F42057300D5A917 /* LinC.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinC.pch; sourceTree = "<group>"; };
+		276E75A21F421A6900D5A917 /* libopencore-amrnb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrnb.a"; sourceTree = "<group>"; };
+		276E75A31F421A6900D5A917 /* libopencore-amrwb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrwb.a"; sourceTree = "<group>"; };
 		27CA03AC1F38F21600D0F132 /* LinC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LinC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27CA03B01F38F21600D0F132 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		27CA03BB1F38F21600D0F132 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -233,9 +237,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				276E75971F3E5AA600D5A917 /* AVKit.framework in Frameworks */,
+				276E75A41F421A6900D5A917 /* libopencore-amrnb.a in Frameworks */,
 				276E75901F3E390100D5A917 /* UserNotifications.framework in Frameworks */,
 				276E757F1F3E2F1E00D5A917 /* AudioToolbox.framework in Frameworks */,
 				276E756A1F3E2B0200D5A917 /* AVFoundation.framework in Frameworks */,
+				276E75A51F421A6900D5A917 /* libopencore-amrwb.a in Frameworks */,
 				777EE2E01DE2D56D25A06FA2 /* libPods-LinC.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -565,6 +571,8 @@
 		27E9A23B1F3B8BE3001937A0 /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				276E75A21F421A6900D5A917 /* libopencore-amrnb.a */,
+				276E75A31F421A6900D5A917 /* libopencore-amrwb.a */,
 				276E757A1F3E2DC900D5A917 /* DemoErrorCode.h */,
 				27E9A23C1F3B8BE3001937A0 /* AppDelegate.h */,
 				27E9A23D1F3B8BE3001937A0 /* AppDelegate.m */,
@@ -965,7 +973,12 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = LinC/Class/Other/LinC.pch;
 				INFOPLIST_FILE = LinC/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/LinC/Class/Other",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.BeyondRemarkable.LinC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -980,7 +993,12 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = LinC/Class/Other/LinC.pch;
 				INFOPLIST_FILE = LinC/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/LinC/Class/Other",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.BeyondRemarkable.LinC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

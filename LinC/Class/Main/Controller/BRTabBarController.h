@@ -10,4 +10,11 @@
 
 @interface BRTabBarController : UITabBarController
 
+//@property (nonatomic, strong) ChatListViewController *chatsVc;
+//@property (nonatomic, strong) ContactsViewController *contactsVc;
+//@property (nonatomic, strong) ProfileViewController *profileVc;
+//
+///** 好友申请数组，包含的是EaseUserModel数据 */
+//@property (nonatomic, strong) NSMutableArray *requestList;
+
 @end
