@@ -29,7 +29,7 @@
 
 @end
 
-@interface EMTextAttachment : NSTextAttachment
+@interface BRTextAttachment : NSTextAttachment
 
 @property(nonatomic, strong) NSString *imageName;
 

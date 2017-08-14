@@ -8,7 +8,12 @@
 
 #import "BRRefreshTableViewController.h"
 #import "IMessageModel.h"
+#import "BRMessageModel.h"
+#import "BRBaseMessageCell.h"
 #import "BRChatToolbar.h"
+#import "BRSDKHelper.h"
+#import "BRCDDeviceManagerDelegate.h"
+#import "BRLocationViewController.h"
 
 @interface BRAtTarget : NSObject
 @property (nonatomic, copy) NSString    *userId;
@@ -240,7 +245,7 @@ shouldSendHasReadAckForMessage:(EMMessage *)message
  @result 表情扩展字典
  */
 - (NSDictionary*)emotionExtFormessageViewController:(BRMessageViewController *)viewController
-                                        Emotion:(BREmotion*)emotion;
+                                        emotion:(BREmotion*)emotion;
 
 /*!
  @method
@@ -251,7 +256,7 @@ shouldSendHasReadAckForMessage:(EMMessage *)message
 
 @end
 
-@interface BRMessageViewController : BRRefreshTableViewController<UINavigationControllerDelegate, UIImagePickerControllerDelegate, EMChatManagerDelegate, EMCDDeviceManagerDelegate, EMChatToolbarDelegate, BRChatBarMoreViewDelegate, EMLocationViewDelegate,EMChatroomManagerDelegate, BRMessageCellDelegate>
+@interface BRMessageViewController : BRRefreshTableViewController<UINavigationControllerDelegate, UIImagePickerControllerDelegate, EMChatManagerDelegate, BRCDDeviceManagerDelegate, BRChatToolbarDelegate, BRChatBarMoreViewDelegate, BRLocationViewDelegate,EMChatroomManagerDelegate, BRMessageCellDelegate>
 
 
 @property (weak, nonatomic) id<BRMessageViewControllerDelegate> delegate;
@@ -357,10 +362,8 @@ shouldSendHasReadAckForMessage:(EMMessage *)message
 /*!
  @method
  @brief 初始化聊天页面
- @discussion
  @param conversationChatter 会话对方的用户名. 如果是群聊, 则是群组的id
  @param conversationType 会话类型
- @result
  */
 - (instancetype)initWithConversationChatter:(NSString *)conversationChatter
                            conversationType:(EMConversationType)conversationType;
@@ -368,47 +371,37 @@ shouldSendHasReadAckForMessage:(EMMessage *)message
 /*!
  @method
  @brief 下拉加载更多
- @discussion
- @result
  */
 - (void)tableViewDidTriggerHeaderRefresh;
 
 /*!
  @method
  @brief 发送文本消息
- @discussion
  @param text 文本消息
- @result
  */
 - (void)sendTextMessage:(NSString *)text;
 
 /*!
  @method
  @brief 发送文本消息
- @discussion
  @param text 文本消息
  @param ext  扩展信息
- @result
  */
 - (void)sendTextMessage:(NSString *)text withExt:(NSDictionary*)ext;
 
 /*!
  @method
  @brief 发送图片消息
- @discussion
  @param image 发送图片
- @result
  */
 - (void)sendImageMessage:(UIImage *)image;
 
 /*!
  @method
  @brief 发送位置消息
- @discussion
  @param latitude 经度
  @param longitude 纬度
  @param address 地址
- @result
  */
 - (void)sendLocationMessageLatitude:(double)latitude
                           longitude:(double)longitude
@@ -417,10 +410,8 @@ shouldSendHasReadAckForMessage:(EMMessage *)message
 /*!
  @method
  @brief 发送语音消息
- @discussion
  @param localPath 语音本地地址
  @param duration 时长
- @result
  */
 - (void)sendVoiceMessageWithLocalPath:(NSString *)localPath
                              duration:(NSInteger)duration;
@@ -428,18 +419,14 @@ shouldSendHasReadAckForMessage:(EMMessage *)message
 /*!
  @method
  @brief 发送视频消息
- @discussion
  @param url 视频url
- @result
  */
 - (void)sendVideoMessageWithURL:(NSURL *)url;
 
 /*!
  @method
  @brief 发送视频消息
- @discussion
- @param url 视频url
- @result
+ @param message 聊天消息类
  */
 - (void)sendFileMessageWith:(EMMessage *)message;
 
@@ -447,10 +434,8 @@ shouldSendHasReadAckForMessage:(EMMessage *)message
 /*!
  @method
  @brief 添加消息
- @discussion
  @param message 聊天消息类
  @param progress 聊天消息发送接收进度条
- @result
  */
 - (void)addMessageToDataSource:(EMMessage *)message
                       progress:(id)progress;
@@ -458,11 +443,9 @@ shouldSendHasReadAckForMessage:(EMMessage *)message
 /*!
  @method
  @brief 显示消息长按菜单
- @discussion
  @param showInView  菜单的父视图
- @param showInView  索引
+ @param indexPath 索引
  @param messageType 消息类型
- @result
  */
 - (void)showMenuViewController:(UIView *)showInView
                   andIndexPath:(NSIndexPath *)indexPath
@@ -471,10 +454,8 @@ shouldSendHasReadAckForMessage:(EMMessage *)message
 /*!
  @method
  @brief 判断消息是否要发送已读回执
- @discussion
  @param message 聊天消息
  @param read    是否附件消息已读
- @result
  */
 - (BOOL)shouldSendHasReadAckForMessage:(EMMessage *)message
                                   read:(BOOL)read;

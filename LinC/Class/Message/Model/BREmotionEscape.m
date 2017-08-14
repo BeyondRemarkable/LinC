@@ -11,7 +11,7 @@
 #define RGBCOLOR(r,g,b) [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:1]
 #define kEmotionTopMargin -3.0f
 
-@implementation EMTextAttachment
+@implementation BRTextAttachment
 //I want my emoticon has the same size with line's height
 - (CGRect)attachmentBoundsForTextContainer:(NSTextContainer *)textContainer proposedLineFragment:(CGRect)lineFrag glyphPosition:(CGPoint)position characterIndex:(NSUInteger)charIndex NS_AVAILABLE_IOS(7_0)
 {
@@ -75,7 +75,7 @@ static BREmotionEscape *_sharedInstance = nil;
         NSRange matchRange = [match range];
         NSString *subStr = [aInputText substringWithRange:matchRange];
         
-        EMTextAttachment * textAttachment = [[EMTextAttachment alloc ] initWithData:nil ofType:nil];
+        BRTextAttachment * textAttachment = [[BRTextAttachment alloc ] initWithData:nil ofType:nil];
         textAttachment.imageName = subStr;
         UIImage * emojiImage;
         NSString *emojiName = @"";

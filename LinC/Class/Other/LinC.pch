@@ -1,0 +1,24 @@
+//
+//  LinC.pch
+//  LinC
+//
+//  Created by Yingwei Fan on 8/14/17.
+//  Copyright © 2017 BeyondRemarkable. All rights reserved.
+//
+
+#ifndef LinC_pch
+#define LinC_pch
+
+#ifdef __OBJC__
+
+#else
+#ifndef FOUNDATION_EXPORT
+#if defined(__cplusplus)
+#define FOUNDATION_EXPORT extern "C"
+#else
+#define FOUNDATION_EXPORT extern
+#endif
+#endif
+#endif
+
+#endif /* LinC_pch */
