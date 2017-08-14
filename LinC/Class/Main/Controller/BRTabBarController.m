@@ -23,16 +23,11 @@
 //    return _requestList;
 //}
 
-- (instancetype)init {
-    if (self = [super init]) {
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    if (self = [super initWithCoder:aDecoder]) {
         // 设置tabBar的四个子控制器
-        //    UIViewController *home = [[UITableViewController alloc] init];
-        //    [self setupChildVc:home title:@"Home" imageName:@"tabbar_home_normal" selectedImageName:@"tabbar_home_selected"];
-        UIStoryboard *chatsStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        BRConversationListViewController *chatsVc = [chatsStoryboard instantiateInitialViewController];
+        BRConversationListViewController *chatsVc = [[BRConversationListViewController alloc] initWithStyle:UITableViewStylePlain];
         [self setupChildVc:chatsVc title:@"LinC" imageName:@"tabbar_chats_normal" selectedImageName:@"tabbar_chats_selected"];
-//        [self setupChildVc:self.contactsVc title:@"Contacts" imageName:@"tabbar_contacts_normal" selectedImageName:@"tabbar_contacts_selected"];
-//        [self setupChildVc:self.profileVc title:@"Me" imageName:@"tabbar_me_normal" selectedImageName:@"tabbar_me_selected"];
     }
     return self;
 }

@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "BRSDKHelper.h"
+#import <Hyphenate/Hyphenate.h>
 
 @interface AppDelegate ()
 
@@ -16,7 +18,25 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    NSString *appkey = @"1153170608178531#linc";
+    NSString *apnsCertName = @"";
+    [[BRSDKHelper shareHelper] hyphenateApplication:application
+                        didFinishLaunchingWithOptions:launchOptions
+                                               appkey:appkey
+                                         apnsCertName:apnsCertName
+                                          otherConfig:@{kSDKConfigEnableConsoleLogger:[NSNumber numberWithBool:YES]}];
+    
+    // 登录
+    [[EMClient sharedClient] loginWithUsername:@"michael" password:@"123456" completion:^(NSString *aUsername, EMError *aError) {
+        if (!aError) {
+            NSLog(@"登录成功");
+            [[EMClient sharedClient].options setIsAutoLogin:YES];
+        }
+        else {
+            NSLog(@"登录失败");
+        }
+    }];
+    
     return YES;
 }
 
@@ -28,13 +48,12 @@
 
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    [[EMClient sharedClient] applicationDidEnterBackground:application];
 }
 
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-    // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+    [[EMClient sharedClient] applicationWillEnterForeground:application];
 }
 
 
