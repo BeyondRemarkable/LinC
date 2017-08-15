@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WhatsUpViewController">
+            <connections>
+                <outlet property="whatsUpTextView" destination="8EY-Nh-UvN" id="EWh-fM-uCv"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <viewController id="0u1-Xo-uyr" customClass="BRWhatsUpViewController">
+            <layoutGuides>
+                <viewControllerLayoutGuide type="top" id="kH7-6i-4Fo"/>
+                <viewControllerLayoutGuide type="bottom" id="HLD-xY-Nyo"/>
+            </layoutGuides>
+            <view key="view" contentMode="scaleToFill" id="q6L-eV-kTR">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="8EY-Nh-UvN">
+                        <rect key="frame" x="0.0" y="125" width="375" height="150"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="150" id="I1W-5Z-iwY"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    </textView>
+                </subviews>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                <constraints>
+                    <constraint firstItem="8EY-Nh-UvN" firstAttribute="leading" secondItem="q6L-eV-kTR" secondAttribute="leading" id="K7s-zM-t1K"/>
+                    <constraint firstAttribute="trailing" secondItem="8EY-Nh-UvN" secondAttribute="trailing" id="UzE-DI-iuk"/>
+                    <constraint firstItem="8EY-Nh-UvN" firstAttribute="centerY" secondItem="q6L-eV-kTR" secondAttribute="centerY" multiplier="0.6" id="i8J-aE-NLu"/>
+                </constraints>
+            </view>
+            <point key="canvasLocation" x="27.5" y="30.5"/>
+        </viewController>
+        <barButtonItem title="Item" id="TJ7-iU-2EP" userLabel="saveBtn">
+            <connections>
+                <action selector="saveBtn:" destination="0u1-Xo-uyr" id="wUx-7X-Lrq"/>
+            </connections>
+        </barButtonItem>
+    </objects>
+</document>
