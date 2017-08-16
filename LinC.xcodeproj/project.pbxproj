@@ -54,6 +54,10 @@
 		276E75A41F421A6900D5A917 /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E75A21F421A6900D5A917 /* libopencore-amrnb.a */; };
 		276E75A51F421A6900D5A917 /* libopencore-amrwb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E75A31F421A6900D5A917 /* libopencore-amrwb.a */; };
 		276E75A81F4227AD00D5A917 /* Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75A71F4227AD00D5A917 /* Common.m */; };
+		276E75AD1F4365EA00D5A917 /* BRMediaBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75AB1F4365EA00D5A917 /* BRMediaBrowserViewController.m */; };
+		276E75B31F4379CD00D5A917 /* BRMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75B21F4379CD00D5A917 /* BRMedia.m */; };
+		276E75B71F43A44300D5A917 /* BRMediaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75B51F43A44300D5A917 /* BRMediaCell.m */; };
+		276E75B81F43A44300D5A917 /* BRMediaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 276E75B61F43A44300D5A917 /* BRMediaCell.xib */; };
 		27CA03B11F38F21600D0F132 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CA03B01F38F21600D0F132 /* main.m */; };
 		27CA03BC1F38F21600D0F132 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27CA03BB1F38F21600D0F132 /* Assets.xcassets */; };
 		27CA03CA1F38F21600D0F132 /* LinCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CA03C91F38F21600D0F132 /* LinCTests.m */; };
@@ -212,6 +216,13 @@
 		276E75A31F421A6900D5A917 /* libopencore-amrwb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrwb.a"; sourceTree = "<group>"; };
 		276E75A61F4227AD00D5A917 /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 		276E75A71F4227AD00D5A917 /* Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Common.m; sourceTree = "<group>"; };
+		276E75AA1F4365EA00D5A917 /* BRMediaBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRMediaBrowserViewController.h; sourceTree = "<group>"; };
+		276E75AB1F4365EA00D5A917 /* BRMediaBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRMediaBrowserViewController.m; sourceTree = "<group>"; };
+		276E75B11F4379CD00D5A917 /* BRMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRMedia.h; sourceTree = "<group>"; };
+		276E75B21F4379CD00D5A917 /* BRMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRMedia.m; sourceTree = "<group>"; };
+		276E75B41F43A44300D5A917 /* BRMediaCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRMediaCell.h; sourceTree = "<group>"; };
+		276E75B51F43A44300D5A917 /* BRMediaCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRMediaCell.m; sourceTree = "<group>"; };
+		276E75B61F43A44300D5A917 /* BRMediaCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRMediaCell.xib; sourceTree = "<group>"; };
 		27CA03AC1F38F21600D0F132 /* LinC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LinC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27CA03B01F38F21600D0F132 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		27CA03BB1F38F21600D0F132 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -469,6 +480,34 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		276E75A91F43631400D5A917 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				276E75AA1F4365EA00D5A917 /* BRMediaBrowserViewController.h */,
+				276E75AB1F4365EA00D5A917 /* BRMediaBrowserViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		276E75AF1F436C2600D5A917 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				276E75B41F43A44300D5A917 /* BRMediaCell.h */,
+				276E75B51F43A44300D5A917 /* BRMediaCell.m */,
+				276E75B61F43A44300D5A917 /* BRMediaCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		276E75B01F4379A100D5A917 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				276E75B11F4379CD00D5A917 /* BRMedia.h */,
+				276E75B21F4379CD00D5A917 /* BRMedia.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		27CA03A31F38F21600D0F132 = {
 			isa = PBXGroup;
 			children = (
@@ -624,6 +663,9 @@
 		27E9A23B1F3B8BE3001937A0 /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				276E75B01F4379A100D5A917 /* Model */,
+				276E75AF1F436C2600D5A917 /* View */,
+				276E75A91F43631400D5A917 /* Controller */,
 				276E75A61F4227AD00D5A917 /* Common.h */,
 				276E75A71F4227AD00D5A917 /* Common.m */,
 				276E75A21F421A6900D5A917 /* libopencore-amrnb.a */,
@@ -812,7 +854,7 @@
 				TargetAttributes = {
 					27CA03AB1F38F21600D0F132 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = E259J6P932;
+						DevelopmentTeam = AEKJ6LE54T;
 						ProvisioningStyle = Automatic;
 					};
 					27CA03C41F38F21600D0F132 = {
@@ -866,6 +908,7 @@
 				E90A1CF91F42AA85001033CB /* BRLocationListTableViewController.xib in Resources */,
 				E90A1CDC1F42AA76001033CB /* BRContactListViewController.storyboard in Resources */,
 				E90A1D001F42AA85001033CB /* BRUserNameTextViewController.xib in Resources */,
+				276E75B81F43A44300D5A917 /* BRMediaCell.xib in Resources */,
 				E90A1CFE1F42AA85001033CB /* BRUserInfoViewController.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -964,6 +1007,7 @@
 				276E758E1F3E35BD00D5A917 /* BRSDKHelper.m in Sources */,
 				276E751D1F3BA60100D5A917 /* BRMessageViewController.m in Sources */,
 				27E9A2301F3B84F4001937A0 /* BRAvatarView.m in Sources */,
+				276E75AD1F4365EA00D5A917 /* BRMediaBrowserViewController.m in Sources */,
 				E90A1CFC1F42AA85001033CB /* BRUserImageViewController.m in Sources */,
 				E90A1CDE1F42AA76001033CB /* BRContactListTableViewCell.m in Sources */,
 				276E75221F3CD44C00D5A917 /* BRMessageModel.m in Sources */,
@@ -983,6 +1027,7 @@
 				276E759D1F3F4E5600D5A917 /* BRMessageReadManager.m in Sources */,
 				276E75781F3E2D7600D5A917 /* amrFileCodec.mm in Sources */,
 				27E9A2341F3B84F4001937A0 /* NSString+Helper.m in Sources */,
+				276E75B31F4379CD00D5A917 /* BRMedia.m in Sources */,
 				276E759A1F3E5C8E00D5A917 /* BRMessageTimeCell.m in Sources */,
 				E90A1CDD1F42AA76001033CB /* BRContactListModel.m in Sources */,
 				27E9A2371F3B84F4001937A0 /* BRRefreshTableViewController.m in Sources */,
@@ -1008,6 +1053,7 @@
 				276E75791F3E2D7600D5A917 /* wav.mm in Sources */,
 				276E75681F3E2A2E00D5A917 /* BRAudioPlayerUtil.m in Sources */,
 				27E9A2361F3B84F4001937A0 /* BRNavigationController.m in Sources */,
+				276E75B71F43A44300D5A917 /* BRMediaCell.m in Sources */,
 				276E75441F3CEE2F00D5A917 /* BRBubbleView+Gif.m in Sources */,
 				276E753B1F3CE1E300D5A917 /* BRBubbleView+File.m in Sources */,
 				276E75251F3CDA6B00D5A917 /* BRMessageCell.m in Sources */,
@@ -1141,9 +1187,9 @@
 			baseConfigurationReference = 7C9BD64024967E79CE634497 /* Pods-LinC.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = E259J6P932;
+				DEVELOPMENT_TEAM = AEKJ6LE54T;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = LinC/Class/Other/LinC.pch;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/LinC/Class/Other/LinC.pch";
 				INFOPLIST_FILE = LinC/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1161,9 +1207,9 @@
 			baseConfigurationReference = 94F6AAD2F8CDC6DB43F6386A /* Pods-LinC.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = E259J6P932;
+				DEVELOPMENT_TEAM = AEKJ6LE54T;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = LinC/Class/Other/LinC.pch;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/LinC/Class/Other/LinC.pch";
 				INFOPLIST_FILE = LinC/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

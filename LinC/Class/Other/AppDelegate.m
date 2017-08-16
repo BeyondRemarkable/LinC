@@ -27,7 +27,7 @@
                                           otherConfig:@{kSDKConfigEnableConsoleLogger:[NSNumber numberWithBool:YES]}];
     
     // 登录
-    [[EMClient sharedClient] loginWithUsername:@"michael" password:@"123456" completion:^(NSString *aUsername, EMError *aError) {
+    [[EMClient sharedClient] loginWithUsername:@"viann" password:@"123456" completion:^(NSString *aUsername, EMError *aError) {
         if (!aError) {
             NSLog(@"登录成功");
             [[EMClient sharedClient].options setIsAutoLogin:YES];

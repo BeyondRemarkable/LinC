@@ -9,6 +9,8 @@
 #import "BRTabBarController.h"
 #import "BRNavigationController.h"
 #import "BRConversationListViewController.h"
+#import "BRContactListViewController.h"
+#import "BRUserInfoViewController.h"
 
 @interface BRTabBarController ()
 
@@ -28,6 +30,10 @@
         // 设置tabBar的四个子控制器
         BRConversationListViewController *chatsVc = [[BRConversationListViewController alloc] initWithStyle:UITableViewStylePlain];
         [self setupChildVc:chatsVc title:@"LinC" imageName:@"tabbar_chats_normal" selectedImageName:@"tabbar_chats_selected"];
+        BRContactListViewController *contactsVc = [[BRContactListViewController alloc] init];
+        [self setupChildVc:contactsVc title:NSLocalizedString(@"Contacts", @"") imageName:@"tabbar_contacts_normal" selectedImageName:@"tabbar_contacts_selected"];
+        BRUserInfoViewController *profileVc = [[BRUserInfoViewController alloc] init];
+        [self setupChildVc:profileVc title:NSLocalizedString(@"Me", @"") imageName:@"tabbar_me_normal" selectedImageName:@"tabbar_me_selected"];
     }
     return self;
 }
