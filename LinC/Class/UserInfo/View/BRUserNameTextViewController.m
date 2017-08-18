@@ -10,6 +10,9 @@
 
 @interface BRUserNameTextViewController ()
 
+@property (weak, nonatomic) IBOutlet UITextField *userNameTextField;
+
+
 @end
 
 @implementation BRUserNameTextViewController
@@ -17,6 +20,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    self.userNameTextField.text = self.nameText;
 }
 
 - (void)didReceiveMemoryWarning {

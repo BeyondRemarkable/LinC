@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BRLocationListViewController">
+            <connections>
+                <outlet property="tableview" destination="tgB-D2-FYA" id="wEZ-ix-aLB"/>
+                <outlet property="view" destination="zka-1D-v4M" id="o3h-Sy-VCq"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="zka-1D-v4M">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tgB-D2-FYA">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="tgB-D2-FYA" secondAttribute="trailing" id="CE9-mh-zw1"/>
+                <constraint firstItem="tgB-D2-FYA" firstAttribute="top" secondItem="zka-1D-v4M" secondAttribute="top" id="DNN-UX-WYq"/>
+                <constraint firstAttribute="bottom" secondItem="tgB-D2-FYA" secondAttribute="bottom" id="nzU-lT-AtL"/>
+                <constraint firstItem="tgB-D2-FYA" firstAttribute="leading" secondItem="zka-1D-v4M" secondAttribute="leading" id="yIK-4X-Da0"/>
+            </constraints>
+            <point key="canvasLocation" x="376" y="27"/>
+        </view>
+    </objects>
+</document>

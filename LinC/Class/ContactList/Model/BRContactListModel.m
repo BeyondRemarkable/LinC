@@ -15,4 +15,10 @@
     
 }
 
+- (instancetype)initWithBuddy:(NSString *)buddy
+{
+    return self;
+}
+
+
 @end

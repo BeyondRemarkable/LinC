@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BRRefreshTableViewController.h"
+#import <Hyphenate/Hyphenate.h>
 
-@interface BRContactListViewController : UIViewController
+
+@interface BRContactListViewController : BRRefreshTableViewController
 
 @end

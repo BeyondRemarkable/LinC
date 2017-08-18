@@ -7,12 +7,25 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "IUserModel.h"
 
-@interface BRContactListModel : NSObject
+
+@interface BRContactListModel : NSObject <IUserModel>
 
 @property (nonatomic, retain) NSString *iconURL;
 @property (nonatomic, retain) NSString *userName;
 @property (nonatomic, retain) NSString *userID;
+
+
+/** @brief 好友环信id(用户环信id) */
+@property (strong, nonatomic, readonly) NSString *buddy;
+/** @brief 用户昵称 */
+@property (strong, nonatomic) NSString *nickname;
+/** @brief 用户头像url */
+@property (strong, nonatomic) NSString *avatarURLPath;
+/** @brief 用户头像 */
+@property (strong, nonatomic) UIImage *avatarImage;
+
 
 
 - (void)loadWithDictionary:(NSDictionary *)dict;

@@ -23,7 +23,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9eP-Dy-7xN">
-                    <rect key="frame" x="0.0" y="44" width="375" height="623"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0H9-EE-HZz" userLabel="Content View">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -97,28 +97,13 @@
                         <constraint firstAttribute="trailing" secondItem="0H9-EE-HZz" secondAttribute="trailing" id="qm1-Ph-TbZ"/>
                     </constraints>
                 </scrollView>
-                <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VeL-3R-fe0">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                    <items>
-                        <navigationItem title="Title" id="s0E-Qs-nR6">
-                            <barButtonItem key="leftBarButtonItem" title="Back" id="d9t-bp-n9g">
-                                <connections>
-                                    <action selector="backBtn:" destination="-1" id="N82-x4-w0e"/>
-                                </connections>
-                            </barButtonItem>
-                        </navigationItem>
-                    </items>
-                </navigationBar>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="9eP-Dy-7xN" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="0Vy-oB-nSu"/>
-                <constraint firstAttribute="trailing" secondItem="VeL-3R-fe0" secondAttribute="trailing" id="D5J-FN-dOQ"/>
                 <constraint firstItem="0H9-EE-HZz" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="EyE-t2-sIr"/>
-                <constraint firstItem="9eP-Dy-7xN" firstAttribute="top" secondItem="VeL-3R-fe0" secondAttribute="bottom" id="I11-j7-Mmv"/>
                 <constraint firstAttribute="bottom" secondItem="9eP-Dy-7xN" secondAttribute="bottom" id="SCU-Lr-2ZN"/>
-                <constraint firstItem="VeL-3R-fe0" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="T98-qx-5Q8"/>
-                <constraint firstItem="VeL-3R-fe0" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="hYr-zO-H38"/>
+                <constraint firstItem="9eP-Dy-7xN" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="WJN-X1-ERQ"/>
                 <constraint firstAttribute="trailing" secondItem="9eP-Dy-7xN" secondAttribute="trailing" id="oRN-0U-Qqw"/>
                 <constraint firstItem="0H9-EE-HZz" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" id="w6o-ik-l8l"/>
             </constraints>

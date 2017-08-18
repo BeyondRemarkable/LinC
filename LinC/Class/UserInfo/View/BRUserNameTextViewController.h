@@ -10,6 +10,7 @@
 
 @interface BRUserNameTextViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet UITextField *userNameTextField;
+
+@property (nonatomic, copy) NSString *nameText;
 
 @end

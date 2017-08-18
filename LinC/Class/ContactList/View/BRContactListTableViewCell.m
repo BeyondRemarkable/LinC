@@ -9,15 +9,14 @@
 #import "BRContactListTableViewCell.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
-@interface BRRefreshTableViewCell()
+@interface BRContactListTableViewCell()
 
-@property (weak, nonatomic) IBOutlet UIImageView *imageIcon;
-@property (weak, nonatomic) IBOutlet UILabel *nickName;
+
 
 
 @end
 
-@implementation BRRefreshTableViewCell
+@implementation BRContactListTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];

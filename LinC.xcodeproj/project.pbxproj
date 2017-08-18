@@ -74,15 +74,14 @@
 		27E9A2431F3B8BFA001937A0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27E9A2411F3B8BFA001937A0 /* Main.storyboard */; };
 		777EE2E01DE2D56D25A06FA2 /* libPods-LinC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7644E4D020BABDE5A91405CF /* libPods-LinC.a */; };
 		E90A1CDB1F42AA76001033CB /* BRContactListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90A1CCF1F42AA76001033CB /* BRContactListViewController.m */; };
-		E90A1CDC1F42AA76001033CB /* BRContactListViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E90A1CD01F42AA76001033CB /* BRContactListViewController.storyboard */; };
 		E90A1CDD1F42AA76001033CB /* BRContactListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E90A1CD31F42AA76001033CB /* BRContactListModel.m */; };
 		E90A1CDE1F42AA76001033CB /* BRContactListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E90A1CD61F42AA76001033CB /* BRContactListTableViewCell.m */; };
 		E90A1CDF1F42AA76001033CB /* BRContactListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E90A1CD71F42AA76001033CB /* BRContactListTableViewCell.xib */; };
 		E90A1CE01F42AA76001033CB /* BRFriendInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90A1CD91F42AA76001033CB /* BRFriendInfoViewController.m */; };
 		E90A1CE11F42AA76001033CB /* BRFriendInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E90A1CDA1F42AA76001033CB /* BRFriendInfoViewController.xib */; };
 		E90A1CF71F42AA85001033CB /* BRUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90A1CE41F42AA85001033CB /* BRUserInfoViewController.m */; };
-		E90A1CF81F42AA85001033CB /* BRLocationListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90A1CE81F42AA85001033CB /* BRLocationListTableViewController.m */; };
-		E90A1CF91F42AA85001033CB /* BRLocationListTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E90A1CE91F42AA85001033CB /* BRLocationListTableViewController.xib */; };
+		E90A1CF81F42AA85001033CB /* BRLocationListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90A1CE81F42AA85001033CB /* BRLocationListViewController.m */; };
+		E90A1CF91F42AA85001033CB /* BRLocationListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E90A1CE91F42AA85001033CB /* BRLocationListViewController.xib */; };
 		E90A1CFA1F42AA85001033CB /* BRUserGenderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90A1CEB1F42AA85001033CB /* BRUserGenderViewController.m */; };
 		E90A1CFB1F42AA85001033CB /* BRUserGenderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E90A1CEC1F42AA85001033CB /* BRUserGenderViewController.xib */; };
 		E90A1CFC1F42AA85001033CB /* BRUserImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90A1CEE1F42AA85001033CB /* BRUserImageViewController.m */; };
@@ -253,7 +252,6 @@
 		94F6AAD2F8CDC6DB43F6386A /* Pods-LinC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LinC.release.xcconfig"; path = "Pods/Target Support Files/Pods-LinC/Pods-LinC.release.xcconfig"; sourceTree = "<group>"; };
 		E90A1CCE1F42AA76001033CB /* BRContactListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRContactListViewController.h; sourceTree = "<group>"; };
 		E90A1CCF1F42AA76001033CB /* BRContactListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRContactListViewController.m; sourceTree = "<group>"; };
-		E90A1CD01F42AA76001033CB /* BRContactListViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BRContactListViewController.storyboard; sourceTree = "<group>"; };
 		E90A1CD21F42AA76001033CB /* BRContactListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRContactListModel.h; sourceTree = "<group>"; };
 		E90A1CD31F42AA76001033CB /* BRContactListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRContactListModel.m; sourceTree = "<group>"; };
 		E90A1CD51F42AA76001033CB /* BRContactListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRContactListTableViewCell.h; sourceTree = "<group>"; };
@@ -264,9 +262,9 @@
 		E90A1CDA1F42AA76001033CB /* BRFriendInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRFriendInfoViewController.xib; sourceTree = "<group>"; };
 		E90A1CE31F42AA85001033CB /* BRUserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRUserInfoViewController.h; sourceTree = "<group>"; };
 		E90A1CE41F42AA85001033CB /* BRUserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRUserInfoViewController.m; sourceTree = "<group>"; };
-		E90A1CE71F42AA85001033CB /* BRLocationListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRLocationListTableViewController.h; sourceTree = "<group>"; };
-		E90A1CE81F42AA85001033CB /* BRLocationListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRLocationListTableViewController.m; sourceTree = "<group>"; };
-		E90A1CE91F42AA85001033CB /* BRLocationListTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRLocationListTableViewController.xib; sourceTree = "<group>"; };
+		E90A1CE71F42AA85001033CB /* BRLocationListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRLocationListViewController.h; sourceTree = "<group>"; };
+		E90A1CE81F42AA85001033CB /* BRLocationListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRLocationListViewController.m; sourceTree = "<group>"; };
+		E90A1CE91F42AA85001033CB /* BRLocationListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRLocationListViewController.xib; sourceTree = "<group>"; };
 		E90A1CEA1F42AA85001033CB /* BRUserGenderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRUserGenderViewController.h; sourceTree = "<group>"; };
 		E90A1CEB1F42AA85001033CB /* BRUserGenderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRUserGenderViewController.m; sourceTree = "<group>"; };
 		E90A1CEC1F42AA85001033CB /* BRUserGenderViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRUserGenderViewController.xib; sourceTree = "<group>"; };
@@ -280,6 +278,7 @@
 		E90A1CF41F42AA85001033CB /* BRWhatsUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRWhatsUpViewController.h; sourceTree = "<group>"; };
 		E90A1CF51F42AA85001033CB /* BRWhatsUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRWhatsUpViewController.m; sourceTree = "<group>"; };
 		E90A1CF61F42AA85001033CB /* BRWhatsUpViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRWhatsUpViewController.xib; sourceTree = "<group>"; };
+		E94AD9601F44A7DD00A1AEF3 /* IUserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IUserModel.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -670,7 +669,6 @@
 			children = (
 				E90A1CCE1F42AA76001033CB /* BRContactListViewController.h */,
 				E90A1CCF1F42AA76001033CB /* BRContactListViewController.m */,
-				E90A1CD01F42AA76001033CB /* BRContactListViewController.storyboard */,
 			);
 			name = Controller;
 			path = ContactList/Controller;
@@ -679,6 +677,7 @@
 		E90A1CD11F42AA76001033CB /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E94AD9601F44A7DD00A1AEF3 /* IUserModel.h */,
 				E90A1CD21F42AA76001033CB /* BRContactListModel.h */,
 				E90A1CD31F42AA76001033CB /* BRContactListModel.m */,
 			);
@@ -721,9 +720,9 @@
 		E90A1CE61F42AA85001033CB /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E90A1CE71F42AA85001033CB /* BRLocationListTableViewController.h */,
-				E90A1CE81F42AA85001033CB /* BRLocationListTableViewController.m */,
-				E90A1CE91F42AA85001033CB /* BRLocationListTableViewController.xib */,
+				E90A1CE71F42AA85001033CB /* BRLocationListViewController.h */,
+				E90A1CE81F42AA85001033CB /* BRLocationListViewController.m */,
+				E90A1CE91F42AA85001033CB /* BRLocationListViewController.xib */,
 				E90A1CEA1F42AA85001033CB /* BRUserGenderViewController.h */,
 				E90A1CEB1F42AA85001033CB /* BRUserGenderViewController.m */,
 				E90A1CEC1F42AA85001033CB /* BRUserGenderViewController.xib */,
@@ -863,8 +862,7 @@
 				27E9A2421F3B8BFA001937A0 /* LaunchScreen.storyboard in Resources */,
 				E90A1CE11F42AA76001033CB /* BRFriendInfoViewController.xib in Resources */,
 				E90A1CDF1F42AA76001033CB /* BRContactListTableViewCell.xib in Resources */,
-				E90A1CF91F42AA85001033CB /* BRLocationListTableViewController.xib in Resources */,
-				E90A1CDC1F42AA76001033CB /* BRContactListViewController.storyboard in Resources */,
+				E90A1CF91F42AA85001033CB /* BRLocationListViewController.xib in Resources */,
 				E90A1D001F42AA85001033CB /* BRUserNameTextViewController.xib in Resources */,
 				E90A1CFE1F42AA85001033CB /* BRUserInfoViewController.storyboard in Resources */,
 			);
@@ -998,7 +996,7 @@
 				276E75171F3B9FCF00D5A917 /* BREmoji.m in Sources */,
 				276E754F1F3D0F5000D5A917 /* BREmotionManager.m in Sources */,
 				276E758B1F3E321100D5A917 /* BRChatToolbarItem.m in Sources */,
-				E90A1CF81F42AA85001033CB /* BRLocationListTableViewController.m in Sources */,
+				E90A1CF81F42AA85001033CB /* BRLocationListViewController.m in Sources */,
 				27E9A2381F3B84F4001937A0 /* BRTabBarController.m in Sources */,
 				276E75411F3CED4F00D5A917 /* BRCustomMessageCell.m in Sources */,
 				276E75651F3E292A00D5A917 /* BRCDDeviceManager+Media.m in Sources */,

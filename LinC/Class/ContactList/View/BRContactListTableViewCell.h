@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "BRContactListModel.h"
-@interface BRRefreshTableViewCell : UITableViewCell
+@interface BRContactListTableViewCell : UITableViewCell
+
+@property (weak, nonatomic) IBOutlet UIImageView *imageIcon;
+@property (weak, nonatomic) IBOutlet UILabel *nickName;
 
 @property(nonatomic, strong) BRContactListModel *contactList;
 

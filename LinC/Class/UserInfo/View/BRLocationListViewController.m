@@ -6,13 +6,14 @@
 //  Copyright © 2017 BeyondRemarkable. All rights reserved.
 //
 
-#import "BRLocationListTableViewController.h"
+#import "BRLocationListViewController.h"
 
-@interface BRLocationListTableViewController ()
+@interface BRLocationListViewController ()
 
+@property (weak, nonatomic) IBOutlet UITableView *tableview;
 @end
 
-@implementation BRLocationListTableViewController
+@implementation BRLocationListViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
