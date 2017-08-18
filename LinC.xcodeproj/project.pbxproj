@@ -57,7 +57,7 @@
 		276E75AD1F4365EA00D5A917 /* BRMediaBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75AB1F4365EA00D5A917 /* BRMediaBrowserViewController.m */; };
 		276E75B31F4379CD00D5A917 /* BRMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75B21F4379CD00D5A917 /* BRMedia.m */; };
 		276E75B71F43A44300D5A917 /* BRMediaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75B51F43A44300D5A917 /* BRMediaCell.m */; };
-		276E75B81F43A44300D5A917 /* BRMediaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 276E75B61F43A44300D5A917 /* BRMediaCell.xib */; };
+		276E75D61F45F10C00D5A917 /* BRMediaBrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 276E75D51F45F10C00D5A917 /* BRMediaBrowserViewController.xib */; };
 		27CA03B11F38F21600D0F132 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CA03B01F38F21600D0F132 /* main.m */; };
 		27CA03BC1F38F21600D0F132 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27CA03BB1F38F21600D0F132 /* Assets.xcassets */; };
 		27CA03CA1F38F21600D0F132 /* LinCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CA03C91F38F21600D0F132 /* LinCTests.m */; };
@@ -222,7 +222,7 @@
 		276E75B21F4379CD00D5A917 /* BRMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRMedia.m; sourceTree = "<group>"; };
 		276E75B41F43A44300D5A917 /* BRMediaCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRMediaCell.h; sourceTree = "<group>"; };
 		276E75B51F43A44300D5A917 /* BRMediaCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRMediaCell.m; sourceTree = "<group>"; };
-		276E75B61F43A44300D5A917 /* BRMediaCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRMediaCell.xib; sourceTree = "<group>"; };
+		276E75D51F45F10C00D5A917 /* BRMediaBrowserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRMediaBrowserViewController.xib; sourceTree = "<group>"; };
 		27CA03AC1F38F21600D0F132 /* LinC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LinC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27CA03B01F38F21600D0F132 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		27CA03BB1F38F21600D0F132 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -485,6 +485,7 @@
 			children = (
 				276E75AA1F4365EA00D5A917 /* BRMediaBrowserViewController.h */,
 				276E75AB1F4365EA00D5A917 /* BRMediaBrowserViewController.m */,
+				276E75D51F45F10C00D5A917 /* BRMediaBrowserViewController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -494,7 +495,6 @@
 			children = (
 				276E75B41F43A44300D5A917 /* BRMediaCell.h */,
 				276E75B51F43A44300D5A917 /* BRMediaCell.m */,
-				276E75B61F43A44300D5A917 /* BRMediaCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -906,9 +906,9 @@
 				E90A1CE11F42AA76001033CB /* BRFriendInfoViewController.xib in Resources */,
 				E90A1CDF1F42AA76001033CB /* BRContactListTableViewCell.xib in Resources */,
 				E90A1CF91F42AA85001033CB /* BRLocationListTableViewController.xib in Resources */,
+				276E75D61F45F10C00D5A917 /* BRMediaBrowserViewController.xib in Resources */,
 				E90A1CDC1F42AA76001033CB /* BRContactListViewController.storyboard in Resources */,
 				E90A1D001F42AA85001033CB /* BRUserNameTextViewController.xib in Resources */,
-				276E75B81F43A44300D5A917 /* BRMediaCell.xib in Resources */,
 				E90A1CFE1F42AA85001033CB /* BRUserInfoViewController.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
