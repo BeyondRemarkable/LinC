@@ -12,7 +12,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="haA-bO-3g8">
             <objects>
-                <tabBarController id="yBk-Ie-cwp" customClass="BRTabBarController" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="BRTabBarController" id="yBk-Ie-cwp" customClass="BRTabBarController" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="M27-Jq-wid">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>

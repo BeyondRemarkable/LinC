@@ -9,6 +9,7 @@
 #import "BRMessageReadManager.h"
 #import <SDWebImage/UIView+WebCache.h>
 #import "BRCDDeviceManager.h"
+#import "BRMediaBrowserViewController.h"
 
 #define IMAGE_MAX_SIZE_5k 5120*2880
 
@@ -18,8 +19,9 @@ static BRMessageReadManager *detailInstance = nil;
 
 @property (strong, nonatomic) UIWindow *keyWindow;
 
-@property (strong, nonatomic) NSMutableArray *photos;
+@property (strong, nonatomic) NSMutableArray *medias;
 @property (strong, nonatomic) UINavigationController *photoNavigationController;
+@property (nonatomic, strong) BRMediaBrowserViewController *mediaBrowser;
 
 @end
 
@@ -49,62 +51,33 @@ static BRMessageReadManager *detailInstance = nil;
     return _keyWindow;
 }
 
-- (NSMutableArray *)photos
+- (NSMutableArray *)medias
 {
-    if (_photos == nil) {
-        _photos = [[NSMutableArray alloc] init];
+    if (_medias == nil) {
+        _medias = [[NSMutableArray alloc] init];
     }
     
-    return _photos;
+    return _medias;
 }
 
-//- (MWPhotoBrowser *)photoBrowser
-//{
-//    if (_photoBrowser == nil) {
-//        _photoBrowser = [[MWPhotoBrowser alloc] initWithDelegate:self];
-//        _photoBrowser.displayActionButton = YES;
-//        _photoBrowser.
-//        _photoBrowser.displayNavArrows = YES;
-//        _photoBrowser.displaySelectionButtons = NO;
-//        _photoBrowser.alwaysShowControls = NO;
-//        _photoBrowser.wantsFullScreenLayout = YES;
-//        _photoBrowser.zoomPhotosToFill = YES;
-//        _photoBrowser.enableGrid = NO;
-//        _photoBrowser.startOnGrid = NO;
-//        [_photoBrowser setCurrentPhotoIndex:0];
-//    }
-//    
-//    return _photoBrowser;
-//}
+- (BRMediaBrowserViewController *)mediaBrowser {
+    if (_mediaBrowser == nil) {
+        _mediaBrowser = [[BRMediaBrowserViewController alloc] initWithMediaArray:self.medias];
+    }
+    return _mediaBrowser;
+}
 
 - (UINavigationController *)photoNavigationController
 {
     if (_photoNavigationController == nil) {
-//        _photoNavigationController = [[UINavigationController alloc] initWithRootViewController:self.photoBrowser];
+        _photoNavigationController = [[UINavigationController alloc] initWithRootViewController:self.mediaBrowser];
         _photoNavigationController = [[UINavigationController alloc] init];
         _photoNavigationController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     }
     
-//    [self.photoBrowser reloadData];
+    [self.mediaBrowser.collectionView reloadData];
     return _photoNavigationController;
 }
-
-//#pragma mark - MWPhotoBrowserDelegate
-//
-//- (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser
-//{
-//    return [self.photos count];
-//}
-//
-//- (id <MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index
-//{
-//    if (index < self.photos.count)
-//    {
-//        return [self.photos objectAtIndex:index];
-//    }
-//    
-//    return nil;
-//}
 
 
 #pragma mark - private
@@ -115,29 +88,29 @@ static BRMessageReadManager *detailInstance = nil;
 - (void)showBrowserWithImages:(NSArray *)imageArray
 {
     if (imageArray && [imageArray count] > 0) {
-        NSMutableArray *photoArray = [NSMutableArray array];
-//        for (id object in imageArray) {
-//            MWPhoto *photo;
-//            if ([object isKindOfClass:[UIImage class]]) {
-//                CGFloat imageSize = ((UIImage*)object).size.width * ((UIImage*)object).size.height;
-//                if (imageSize > IMAGE_MAX_SIZE_5k) {
-//                    photo = [MWPhoto photoWithImage:[self scaleImage:object toScale:(IMAGE_MAX_SIZE_5k)/imageSize]];
-//                } else {
-//                    photo = [MWPhoto photoWithImage:object];
-//                }
-//            }
-//            else if ([object isKindOfClass:[NSURL class]])
-//            {
-//                photo = [MWPhoto photoWithURL:object];
-//            }
-//            else if ([object isKindOfClass:[NSString class]])
-//            {
-//                
-//            }
-//            [photoArray addObject:photo];
-//        }
+        NSMutableArray *mediaArray = [NSMutableArray array];
+        for (id object in imageArray) {
+            BRMedia *media = nil;
+            if ([object isKindOfClass:[UIImage class]]) {
+                CGFloat imageSize = ((UIImage*)object).size.width * ((UIImage*)object).size.height;
+                if (imageSize > IMAGE_MAX_SIZE_5k) {
+                    media = [BRMedia mediaWithImage:[self scaleImage:object toScale:(IMAGE_MAX_SIZE_5k)/imageSize]];
+                } else {
+                    media = [BRMedia mediaWithImage:object];
+                }
+            }
+            else if ([object isKindOfClass:[NSURL class]])
+            {
+                media = [BRMedia mediaWithImageURL:object];
+            }
+            else if ([object isKindOfClass:[NSString class]])
+            {
+                
+            }
+            [mediaArray addObject:media];
+        }
         
-        self.photos = photoArray;
+        self.medias = mediaArray;
     }
     
     UIViewController *rootController = [self.keyWindow rootViewController];
