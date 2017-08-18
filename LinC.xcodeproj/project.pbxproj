@@ -904,7 +904,9 @@
 				27E9A2421F3B8BFA001937A0 /* LaunchScreen.storyboard in Resources */,
 				E90A1CE11F42AA76001033CB /* BRFriendInfoViewController.xib in Resources */,
 				E90A1CDF1F42AA76001033CB /* BRContactListTableViewCell.xib in Resources */,
-				E90A1CF91F42AA85001033CB /* BRLocationListViewController.xib in Resources */,
+				E90A1CF91F42AA85001033CB /* BRLocationListTableViewController.xib in Resources */,
+				276E75D61F45F10C00D5A917 /* BRMediaBrowserViewController.xib in Resources */,
+				E90A1CDC1F42AA76001033CB /* BRContactListViewController.storyboard in Resources */,
 				E90A1D001F42AA85001033CB /* BRUserNameTextViewController.xib in Resources */,
 				E90A1CFE1F42AA85001033CB /* BRUserInfoViewController.storyboard in Resources */,
 			);

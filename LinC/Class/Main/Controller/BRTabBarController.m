@@ -37,14 +37,10 @@
         BRContactListViewController *contactListVC = [[BRContactListViewController alloc] initWithStyle:UITableViewStylePlain];
         [self setupChildVc:contactListVC title:@"Contact List" imageName:@"tabbar_chats_normal" selectedImageName:@"tabbar_chats_selected"];
         
-//        // Add user infromation view controller
-//        BRUserInfoViewController *userInfoVC = [[BRUserInfoViewController alloc] initWithNibName:@"BRUserInfoViewController" bundle:nil];
-//        [self setupChildVc:userInfoVC title:@"User Info" imageName:@"tabbar_chats_normal" selectedImageName:@"tabbar_chats_selected"];
-
+        // Add user infromation view controller
         UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRUserInfoViewController" bundle:nil];
         BRUserInfoViewController *vc =  [sc instantiateViewControllerWithIdentifier:@"BRUserInfoViewController"];
         [self setupChildVc:vc title:@"Setting" imageName:@"tabbar_chats_normal" selectedImageName:@"tabbar_chats_selected"];
-        
     }
     return self;
 }
