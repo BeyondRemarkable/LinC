@@ -8,9 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol sendGenderProtocol <NSObject>
+
+- (void)sendGenderBack:(NSString *)gender;
+
+@end
+
 @interface BRUserGenderViewController : UIViewController
 
 @property (assign, nonatomic) BOOL isMale;
 
+@property(nonatomic,assign)id delegate;
 
 @end

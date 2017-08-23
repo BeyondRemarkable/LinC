@@ -9,7 +9,7 @@
 #import "BRWhatsUpViewController.h"
 
 @interface BRWhatsUpViewController ()
-
+@property (weak, nonatomic) IBOutlet UITextView *whatsUpTextView;
 @end
 
 @implementation BRWhatsUpViewController
@@ -17,6 +17,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    self.whatsUpTextView.textContainerInset = UIEdgeInsetsZero;
+    
+    if ([self.whatUpText isEqual: @"Detail"]) {
+        self.whatsUpTextView.text = nil;
+    } else {
+        self.whatsUpTextView.text = self.whatUpText;
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -25,16 +34,14 @@
 }
 - (IBAction)saveBtn:(id)sender {
     
+    if (![self.whatsUpTextView.text isEqualToString:self.whatUpText]) {
+        [self.delegate sendWhatUpBack:self.whatsUpTextView.text];
+    }
+    
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+
 
 @end

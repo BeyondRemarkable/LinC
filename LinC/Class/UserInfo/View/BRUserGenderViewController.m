@@ -9,6 +9,8 @@
 #import "BRUserGenderViewController.h"
 
 @interface BRUserGenderViewController ()
+@property (weak, nonatomic) IBOutlet UIImageView *maleIconCheck;
+@property (weak, nonatomic) IBOutlet UIImageView *femaleIconCheck;
 
 @end
 
@@ -17,6 +19,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -24,14 +28,27 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)setUpUserGender {
+    if (self.isMale) {
+        self.maleIconCheck.hidden = NO;
+        self.femaleIconCheck.hidden = YES;
+        [self.delegate sendGenderBack:@"Male"];
+    } else {
+        self.femaleIconCheck.hidden = YES;
+        self.maleIconCheck.hidden = NO;
+        [self.delegate sendGenderBack:@"Female"];
+    }
 }
-*/
+- (IBAction)maleClick:(id)sender {
+    self.isMale = true;
+    [self setUpUserGender];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)femaleClick:(id)sender {
+    self.isMale = false;
+    [self setUpUserGender];
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 @end

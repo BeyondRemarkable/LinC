@@ -16,8 +16,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.navigationBar setTintColor:[UIColor darkGrayColor]];
-    [self.navigationBar setBackgroundColor:[UIColor blueColor]];
+    [self.navigationBar setBarTintColor:[UIColor blueColor]];
+//    [self.navigationBar setBackgroundColor:[UIColor blueColor]];
 }
 
 -(void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated{

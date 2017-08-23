@@ -28,11 +28,21 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZOS-Ra-P0R">
+                    <rect key="frame" x="100" y="318.5" width="175" height="30"/>
+                    <state key="normal" title="Save"/>
+                    <connections>
+                        <action selector="saveBtn:" destination="-1" eventType="touchUpInside" id="IJ1-Pr-TBj"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstAttribute="trailing" secondItem="ZOS-Ra-P0R" secondAttribute="trailing" constant="100" id="Fd6-tV-tO2"/>
                 <constraint firstAttribute="trailing" secondItem="1U5-EB-woQ" secondAttribute="trailing" id="YJr-GQ-7zd"/>
                 <constraint firstItem="1U5-EB-woQ" firstAttribute="centerY" secondItem="cjX-nY-PDA" secondAttribute="centerY" multiplier="0.5" id="bR2-Nl-La3"/>
+                <constraint firstItem="ZOS-Ra-P0R" firstAttribute="leading" secondItem="cjX-nY-PDA" secondAttribute="leading" constant="100" id="g6B-aM-Xyu"/>
+                <constraint firstItem="ZOS-Ra-P0R" firstAttribute="centerY" secondItem="cjX-nY-PDA" secondAttribute="centerY" id="pgd-lB-bqw"/>
                 <constraint firstItem="1U5-EB-woQ" firstAttribute="leading" secondItem="cjX-nY-PDA" secondAttribute="leading" id="tNY-Gv-7AA"/>
             </constraints>
             <point key="canvasLocation" x="432.5" y="55.5"/>

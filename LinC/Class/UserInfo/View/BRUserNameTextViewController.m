@@ -21,25 +21,22 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    self.userNameTextField.text = self.nameText;
+    if ([self.nameText isEqualToString: @"Detail"]) {
+        self.userNameTextField.text = nil;
+    } else {
+        self.userNameTextField.text = self.nameText;
+    }
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 - (IBAction)saveBtn:(id)sender {
-    
+    [self.delegate sendUserNameBack:self.userNameTextField.text];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

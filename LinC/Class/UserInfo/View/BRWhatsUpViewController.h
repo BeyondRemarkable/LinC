@@ -8,9 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol sendWhatUpProtocol <NSObject>
+
+- (void)sendWhatUpBack: (NSString *)text;
+
+@end
+
+
 @interface BRWhatsUpViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet UITextView *whatsUpTextView;
+@property (nonatomic, assign) NSString *whatUpText;
 
+@property (nonatomic, assign) id delegate;
 
 @end

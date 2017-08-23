@@ -40,7 +40,7 @@
         // Add user infromation view controller
         UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRUserInfoViewController" bundle:nil];
         BRUserInfoViewController *vc =  [sc instantiateViewControllerWithIdentifier:@"BRUserInfoViewController"];
-        [self setupChildVc:vc title:@"Setting" imageName:@"tabbar_chats_normal" selectedImageName:@"tabbar_chats_selected"];
+        [self setupChildVc:vc title:@"About Me" imageName:@"tabbar_chats_normal" selectedImageName:@"tabbar_chats_selected"];
     }
     return self;
 }
@@ -83,6 +83,7 @@
     
     BRNavigationController *navigationVc = [[BRNavigationController alloc] initWithRootViewController:childVc];
     [self addChildViewController:navigationVc];
+    
 }
 
 //- (void)addChatBadgeBy:(NSInteger)number {

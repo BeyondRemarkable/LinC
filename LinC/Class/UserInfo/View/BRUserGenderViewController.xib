@@ -13,6 +13,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BRUserGenderViewController">
             <connections>
+                <outlet property="femaleIconCheck" destination="NWM-2G-5qo" id="H5m-sA-AEY"/>
+                <outlet property="maleIconCheck" destination="Qtj-FU-dlP" id="Uv2-fB-kZ4"/>
                 <outlet property="view" destination="3Gb-9E-aeS" id="ltO-iY-Zf6"/>
             </connections>
         </placeholder>
@@ -21,7 +23,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3V0-0e-KmM">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3V0-0e-KmM" userLabel="FemaleView">
                     <rect key="frame" x="0.0" y="147" width="375" height="40"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Female" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Nk-Hr-myM">
@@ -40,13 +42,17 @@
                         </imageView>
                     </subviews>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <gestureRecognizers/>
                     <constraints>
                         <constraint firstItem="NWM-2G-5qo" firstAttribute="centerY" secondItem="3V0-0e-KmM" secondAttribute="centerY" id="74r-IB-qgp"/>
                         <constraint firstAttribute="height" constant="40" id="DQG-6R-jsc"/>
                         <constraint firstAttribute="trailing" secondItem="NWM-2G-5qo" secondAttribute="trailing" constant="20" id="u0P-pM-pHc"/>
                     </constraints>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="D9J-RA-tSs" appends="YES" id="caQ-c3-fhI"/>
+                    </connections>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NRa-Tc-oRs">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NRa-Tc-oRs" userLabel="MaleView">
                     <rect key="frame" x="0.0" y="97" width="375" height="40"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Male" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mur-w6-4SM">
@@ -65,10 +71,14 @@
                         </imageView>
                     </subviews>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <gestureRecognizers/>
                     <constraints>
                         <constraint firstItem="Qtj-FU-dlP" firstAttribute="centerY" secondItem="NRa-Tc-oRs" secondAttribute="centerY" id="EkN-h1-paG"/>
                         <constraint firstAttribute="trailing" secondItem="Qtj-FU-dlP" secondAttribute="trailing" constant="20" id="mqi-aI-nHA"/>
                     </constraints>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="4I3-ya-8Sa" appends="YES" id="iwm-bd-OPq"/>
+                    </connections>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -83,5 +93,15 @@
             </constraints>
             <point key="canvasLocation" x="484" y="-23"/>
         </view>
+        <tapGestureRecognizer id="4I3-ya-8Sa" userLabel="MaleView Tap Gesture Recognizer">
+            <connections>
+                <action selector="maleClick:" destination="-1" id="3Xt-V3-z0B"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="D9J-RA-tSs" userLabel="FemaleView Tap Gesture Recognizer">
+            <connections>
+                <action selector="femaleClick:" destination="-1" id="9eF-ed-80s"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
 </document>

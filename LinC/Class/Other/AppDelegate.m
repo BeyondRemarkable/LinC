@@ -10,6 +10,8 @@
 #import "BRSDKHelper.h"
 #import <Hyphenate/Hyphenate.h>
 
+#import "BRLoginViewController.h"
+
 @interface AppDelegate ()
 
 @end
@@ -36,6 +38,14 @@
             NSLog(@"登录失败");
         }
     }];
+    
+    self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Account" bundle:[NSBundle mainBundle]];
+
+    BRLoginViewController *vc = storyboard.instantiateInitialViewController;
+    
+    self.window.rootViewController = vc;
+    [self.window makeKeyAndVisible];
     
     return YES;
 }

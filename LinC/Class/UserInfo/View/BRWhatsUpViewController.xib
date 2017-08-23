@@ -22,7 +22,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="zdR-3u-JZb">
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="zdR-3u-JZb">
                     <rect key="frame" x="0.0" y="125" width="375" height="150"/>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
@@ -31,11 +31,21 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IKI-m6-R51">
+                    <rect key="frame" x="100" y="318.5" width="175" height="30"/>
+                    <state key="normal" title="Save"/>
+                    <connections>
+                        <action selector="saveBtn:" destination="-1" eventType="touchUpInside" id="OlH-Ln-pdK"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="zdR-3u-JZb" secondAttribute="trailing" id="6hn-cb-NDc"/>
+                <constraint firstItem="IKI-m6-R51" firstAttribute="leading" secondItem="UTn-mz-oxy" secondAttribute="leading" constant="100" id="Bf3-sT-ie8"/>
                 <constraint firstItem="zdR-3u-JZb" firstAttribute="centerY" secondItem="UTn-mz-oxy" secondAttribute="centerY" multiplier="0.6" id="KMp-e3-ins"/>
+                <constraint firstAttribute="trailing" secondItem="IKI-m6-R51" secondAttribute="trailing" constant="100" id="XWS-b2-IP8"/>
+                <constraint firstItem="IKI-m6-R51" firstAttribute="centerY" secondItem="UTn-mz-oxy" secondAttribute="centerY" id="ey9-9D-4eg"/>
                 <constraint firstItem="zdR-3u-JZb" firstAttribute="leading" secondItem="UTn-mz-oxy" secondAttribute="leading" id="hsH-k5-kRj"/>
             </constraints>
             <point key="canvasLocation" x="557.5" y="35.5"/>

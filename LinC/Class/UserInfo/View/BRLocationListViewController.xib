@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BRLocationListViewController">
             <connections>
-                <outlet property="tableview" destination="tgB-D2-FYA" id="wEZ-ix-aLB"/>
+                <outlet property="tableView" destination="tgB-D2-FYA" id="ZF6-hU-p5K"/>
                 <outlet property="view" destination="zka-1D-v4M" id="o3h-Sy-VCq"/>
             </connections>
         </placeholder>
