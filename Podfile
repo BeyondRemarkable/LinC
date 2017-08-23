@@ -1,7 +1,7 @@
 
 inhibit_all_warnings!
 
-target ‘LinC’ do
+target 'LinC' do
 
 pod 'Hyphenate'
 pod 'MJRefresh'
