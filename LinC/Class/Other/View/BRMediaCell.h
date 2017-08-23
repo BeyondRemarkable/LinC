@@ -8,13 +8,24 @@
 
 #import <UIKit/UIKit.h>
 #import "BRMedia.h"
+@class BRMediaCell;
+
+@protocol BRMediaCellDelegate <NSObject>
+
+@optional
+- (void)mediaCell:(BRMediaCell *)cell didClickBackButton:(UIButton *)button;
+
+@end
 
 @interface BRMediaCell : UICollectionViewCell
 
 @property (nonatomic, strong) BRMedia *media;
+@property (nonatomic, strong) AVPlayer *player;
 
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic, strong) NSURL *imageURL;
 @property (nonatomic, strong) NSURL *videoURL;
+
+@property (nonatomic, weak) id<BRMediaCellDelegate> delegate;
 
 @end

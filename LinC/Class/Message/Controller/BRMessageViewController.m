@@ -700,16 +700,7 @@ typedef enum : NSUInteger {
         [self _sendHasReadResponseForMessages:@[model.message]
                                        isRead:YES];
         
-        NSURL *videoURL = [NSURL fileURLWithPath:localPath];
-        AVPlayerItem *item = [AVPlayerItem playerItemWithURL:videoURL];
-        AVPlayer *player = [AVPlayer playerWithPlayerItem:item];
-        AVPlayerViewController *moviePlayerController = [[AVPlayerViewController alloc] init];
-        moviePlayerController.player = player;
-        [self presentViewController:moviePlayerController animated:YES completion:nil];
-//        MPMoviePlayerViewController *moviePlayerController = [[MPMoviePlayerViewController alloc] initWithContentURL:videoURL];
-//        [moviePlayerController.moviePlayer prepareToPlay];
-//        moviePlayerController.moviePlayer.movieSourceType = MPMovieSourceTypeFile;
-//        [self presentMoviePlayerViewControllerAnimated:moviePlayerController];
+        [[BRMessageReadManager defaultManager] showBrowserWithImages:@[localPath]];
     };
     
     __weak typeof(self) weakSelf = self;

@@ -99,13 +99,15 @@ static BRMessageReadManager *detailInstance = nil;
                     media = [BRMedia mediaWithImage:object];
                 }
             }
+            // 暂定图片传递进来都是NSURL，视频都是NSString
             else if ([object isKindOfClass:[NSURL class]])
             {
                 media = [BRMedia mediaWithImageURL:object];
             }
             else if ([object isKindOfClass:[NSString class]])
             {
-                
+                NSURL *url = [NSURL fileURLWithPath:object];
+                media = [BRMedia mediaWithVideoURL:url];
             }
             [mediaArray addObject:media];
         }
