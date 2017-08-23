@@ -14,6 +14,7 @@
 #import "BRWhatsUpViewController.h"
 #import "BRLocationCitiListTableViewController.h"
 #import "BRWhatsUpViewController.h"
+#import "BRUserSettingTableViewController.h"
 
 
 @interface BRUserInfoViewController ()<UITableViewDelegate, UITableViewDataSource, sendGenderProtocol, sendUserNameProtocol, sendWhatUpProtocol>
@@ -49,8 +50,9 @@ typedef enum NSUInteger {
     // Section one
     UserLocationCell = 0,
     UserWhatsUpCell,
-
-} UserSettingCell;
+    UserSettingCell
+    
+} UserInfo;
 
 
 
@@ -58,25 +60,13 @@ typedef enum NSUInteger {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveTestNotification:) name:@"location" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveTestNotification:) name:@"location" object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
-
 
 #pragma mark UITableViewDelegate
 
@@ -104,18 +94,18 @@ typedef enum NSUInteger {
             [self.navigationController pushViewController:vc animated:YES];
         }
         
-        //    // User's gender
-            if (indexPath.row == UserGenderCell) {
-                BRUserGenderViewController *vc = [[BRUserGenderViewController alloc] initWithNibName:@"BRUserGenderViewController" bundle:nil];
-                vc.delegate = self;
-                if ([self.gender.text.lowercaseString isEqual: @"male"]) {
-                    vc.isMale = true;
-                } else {
-                    vc.isMale = false;
-                }
-                [self.navigationController pushViewController:vc animated:YES];
+        // User's gender
+        if (indexPath.row == UserGenderCell) {
+            BRUserGenderViewController *vc = [[BRUserGenderViewController alloc] initWithNibName:@"BRUserGenderViewController" bundle:nil];
+            vc.delegate = self;
+            if ([self.gender.text.lowercaseString isEqual: @"male"]) {
+                vc.isMale = true;
+            } else {
+                vc.isMale = false;
             }
-
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+        
         
     }
     
@@ -129,12 +119,19 @@ typedef enum NSUInteger {
         }
         
         // What's up text view cell
-            if (indexPath.row == UserWhatsUpCell) {
-                BRWhatsUpViewController *vc = [[BRWhatsUpViewController alloc] initWithNibName:@"BRWhatsUpViewController" bundle:nil];
-                vc.whatUpText = self.whatsup.text;
-                vc.delegate = self;
-                [self.navigationController pushViewController:vc animated:YES];
-            }
+        if (indexPath.row == UserWhatsUpCell) {
+            BRWhatsUpViewController *vc = [[BRWhatsUpViewController alloc] initWithNibName:@"BRWhatsUpViewController" bundle:nil];
+            vc.whatUpText = self.whatsup.text;
+            vc.delegate = self;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+        
+        // User's setting
+        if (indexPath.row == UserSettingCell) {
+            UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRUserSettingTableViewController" bundle:nil];
+            BRUserSettingTableViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRUserSettingTableViewController"];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
     }
 }
 

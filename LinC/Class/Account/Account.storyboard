@@ -14,7 +14,7 @@
         <!--Login View Controller-->
         <scene sceneID="Tvf-Il-d5K">
             <objects>
-                <viewController id="0zz-Ui-sWY" customClass="BRLoginViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BRLoginViewController" id="0zz-Ui-sWY" customClass="BRLoginViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Yym-Tr-PGT"/>
                         <viewControllerLayoutGuide type="bottom" id="b9R-1u-9Nv"/>
@@ -261,7 +261,13 @@
                             <constraint firstItem="nMP-Lb-SeG" firstAttribute="leading" secondItem="VYk-93-QAS" secondAttribute="leading" id="yj5-Ab-inR"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="dPX-Rl-gzH"/>
+                    <navigationItem key="navigationItem" id="dPX-Rl-gzH">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="SDk-tC-ZWG">
+                            <connections>
+                                <action selector="backBtn:" destination="BwH-nP-fuC" id="FYi-7K-BDb"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="emailAddress" destination="Tbt-WW-igC" id="aM0-0h-sgo"/>
                     </connections>
