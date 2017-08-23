@@ -33,14 +33,15 @@
 @implementation BRUserInfoViewController
 
 typedef enum : NSInteger {
-    TableViewSectionZerro = 0,
+    TableViewSectionZero = 0,
     TableViewSectionOne,
+    TableViewSectionTwo
 } TableViewSession;
 
 
 typedef enum NSUInteger {
     
-    // Section zerro
+    // Section zero
     UserImageCell = 0,
     UserNameCell,
     UserAccountIDCell,
@@ -50,7 +51,9 @@ typedef enum NSUInteger {
     // Section one
     UserLocationCell = 0,
     UserWhatsUpCell,
-    UserSettingCell
+    
+    // Section Two
+    UserSettingCell = 0,
     
 } UserInfo;
 
@@ -79,7 +82,7 @@ typedef enum NSUInteger {
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Section Zerro of table view
-    if (indexPath.section == TableViewSectionZerro ) {
+    if (indexPath.section == TableViewSectionZero ) {
         // Image cell
         if (indexPath.row == UserImageCell) {
             BRUserImageViewController *vc = [[BRUserImageViewController alloc] initWithNibName:@"BRUserImageViewController" bundle:nil];
@@ -125,7 +128,9 @@ typedef enum NSUInteger {
             vc.delegate = self;
             [self.navigationController pushViewController:vc animated:YES];
         }
-        
+    }
+    
+    if (indexPath.section == TableViewSectionTwo) {
         // User's setting
         if (indexPath.row == UserSettingCell) {
             UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRUserSettingTableViewController" bundle:nil];

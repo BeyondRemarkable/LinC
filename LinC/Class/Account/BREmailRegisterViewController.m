@@ -32,5 +32,12 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+/**
+ *  Close the keyboard
+ */
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    [self.view endEditing:YES];
+}
+
 
 @end

@@ -27,7 +27,14 @@
     // Dispose of any resources that can be recreated.
 }
 - (IBAction)nextBtn:(id)sender {
+
 }
 
+/**
+ *  Close the keyboard
+ */
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    [self.view endEditing:YES];
+}
 
 @end

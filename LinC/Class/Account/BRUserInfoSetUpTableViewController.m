@@ -22,7 +22,7 @@
 
 typedef enum NSUInteger {
     
-    UserNameCell,
+    UserNameCell = 0,
     UserGenderCell,
     UserLocationCell,
     
