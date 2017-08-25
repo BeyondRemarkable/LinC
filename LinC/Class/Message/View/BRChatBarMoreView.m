@@ -2,17 +2,16 @@
 //  BRChatBarMoreView.m
 //  LinC
 //
-//  Created by Yingwei Fan on 8/11/17.
+//  Created by Yingwei Fan on 8/25/17.
 //  Copyright © 2017 BeyondRemarkable. All rights reserved.
 //
 
 #import "BRChatBarMoreView.h"
+#import "BRChatBarMoreViewCell.h"
 
-#define CHAT_BUTTON_SIZE CGSizeMake(50,60)
+#define MOREVIEW_ITEM_SIZE CGSizeMake(50,60)
 #define INSETS 10
-#define MOREVIEW_COL 4
-#define MOREVIEW_ROW 2
-#define MOREVIEW_BUTTON_TAG 1000
+#define PADDING 25
 
 @implementation UIView (MoreView)
 
@@ -25,21 +24,15 @@
 
 @end
 
-@interface BRChatBarMoreView () <UIScrollViewDelegate>
+@interface BRChatBarMoreView () <UICollectionViewDataSource, UICollectionViewDelegate>
 {
     BRChatToolbarType _type;
     NSInteger _maxIndex;
 }
 
-@property (nonatomic, strong) UIScrollView *scrollview;
+@property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic, strong) UICollectionViewFlowLayout *layout;
 @property (nonatomic, strong) UIPageControl *pageControl;
-
-@property (nonatomic, strong) UIButton *photoButton;
-@property (nonatomic, strong) UIButton *takePicButton;
-@property (nonatomic, strong) UIButton *locationButton;
-@property (nonatomic, strong) UIButton *videoButton;
-@property (nonatomic, strong) UIButton *audioCallButton;
-@property (nonatomic, strong) UIButton *videoCallButton;
 
 @end
 
@@ -68,184 +61,24 @@
     //self.backgroundColor = [UIColor clearColor];
     self.accessibilityIdentifier = @"more_view";
     
-    _scrollview = [[UIScrollView alloc] init];
-    _scrollview.pagingEnabled = YES;
-    _scrollview.showsHorizontalScrollIndicator = NO;
-    _scrollview.showsVerticalScrollIndicator = NO;
-    _scrollview.delegate = self;
-    [self addSubview:_scrollview];
+    _layout = [[UICollectionViewFlowLayout alloc] init];
+    _layout.minimumLineSpacing = INSETS;
+    _layout.minimumInteritemSpacing = PADDING;
+    _layout.itemSize = MOREVIEW_ITEM_SIZE;
+    _layout.sectionInset = UIEdgeInsetsMake(INSETS, PADDING, INSETS + PADDING, PADDING);
+    _collectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:_layout];
+    _collectionView.backgroundColor = [UIColor whiteColor];
+    _collectionView.dataSource = self;
+    _collectionView.delegate = self;
+    [_collectionView registerNib:[UINib nibWithNibName:@"BRChatBarMoreViewCell" bundle:nil] forCellWithReuseIdentifier:[BRChatBarMoreViewCell cellReuseIdentifier]];
     
     _pageControl = [[UIPageControl alloc] init];
     _pageControl.currentPage = 0;
     _pageControl.numberOfPages = 1;
+    _pageControl.hidesForSinglePage = YES;
     [self addSubview:_pageControl];
     
-    CGFloat insets = (self.frame.size.width - 4 * CHAT_BUTTON_SIZE.width) / 5;
-    
-    _photoButton = [self btnWithImage:[UIImage imageNamed:@"EaseUIResource.bundle/chatBar_colorMore_photo"]
-                     highlightedImage:[UIImage imageNamed:@"EaseUIResource.bundle/chatBar_colorMore_photoSelected"]
-                                title:@"相册"];
-    
-    _photoButton.accessibilityIdentifier = @"image";
-    [_photoButton setFrame:CGRectMake(insets, 10, CHAT_BUTTON_SIZE.width , CHAT_BUTTON_SIZE.height)];
-    [_photoButton addTarget:self action:@selector(photoAction) forControlEvents:UIControlEventTouchUpInside];
-    _photoButton.tag = MOREVIEW_BUTTON_TAG;
-    [_scrollview addSubview:_photoButton];
-    
-    _locationButton = [self btnWithImage:[UIImage imageNamed:@"EaseUIResource.bundle/chatBar_colorMore_location"]
-                        highlightedImage:[UIImage imageNamed:@"EaseUIResource.bundle/chatBar_colorMore_locationSelected"]
-                                   title:@"位置"];
-    _locationButton.accessibilityIdentifier = @"location";
-    [_locationButton setFrame:CGRectMake(insets * 2 + CHAT_BUTTON_SIZE.width, 10, CHAT_BUTTON_SIZE.width , CHAT_BUTTON_SIZE.height)];
-    [_locationButton addTarget:self action:@selector(locationAction) forControlEvents:UIControlEventTouchUpInside];
-    _locationButton.tag = MOREVIEW_BUTTON_TAG + 1;
-    [_scrollview addSubview:_locationButton];
-    
-    _takePicButton = [self btnWithImage:[UIImage imageNamed:@"EaseUIResource.bundle/chatBar_colorMore_camera"]
-                       highlightedImage:[UIImage imageNamed:@"EaseUIResource.bundle/chatBar_colorMore_cameraSelected"]
-                                  title:@"拍照"];
-    [_takePicButton setFrame:CGRectMake(insets * 3 + CHAT_BUTTON_SIZE.width * 2, 10, CHAT_BUTTON_SIZE.width , CHAT_BUTTON_SIZE.height)];
-    [_takePicButton addTarget:self action:@selector(takePicAction) forControlEvents:UIControlEventTouchUpInside];
-    _takePicButton.tag = MOREVIEW_BUTTON_TAG + 2;
-    _maxIndex = 2;
-    [_scrollview addSubview:_takePicButton];
-    
-    CGRect frame = self.frame;
-    if (type == BRChatToolbarTypeChat) {
-        frame.size.height = 150;
-        _audioCallButton = [self btnWithImage:[UIImage imageNamed:@"EaseUIResource.bundle/chatBar_colorMore_audioCall"]
-                             highlightedImage:[UIImage imageNamed:@"EaseUIResource.bundle/chatBar_colorMore_audioCallSelected"]
-                                        title:@"语音"];
-        [_audioCallButton setFrame:CGRectMake(insets * 4 + CHAT_BUTTON_SIZE.width * 3, 10, CHAT_BUTTON_SIZE.width , CHAT_BUTTON_SIZE.height)];
-        [_audioCallButton addTarget:self action:@selector(takeAudioCallAction) forControlEvents:UIControlEventTouchUpInside];
-        _audioCallButton.tag = MOREVIEW_BUTTON_TAG + 3;
-        [_scrollview addSubview:_audioCallButton];
-        
-        _videoCallButton = [self btnWithImage:[UIImage imageNamed:@"EaseUIResource.bundle/chatBar_colorMore_videoCall"]
-                             highlightedImage:[UIImage imageNamed:@"EaseUIResource.bundle/chatBar_colorMore_videoCallSelected"]
-                                        title:@"视频"];
-        [_videoCallButton setFrame:CGRectMake(insets, 10 * 2 + CHAT_BUTTON_SIZE.height + 10, CHAT_BUTTON_SIZE.width , CHAT_BUTTON_SIZE.height)];
-        [_videoCallButton addTarget:self action:@selector(takeVideoCallAction) forControlEvents:UIControlEventTouchUpInside];
-        _videoCallButton.tag =MOREVIEW_BUTTON_TAG + 4;
-        _maxIndex = 4;
-        [_scrollview addSubview:_videoCallButton];
-    }
-    else if (type == BRChatToolbarTypeGroup)
-    {
-        frame.size.height = 80;
-    }
-    self.frame = frame;
-    _scrollview.frame = CGRectMake(0, 0, CGRectGetWidth(frame), CGRectGetHeight(frame));
-    _pageControl.frame = CGRectMake(0, CGRectGetHeight(frame) - 20, CGRectGetWidth(frame), 20);
-    _pageControl.hidden = _pageControl.numberOfPages<=1;
 }
-
-
-- (UIButton *)btnWithImage:(UIImage *)aImage highlightedImage:(UIImage *)aHighLightedImage title:(NSString *)aTitle {
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [btn setImage:aImage forState:UIControlStateNormal];
-    [btn setImage:aHighLightedImage forState:UIControlStateHighlighted];
-    [btn setTitle:aTitle forState:UIControlStateNormal];
-    [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    btn.titleLabel.font = [UIFont systemFontOfSize: 12.0];
-    btn.imageEdgeInsets = UIEdgeInsetsMake(-10, 0, 20, 0);
-    btn.titleEdgeInsets = UIEdgeInsetsMake(14, -60, -20, 0);
-    return btn;
-}
-
-- (void)insertItemWithImage:(UIImage *)image highlightedImage:(UIImage *)highLightedImage title:(NSString *)title
-{
-    CGFloat insets = (self.frame.size.width - MOREVIEW_COL * CHAT_BUTTON_SIZE.width) / 5;
-    CGRect frame = self.frame;
-    _maxIndex++;
-    NSInteger pageSize = MOREVIEW_COL*MOREVIEW_ROW;
-    NSInteger page = _maxIndex/pageSize;
-    NSInteger row = (_maxIndex%pageSize)/MOREVIEW_COL;
-    NSInteger col = _maxIndex%MOREVIEW_COL;
-    UIButton *moreButton = [self btnWithImage:image highlightedImage:highLightedImage title:title];
-    [moreButton setFrame:CGRectMake(page * CGRectGetWidth(self.frame) + insets * (col + 1) + CHAT_BUTTON_SIZE.width * col, INSETS + INSETS * 2 * row + CHAT_BUTTON_SIZE.height * row, CHAT_BUTTON_SIZE.width , CHAT_BUTTON_SIZE.height)];
-    [moreButton setImage:image forState:UIControlStateNormal];
-    [moreButton setImage:highLightedImage forState:UIControlStateHighlighted];
-    [moreButton addTarget:self action:@selector(moreAction:) forControlEvents:UIControlEventTouchUpInside];
-    moreButton.tag = MOREVIEW_BUTTON_TAG+_maxIndex;
-    [_scrollview addSubview:moreButton];
-    [_scrollview setContentSize:CGSizeMake(CGRectGetWidth(self.frame) * (page + 1), CGRectGetHeight(self.frame))];
-    [_pageControl setNumberOfPages:page + 1];
-    if (_maxIndex >=5) {
-        frame.size.height = 150;
-        _scrollview.frame = CGRectMake(0, 0, CGRectGetWidth(frame), CGRectGetHeight(frame));
-        _pageControl.frame = CGRectMake(0, CGRectGetHeight(frame) - 20, CGRectGetWidth(frame), 20);
-    }
-    self.frame = frame;
-    _pageControl.hidden = _pageControl.numberOfPages<=1;
-}
-
-- (void)updateItemWithImage:(UIImage *)image highlightedImage:(UIImage *)highLightedImage title:(NSString *)title atIndex:(NSInteger)index
-{
-    UIView *moreButton = [_scrollview viewWithTag:MOREVIEW_BUTTON_TAG+index];
-    if (moreButton && [moreButton isKindOfClass:[UIButton class]]) {
-        [(UIButton*)moreButton setImage:image forState:UIControlStateNormal];
-        [(UIButton*)moreButton setImage:highLightedImage forState:UIControlStateHighlighted];
-    }
-}
-
-- (void)removeItematIndex:(NSInteger)index
-{
-    UIView *moreButton = [_scrollview viewWithTag:MOREVIEW_BUTTON_TAG+index];
-    if (moreButton && [moreButton isKindOfClass:[UIButton class]]) {
-        [self _resetItemFromIndex:index];
-        [moreButton removeFromSuperview];
-    }
-}
-
-#pragma mark - private
-
-- (void)_resetItemFromIndex:(NSInteger)index
-{
-    CGFloat insets = (self.frame.size.width - MOREVIEW_COL * CHAT_BUTTON_SIZE.width) / 5;
-    CGRect frame = self.frame;
-    for (NSInteger i = index + 1; i<_maxIndex + 1; i++) {
-        UIView *moreButton = [_scrollview viewWithTag:MOREVIEW_BUTTON_TAG+i];
-        if (moreButton && [moreButton isKindOfClass:[UIButton class]]) {
-            NSInteger moveToIndex = i - 1;
-            NSInteger pageSize = MOREVIEW_COL*MOREVIEW_ROW;
-            NSInteger page = moveToIndex/pageSize;
-            NSInteger row = (moveToIndex%pageSize)/MOREVIEW_COL;
-            NSInteger col = moveToIndex%MOREVIEW_COL;
-            [moreButton setFrame:CGRectMake(page * CGRectGetWidth(self.frame) + insets * (col + 1) + CHAT_BUTTON_SIZE.width * col, INSETS + INSETS * 2 * row + CHAT_BUTTON_SIZE.height * row, CHAT_BUTTON_SIZE.width , CHAT_BUTTON_SIZE.height)];
-            moreButton.tag = MOREVIEW_BUTTON_TAG+moveToIndex;
-            [_scrollview setContentSize:CGSizeMake(CGRectGetWidth(self.frame) * (page + 1), CGRectGetHeight(self.frame))];
-            [_pageControl setNumberOfPages:page + 1];
-        }
-    }
-    _maxIndex--;
-    if (_maxIndex >=5) {
-        frame.size.height = 150;
-    } else {
-        frame.size.height = 80;
-    }
-    self.frame = frame;
-    _scrollview.frame = CGRectMake(0, 0, CGRectGetWidth(frame), CGRectGetHeight(frame));
-    _pageControl.frame = CGRectMake(0, CGRectGetHeight(frame) - 20, CGRectGetWidth(frame), 20);
-    _pageControl.hidden = _pageControl.numberOfPages<=1;
-}
-
-#pragma setter
-//- (void)setMoreViewColumn:(NSInteger)moreViewColumn
-//{
-//    if (_moreViewColumn != moreViewColumn) {
-//        _moreViewColumn = moreViewColumn;
-//        [self setupSubviewsForType:_type];
-//    }
-//}
-//
-//- (void)setMoreViewNumber:(NSInteger)moreViewNumber
-//{
-//    if (_moreViewNumber != moreViewNumber) {
-//        _moreViewNumber = moreViewNumber;
-//        [self setupSubviewsForType:_type];
-//    }
-//}
 
 - (void)setMoreViewBackgroundColor:(UIColor *)moreViewBackgroundColor
 {
@@ -255,38 +88,84 @@
     }
 }
 
-/*
- - (void)setMoreViewButtonImages:(NSArray *)moreViewButtonImages
- {
- _moreViewButtonImages = moreViewButtonImages;
- if ([_moreViewButtonImages count] > 0) {
- for (UIView *view in self.subviews) {
- if ([view isKindOfClass:[UIButton class]]) {
- UIButton *button = (UIButton *)view;
- if (button.tag < [_moreViewButtonImages count]) {
- NSString *imageName = [_moreViewButtonImages objectAtIndex:button.tag];
- [button setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
- }
- }
- }
- }
- }
- 
- - (void)setMoreViewButtonHignlightImages:(NSArray *)moreViewButtonHignlightImages
- {
- _moreViewButtonHignlightImages = moreViewButtonHignlightImages;
- if ([_moreViewButtonHignlightImages count] > 0) {
- for (UIView *view in self.subviews) {
- if ([view isKindOfClass:[UIButton class]]) {
- UIButton *button = (UIButton *)view;
- if (button.tag < [_moreViewButtonHignlightImages count]) {
- NSString *imageName = [_moreViewButtonHignlightImages objectAtIndex:button.tag];
- [button setImage:[UIImage imageNamed:imageName] forState:UIControlStateHighlighted];
- }
- }
- }
- }
- }*/
+#pragma mark - UICollectionViewDataSource
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    if (_type == BRChatToolbarTypeChat) {
+        return 5;
+    }
+    else if (_type == BRChatToolbarTypeGroup) {
+        return 3;
+    }
+    return 4;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    BRChatBarMoreViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[BRChatBarMoreViewCell cellReuseIdentifier] forIndexPath:indexPath];
+    
+    switch (indexPath.item) {
+        case 0:
+            [cell.imageView setImage:[UIImage imageNamed:@"location"]];
+            cell.titleLabel.text = NSLocalizedString(@"Location", nil);
+            break;
+            
+        case 1:
+            [cell.imageView setImage:[UIImage imageNamed:@"Camera"]];
+            cell.titleLabel.text = NSLocalizedString(@"Camera", nil);
+            break;
+        
+        case 2:
+            [cell.imageView setImage:[UIImage imageNamed:@"Album"]];
+            cell.titleLabel.text = NSLocalizedString(@"Album", nil);
+            break;
+            
+        case 3:
+            [cell.imageView setImage:[UIImage imageNamed:@"Voice"]];
+            cell.titleLabel.text = NSLocalizedString(@"Voice", nil);
+            break;
+            
+        case 4:
+            [cell.imageView setImage:[UIImage imageNamed:@"Video"]];
+            cell.titleLabel.text = NSLocalizedString(@"Video", nil);
+            break;
+            
+        default:
+            break;
+    }
+    
+    return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    switch (indexPath.item) {
+        case 0:
+            [self locationAction];
+            break;
+            
+        case 1:
+            [self takePicAction];
+            break;
+            
+        case 2:
+            [self photoAction];
+            break;
+            
+        case 3:
+            [self takeAudioCallAction];
+            break;
+            
+        case 4:
+            [self takeVideoCallAction];
+            break;
+            
+        default:
+            break;
+    }
+}
 
 #pragma mark - UIScrollViewDelegate
 
@@ -334,14 +213,6 @@
 {
     if (_delegate && [_delegate respondsToSelector:@selector(moreViewVideoCallAction:)]) {
         [_delegate moreViewVideoCallAction:self];
-    }
-}
-
-- (void)moreAction:(id)sender
-{
-    UIButton *button = (UIButton*)sender;
-    if (button && _delegate && [_delegate respondsToSelector:@selector(moreView:didItemInMoreViewAtIndex:)]) {
-        [_delegate moreView:self didItemInMoreViewAtIndex:button.tag-MOREVIEW_BUTTON_TAG];
     }
 }
 

@@ -43,7 +43,6 @@
 		276E757F1F3E2F1E00D5A917 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E757E1F3E2F1E00D5A917 /* AudioToolbox.framework */; };
 		276E75821F3E2F7900D5A917 /* BRCDDeviceManager+Microphone.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75811F3E2F7900D5A917 /* BRCDDeviceManager+Microphone.m */; };
 		276E75851F3E2FD600D5A917 /* BRCDDeviceManager+ProximitySensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75841F3E2FD600D5A917 /* BRCDDeviceManager+ProximitySensor.m */; };
-		276E75881F3E307200D5A917 /* BRChatBarMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75871F3E307200D5A917 /* BRChatBarMoreView.m */; };
 		276E758B1F3E321100D5A917 /* BRChatToolbarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E758A1F3E321100D5A917 /* BRChatToolbarItem.m */; };
 		276E758E1F3E35BD00D5A917 /* BRSDKHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E758D1F3E35BD00D5A917 /* BRSDKHelper.m */; };
 		276E75901F3E390100D5A917 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E758F1F3E390100D5A917 /* UserNotifications.framework */; };
@@ -58,6 +57,9 @@
 		276E75B31F4379CD00D5A917 /* BRMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75B21F4379CD00D5A917 /* BRMedia.m */; };
 		276E75B71F43A44300D5A917 /* BRMediaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75B51F43A44300D5A917 /* BRMediaCell.m */; };
 		276E75D61F45F10C00D5A917 /* BRMediaBrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 276E75D51F45F10C00D5A917 /* BRMediaBrowserViewController.xib */; };
+		278CD9451F506FB6008D6BD1 /* BRChatBarMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 278CD9441F506FB6008D6BD1 /* BRChatBarMoreView.m */; };
+		278CD9491F507462008D6BD1 /* BRChatBarMoreViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 278CD9471F507462008D6BD1 /* BRChatBarMoreViewCell.m */; };
+		278CD94A1F507462008D6BD1 /* BRChatBarMoreViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 278CD9481F507462008D6BD1 /* BRChatBarMoreViewCell.xib */; };
 		27CA03B11F38F21600D0F132 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CA03B01F38F21600D0F132 /* main.m */; };
 		27CA03BC1F38F21600D0F132 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27CA03BB1F38F21600D0F132 /* Assets.xcassets */; };
 		27CA03CA1F38F21600D0F132 /* LinCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CA03C91F38F21600D0F132 /* LinCTests.m */; };
@@ -210,8 +212,6 @@
 		276E75811F3E2F7900D5A917 /* BRCDDeviceManager+Microphone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BRCDDeviceManager+Microphone.m"; sourceTree = "<group>"; };
 		276E75831F3E2FD600D5A917 /* BRCDDeviceManager+ProximitySensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BRCDDeviceManager+ProximitySensor.h"; sourceTree = "<group>"; };
 		276E75841F3E2FD600D5A917 /* BRCDDeviceManager+ProximitySensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BRCDDeviceManager+ProximitySensor.m"; sourceTree = "<group>"; };
-		276E75861F3E307200D5A917 /* BRChatBarMoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRChatBarMoreView.h; sourceTree = "<group>"; };
-		276E75871F3E307200D5A917 /* BRChatBarMoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRChatBarMoreView.m; sourceTree = "<group>"; };
 		276E75891F3E321100D5A917 /* BRChatToolbarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRChatToolbarItem.h; sourceTree = "<group>"; };
 		276E758A1F3E321100D5A917 /* BRChatToolbarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRChatToolbarItem.m; sourceTree = "<group>"; };
 		276E758C1F3E35BD00D5A917 /* BRSDKHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRSDKHelper.h; sourceTree = "<group>"; };
@@ -237,6 +237,11 @@
 		276E75B41F43A44300D5A917 /* BRMediaCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRMediaCell.h; sourceTree = "<group>"; };
 		276E75B51F43A44300D5A917 /* BRMediaCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRMediaCell.m; sourceTree = "<group>"; };
 		276E75D51F45F10C00D5A917 /* BRMediaBrowserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRMediaBrowserViewController.xib; sourceTree = "<group>"; };
+		278CD9431F506FB6008D6BD1 /* BRChatBarMoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRChatBarMoreView.h; sourceTree = "<group>"; };
+		278CD9441F506FB6008D6BD1 /* BRChatBarMoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRChatBarMoreView.m; sourceTree = "<group>"; };
+		278CD9461F507462008D6BD1 /* BRChatBarMoreViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRChatBarMoreViewCell.h; sourceTree = "<group>"; };
+		278CD9471F507462008D6BD1 /* BRChatBarMoreViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRChatBarMoreViewCell.m; sourceTree = "<group>"; };
+		278CD9481F507462008D6BD1 /* BRChatBarMoreViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRChatBarMoreViewCell.xib; sourceTree = "<group>"; };
 		27CA03AC1F38F21600D0F132 /* LinC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LinC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27CA03B01F38F21600D0F132 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		27CA03BB1F38F21600D0F132 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -470,8 +475,11 @@
 				276E75571F3E22DB00D5A917 /* BRTextView.m */,
 				276E75591F3E253200D5A917 /* BRRecordView.h */,
 				276E755A1F3E253200D5A917 /* BRRecordView.m */,
-				276E75861F3E307200D5A917 /* BRChatBarMoreView.h */,
-				276E75871F3E307200D5A917 /* BRChatBarMoreView.m */,
+				278CD9431F506FB6008D6BD1 /* BRChatBarMoreView.h */,
+				278CD9441F506FB6008D6BD1 /* BRChatBarMoreView.m */,
+				278CD9461F507462008D6BD1 /* BRChatBarMoreViewCell.h */,
+				278CD9471F507462008D6BD1 /* BRChatBarMoreViewCell.m */,
+				278CD9481F507462008D6BD1 /* BRChatBarMoreViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -918,7 +926,7 @@
 				TargetAttributes = {
 					27CA03AB1F38F21600D0F132 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = E259J6P932;
+						DevelopmentTeam = AEKJ6LE54T;
 						ProvisioningStyle = Automatic;
 					};
 					27CA03C41F38F21600D0F132 = {
@@ -961,6 +969,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E90A1D021F42AA85001033CB /* BRWhatsUpViewController.xib in Resources */,
+				278CD94A1F507462008D6BD1 /* BRChatBarMoreViewCell.xib in Resources */,
 				27E9A2431F3B8BFA001937A0 /* Main.storyboard in Resources */,
 				E90A1CFD1F42AA85001033CB /* BRUserImageViewController.xib in Resources */,
 				E932C52E1F4B67AE0045AB60 /* BRLocationCitiListTableViewController.xib in Resources */,
@@ -1076,6 +1085,7 @@
 				276E75931F3E40FF00D5A917 /* BRLocationViewController.m in Sources */,
 				E95841981F4B337A00B3693F /* BRUserAccountSetUpViewController.m in Sources */,
 				276E751A1F3BA02200D5A917 /* BREmojiEmoticons.m in Sources */,
+				278CD9451F506FB6008D6BD1 /* BRChatBarMoreView.m in Sources */,
 				276E75551F3E090D00D5A917 /* BRFaceView.m in Sources */,
 				27E9A2351F3B84F4001937A0 /* UIView+Extension.m in Sources */,
 				276E758E1F3E35BD00D5A917 /* BRSDKHelper.m in Sources */,
@@ -1114,7 +1124,6 @@
 				276E75281F3CDC3C00D5A917 /* BRBubbleView.m in Sources */,
 				27E9A2321F3B84F4001937A0 /* NSDate+Category.m in Sources */,
 				276E75821F3E2F7900D5A917 /* BRCDDeviceManager+Microphone.m in Sources */,
-				276E75881F3E307200D5A917 /* BRChatBarMoreView.m in Sources */,
 				27E9A23E1F3B8BE3001937A0 /* AppDelegate.m in Sources */,
 				27CA03B11F38F21600D0F132 /* main.m in Sources */,
 				27E9A22E1F3B84F4001937A0 /* BRConversationListViewController.m in Sources */,
@@ -1129,6 +1138,7 @@
 				276E752F1F3CDF0500D5A917 /* BRBubbleView+Image.m in Sources */,
 				276E75A81F4227AD00D5A917 /* Common.m in Sources */,
 				276E75791F3E2D7600D5A917 /* wav.mm in Sources */,
+				278CD9491F507462008D6BD1 /* BRChatBarMoreViewCell.m in Sources */,
 				276E75681F3E2A2E00D5A917 /* BRAudioPlayerUtil.m in Sources */,
 				27E9A2361F3B84F4001937A0 /* BRNavigationController.m in Sources */,
 				276E75B71F43A44300D5A917 /* BRMediaCell.m in Sources */,
@@ -1265,7 +1275,7 @@
 			baseConfigurationReference = 7C9BD64024967E79CE634497 /* Pods-LinC.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = E259J6P932;
+				DEVELOPMENT_TEAM = AEKJ6LE54T;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/LinC/Class/Other/LinC.pch";
 				INFOPLIST_FILE = LinC/Info.plist;
@@ -1285,7 +1295,7 @@
 			baseConfigurationReference = 94F6AAD2F8CDC6DB43F6386A /* Pods-LinC.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = E259J6P932;
+				DEVELOPMENT_TEAM = AEKJ6LE54T;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/LinC/Class/Other/LinC.pch";
 				INFOPLIST_FILE = LinC/Info.plist;

@@ -2,7 +2,7 @@
 //  BRChatBarMoreView.h
 //  LinC
 //
-//  Created by Yingwei Fan on 8/11/17.
+//  Created by Yingwei Fan on 8/25/17.
 //  Copyright © 2017 BeyondRemarkable. All rights reserved.
 //
 
@@ -21,40 +21,9 @@ typedef enum{
 @property (nonatomic) UIColor *moreViewBackgroundColor UI_APPEARANCE_SELECTOR;  //moreview背景颜色,default whiteColor
 
 /*
- 
+ 初始化方法
  */
 - (instancetype)initWithFrame:(CGRect)frame type:(BRChatToolbarType)type;
-
-/*!
- @method
- @brief 新增一个新的功能按钮
- @param image 按钮图片
- @param highLightedImage 高亮图片
- @param title 按钮标题
- */
-- (void)insertItemWithImage:(UIImage*)image
-           highlightedImage:(UIImage*)highLightedImage
-                      title:(NSString*)title;
-
-/*!
- @method
- @brief 修改功能按钮图片
- @param image 按钮图片
- @param highLightedImage 高亮图片
- @param title 按钮标题
- @param index 按钮索引
- */
-- (void)updateItemWithImage:(UIImage*)image
-           highlightedImage:(UIImage*)highLightedImage
-                      title:(NSString*)title
-                    atIndex:(NSInteger)index;
-
-/*!
- @method
- @brief 根据索引删除功能按钮
- @param index 按钮索引
- */
-- (void)removeItematIndex:(NSInteger)index;
 
 @end
 
