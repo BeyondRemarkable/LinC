@@ -13,8 +13,13 @@
 #import "NSDate+Category.h"
 #import "BREmotionEscape.h"
 #import "BRConvertToCommonEmoticonsHelper.h"
+#import "BRDropDownViewController.h"
+#import "BRScannerViewController.h"
 
 @interface BRConversationListViewController ()
+
+@property (nonatomic, strong) UIBarButtonItem *rightItem;
+@property (nonatomic, strong) BRDropDownViewController *dropDownVC;
 
 @end
 
@@ -38,6 +43,79 @@
     self.view.backgroundColor = [UIColor whiteColor];
     [self.tableView registerNib:[UINib nibWithNibName:@"BRConversationCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:[BRConversationCell cellIdentifierWithModel:nil]];
     [self tableViewDidTriggerHeaderRefresh];
+    [self setUpNavigationBar];
+    
+}
+
+- (void)setUpNavigationBar {
+    self.rightItem = [[UIBarButtonItem alloc] initWithTitle:@"Add" style:UIBarButtonItemStylePlain target:self action: @selector(dropdownMenu)];
+    self.navigationItem.rightBarButtonItem = self.rightItem;
+}
+
+- (void)chatBtnTapped:(UIButton *)sender {
+}
+
+- (void)scanQRCodeBtnTapped:(UIButton *)sender {
+    BRScannerViewController *vc = [[BRScannerViewController alloc] initWithNibName:@"BRScannerViewController" bundle:nil];
+    [self.dropDownVC.view removeFromSuperview];
+    self.dropDownVC = nil;
+    [self presentViewController:vc animated:YES completion:nil];
+    
+}
+
+- (void)dropdownMenu {
+    self.rightItem.enabled = NO;
+    if (!self.dropDownVC) {
+        self.dropDownVC = [[BRDropDownViewController alloc] initWithNibName:@"BRDropDownViewController" bundle:nil];
+        
+        UIView *dropDownMenuView = self.dropDownVC.view;
+        
+        [self.dropDownVC.chatButton addTarget:self action:@selector(chatBtnTapped:) forControlEvents:UIControlEventTouchUpInside];
+        [self.dropDownVC.scanQRCodeButton addTarget:self action:@selector(scanQRCodeBtnTapped:) forControlEvents:UIControlEventTouchUpInside];
+        
+        // Set up drop down menu frame
+        CGFloat viewX = 0;
+        CGFloat viewY = self.navigationController.navigationBar.frame.size.height + [[UIApplication sharedApplication] statusBarFrame].size.height;
+        CGFloat viewWidth = self.view.bounds.size.width;
+        CGFloat viewHeigh = self.view.bounds.size.height;
+        [self.view addSubview: dropDownMenuView];
+        [self addChildViewController:self.dropDownVC];
+        [self.dropDownVC didMoveToParentViewController:self];
+        [UIView animateWithDuration:0.15 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            dropDownMenuView.frame = CGRectMake(viewX, viewY, viewWidth, viewHeigh);
+        } completion:^(BOOL finished) {
+            self.rightItem.enabled = YES;
+        }];
+    } else {
+        UIView *view = self.dropDownVC.view;
+        [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            view.frame = CGRectMake(0, -view.frame.size.height, view.frame.size.width, view.frame.size.height);
+        } completion:^(BOOL finished) {
+            [view removeFromSuperview];
+            [self.dropDownVC removeFromParentViewController];
+            self.dropDownVC = nil;
+            self.rightItem.enabled = YES;
+        }];
+        
+    }
+}
+
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    if (self.dropDownVC) {
+        UIView *view = self.dropDownVC.view;
+        [UIView animateWithDuration:1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            view.frame = CGRectMake(0, -view.frame.size.height, view.frame.size.width, view.frame.size.height);
+        } completion:^(BOOL finished) {
+            [self.dropDownVC.view removeFromSuperview];
+            [self.dropDownVC removeFromParentViewController];
+            self.dropDownVC = nil;
+        }];
+    }
+}
+
+- (void)AddDropdownMenu {
+    
 }
 
 #pragma mark - Table view data source

@@ -10,6 +10,7 @@
 #import "BRContactListTableViewCell.h"
 #import "BRFriendInfoViewController.h"
 #import "IUserModel.h"
+#import "BRAddingFriendViewController.h"
 #import <MJRefresh.h>
 
 
@@ -42,6 +43,8 @@ static NSString * const cellIdentifier = @"ContactListCell";
     // Do any additional setup after loading the view.
     
     [self setUpTableView];
+    [self setUpNavigationBarItem];
+    
 
 }
 
@@ -78,6 +81,24 @@ static NSString * const cellIdentifier = @"ContactListCell";
     self.storedListArray = @[@"New Friend", @"Group"];
 }
 
+#pragma mark 
+
+- (void)setUpNavigationBarItem {
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"Add" style:UIBarButtonItemStylePlain target:self action: @selector(addNewFriend)];
+    self.navigationItem.rightBarButtonItem = rightItem;
+}
+
+-(void)addNewFriend {
+//    BRAddingContentView *cView = [[[NSBundle mainBundle] loadNibNamed:@"BRAddingContentView" owner:self options:nil] firstObject];
+//    cView.frame = CGRectMake(50, 50, 200, 200);
+//    cView.backgroundColor = [UIColor redColor];
+//    [self.view addSubview: cView];
+    
+    BRAddingFriendViewController *vc = [[BRAddingFriendViewController alloc] initWithNibName:@"BRAddingFriendViewController" bundle:nil];
+    
+    [self.navigationController pushViewController:vc animated:YES];
+    
+}
 
 #pragma mark UITableViewDataSource
 

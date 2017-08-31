@@ -1,4 +1,19 @@
 PODS:
+  - AFNetworking (3.1.0):
+    - AFNetworking/NSURLSession (= 3.1.0)
+    - AFNetworking/Reachability (= 3.1.0)
+    - AFNetworking/Security (= 3.1.0)
+    - AFNetworking/Serialization (= 3.1.0)
+    - AFNetworking/UIKit (= 3.1.0)
+  - AFNetworking/NSURLSession (3.1.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.1.0)
+  - AFNetworking/Security (3.1.0)
+  - AFNetworking/Serialization (3.1.0)
+  - AFNetworking/UIKit (3.1.0):
+    - AFNetworking/NSURLSession
   - Hyphenate (3.3.4)
   - MBProgressHUD (1.0.0)
   - MJRefresh (3.1.12)
@@ -7,17 +22,19 @@ PODS:
   - SDWebImage/Core (4.1.0)
 
 DEPENDENCIES:
+  - AFNetworking (~> 3.0)
   - Hyphenate
   - MBProgressHUD
   - MJRefresh
   - SDWebImage
 
 SPEC CHECKSUMS:
+  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   Hyphenate: abb94c0f7d247c432e9473a2592afc2b5132e52a
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
   SDWebImage: 0e435c14e402a6730315a0fb79f95e68654d55a4
 
-PODFILE CHECKSUM: 561488f8edd46181db1fa4fd59c0ee962e3e036e
+PODFILE CHECKSUM: bdb12a42833343a7164b0319449c101b804b1501
 
 COCOAPODS: 1.3.1

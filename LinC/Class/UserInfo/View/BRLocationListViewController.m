@@ -24,7 +24,6 @@ static NSString * const cellIdentifier = @"LocationListCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;

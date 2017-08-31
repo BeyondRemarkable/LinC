@@ -15,6 +15,7 @@
 #import "BRLocationCitiListTableViewController.h"
 #import "BRWhatsUpViewController.h"
 #import "BRUserSettingTableViewController.h"
+#import "BRQRCodeViewController.h"
 
 
 @interface BRUserInfoViewController ()<UITableViewDelegate, UITableViewDataSource, sendGenderProtocol, sendUserNameProtocol, sendWhatUpProtocol>
@@ -106,6 +107,13 @@ typedef enum NSUInteger {
             } else {
                 vc.isMale = false;
             }
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+        
+        if (indexPath.row == UserQRCodeCell) {
+            BRQRCodeViewController *vc = [[BRQRCodeViewController alloc] initWithNibName:@"BRQRCodeViewController" bundle:nil];
+            
+            vc.accountId = @"xjfklsdjfkladsjfe@gmail.com";
             [self.navigationController pushViewController:vc animated:YES];
         }
         
