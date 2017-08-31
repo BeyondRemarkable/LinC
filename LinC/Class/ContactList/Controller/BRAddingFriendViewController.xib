@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BRAddingFriendViewController">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CYW-vN-WkR">
+                    <rect key="frame" x="0.0" y="140" width="375" height="120"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add new friend" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cec-eR-rVj">
+                            <rect key="frame" x="10" y="0.0" width="116" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UaD-sm-xYI">
+                            <rect key="frame" x="10" y="41" width="265" height="30"/>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pxT-fB-JAL">
+                            <rect key="frame" x="10" y="91" width="153" height="30"/>
+                            <state key="normal" title="Scan friend's QR code"/>
+                            <connections>
+                                <action selector="scanQRCodeBtn" destination="-1" eventType="touchUpInside" id="XMK-co-nr1"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="cec-eR-rVj" firstAttribute="top" secondItem="CYW-vN-WkR" secondAttribute="top" id="0BL-UT-jTd"/>
+                        <constraint firstItem="UaD-sm-xYI" firstAttribute="top" secondItem="cec-eR-rVj" secondAttribute="bottom" constant="20" id="BzS-za-zEf"/>
+                        <constraint firstItem="pxT-fB-JAL" firstAttribute="leading" secondItem="cec-eR-rVj" secondAttribute="leading" id="VXm-MM-nZf"/>
+                        <constraint firstItem="UaD-sm-xYI" firstAttribute="leading" secondItem="cec-eR-rVj" secondAttribute="leading" id="VmC-eD-MS4"/>
+                        <constraint firstAttribute="height" constant="120" id="gpq-cM-EwV"/>
+                        <constraint firstItem="pxT-fB-JAL" firstAttribute="top" secondItem="UaD-sm-xYI" secondAttribute="bottom" constant="20" id="jlf-Zi-cUf"/>
+                        <constraint firstAttribute="trailing" secondItem="UaD-sm-xYI" secondAttribute="trailing" constant="100" id="rNx-r4-B0S"/>
+                        <constraint firstItem="cec-eR-rVj" firstAttribute="leading" secondItem="CYW-vN-WkR" secondAttribute="leading" constant="10" id="tkk-mX-n50"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="CYW-vN-WkR" secondAttribute="trailing" id="fDB-3l-LtW"/>
+                <constraint firstItem="CYW-vN-WkR" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="nQB-nJ-HFj"/>
+                <constraint firstItem="CYW-vN-WkR" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" multiplier="0.6" id="uxV-dm-s49"/>
+            </constraints>
+            <point key="canvasLocation" x="33.5" y="53.5"/>
+        </view>
+    </objects>
+</document>
