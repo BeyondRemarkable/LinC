@@ -60,8 +60,8 @@
 		278CD9451F506FB6008D6BD1 /* BRChatBarMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 278CD9441F506FB6008D6BD1 /* BRChatBarMoreView.m */; };
 		278CD9491F507462008D6BD1 /* BRChatBarMoreViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 278CD9471F507462008D6BD1 /* BRChatBarMoreViewCell.m */; };
 		278CD94A1F507462008D6BD1 /* BRChatBarMoreViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 278CD9481F507462008D6BD1 /* BRChatBarMoreViewCell.xib */; };
+		278CD94C1F549192008D6BD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 278CD94B1F549192008D6BD1 /* Assets.xcassets */; };
 		27CA03B11F38F21600D0F132 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CA03B01F38F21600D0F132 /* main.m */; };
-		27CA03BC1F38F21600D0F132 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27CA03BB1F38F21600D0F132 /* Assets.xcassets */; };
 		27CA03CA1F38F21600D0F132 /* LinCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CA03C91F38F21600D0F132 /* LinCTests.m */; };
 		27CA03D51F38F21600D0F132 /* LinCUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CA03D41F38F21600D0F132 /* LinCUITests.m */; };
 		27E9A22E1F3B84F4001937A0 /* BRConversationListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E9A2141F3B84F4001937A0 /* BRConversationListViewController.m */; };
@@ -242,9 +242,10 @@
 		278CD9461F507462008D6BD1 /* BRChatBarMoreViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRChatBarMoreViewCell.h; sourceTree = "<group>"; };
 		278CD9471F507462008D6BD1 /* BRChatBarMoreViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRChatBarMoreViewCell.m; sourceTree = "<group>"; };
 		278CD9481F507462008D6BD1 /* BRChatBarMoreViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRChatBarMoreViewCell.xib; sourceTree = "<group>"; };
+		278CD94B1F549192008D6BD1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		278CD94D1F549AB7008D6BD1 /* in.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = in.caf; sourceTree = "<group>"; };
 		27CA03AC1F38F21600D0F132 /* LinC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LinC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27CA03B01F38F21600D0F132 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		27CA03BB1F38F21600D0F132 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		27CA03C01F38F21600D0F132 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		27CA03C51F38F21600D0F132 /* LinCTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LinCTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		27CA03C91F38F21600D0F132 /* LinCTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LinCTests.m; sourceTree = "<group>"; };
@@ -585,8 +586,9 @@
 		27CA03AF1F38F21600D0F132 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				278CD94D1F549AB7008D6BD1 /* in.caf */,
+				278CD94B1F549192008D6BD1 /* Assets.xcassets */,
 				27CA03C01F38F21600D0F132 /* Info.plist */,
-				27CA03BB1F38F21600D0F132 /* Assets.xcassets */,
 				27CA03B01F38F21600D0F132 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -971,9 +973,9 @@
 				E90A1D021F42AA85001033CB /* BRWhatsUpViewController.xib in Resources */,
 				278CD94A1F507462008D6BD1 /* BRChatBarMoreViewCell.xib in Resources */,
 				27E9A2431F3B8BFA001937A0 /* Main.storyboard in Resources */,
+				278CD94C1F549192008D6BD1 /* Assets.xcassets in Resources */,
 				E90A1CFD1F42AA85001033CB /* BRUserImageViewController.xib in Resources */,
 				E932C52E1F4B67AE0045AB60 /* BRLocationCitiListTableViewController.xib in Resources */,
-				27CA03BC1F38F21600D0F132 /* Assets.xcassets in Resources */,
 				276E751F1F3BB48D00D5A917 /* BRConversationCell.xib in Resources */,
 				E90A1CFB1F42AA85001033CB /* BRUserGenderViewController.xib in Resources */,
 				E910E7351F4DDC2D00F5C9BC /* BRPasswordViewController.xib in Resources */,

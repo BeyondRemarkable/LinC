@@ -15,8 +15,6 @@
 @interface BRChatToolbar () <UITextViewDelegate, BRFaceDelegate>
 
 @property (nonatomic) CGFloat version;
-@property (strong, nonatomic) NSMutableArray *leftItems;
-@property (strong, nonatomic) NSMutableArray *rightItems;
 @property (strong, nonatomic) UIImageView *toolbarBackgroundImageView;
 @property (strong, nonatomic) UIImageView *backgroundImageView;
 @property (nonatomic) BOOL isShowButtomView;
@@ -78,8 +76,6 @@
         _inputViewMaxHeight = inputViewMaxHeight;
         _chatBarType = type;
         
-        _leftItems = [NSMutableArray array];
-        _rightItems = [NSMutableArray array];
         _version = [[[UIDevice currentDevice] systemVersion] floatValue];
         _activityButtomView = nil;
         _isShowButtomView = NO;
@@ -103,7 +99,7 @@
     _backgroundImageView = [[UIImageView alloc] initWithFrame:self.bounds];
     _backgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     _backgroundImageView.backgroundColor = [UIColor clearColor];
-    _backgroundImageView.image = [[UIImage imageNamed:@"EaseUIResource.bundle/messageToolbarBg"] stretchableImageWithLeftCapWidth:0.5 topCapHeight:10];
+    _backgroundImageView.image = [[UIImage imageNamed:@"message_toolbarBg"] stretchableImageWithLeftCapWidth:0.5 topCapHeight:10];
     [self addSubview:_backgroundImageView];
     
     //toolbar
@@ -135,8 +131,9 @@
     UIButton *styleChangeButton = [[UIButton alloc] init];
     styleChangeButton.accessibilityIdentifier = @"style";
     styleChangeButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    [styleChangeButton setImage:[UIImage imageNamed:@"EaseUIResource.bundle/chatBar_record"] forState:UIControlStateNormal];
-    [styleChangeButton setImage:[UIImage imageNamed:@"EaseUIResource.bundle/chatBar_keyboard"] forState:UIControlStateSelected];
+    [styleChangeButton setImage:[UIImage imageNamed:@"chatbar_record"] forState:UIControlStateNormal];
+    [styleChangeButton setImage:[UIImage imageNamed:@"chatbar_record_highlighted"] forState:UIControlStateHighlighted];
+    [styleChangeButton setImage:[UIImage imageNamed:@"chatbar_keyboard"] forState:UIControlStateSelected];
     [styleChangeButton addTarget:self action:@selector(styleButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     
     BRChatToolbarItem *styleItem = [[BRChatToolbarItem alloc] initWithButton:styleChangeButton withView:nil];
@@ -164,9 +161,9 @@
     self.faceButton = [[UIButton alloc] init];
     self.faceButton.accessibilityIdentifier = @"face";
     self.faceButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    [self.faceButton setImage:[UIImage imageNamed:@"EaseUIResource.bundle/chatBar_face"] forState:UIControlStateNormal];
-    [self.faceButton setImage:[UIImage imageNamed:@"EaseUIResource.bundle/chatBar_faceSelected"] forState:UIControlStateHighlighted];
-    [self.faceButton setImage:[UIImage imageNamed:@"EaseUIResource.bundle/chatBar_keyboard"] forState:UIControlStateSelected];
+    [self.faceButton setImage:[UIImage imageNamed:@"chatbar_emoji"] forState:UIControlStateNormal];
+    [self.faceButton setImage:[UIImage imageNamed:@"chatbar_emoji_highlighted"] forState:UIControlStateHighlighted];
+    [self.faceButton setImage:[UIImage imageNamed:@"chatbar_keyboard"] forState:UIControlStateSelected];
     [self.faceButton addTarget:self action:@selector(faceButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     BRChatToolbarItem *faceItem = [[BRChatToolbarItem alloc] initWithButton:self.faceButton withView:self.faceView];
     
@@ -174,9 +171,9 @@
     self.moreButton = [[UIButton alloc] init];
     self.moreButton.accessibilityIdentifier = @"more";
     self.moreButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    [self.moreButton setImage:[UIImage imageNamed:@"EaseUIResource.bundle/chatBar_more"] forState:UIControlStateNormal];
-    [self.moreButton setImage:[UIImage imageNamed:@"EaseUIResource.bundle/chatBar_moreSelected"] forState:UIControlStateHighlighted];
-    [self.moreButton setImage:[UIImage imageNamed:@"EaseUIResource.bundle/chatBar_keyboard"] forState:UIControlStateSelected];
+    [self.moreButton setImage:[UIImage imageNamed:@"chatbar_more"] forState:UIControlStateNormal];
+    [self.moreButton setImage:[UIImage imageNamed:@"chatBar_more_highlighted"] forState:UIControlStateHighlighted];
+    [self.moreButton setImage:[UIImage imageNamed:@"chatbar_keyboard"] forState:UIControlStateSelected];
     [self.moreButton addTarget:self action:@selector(moreButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     BRChatToolbarItem *moreItem = [[BRChatToolbarItem alloc] initWithButton:self.moreButton withView:self.moreView];
     
@@ -247,13 +244,6 @@
 {
     if (_moreView != moreView) {
         _moreView = moreView;
-        
-        for (BRChatToolbarItem *item in self.rightItems) {
-            if (item.button == self.moreButton) {
-                item.button2View = _moreView;
-                break;
-            }
-        }
     }
 }
 
@@ -261,19 +251,7 @@
 {
     if (_faceView != faceView) {
         _faceView = faceView;
-        
-        for (BRChatToolbarItem *item in self.rightItems) {
-            if (item.button == self.faceButton) {
-                item.button2View = _faceView;
-                break;
-            }
-        }
     }
-}
-
-- (NSArray*)inputViewLeftItems
-{
-    return self.leftItems;
 }
 
 /*!
@@ -283,37 +261,14 @@
  */
 - (void)setInputViewLeftItems:(NSArray *)inputViewLeftItems
 {
-    for (BRChatToolbarItem *item in self.leftItems) {
-        [item.button removeFromSuperview];
-        [item.button2View removeFromSuperview];
-    }
-    [self.leftItems removeAllObjects];
-    
     CGFloat oX = self.horizontalPadding;
     CGFloat itemHeight = self.toolbarView.frame.size.height - self.verticalPadding * 2;
-    for (id item in inputViewLeftItems) {
-        if ([item isKindOfClass:[BRChatToolbarItem class]]) {
-            BRChatToolbarItem *chatItem = (BRChatToolbarItem *)item;
-            if (chatItem.button) {
-                CGRect itemFrame = chatItem.button.frame;
-                if (itemFrame.size.height == 0) {
-                    itemFrame.size.height = itemHeight;
-                }
-                
-                if (itemFrame.size.width == 0) {
-                    itemFrame.size.width = itemFrame.size.height;
-                }
-                
-                itemFrame.origin.x = oX;
-                itemFrame.origin.y = (self.toolbarView.frame.size.height - itemFrame.size.height) / 2;
-                chatItem.button.frame = itemFrame;
-                oX += (itemFrame.size.width + self.horizontalPadding);
-                
-                [self.toolbarView addSubview:chatItem.button];
-                [self.leftItems addObject:chatItem];
-            }
-        }
-    }
+    CGFloat itemWidth = itemHeight;
+    CGFloat oY = (self.toolbarView.frame.size.height - itemHeight) / 2.0;
+    self.recordButton.frame = CGRectMake(oX, oY, itemWidth, itemHeight);
+    [self.toolbarView addSubview:self.recordButton];
+    
+    oX += (itemWidth + self.horizontalPadding);
     
     CGRect inputFrame = self.inputTextView.frame;
     CGFloat value = inputFrame.origin.x - oX;
@@ -327,11 +282,6 @@
     self.recordButton.frame = recordFrame;
 }
 
-- (NSArray*)inputViewRightItems
-{
-    return self.rightItems;
-}
-
 /*!
  @method
  @brief 设置toolBar右侧菜单选项
@@ -339,41 +289,16 @@
  */
 - (void)setInputViewRightItems:(NSArray *)inputViewRightItems
 {
-    for (BRChatToolbarItem *item in self.rightItems) {
-        [item.button removeFromSuperview];
-        [item.button2View removeFromSuperview];
-    }
-    [self.rightItems removeAllObjects];
-    
-    CGFloat oMaxX = self.toolbarView.frame.size.width - self.horizontalPadding;
     CGFloat itemHeight = self.toolbarView.frame.size.height - self.verticalPadding * 2;
-    if ([inputViewRightItems count] > 0) {
-        for (NSInteger i = (inputViewRightItems.count - 1); i >= 0; i--) {
-            id item = [inputViewRightItems objectAtIndex:i];
-            if ([item isKindOfClass:[BRChatToolbarItem class]]) {
-                BRChatToolbarItem *chatItem = (BRChatToolbarItem *)item;
-                if (chatItem.button) {
-                    CGRect itemFrame = chatItem.button.frame;
-                    if (itemFrame.size.height == 0) {
-                        itemFrame.size.height = itemHeight;
-                    }
-                    
-                    if (itemFrame.size.width == 0) {
-                        itemFrame.size.width = itemFrame.size.height;
-                    }
-                    
-                    oMaxX -= itemFrame.size.width;
-                    itemFrame.origin.x = oMaxX;
-                    itemFrame.origin.y = (self.toolbarView.frame.size.height - itemFrame.size.height) / 2;
-                    chatItem.button.frame = itemFrame;
-                    oMaxX -= self.horizontalPadding;
-                    
-                    [self.toolbarView addSubview:chatItem.button];
-                    [self.rightItems addObject:item];
-                }
-            }
-        }
-    }
+    CGFloat itemWidth = itemHeight;
+    CGFloat oMaxX = self.toolbarView.frame.size.width - self.horizontalPadding - itemWidth;
+    CGFloat oY = (self.toolbarView.frame.size.height - itemHeight) / 2.0;
+    self.moreButton.frame = CGRectMake(oMaxX, oY, itemWidth, itemHeight);
+    [self.toolbarView addSubview:self.moreButton];
+    
+    oMaxX -= self.horizontalPadding;
+    self.faceButton.frame = CGRectMake(oMaxX, oY, itemWidth, itemHeight);
+    [self.toolbarView addSubview:self.faceButton];
     
     CGRect inputFrame = self.inputTextView.frame;
     CGFloat value = oMaxX - CGRectGetMaxX(inputFrame);
@@ -529,13 +454,12 @@
         [self.delegate inputTextViewWillBeginEditing:self.inputTextView];
     }
     
-    for (BRChatToolbarItem *item in self.leftItems) {
-        item.button.selected = NO;
-    }
-    
-    for (BRChatToolbarItem *item in self.rightItems) {
-        item.button.selected = NO;
-    }
+    self.recordButton.selected = NO;
+    [self.recordButton setImage:[UIImage imageNamed:@"chatbar_record_highlighted"] forState:UIControlStateHighlighted];
+    self.faceButton.selected = NO;
+    [self.faceButton setImage:[UIImage imageNamed:@"chatbar_emoji_highlighted"] forState:UIControlStateHighlighted];
+    self.moreButton.selected = NO;
+    [self.moreButton setImage:[UIImage imageNamed:@"chatbar_more_highlighted"] forState:UIControlStateHighlighted];
     
     return YES;
 }
@@ -717,15 +641,12 @@
     UIButton *button = (UIButton *)sender;
     button.selected = !button.selected;
     if (button.selected) {
-        for (BRChatToolbarItem *item in self.rightItems) {
-            item.button.selected = NO;
-        }
+        [button setImage:[UIImage imageNamed:@"chatbar_keyboard_highlighted"] forState:UIControlStateHighlighted];
         
-        for (BRChatToolbarItem *item in self.leftItems) {
-            if (item.button != button) {
-                item.button.selected = NO;
-            }
-        }
+        self.faceButton.selected = NO;
+        [self.faceButton setImage:[UIImage imageNamed:@"chatbar_emoji_highlighted"] forState:UIControlStateHighlighted];
+        self.moreButton.selected = NO;
+        [self.moreButton setImage:[UIImage imageNamed:@"chatbar_more_highlighted"] forState:UIControlStateHighlighted];
         
         [self _willShowBottomView:nil];
         
@@ -748,24 +669,22 @@
     UIButton *button = (UIButton *)sender;
     button.selected = !button.selected;
     
-    BRChatToolbarItem *faceItem = nil;
-    for (BRChatToolbarItem *item in self.rightItems) {
-        if (item.button == button){
-            faceItem = item;
-            continue;
-        }
-        
-        item.button.selected = NO;
-    }
-    
-    for (BRChatToolbarItem *item in self.leftItems) {
-        item.button.selected = NO;
-    }
-    
     if (button.selected) {
         [self.inputTextView resignFirstResponder];
         
-        [self _willShowBottomView:faceItem.button2View];
+        [button setImage:[UIImage imageNamed:@"chatbar_keyboard_highlighted"] forState:UIControlStateHighlighted];
+        
+        self.recordButton.selected = NO;
+        [self.recordButton setImage:[UIImage imageNamed:@"chatbar_record_highlighted"] forState:UIControlStateHighlighted];
+        self.moreButton.selected = NO;
+        [self.moreButton setImage:[UIImage imageNamed:@"chatbar_more_highlighted"] forState:UIControlStateHighlighted];
+        
+        self.recordButton.selected = NO;
+        [self.recordButton setImage:[UIImage imageNamed:@"chatbar_record_highlighted"] forState:UIControlStateHighlighted];
+        self.moreButton.selected = NO;
+        [self.moreButton setImage:[UIImage imageNamed:@"chatbar_more_highlighted"] forState:UIControlStateHighlighted];
+        
+        [self _willShowBottomView:self.faceView];
         [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             self.recordButton.hidden = button.selected;
             self.inputTextView.hidden = !button.selected;
@@ -782,24 +701,14 @@
     UIButton *button = (UIButton *)sender;
     button.selected = !button.selected;
     
-    BRChatToolbarItem *moreItem = nil;
-    for (BRChatToolbarItem *item in self.rightItems) {
-        if (item.button == button){
-            moreItem = item;
-            continue;
-        }
-        
-        item.button.selected = NO;
-    }
-    
-    for (BRChatToolbarItem *item in self.leftItems) {
-        item.button.selected = NO;
-    }
-    
     if (button.selected) {
         [self.inputTextView resignFirstResponder];
         
-        [self _willShowBottomView:moreItem.button2View];
+        [button setImage:[UIImage imageNamed:@"chatbar_keyboard_highlighted"] forState:UIControlStateHighlighted];
+        
+        
+        
+        [self _willShowBottomView:self.moreView];
         [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             self.recordButton.hidden = button.selected;
             self.inputTextView.hidden = !button.selected;
@@ -829,9 +738,9 @@
 - (void)recordButtonTouchUpInside
 {
     self.recordButton.enabled = NO;
-    if ([self.delegate respondsToSelector:@selector(didFinishRecoingVoiceAction:)])
+    if ([self.delegate respondsToSelector:@selector(didFinishRecordingVoiceAction:)])
     {
-        [self.delegate didFinishRecoingVoiceAction:self.recordView];
+        [self.delegate didFinishRecordingVoiceAction:self.recordView];
     }
     self.recordButton.enabled = YES;
 }
@@ -863,9 +772,13 @@
 {
     BOOL result = [super endEditing:force];
     
-    for (BRChatToolbarItem *item in self.rightItems) {
-        item.button.selected = NO;
-    }
+    self.recordButton.selected = NO;
+    [self.recordButton setImage:[UIImage imageNamed:@"chatbar_record_highlighted"] forState:UIControlStateHighlighted];
+    self.faceButton.selected = NO;
+    [self.faceButton setImage:[UIImage imageNamed:@"chatbar_emoji_highlighted"] forState:UIControlStateHighlighted];
+    self.moreButton.selected = NO;
+    [self.moreButton setImage:[UIImage imageNamed:@"chatbar_more_highlighted"] forState:UIControlStateHighlighted];
+    
     [self _willShowBottomView:nil];
     
     return result;

@@ -117,7 +117,7 @@ NSString *const BRMessageCellIdentifierSendFile = @"BRMessageCellSendFile";
     _statusButton.accessibilityIdentifier = @"status";
     _statusButton.translatesAutoresizingMaskIntoConstraints = NO;
     _statusButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    [_statusButton setImage:[UIImage imageNamed:@"EaseUIResource.bundle/messageSendFail"] forState:UIControlStateNormal];
+    [_statusButton setImage:[UIImage imageNamed:@"message_send_fail"] forState:UIControlStateNormal];
     [_statusButton addTarget:self action:@selector(statusAction) forControlEvents:UIControlEventTouchUpInside];
     _statusButton.hidden = YES;
     [self.contentView addSubview:_statusButton];
@@ -174,7 +174,7 @@ NSString *const BRMessageCellIdentifierSendFile = @"BRMessageCellSendFile";
             {
                 [_bubbleView setupLocationBubbleView];
                 
-                _bubbleView.locationImageView.image = [[UIImage imageNamed:@"EaseUIResource.bundle/chat_location_preview"] stretchableImageWithLeftCapWidth:10 topCapHeight:10];
+                _bubbleView.locationImageView.image = [[UIImage imageNamed:@"chat_location_preview"] stretchableImageWithLeftCapWidth:10 topCapHeight:10];
                 _bubbleView.locationLabel.font = _messageLocationFont;
                 _bubbleView.locationLabel.textColor = _messageLocationColor;
             }
@@ -191,7 +191,7 @@ NSString *const BRMessageCellIdentifierSendFile = @"BRMessageCellSendFile";
             {
                 [_bubbleView setupVideoBubbleView];
                 
-                _bubbleView.videoTagView.image = [UIImage imageNamed:@"EaseUIResource.bundle/messageVideo"];
+                _bubbleView.videoTagView.image = [UIImage imageNamed:@"message_video"];
             }
                 break;
             case EMMessageBodyTypeFile:
@@ -351,7 +351,7 @@ NSString *const BRMessageCellIdentifierSendFile = @"BRMessageCellSendFile";
                         self.bubbleView.voiceImageView.image = self.model.isSender ?[self.sendMessageVoiceAnimationImages objectAtIndex:0] : [self.recvMessageVoiceAnimationImages objectAtIndex:0];
                         _bubbleView.voiceImageView.animationImages = self.model.isSender ? self.sendMessageVoiceAnimationImages:self.recvMessageVoiceAnimationImages;
                     } else {
-                        self.bubbleView.voiceImageView.image = self.model.isSender ?[UIImage imageNamed:@"EaseUIResource.bundle/chat_sender_audio_playing_full"]: [UIImage imageNamed:@"EaseUIResource.bundle/chat_receiver_audio_playing_full"];
+                        self.bubbleView.voiceImageView.image = self.model.isSender ?[UIImage imageNamed:@"chat_sender_audio_playing_full"]: [UIImage imageNamed:@"chat_receiver_audio_playing_full"];
                     }
                 }
                 if (!self.model.isSender) {

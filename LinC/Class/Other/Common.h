@@ -20,7 +20,6 @@ extern NSString *const GroupNameChangeNotificationName;
 // 定义系统偏好的键值
 extern NSString *const kLoginUserNameKey;
 extern NSString *const kLoginPasswordKey;
-extern NSString *const kLoginEmailKey;
 extern NSString *const kLoginStatusKey;
 
 #endif /* Common_h */

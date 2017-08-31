@@ -150,7 +150,7 @@
 /*
  *  松开手指完成录音
  */
-- (void)didFinishRecoingVoiceAction:(UIView *)recordView;
+- (void)didFinishRecordingVoiceAction:(UIView *)recordView;
 
 /*
  *  当手指离开按钮的范围内时，主要为了通知外部的HUD

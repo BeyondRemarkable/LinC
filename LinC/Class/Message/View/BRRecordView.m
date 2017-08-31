@@ -41,7 +41,7 @@
         [self addSubview:bgView];
         
         _recordAnimationView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 0, self.bounds.size.width - 20, self.bounds.size.height - 30)];
-        _recordAnimationView.image = [UIImage imageNamed:@"EaseUIResource.bundle/VoiceSearchFeedback001"];
+        _recordAnimationView.image = [UIImage imageNamed:@"voice_feedback1"];
         _recordAnimationView.contentMode = UIViewContentModeScaleAspectFit;
         [self addSubview:_recordAnimationView];
         

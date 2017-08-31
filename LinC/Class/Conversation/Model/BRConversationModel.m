@@ -18,10 +18,10 @@
         _conversation = conversation;
         _title = _conversation.conversationId;
         if (conversation.type == EMConversationTypeChat) {
-            _avatarImage = [UIImage imageNamed:@"EaseUIResource.bundle/user"];
+            _avatarImage = [UIImage imageNamed:@"user_default"];
         }
         else{
-            _avatarImage = [UIImage imageNamed:@"EaseUIResource.bundle/group"];
+            _avatarImage = [UIImage imageNamed:@"group_default"];
         }
     }
     

@@ -19,8 +19,7 @@ void EMSystemSoundFinishedPlayingCallback(SystemSoundID sound_id, void* user_dat
 - (SystemSoundID)playNewMessageSound
 {
     // Path for the audio file
-    NSURL *bundlePath = [[NSBundle mainBundle] URLForResource:@"EaseUIResource" withExtension:@"bundle"];
-    NSURL *audioPath = [[NSBundle bundleWithURL:bundlePath] URLForResource:@"in" withExtension:@"caf"];
+    NSURL *audioPath = [[NSBundle mainBundle] URLForResource:@"in" withExtension:@"caf"];
     
     SystemSoundID soundID;
     AudioServicesCreateSystemSoundID((__bridge CFURLRef)(audioPath), &soundID);

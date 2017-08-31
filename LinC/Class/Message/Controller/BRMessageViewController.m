@@ -130,8 +130,8 @@ typedef enum : NSUInteger {
                                                  name:UIApplicationDidBecomeActiveNotification
                                                object:nil];
     
-    [[BRBaseMessageCell appearance] setSendBubbleBackgroundImage:[[UIImage imageNamed:@"EaseUIResource.bundle/chat_sender_bg"] stretchableImageWithLeftCapWidth:5 topCapHeight:35]];
-    [[BRBaseMessageCell appearance] setRecvBubbleBackgroundImage:[[UIImage imageNamed:@"EaseUIResource.bundle/chat_receiver_bg"] stretchableImageWithLeftCapWidth:35 topCapHeight:35]];
+    [[BRBaseMessageCell appearance] setSendBubbleBackgroundImage:[[UIImage imageNamed:@"chat_sender_bubbleBg"] stretchableImageWithLeftCapWidth:5 topCapHeight:35]];
+    [[BRBaseMessageCell appearance] setRecvBubbleBackgroundImage:[[UIImage imageNamed:@"chat_receiver_bubbleBg"] stretchableImageWithLeftCapWidth:35 topCapHeight:35]];
     
 //    [[BRBaseMessageCell appearance] setSendMessageVoiceAnimationImages:@[[UIImage imageNamed:@"EaseUIResource.bundle/chat_sender_audio_playing_full"], [UIImage imageNamed:@"EaseUIResource.bundle/chat_sender_audio_playing_000"], [UIImage imageNamed:@"EaseUIResource.bundle/chat_sender_audio_playing_001"], [UIImage imageNamed:@"EaseUIResource.bundle/chat_sender_audio_playing_002"], [UIImage imageNamed:@"EaseUIResource.bundle/chat_sender_audio_playing_003"]]];
 //    [[BRBaseMessageCell appearance] setRecvMessageVoiceAnimationImages:@[[UIImage imageNamed:@"EaseUIResource.bundle/chat_receiver_audio_playing_full"],[UIImage imageNamed:@"EaseUIResource.bundle/chat_receiver_audio_playing000"], [UIImage imageNamed:@"EaseUIResource.bundle/chat_receiver_audio_playing001"], [UIImage imageNamed:@"EaseUIResource.bundle/chat_receiver_audio_playing002"], [UIImage imageNamed:@"EaseUIResource.bundle/chat_receiver_audio_playing003"]]];
@@ -1422,7 +1422,7 @@ typedef enum : NSUInteger {
     }
 }
 
-- (void)didFinishRecoingVoiceAction:(UIView *)recordView
+- (void)didFinishRecordingVoiceAction:(UIView *)recordView
 {
     if (_isRecording) {
         if ([self.delegate respondsToSelector:@selector(messageViewController:didSelectRecordView:withEvenType:)]) {
@@ -1752,7 +1752,7 @@ typedef enum : NSUInteger {
         }
         else{
             model = [[BRMessageModel alloc] initWithMessage:message];
-            model.avatarImage = [UIImage imageNamed:@"EaseUIResource.bundle/user"];
+            model.avatarImage = [UIImage imageNamed:@"user_default"];
             model.failImageName = @"imageDownloadFail";
         }
         
@@ -2031,7 +2031,7 @@ typedef enum : NSUInteger {
                     }
                     else{
                         model = [[BRMessageModel alloc] initWithMessage:message];
-                        model.avatarImage = [UIImage imageNamed:@"EaseUIResource.bundle/user"];
+                        model.avatarImage = [UIImage imageNamed:@"user_default"];
                         model.failImageName = @"imageDownloadFail";
                     }
                     
@@ -2056,7 +2056,7 @@ typedef enum : NSUInteger {
         }
         else{
             model = [[BRMessageModel alloc] initWithMessage:aMessage];
-            model.avatarImage = [UIImage imageNamed:@"EaseUIResource.bundle/user"];
+            model.avatarImage = [UIImage imageNamed:@"user_default"];
             model.failImageName = @"imageDownloadFail";
         }
         if (model) {
