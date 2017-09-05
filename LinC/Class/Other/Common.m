@@ -13,3 +13,5 @@ NSString *const GroupNameChangeNotificationName = @"GroupNameChangeNotification"
 NSString *const kLoginUserNameKey = @"loginUserName";
 NSString *const kLoginPasswordKey = @"loginPassword";
 NSString *const kLoginStatusKey = @"loginStatus";
+
+NSString *const kBaseURL = @"http://br-im.reactivetesting.online/";

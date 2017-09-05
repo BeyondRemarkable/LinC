@@ -22,4 +22,6 @@ extern NSString *const kLoginUserNameKey;
 extern NSString *const kLoginPasswordKey;
 extern NSString *const kLoginStatusKey;
 
+extern NSString *const kBaseURL;
+
 #endif /* Common_h */

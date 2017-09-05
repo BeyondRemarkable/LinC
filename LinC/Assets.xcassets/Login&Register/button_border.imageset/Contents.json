@@ -1,6 +1,17 @@
 {
   "images" : [
     {
+      "resizing" : {
+        "mode" : "3-part-horizontal",
+        "center" : {
+          "mode" : "stretch",
+          "width" : 1
+        },
+        "cap-insets" : {
+          "right" : 350,
+          "left" : 350
+        }
+      },
       "idiom" : "universal",
       "filename" : "button_border.png",
       "scale" : "1x"

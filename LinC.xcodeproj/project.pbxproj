@@ -61,6 +61,7 @@
 		278CD9491F507462008D6BD1 /* BRChatBarMoreViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 278CD9471F507462008D6BD1 /* BRChatBarMoreViewCell.m */; };
 		278CD94A1F507462008D6BD1 /* BRChatBarMoreViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 278CD9481F507462008D6BD1 /* BRChatBarMoreViewCell.xib */; };
 		278CD94C1F549192008D6BD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 278CD94B1F549192008D6BD1 /* Assets.xcassets */; };
+		278CD9531F59B055008D6BD1 /* BRHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 278CD9521F59B055008D6BD1 /* BRHTTPSessionManager.m */; };
 		27CA03B11F38F21600D0F132 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CA03B01F38F21600D0F132 /* main.m */; };
 		27CA03CA1F38F21600D0F132 /* LinCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CA03C91F38F21600D0F132 /* LinCTests.m */; };
 		27CA03D51F38F21600D0F132 /* LinCUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CA03D41F38F21600D0F132 /* LinCUITests.m */; };
@@ -119,7 +120,6 @@
 		E9A3ACF31F476253006810BE /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9A3ACF11F476253006810BE /* Account.storyboard */; };
 		E9A3ACF41F476253006810BE /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9A3ACF11F476253006810BE /* Account.storyboard */; };
 		E9FEC22D1F550C3100BD7047 /* BRDropDownViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9FEC22B1F550C3100BD7047 /* BRDropDownViewController.m */; };
-		E9FEC22E1F550C3100BD7047 /* BRDropDownViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9FEC22C1F550C3100BD7047 /* BRDropDownViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -252,6 +252,8 @@
 		278CD9481F507462008D6BD1 /* BRChatBarMoreViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRChatBarMoreViewCell.xib; sourceTree = "<group>"; };
 		278CD94B1F549192008D6BD1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		278CD94D1F549AB7008D6BD1 /* in.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = in.caf; sourceTree = "<group>"; };
+		278CD9511F59B055008D6BD1 /* BRHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRHTTPSessionManager.h; sourceTree = "<group>"; };
+		278CD9521F59B055008D6BD1 /* BRHTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRHTTPSessionManager.m; sourceTree = "<group>"; };
 		27CA03AC1F38F21600D0F132 /* LinC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LinC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27CA03B01F38F21600D0F132 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		27CA03C01F38F21600D0F132 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -536,6 +538,8 @@
 		276E75481F3CFAA000D5A917 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				278CD9511F59B055008D6BD1 /* BRHTTPSessionManager.h */,
+				278CD9521F59B055008D6BD1 /* BRHTTPSessionManager.m */,
 				276E75491F3CFAB400D5A917 /* IModelCell.h */,
 				276E758C1F3E35BD00D5A917 /* BRSDKHelper.h */,
 				276E758D1F3E35BD00D5A917 /* BRSDKHelper.m */,
@@ -1119,6 +1123,7 @@
 				E90A1CFA1F42AA85001033CB /* BRUserGenderViewController.m in Sources */,
 				27E9A2331F3B84F4001937A0 /* NSDateFormatter+Category.m in Sources */,
 				276E757D1F3E2EEF00D5A917 /* BRCDDeviceManager+Remind.m in Sources */,
+				278CD9531F59B055008D6BD1 /* BRHTTPSessionManager.m in Sources */,
 				276E75931F3E40FF00D5A917 /* BRLocationViewController.m in Sources */,
 				E95841981F4B337A00B3693F /* BRUserAccountSetUpViewController.m in Sources */,
 				276E751A1F3BA02200D5A917 /* BREmojiEmoticons.m in Sources */,
