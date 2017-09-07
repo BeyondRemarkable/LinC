@@ -29,18 +29,18 @@
 
 
     // Do any additional setup after loading the view.
-    NSString *URLString = @"http://result.eolinker.com/narZcZX99a011291c85f9c02ed38bd1e5219ede029d8ceb?uri=/api/v1/account/profile/show";
-    //    NSDictionary *parameters = @{@"foo": @"bar", @"baz": @[@1, @2, @3]};
-    
-    
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    
-    [manager GET:URLString parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
-        NSLog(@"JSON: %@", responseObject);
-    } failure:^(NSURLSessionTask *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-    }];
+//    NSString *URLString = @"http://result.eolinker.com/narZcZX99a011291c85f9c02ed38bd1e5219ede029d8ceb?uri=/api/v1/account/profile/show";
+//    //    NSDictionary *parameters = @{@"foo": @"bar", @"baz": @[@1, @2, @3]};
+//    
+//    
+//    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+//    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+//    
+//    [manager GET:URLString parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+//        NSLog(@"JSON: %@", responseObject);
+//    } failure:^(NSURLSessionTask *operation, NSError *error) {
+//        NSLog(@"Error: %@", error);
+//    }];
 }
 
 - (void)didReceiveMemoryWarning {

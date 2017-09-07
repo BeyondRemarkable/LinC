@@ -185,8 +185,6 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="password" destination="Eza-Yr-uwK" id="1fZ-yO-n03"/>
-                        <outlet property="userID" destination="xdd-V6-DIA" id="9ak-8M-RBy"/>
                         <outlet property="userIcon" destination="U6m-cr-4fJ" id="DEW-hO-DI6"/>
                     </connections>
                 </viewController>
@@ -546,16 +544,25 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="codeTextField" destination="Uu6-pW-5xV" id="l3U-29-X0b"/>
-                        <outlet property="emailConentViewLeftConstraint" destination="WDm-WW-lui" id="RdR-Sn-ZKg"/>
-                        <outlet property="emailContentViewRightConstraint" destination="Z6t-qz-4h9" id="Y8G-mR-9i4"/>
+                        <outlet property="codeView" destination="iu2-4H-HiV" id="AtQ-7m-5qn"/>
+                        <outlet property="codeViewTopConstraint" destination="34w-Jc-QvB" id="4xg-Ks-bgw"/>
+                        <outlet property="emailConentViewLeftConstraint" destination="WDm-WW-lui" id="zzU-sC-YwW"/>
+                        <outlet property="emailContentViewRightConstraint" destination="Z6t-qz-4h9" id="DCf-wR-xkQ"/>
+                        <outlet property="emailRegisterView" destination="hcu-cn-oAa" id="gEp-eh-ujo"/>
                         <outlet property="emailTextField" destination="UEH-Gf-BpW" id="nmK-Pl-NLM"/>
-                        <outlet property="emailViewLeftConstraint" destination="nn7-D0-0eJ" id="HbX-iI-bVa"/>
-                        <outlet property="emailViewRightContraint" destination="YNB-O9-ykS" id="VAe-MC-wa8"/>
+                        <outlet property="emailViewLeftConstraint" destination="nn7-D0-0eJ" id="QDu-Iv-BHE"/>
+                        <outlet property="emailViewRightConstraint" destination="YNB-O9-ykS" id="2nO-aX-2wr"/>
                         <outlet property="passwordConfirmTextField" destination="cHM-Xq-hkq" id="UaZ-Nd-ItU"/>
+                        <outlet property="passwordConfirmView" destination="cy7-YX-CRY" id="UXn-eV-ecc"/>
+                        <outlet property="passwordConfirmViewTopConstraint" destination="4xQ-f0-azW" id="g32-Kl-mfo"/>
                         <outlet property="passwordTextField" destination="XsK-Dn-ifU" id="EPy-oW-Vam"/>
+                        <outlet property="passwordView" destination="zcL-mA-8mF" id="g7I-ci-EVD"/>
+                        <outlet property="passwordViewTopConstraint" destination="KfT-Fj-9il" id="L6N-XO-wpH"/>
+                        <outlet property="registerView" destination="fUN-iv-CXh" id="L05-Ax-BmS"/>
                         <outlet property="registerViewLeftConstraint" destination="vQp-VJ-P3Y" id="x6G-6O-80q"/>
                         <outlet property="registerViewRightConstraint" destination="qAT-4x-ojL" id="ZMa-VU-AwH"/>
                         <outlet property="userNameTextField" destination="bqa-zX-qFn" id="e3k-ga-Cg1"/>
+                        <outlet property="userNameView" destination="JRg-Mo-aFu" id="TpX-8S-ZUm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ONf-bw-aIv" userLabel="First Responder" sceneMemberID="firstResponder"/>
