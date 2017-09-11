@@ -97,7 +97,7 @@
 
 - (void)setUpFriendInfo {
     
-    UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRFriendInfo" bundle:nil];
+//    UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRFriendInfo" bundle:nil];
     
 //    BRFriendInfoViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRFriendInfoTableViewController"];
     
