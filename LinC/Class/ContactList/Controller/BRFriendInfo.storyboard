@@ -20,23 +20,48 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="2Pt-BE-akK">
-                            <rect key="frame" x="0.0" y="380" width="375" height="84"/>
+                            <rect key="frame" x="0.0" y="380" width="375" height="100"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fz8-1x-Ddx">
-                                    <rect key="frame" x="100" y="27" width="175" height="30"/>
+                                    <rect key="frame" x="100" y="10" width="175" height="40"/>
                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                    <state key="normal" title="Button"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="40" id="K8x-ZT-ibl"/>
+                                    </constraints>
+                                    <state key="normal" title="Add Friend" backgroundImage="background_blue"/>
                                     <connections>
-                                        <action selector="MessageOrConfirmBtn:" destination="iUV-o7-iS1" eventType="touchUpInside" id="K8V-S4-EAw"/>
+                                        <action selector="clickAddFriend:" destination="iUV-o7-iS1" eventType="touchUpInside" id="nM1-RJ-APk"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LFR-7v-9gM">
+                                    <rect key="frame" x="100" y="60" width="175" height="40"/>
+                                    <state key="normal" title="Delete" backgroundImage="background_red"/>
+                                    <connections>
+                                        <action selector="clickDeleteFriend:" destination="iUV-o7-iS1" eventType="touchUpInside" id="aNL-5T-DJP"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LAS-qH-xVi">
+                                    <rect key="frame" x="100" y="10" width="175" height="40"/>
+                                    <state key="normal" title="Chat" backgroundImage="background_blue"/>
+                                    <connections>
+                                        <action selector="clickChat:" destination="iUV-o7-iS1" eventType="touchUpInside" id="PSU-AP-kmw"/>
                                     </connections>
                                 </button>
                             </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
+                                <constraint firstItem="LAS-qH-xVi" firstAttribute="leading" secondItem="2Pt-BE-akK" secondAttribute="leading" constant="100" id="BvN-5k-sTx"/>
                                 <constraint firstItem="Fz8-1x-Ddx" firstAttribute="leading" secondItem="2Pt-BE-akK" secondAttribute="leading" constant="100" id="OPo-qj-hjM"/>
+                                <constraint firstItem="Fz8-1x-Ddx" firstAttribute="top" secondItem="2Pt-BE-akK" secondAttribute="top" constant="10" id="Qip-YA-Lmy"/>
+                                <constraint firstItem="LFR-7v-9gM" firstAttribute="trailing" secondItem="Fz8-1x-Ddx" secondAttribute="trailing" id="RSC-nf-McB"/>
+                                <constraint firstItem="LFR-7v-9gM" firstAttribute="top" secondItem="Fz8-1x-Ddx" secondAttribute="bottom" constant="10" id="YkH-rk-c5i"/>
+                                <constraint firstAttribute="trailing" secondItem="LAS-qH-xVi" secondAttribute="trailing" constant="100" id="dF5-e5-8fV"/>
+                                <constraint firstItem="LFR-7v-9gM" firstAttribute="height" secondItem="Fz8-1x-Ddx" secondAttribute="height" id="hUr-yf-Cmj"/>
                                 <constraint firstAttribute="trailing" secondItem="Fz8-1x-Ddx" secondAttribute="trailing" constant="100" id="i1q-uI-Q7O"/>
-                                <constraint firstItem="Fz8-1x-Ddx" firstAttribute="centerY" secondItem="2Pt-BE-akK" secondAttribute="centerY" id="qTw-GL-qJA"/>
+                                <constraint firstItem="LAS-qH-xVi" firstAttribute="top" secondItem="2Pt-BE-akK" secondAttribute="top" constant="10" id="qi8-N6-Ga2"/>
+                                <constraint firstItem="LFR-7v-9gM" firstAttribute="leading" secondItem="Fz8-1x-Ddx" secondAttribute="leading" id="r0l-5t-rp6"/>
+                                <constraint firstItem="LAS-qH-xVi" firstAttribute="height" secondItem="Fz8-1x-Ddx" secondAttribute="height" id="x9o-qZ-bpd"/>
                             </constraints>
                         </view>
                         <sections>
@@ -142,14 +167,14 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="39.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What up" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ae8-qr-sB5">
-                                                    <rect key="frame" x="15" y="10" width="65" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What's up" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ae8-qr-sB5">
+                                                    <rect key="frame" x="15" y="10" width="77" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T5I-ZY-rG4" userLabel="User location label">
-                                                    <rect key="frame" x="130" y="10" width="42" height="21"/>
+                                                    <rect key="frame" x="142" y="10" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -199,10 +224,19 @@
                             <outlet property="delegate" destination="iUV-o7-iS1" id="XhA-wP-PKq"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="addFriendButton" destination="Fz8-1x-Ddx" id="6pk-NY-1X3"/>
+                        <outlet property="chatButton" destination="LAS-qH-xVi" id="Voj-zt-ueV"/>
+                        <outlet property="deleteFriendButton" destination="LFR-7v-9gM" id="hPy-fY-er2"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iyC-FU-PFy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="133.59999999999999" y="-6.746626686656672"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="background_blue" width="15" height="40"/>
+        <image name="background_red" width="15" height="40"/>
+    </resources>
 </document>

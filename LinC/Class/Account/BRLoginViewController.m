@@ -9,12 +9,17 @@
 #import "BRLoginViewController.h"
 #import "BRTabBarController.h"
 #import <AFNetworking.h>
+#import "BRHTTPSessionManager.h"
+#import <MBProgressHUD.h>
 
 @interface BRLoginViewController ()
+{
+    MBProgressHUD *hud;
+}
 @property (weak, nonatomic) IBOutlet UIImageView *userIcon;
 
-@property (weak, nonatomic) IBOutlet UITextField *userID;
-@property (weak, nonatomic) IBOutlet UITextField *password;
+@property (weak, nonatomic) IBOutlet UITextField *userNameTextField;
+@property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 
 
 
@@ -27,33 +32,53 @@
     
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background"]];
 
-
-    // Do any additional setup after loading the view.
-    NSString *URLString = @"http://result.eolinker.com/narZcZX99a011291c85f9c02ed38bd1e5219ede029d8ceb?uri=/api/v1/account/profile/show";
-    //    NSDictionary *parameters = @{@"foo": @"bar", @"baz": @[@1, @2, @3]};
-    
-    
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    
-    [manager GET:URLString parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
-        NSLog(@"JSON: %@", responseObject);
-    } failure:^(NSURLSessionTask *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-    }];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-- (IBAction)registerBtn:(id)sender {
-}
+#warning 需要写抖动方法
 - (IBAction)login {
+    NSString *userName = self.userNameTextField.text;
+    if (userName.length == 0) {
+        // 抖动提示用户
+        
+        return;
+    }
+    NSString *password = self.passwordTextField.text;
+    if (password.length == 0) {
+        // 抖动提示用户
+        
+        return;
+    }
     
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-    BRTabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:@"BRTabBarController"];
-    [[UIApplication sharedApplication].keyWindow setRootViewController:vc];
+    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    BRHTTPSessionManager *manager = [BRHTTPSessionManager manager];
+    NSString *url =  [kBaseURL stringByAppendingPathComponent:@"/api/v1/auth/login"];
+    NSDictionary *parameters;
+    if ([userName containsString:@"@"] && [userName containsString:@"."]) {
+        parameters = @{@"email":userName, @"password":password};
+    }
+    else {
+        parameters = @{@"username":userName, @"password":password};
+    }
+    [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *dict = (NSDictionary *)responseObject;
+        if ([dict[@"status"] isEqualToString:@"success"]) {
+            [hud hideAnimated:YES];
+            
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+            BRTabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:@"BRTabBarController"];
+            [[UIApplication sharedApplication].keyWindow setRootViewController:vc];
+        }
+        else {
+            hud.mode = MBProgressHUDModeText;
+            hud.label.text = dict[@"message"];
+            [hud hideAnimated:YES afterDelay:1.5];
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [hud hideAnimated:YES];
+        NSLog(@"%@", error.localizedDescription);
+    }];
+    
     
 }
 

@@ -31,16 +31,16 @@
     if (self = [super initWithCoder:aDecoder]) {
         // 设置tabBar的四个子控制器
         BRConversationListViewController *chatsVc = [[BRConversationListViewController alloc] initWithStyle:UITableViewStylePlain];
-        [self setupChildVc:chatsVc title:@"LinC" imageName:@"tabbar_chats_normal" selectedImageName:@"tabbar_chats_selected"];
+        [self setupChildVc:chatsVc title:@"LinC" imageName:@"tabbar_conversationlist" selectedImageName:@"tabbar_conversationlist_selected"];
 
         // Add contact list view controller
         BRContactListViewController *contactListVC = [[BRContactListViewController alloc] initWithStyle:UITableViewStylePlain];
-        [self setupChildVc:contactListVC title:@"Contact List" imageName:@"tabbar_chats_normal" selectedImageName:@"tabbar_chats_selected"];
+        [self setupChildVc:contactListVC title:@"Contact List" imageName:@"tabbar_contactlist" selectedImageName:@"tabbar_contactlist_selected"];
         
         // Add user infromation view controller
         UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRUserInfoViewController" bundle:nil];
         BRUserInfoViewController *vc =  [sc instantiateViewControllerWithIdentifier:@"BRUserInfoViewController"];
-        [self setupChildVc:vc title:@"About Me" imageName:@"tabbar_chats_normal" selectedImageName:@"tabbar_chats_selected"];
+        [self setupChildVc:vc title:@"About Me" imageName:@"tabbar_profile" selectedImageName:@"tabbar_profile_selected"];
     }
     return self;
 }

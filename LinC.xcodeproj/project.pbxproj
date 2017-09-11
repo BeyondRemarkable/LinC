@@ -60,8 +60,10 @@
 		278CD9451F506FB6008D6BD1 /* BRChatBarMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 278CD9441F506FB6008D6BD1 /* BRChatBarMoreView.m */; };
 		278CD9491F507462008D6BD1 /* BRChatBarMoreViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 278CD9471F507462008D6BD1 /* BRChatBarMoreViewCell.m */; };
 		278CD94A1F507462008D6BD1 /* BRChatBarMoreViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 278CD9481F507462008D6BD1 /* BRChatBarMoreViewCell.xib */; };
-		278CD94C1F549192008D6BD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 278CD94B1F549192008D6BD1 /* Assets.xcassets */; };
 		278CD9531F59B055008D6BD1 /* BRHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 278CD9521F59B055008D6BD1 /* BRHTTPSessionManager.m */; };
+		278CD9571F62EC48008D6BD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 278CD9561F62EC48008D6BD1 /* Assets.xcassets */; };
+		278CD9651F66FA5F008D6BD1 /* BRScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 278CD9631F66FA5F008D6BD1 /* BRScannerViewController.m */; };
+		278CD9661F66FA5F008D6BD1 /* BRScannerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 278CD9641F66FA5F008D6BD1 /* BRScannerViewController.xib */; };
 		27CA03B11F38F21600D0F132 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CA03B01F38F21600D0F132 /* main.m */; };
 		27CA03CA1F38F21600D0F132 /* LinCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CA03C91F38F21600D0F132 /* LinCTests.m */; };
 		27CA03D51F38F21600D0F132 /* LinCUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CA03D41F38F21600D0F132 /* LinCUITests.m */; };
@@ -109,8 +111,6 @@
 		E932C52E1F4B67AE0045AB60 /* BRLocationCitiListTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E932C52C1F4B67AE0045AB60 /* BRLocationCitiListTableViewController.xib */; };
 		E9422D861F50A8FC0008911E /* BRAddingFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9422D841F50A8FC0008911E /* BRAddingFriendViewController.m */; };
 		E9422D871F50A8FC0008911E /* BRAddingFriendViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9422D851F50A8FC0008911E /* BRAddingFriendViewController.xib */; };
-		E9422D8B1F50AD6E0008911E /* BRScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9422D891F50AD6E0008911E /* BRScannerViewController.m */; };
-		E9422D8C1F50AD6E0008911E /* BRScannerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9422D8A1F50AD6E0008911E /* BRScannerViewController.xib */; };
 		E9422D901F50B1790008911E /* BRFriendInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9422D8E1F50B1780008911E /* BRFriendInfoTableViewController.m */; };
 		E9422D931F50B4FE0008911E /* BRFriendInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9422D921F50B4FE0008911E /* BRFriendInfo.storyboard */; };
 		E95841981F4B337A00B3693F /* BRUserAccountSetUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E95841971F4B337A00B3693F /* BRUserAccountSetUpViewController.m */; };
@@ -250,10 +250,13 @@
 		278CD9461F507462008D6BD1 /* BRChatBarMoreViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRChatBarMoreViewCell.h; sourceTree = "<group>"; };
 		278CD9471F507462008D6BD1 /* BRChatBarMoreViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRChatBarMoreViewCell.m; sourceTree = "<group>"; };
 		278CD9481F507462008D6BD1 /* BRChatBarMoreViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRChatBarMoreViewCell.xib; sourceTree = "<group>"; };
-		278CD94B1F549192008D6BD1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		278CD94D1F549AB7008D6BD1 /* in.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = in.caf; sourceTree = "<group>"; };
 		278CD9511F59B055008D6BD1 /* BRHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRHTTPSessionManager.h; sourceTree = "<group>"; };
 		278CD9521F59B055008D6BD1 /* BRHTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRHTTPSessionManager.m; sourceTree = "<group>"; };
+		278CD9561F62EC48008D6BD1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		278CD9621F66FA5F008D6BD1 /* BRScannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRScannerViewController.h; sourceTree = "<group>"; };
+		278CD9631F66FA5F008D6BD1 /* BRScannerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRScannerViewController.m; sourceTree = "<group>"; };
+		278CD9641F66FA5F008D6BD1 /* BRScannerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRScannerViewController.xib; sourceTree = "<group>"; };
 		27CA03AC1F38F21600D0F132 /* LinC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LinC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27CA03B01F38F21600D0F132 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		27CA03C01F38F21600D0F132 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -336,9 +339,6 @@
 		E9422D831F50A8FC0008911E /* BRAddingFriendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRAddingFriendViewController.h; sourceTree = "<group>"; };
 		E9422D841F50A8FC0008911E /* BRAddingFriendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRAddingFriendViewController.m; sourceTree = "<group>"; };
 		E9422D851F50A8FC0008911E /* BRAddingFriendViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRAddingFriendViewController.xib; sourceTree = "<group>"; };
-		E9422D881F50AD6E0008911E /* BRScannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRScannerViewController.h; sourceTree = "<group>"; };
-		E9422D891F50AD6E0008911E /* BRScannerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRScannerViewController.m; sourceTree = "<group>"; };
-		E9422D8A1F50AD6E0008911E /* BRScannerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRScannerViewController.xib; sourceTree = "<group>"; };
 		E9422D8D1F50B1780008911E /* BRFriendInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRFriendInfoTableViewController.h; sourceTree = "<group>"; };
 		E9422D8E1F50B1780008911E /* BRFriendInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRFriendInfoTableViewController.m; sourceTree = "<group>"; };
 		E9422D921F50B4FE0008911E /* BRFriendInfo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BRFriendInfo.storyboard; sourceTree = "<group>"; };
@@ -609,8 +609,8 @@
 		27CA03AF1F38F21600D0F132 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				278CD9561F62EC48008D6BD1 /* Assets.xcassets */,
 				278CD94D1F549AB7008D6BD1 /* in.caf */,
-				278CD94B1F549192008D6BD1 /* Assets.xcassets */,
 				27CA03C01F38F21600D0F132 /* Info.plist */,
 				27CA03B01F38F21600D0F132 /* main.m */,
 			);
@@ -783,6 +783,9 @@
 		E90A1CCD1F42AA76001033CB /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				278CD9621F66FA5F008D6BD1 /* BRScannerViewController.h */,
+				278CD9631F66FA5F008D6BD1 /* BRScannerViewController.m */,
+				278CD9641F66FA5F008D6BD1 /* BRScannerViewController.xib */,
 				E90A1CCE1F42AA76001033CB /* BRContactListViewController.h */,
 				E90A1CCF1F42AA76001033CB /* BRContactListViewController.m */,
 				E9422D831F50A8FC0008911E /* BRAddingFriendViewController.h */,
@@ -810,9 +813,6 @@
 		E90A1CD41F42AA76001033CB /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E9422D881F50AD6E0008911E /* BRScannerViewController.h */,
-				E9422D891F50AD6E0008911E /* BRScannerViewController.m */,
-				E9422D8A1F50AD6E0008911E /* BRScannerViewController.xib */,
 				E90A1CD51F42AA76001033CB /* BRContactListTableViewCell.h */,
 				E90A1CD61F42AA76001033CB /* BRContactListTableViewCell.m */,
 				E90A1CD71F42AA76001033CB /* BRContactListTableViewCell.xib */,
@@ -1007,8 +1007,8 @@
 				E90A1D021F42AA85001033CB /* BRWhatsUpViewController.xib in Resources */,
 				278CD94A1F507462008D6BD1 /* BRChatBarMoreViewCell.xib in Resources */,
 				27E9A2431F3B8BFA001937A0 /* Main.storyboard in Resources */,
-				278CD94C1F549192008D6BD1 /* Assets.xcassets in Resources */,
 				E90A1CFD1F42AA85001033CB /* BRUserImageViewController.xib in Resources */,
+				278CD9571F62EC48008D6BD1 /* Assets.xcassets in Resources */,
 				E932C52E1F4B67AE0045AB60 /* BRLocationCitiListTableViewController.xib in Resources */,
 				276E751F1F3BB48D00D5A917 /* BRConversationCell.xib in Resources */,
 				E9422D871F50A8FC0008911E /* BRAddingFriendViewController.xib in Resources */,
@@ -1017,10 +1017,10 @@
 				E9A3ACF21F476253006810BE /* Account.storyboard in Resources */,
 				E92912571F4DD1F000092B2A /* BRUserSettingTableViewController.storyboard in Resources */,
 				E9422D931F50B4FE0008911E /* BRFriendInfo.storyboard in Resources */,
+				278CD9661F66FA5F008D6BD1 /* BRScannerViewController.xib in Resources */,
 				27E9A2421F3B8BFA001937A0 /* LaunchScreen.storyboard in Resources */,
 				E932C5291F4B547E0045AB60 /* ProvincesAndCities.plist in Resources */,
 				E90A1CE11F42AA76001033CB /* BRFriendInfoViewController.xib in Resources */,
-				E9422D8C1F50AD6E0008911E /* BRScannerViewController.xib in Resources */,
 				E90A1CDF1F42AA76001033CB /* BRContactListTableViewCell.xib in Resources */,
 				E90A1CF91F42AA85001033CB /* BRLocationListViewController.xib in Resources */,
 				276E75D61F45F10C00D5A917 /* BRMediaBrowserViewController.xib in Resources */,
@@ -1111,13 +1111,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9A3ACEC1F476174006810BE /* BRLoginViewController.m in Sources */,
+				278CD9651F66FA5F008D6BD1 /* BRScannerViewController.m in Sources */,
 				276E75851F3E2FD600D5A917 /* BRCDDeviceManager+ProximitySensor.m in Sources */,
 				E958419B1F4B344000B3693F /* BRUserInfoSetUpTableViewController.m in Sources */,
 				E932C52D1F4B67AE0045AB60 /* BRLocationCitiListTableViewController.m in Sources */,
 				E90A1CF71F42AA85001033CB /* BRUserInfoViewController.m in Sources */,
 				276E75381F3CE12C00D5A917 /* BRBubbleView+Video.m in Sources */,
 				276E754C1F3D0C1500D5A917 /* BRChatToolbar.m in Sources */,
-				E9422D8B1F50AD6E0008911E /* BRScannerViewController.m in Sources */,
 				27E9A22F1F3B84F4001937A0 /* BRConversationModel.m in Sources */,
 				276E755B1F3E253200D5A917 /* BRRecordView.m in Sources */,
 				E90A1CFA1F42AA85001033CB /* BRUserGenderViewController.m in Sources */,

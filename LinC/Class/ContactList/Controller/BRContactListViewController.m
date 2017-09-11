@@ -84,8 +84,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
 #pragma mark 
 
 - (void)setUpNavigationBarItem {
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"Add" style:UIBarButtonItemStylePlain target:self action: @selector(addNewFriend)];
-    self.navigationItem.rightBarButtonItem = rightItem;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"add_new_friend"] style:UIBarButtonItemStylePlain target:self action: @selector(addNewFriend)];
 }
 
 -(void)addNewFriend {

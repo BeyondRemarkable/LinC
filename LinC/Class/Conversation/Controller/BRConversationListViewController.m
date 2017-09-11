@@ -18,7 +18,6 @@
 
 @interface BRConversationListViewController ()
 
-@property (nonatomic, strong) UIBarButtonItem *rightItem;
 @property (nonatomic, strong) BRDropDownViewController *dropDownVC;
 
 @end
@@ -48,8 +47,7 @@
 }
 
 - (void)setUpNavigationBar {
-    self.rightItem = [[UIBarButtonItem alloc] initWithTitle:@"Add" style:UIBarButtonItemStylePlain target:self action: @selector(dropdownMenu)];
-    self.navigationItem.rightBarButtonItem = self.rightItem;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@""] style:UIBarButtonItemStylePlain target:self action: @selector(dropdownMenu)];
 }
 
 - (void)chatBtnTapped:(UIButton *)sender {
@@ -64,7 +62,7 @@
 }
 
 - (void)dropdownMenu {
-    self.rightItem.enabled = NO;
+    self.navigationItem.rightBarButtonItem.enabled = NO;
     if (!self.dropDownVC) {
         self.dropDownVC = [[BRDropDownViewController alloc] initWithNibName:@"BRDropDownViewController" bundle:nil];
         
@@ -84,7 +82,7 @@
         [UIView animateWithDuration:0.15 delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
             dropDownMenuView.frame = CGRectMake(viewX, viewY, viewWidth, viewHeigh);
         } completion:^(BOOL finished) {
-            self.rightItem.enabled = YES;
+            self.navigationItem.rightBarButtonItem.enabled = YES;
         }];
     } else {
         UIView *view = self.dropDownVC.view;
@@ -94,7 +92,7 @@
             [view removeFromSuperview];
             [self.dropDownVC removeFromParentViewController];
             self.dropDownVC = nil;
-            self.rightItem.enabled = YES;
+            self.navigationItem.rightBarButtonItem.enabled = YES;
         }];
         
     }

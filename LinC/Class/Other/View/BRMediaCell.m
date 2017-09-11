@@ -66,7 +66,8 @@
         
         // 添加backButton
         _backButton = [[UIButton alloc] initWithFrame:CGRectMake(30, 30, 30, 30)];
-        _backButton.backgroundColor = [UIColor whiteColor];
+        [_backButton setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
+        [_backButton setImage:[UIImage imageNamed:@"close_highlighted"] forState:UIControlStateHighlighted];
         [_backButton addTarget:self action:@selector(clickBackButton:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_backButton];
         

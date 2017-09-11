@@ -11,6 +11,9 @@
 
 
 @interface BRFriendInfoTableViewController ()
+@property (weak, nonatomic) IBOutlet UIButton *addFriendButton;
+@property (weak, nonatomic) IBOutlet UIButton *deleteFriendButton;
+@property (weak, nonatomic) IBOutlet UIButton *chatButton;
 
 @end
 
@@ -19,13 +22,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.navigationController setNavigationBarHidden: NO];
+//    [self.navigationController setNavigationBarHidden: NO];
+//    
+//    UIBarButtonItem *backBtn = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(backToVC)];
+//    
+//    [self.navigationItem setLeftBarButtonItem:backBtn];
     
-    UIBarButtonItem *backBtn = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(backToVC)];
+    if (self.isFriend) {
+        [self.addFriendButton setHidden:YES];
+    }
+    else {
+        [self.chatButton setHidden:YES];
+        [self.deleteFriendButton setHidden:YES];
+    }
     
-    [self.navigationItem setLeftBarButtonItem:backBtn];
-    
-    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"more_info"] style:UIBarButtonItemStylePlain target:self action:@selector(clickMoreInfo)];
 }
 
 - (void)backToVC{
@@ -43,22 +54,25 @@
 }
 
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     return 50;
 }
 
-- (IBAction)MessageOrConfirmBtn:(UIButton *)sender {
-
+#pragma mark - button actions
+- (void)clickMoreInfo {
+    
 }
 
+- (IBAction)clickAddFriend:(id)sender {
+    
+}
 
+- (IBAction)clickDeleteFriend:(id)sender {
+    
+}
 
-
+- (IBAction)clickChat:(id)sender {
+    
+}
 @end

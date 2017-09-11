@@ -20,7 +20,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    NSString *appkey = @"1153170608178531#linc";
+    NSString *appkey = @"1153170608178531#linc-dev";
     NSString *apnsCertName = @"";
     [[BRSDKHelper shareHelper] hyphenateApplication:application
                         didFinishLaunchingWithOptions:launchOptions
@@ -28,23 +28,11 @@
                                          apnsCertName:apnsCertName
                                           otherConfig:@{kSDKConfigEnableConsoleLogger:[NSNumber numberWithBool:YES]}];
     
-    // 登录
-    [[EMClient sharedClient] loginWithUsername:@"viann" password:@"123456" completion:^(NSString *aUsername, EMError *aError) {
-        if (!aError) {
-            NSLog(@"登录成功");
-            [[EMClient sharedClient].options setIsAutoLogin:YES];
-        }
-        else {
-            NSLog(@"登录失败");
-        }
-    }];
-    
-    self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Account" bundle:[NSBundle mainBundle]];
 
-    BRLoginViewController *vc = storyboard.instantiateInitialViewController;
-    
-    self.window.rootViewController = vc;
+    BRLoginViewController *loginVc = [storyboard instantiateInitialViewController];
+    self.window.rootViewController = loginVc;
     [self.window makeKeyAndVisible];
     
     return YES;

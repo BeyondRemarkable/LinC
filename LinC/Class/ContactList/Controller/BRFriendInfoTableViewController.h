@@ -11,5 +11,6 @@
 
 
 @interface BRFriendInfoTableViewController : UITableViewController
+@property (nonatomic, assign) BOOL isFriend;
 
 @end

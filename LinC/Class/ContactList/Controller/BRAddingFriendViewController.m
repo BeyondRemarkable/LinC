@@ -10,7 +10,7 @@
 #import "BRScannerViewController.h"
 #import "BRFriendInfoTableViewController.h"
 
-@interface BRAddingFriendViewController ()
+@interface BRAddingFriendViewController () <UITextFieldDelegate>
 
 @end
 
@@ -20,7 +20,7 @@
     [super viewDidLoad];
 
     
-    [self setUpNavigationBarItem];
+    [self setupNavigationBarItem];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -28,17 +28,12 @@
     [self.navigationController setNavigationBarHidden: NO];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)setupNavigationBarItem {
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Search" style:UIBarButtonItemStylePlain target:self action: @selector(searchByID:)];
+    self.navigationItem.rightBarButtonItem.enabled = NO;
 }
 
-- (void)setUpNavigationBarItem {
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"Add" style:UIBarButtonItemStylePlain target:self action: @selector(searchByID)];
-    self.navigationItem.rightBarButtonItem = rightItem;
-}
-
-- (void)searchByID {
+- (void)searchByID:(NSString *)ID {
     
     UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRFriendInfo" bundle:[NSBundle mainBundle]];
     BRFriendInfoTableViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRFriendInfoTableViewController"];
@@ -61,6 +56,23 @@
  */
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
+}
+
+#pragma mark - UITextField delegate
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    if (textField.text.length == 0) {
+        self.navigationItem.rightBarButtonItem.enabled = NO;
+    }
+    else {
+        self.navigationItem.rightBarButtonItem.enabled = YES;
+    }
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (textField.text.length > 0) {
+        [self searchByID:textField.text];
+    }
+    return YES;
 }
 
 @end

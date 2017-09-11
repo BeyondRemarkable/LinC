@@ -23,21 +23,33 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CYW-vN-WkR">
                     <rect key="frame" x="0.0" y="140" width="375" height="120"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add new friend" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cec-eR-rVj">
-                            <rect key="frame" x="10" y="0.0" width="116" height="21"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search friend ID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cec-eR-rVj">
+                            <rect key="frame" x="10" y="0.0" width="123.5" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UaD-sm-xYI">
-                            <rect key="frame" x="10" y="41" width="265" height="30"/>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="UaD-sm-xYI">
+                            <rect key="frame" x="10" y="31" width="265" height="30"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits"/>
+                            <textInputTraits key="textInputTraits" returnKeyType="search"/>
+                            <connections>
+                                <outlet property="delegate" destination="-1" id="CH2-XL-6tQ"/>
+                            </connections>
                         </textField>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pxT-fB-JAL">
-                            <rect key="frame" x="10" y="91" width="153" height="30"/>
-                            <state key="normal" title="Scan friend's QR code"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pxT-fB-JAL">
+                            <rect key="frame" x="10" y="76" width="300" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="Dhj-di-vZY"/>
+                                <constraint firstAttribute="width" constant="300" id="U6l-HL-4o1"/>
+                            </constraints>
+                            <state key="normal" title="Scan friend's QR code" image="scan_qrcode">
+                                <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <state key="highlighted" title="Scan friend's QR code" image="scan_qrcode_highlighted">
+                                <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
                             <connections>
                                 <action selector="scanQRCodeBtn" destination="-1" eventType="touchUpInside" id="XMK-co-nr1"/>
                             </connections>
@@ -46,11 +58,11 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="cec-eR-rVj" firstAttribute="top" secondItem="CYW-vN-WkR" secondAttribute="top" id="0BL-UT-jTd"/>
-                        <constraint firstItem="UaD-sm-xYI" firstAttribute="top" secondItem="cec-eR-rVj" secondAttribute="bottom" constant="20" id="BzS-za-zEf"/>
+                        <constraint firstItem="UaD-sm-xYI" firstAttribute="top" secondItem="cec-eR-rVj" secondAttribute="bottom" constant="10" id="BzS-za-zEf"/>
                         <constraint firstItem="pxT-fB-JAL" firstAttribute="leading" secondItem="cec-eR-rVj" secondAttribute="leading" id="VXm-MM-nZf"/>
                         <constraint firstItem="UaD-sm-xYI" firstAttribute="leading" secondItem="cec-eR-rVj" secondAttribute="leading" id="VmC-eD-MS4"/>
                         <constraint firstAttribute="height" constant="120" id="gpq-cM-EwV"/>
-                        <constraint firstItem="pxT-fB-JAL" firstAttribute="top" secondItem="UaD-sm-xYI" secondAttribute="bottom" constant="20" id="jlf-Zi-cUf"/>
+                        <constraint firstItem="pxT-fB-JAL" firstAttribute="top" secondItem="UaD-sm-xYI" secondAttribute="bottom" constant="15" id="jlf-Zi-cUf"/>
                         <constraint firstAttribute="trailing" secondItem="UaD-sm-xYI" secondAttribute="trailing" constant="100" id="rNx-r4-B0S"/>
                         <constraint firstItem="cec-eR-rVj" firstAttribute="leading" secondItem="CYW-vN-WkR" secondAttribute="leading" constant="10" id="tkk-mX-n50"/>
                     </constraints>
@@ -65,4 +77,8 @@
             <point key="canvasLocation" x="33.5" y="53.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="scan_qrcode" width="40" height="40"/>
+        <image name="scan_qrcode_highlighted" width="40" height="40"/>
+    </resources>
 </document>

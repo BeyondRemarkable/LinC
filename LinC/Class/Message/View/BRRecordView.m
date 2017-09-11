@@ -23,7 +23,7 @@
 {
     // UIAppearance Proxy Defaults
     BRRecordView *recordView = [self appearance];
-    recordView.voiceMessageAnimationImages = @[@"EaseUIResource.bundle/VoiceSearchFeedback001",@"EaseUIResource.bundle/VoiceSearchFeedback002",@"EaseUIResource.bundle/VoiceSearchFeedback003",@"EaseUIResource.bundle/VoiceSearchFeedback004",@"EaseUIResource.bundle/VoiceSearchFeedback005",@"EaseUIResource.bundle/VoiceSearchFeedback006",@"EaseUIResource.bundle/VoiceSearchFeedback007",@"EaseUIResource.bundle/VoiceSearchFeedback008",@"EaseUIResource.bundle/VoiceSearchFeedback009",@"EaseUIResource.bundle/VoiceSearchFeedback010",@"EaseUIResource.bundle/VoiceSearchFeedback011",@"EaseUIResource.bundle/VoiceSearchFeedback012",@"EaseUIResource.bundle/VoiceSearchFeedback013",@"EaseUIResource.bundle/VoiceSearchFeedback014",@"EaseUIResource.bundle/VoiceSearchFeedback015",@"EaseUIResource.bundle/VoiceSearchFeedback016",@"EaseUIResource.bundle/VoiceSearchFeedback017",@"EaseUIResource.bundle/VoiceSearchFeedback018",@"EaseUIResource.bundle/VoiceSearchFeedback019",@"EaseUIResource.bundle/VoiceSearchFeedback020"];
+    recordView.voiceMessageAnimationImages = @[@"VoiceSearchFeedback001",@"VoiceSearchFeedback002",@"VoiceSearchFeedback003",@"VoiceSearchFeedback004",@"VoiceSearchFeedback005",@"VoiceSearchFeedback006",@"VoiceSearchFeedback007",@"VoiceSearchFeedback008",@"VoiceSearchFeedback009",@"VoiceSearchFeedback010",@"VoiceSearchFeedback011",@"VoiceSearchFeedback012",@"VoiceSearchFeedback013",@"VoiceSearchFeedback014",@"VoiceSearchFeedback015",@"VoiceSearchFeedback016"];
     recordView.upCancelText = NSLocalizedString(@"message.toolBar.record.upCancel", @"Fingers up slide, cancel sending");
     recordView.loosenCancelText = NSLocalizedString(@"message.toolBar.record.loosenCancel", @"loosen the fingers, to cancel sending");
 }
@@ -41,7 +41,7 @@
         [self addSubview:bgView];
         
         _recordAnimationView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 0, self.bounds.size.width - 20, self.bounds.size.height - 30)];
-        _recordAnimationView.image = [UIImage imageNamed:@"voice_feedback1"];
+        _recordAnimationView.image = [UIImage imageNamed:@"VoiceSearchFeedback001"];
         _recordAnimationView.contentMode = UIViewContentModeScaleAspectFit;
         [self addSubview:_recordAnimationView];
         

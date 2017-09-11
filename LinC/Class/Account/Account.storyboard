@@ -185,8 +185,6 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="password" destination="Eza-Yr-uwK" id="1fZ-yO-n03"/>
-                        <outlet property="userID" destination="xdd-V6-DIA" id="9ak-8M-RBy"/>
                         <outlet property="userIcon" destination="U6m-cr-4fJ" id="DEW-hO-DI6"/>
                     </connections>
                 </viewController>
