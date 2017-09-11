@@ -11,25 +11,46 @@
 #import "BRUserInfoSetUpTableViewController.h"
 #import <MBProgressHUD.h>
 
-@interface BRUserAccountSetUpViewController ()
+@interface BRUserAccountSetUpViewController () <UITextFieldDelegate>
 {
     NSString *email;
     MBProgressHUD *hud;
 }
 
+// Input text field
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property (weak, nonatomic) IBOutlet UITextField *userNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordConfirmTextField;
 @property (weak, nonatomic) IBOutlet UITextField *codeTextField;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *registerViewLeftConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *registerViewRightConstraint;
+// Constraints for layout email view and register view
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *emailViewLeftConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *emailViewRightContraint;
-
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *emailViewRightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *emailConentViewLeftConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *emailContentViewRightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *registerViewLeftConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *registerViewRightConstraint;
+
+
+// Constraints for adding details labels
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *passwordViewTopConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *passwordConfirmViewTopConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *codeViewTopConstraint;
+
+// All subviews
+@property (weak, nonatomic) IBOutlet UIView *registerView;
+@property (weak, nonatomic) IBOutlet UIView *emailRegisterView;
+@property (weak, nonatomic) IBOutlet UIView *userNameView;
+@property (weak, nonatomic) IBOutlet UIView *passwordView;
+@property (weak, nonatomic) IBOutlet UIView *passwordConfirmView;
+@property (weak, nonatomic) IBOutlet UIView *codeView;
+
+// Detail Labels
+@property (nonatomic, strong) UILabel *userNameDetailsLabel;
+@property (nonatomic, strong) UILabel *passwordDetailsLabel;
+@property (nonatomic, strong) UILabel *passwordConfirmDetailsLabel;
+
 @end
 
 @implementation BRUserAccountSetUpViewController
@@ -37,11 +58,31 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self setUpTextFeildDelegate];
+    [self.emailTextField becomeFirstResponder];
     // 修改背景图片
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background"]];
     
     self.registerViewLeftConstraint.constant = SCREEN_WIDTH;
     self.registerViewRightConstraint.constant = -SCREEN_WIDTH;
+}
+
+//// Lazy load details label
+//-(UILabel *)detailsLabel {
+//    if (_detailsLabel) {
+//        _detailsLabel = [[UILabel alloc] init];
+//        _detailsLabel.textColor = [UIColor redColor];
+//        _detailsLabel.font = [UIFont systemFontOfSize:15];
+//        _detailsLabel.backgroundColor = [UIColor clearColor];
+//    }
+//    return _detailsLabel;
+//}
+
+- (void)setUpTextFeildDelegate {
+    self.userNameTextField.delegate = self;
+    self.passwordConfirmTextField.delegate = self;
+    self.passwordTextField.delegate = self;
+    self.codeTextField.delegate = self;
 }
 
 - (IBAction)backAction:(id)sender {
@@ -53,17 +94,13 @@
     
     email = self.emailTextField.text;
     if (email.length == 0) {
-        self.emailConentViewLeftConstraint.constant = 40;
-        self.emailContentViewRightConstraint.constant = 60;
-        
-        self.emailConentViewLeftConstraint.constant = 60;
-        self.emailContentViewRightConstraint.constant = 40;
-        [UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:0.15 initialSpringVelocity:10 options:UIViewAnimationOptionCurveLinear animations:^{
-            [self.view layoutIfNeeded];
-        } completion:^(BOOL finished) {
-            self.emailConentViewLeftConstraint.constant = 50;
-            self.emailContentViewRightConstraint.constant = 50;
-        }];
+        [self shakeAnimation:self.emailRegisterView showMessage:nil];
+        return;
+    } else if([email rangeOfString:@"@"].location == NSNotFound) {
+        hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.label.text = @"Invalid email address";
+        [hud hideAnimated:YES afterDelay:1.5];
         return;
     }
     hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -80,10 +117,12 @@
             self.registerViewRightConstraint.constant = 0;
             
             self.emailViewLeftConstraint.constant = -SCREEN_WIDTH;
-            self.emailViewRightContraint.constant = SCREEN_WIDTH;
+            self.emailViewRightConstraint.constant = SCREEN_WIDTH;
             [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
                 [self.view layoutIfNeeded];
-            } completion:nil];
+            } completion:^(BOOL finished) {
+                [self.userNameTextField becomeFirstResponder];
+            }];
         }
         else if ([dict[@"status"] isEqualToString:@"error"]) {
             hud.mode = MBProgressHUDModeText;
@@ -105,7 +144,7 @@
         self.registerViewRightConstraint.constant = -SCREEN_WIDTH;
         
         self.emailViewLeftConstraint.constant = 0;
-        self.emailViewRightContraint.constant = 0;
+        self.emailViewRightConstraint.constant = 0;
         [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             [self.view layoutIfNeeded];
         } completion:nil];
@@ -132,21 +171,69 @@
 
 
 - (IBAction)registerAction:(id)sender {
+    
+    if (![self isTextFieldCheckClear]) {
+        return;
+    }
+    
     hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    
-    NSString *userName = self.userNameTextField.text;
-    NSString *password = self.passwordTextField.text;
-    NSString *code = self.codeTextField.text;
-    
     BRHTTPSessionManager *manager = [BRHTTPSessionManager manager];
     NSString *url = [kBaseURL stringByAppendingPathComponent:@"/api/v1/auth/register/confirm"];
     NSDictionary *parameters = @{
-                                 @"username":userName,
-                                 @"password":password,
-                                 @"email":email,
-                                 @"code":code
+                                 @"username":self.userNameTextField.text,
+                                 @"password":self.passwordTextField.text,
+                                 @"email":self.emailTextField.text,
+                                 @"code":self.codeTextField.text
                                  };
     [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        [self responseWithJSONData:responseObject];
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [hud hideAnimated:YES];
+        NSLog(@"%@", error.localizedDescription);
+    }];
+}
+
+- (void)shakeAnimation: (UIView *)shakeView showMessage: (NSString *)message{
+    
+    if (message != nil) {
+        hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.label.text = message;
+        [hud hideAnimated:YES afterDelay:1.5];
+    }
+    
+    shakeView.transform = CGAffineTransformMakeTranslation(15, 0);
+    [UIView animateWithDuration:0.2 delay:0.0 usingSpringWithDamping:0.15 initialSpringVelocity:1.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        shakeView.transform = CGAffineTransformIdentity;
+    } completion:nil];
+}
+
+- (BOOL)isTextFieldCheckClear {
+    if (self.userNameTextField.text.length == 0 /* check user name available later */) {
+        [self shakeAnimation:self.userNameView showMessage: nil];
+        return NO;
+    }
+    if (self.passwordTextField.text.length == 0 /*check password strong later*/) {
+        [self shakeAnimation: self.passwordView showMessage:nil];
+        return false;
+    } else if (self.passwordTextField.text.length < 6) {
+        [self shakeAnimation:self.passwordView showMessage:@"password weak"];
+        return false;
+    } else if (self.passwordTextField.text != self.passwordConfirmTextField.text) {
+        [self shakeAnimation:self.passwordConfirmView showMessage:@"password are not match"];
+        return false;
+    } else if (self.codeTextField.text.length == 0 /*check code match later*/) {
+        [self shakeAnimation: self.codeView showMessage:nil];
+        return false;
+    }
+    return true;
+}
+
+- (void)responseWithJSONData:(id)responseObject {
+    
+    if ([responseObject isKindOfClass:[NSDictionary class]]) {
         NSDictionary *dict = (NSDictionary *)responseObject;
         if ([dict[@"status"] isEqualToString:@"success"]) {
             [hud hideAnimated:YES];
@@ -160,10 +247,99 @@
             hud.label.text = dict[@"message"];
             [hud hideAnimated:YES afterDelay:1.5];
         }
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [hud hideAnimated:YES];
-        NSLog(@"%@", error.localizedDescription);
-    }];
+        
+    }
+}
+
+#pragma mark UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    if (textField == self.userNameTextField) {
+        [self.passwordTextField becomeFirstResponder];
+    }
+    if (textField== self.passwordTextField) {
+        [self.passwordConfirmTextField becomeFirstResponder];
+    }
+    if (textField == self.passwordConfirmTextField) {
+        [self.codeTextField becomeFirstResponder];
+    }
+    return true;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    // Add detail label for password textfield
+    if (textField == self.passwordTextField) {
+        if (textField.text.length > 0 && textField.text.length < 6) {
+            if (!self.passwordDetailsLabel) {
+                UILabel *label = [[UILabel alloc] init];
+                label.textColor = [UIColor redColor];
+                label.font = [UIFont systemFontOfSize:15];
+                label.backgroundColor = [UIColor clearColor];
+                label.frame = CGRectMake(self.passwordView.frame.origin.x, CGRectGetMaxY(self.passwordView.frame) + 5, self.passwordView.frame.size.width, 30);
+                label.text = @"week password.";
+                self.passwordDetailsLabel = label;
+                self.passwordConfirmViewTopConstraint.constant = 40;
+                
+                [textField layoutIfNeeded];
+                
+                [UIView animateWithDuration:0.4 animations:^{
+                    [self.registerView layoutIfNeeded];
+                    if (self.passwordConfirmDetailsLabel) {
+                        self.passwordConfirmDetailsLabel.frame = CGRectMake(self.passwordConfirmView.frame.origin.x, CGRectGetMaxY(self.passwordConfirmView.frame) + 5, self.passwordConfirmView.frame.size.width, 30);
+                    }
+                } completion:^(BOOL finished) {
+                    [self.registerView addSubview:self.passwordDetailsLabel];
+                }];
+            }
+        } else {
+            // Remove detail label for password textfield
+            self.passwordConfirmViewTopConstraint.constant = 10;
+            [self.passwordDetailsLabel removeFromSuperview];
+            self.passwordDetailsLabel = nil;
+            [UIView animateWithDuration:0.4 animations:^{
+                [self.registerView layoutIfNeeded];
+                if (self.passwordConfirmDetailsLabel) {
+                    self.passwordConfirmDetailsLabel.frame = CGRectMake(self.passwordConfirmView.frame.origin.x, CGRectGetMaxY(self.passwordConfirmView.frame) + 5, self.passwordConfirmView.frame.size.width, 30);
+                }
+                
+            } completion: nil];
+        }
+    }
+    // Add detail label for password confrim textfield
+    if (textField == self.passwordConfirmTextField) {
+        if (textField.text.length > 0 && textField.text != self.passwordTextField.text) {
+            
+            if (!self.passwordConfirmDetailsLabel) {
+                UILabel *label = [[UILabel alloc] init];
+                label.textColor = [UIColor redColor];
+                label.font = [UIFont systemFontOfSize:15];
+                label.backgroundColor = [UIColor clearColor];
+                label.frame = CGRectMake(self.passwordConfirmView.frame.origin.x, CGRectGetMaxY(self.passwordConfirmView.frame) + 5, self.passwordConfirmView.frame.size.width, 30);
+                label.text = @"password are not match.";
+                self.codeViewTopConstraint.constant = 40;
+                [textField layoutIfNeeded];
+                self.passwordConfirmDetailsLabel = label;
+                
+                [UIView animateWithDuration:0.4 animations:^{
+                    [self.registerView layoutIfNeeded];
+                } completion:^(BOOL finished) {
+                    [self.registerView addSubview:self.passwordConfirmDetailsLabel];
+                }];
+            }
+        } else {
+            // Remove detail label for password confirm textfield
+            self.codeViewTopConstraint.constant = 10;
+            [self.passwordConfirmDetailsLabel removeFromSuperview];
+            self.passwordConfirmDetailsLabel = nil;
+            
+            [UIView animateWithDuration:0.4 animations:^{
+                [self.registerView layoutIfNeeded];
+
+            } completion: nil];
+        }
+    }
 }
 
 /**
