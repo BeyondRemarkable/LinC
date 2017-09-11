@@ -15,11 +15,13 @@
 
 
 
-@interface BRLoginViewController ()
+@interface BRLoginViewController () <UITextFieldDelegate>
 {
     MBProgressHUD *hud;
 }
 @property (weak, nonatomic) IBOutlet UIImageView *userIcon;
+@property (weak, nonatomic) IBOutlet UIView *userNameView;
+@property (weak, nonatomic) IBOutlet UIView *passwordView;
 
 @property (weak, nonatomic) IBOutlet UITextField *userNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
@@ -37,18 +39,22 @@
 
 }
 
-#warning 需要写抖动方法
 - (IBAction)login {
+    // 收起键盘
+    [self.view endEditing:YES];
+    
     NSString *userName = self.userNameTextField.text;
     if (userName.length == 0) {
         // 抖动提示用户
-        
+        [self shakeAnimation:self.userNameView];
+        [self.userNameTextField becomeFirstResponder];
         return;
     }
     NSString *password = self.passwordTextField.text;
     if (password.length == 0) {
         // 抖动提示用户
-        
+        [self shakeAnimation:self.passwordView];
+        [self.passwordTextField becomeFirstResponder];
         return;
     }
     
@@ -84,7 +90,8 @@
     
     
 }
-- (IBAction)resetPassword {
+
+- (IBAction)clickForgetPassword {
     UIStoryboard *sc = [UIStoryboard storyboardWithName:@"Account" bundle:[NSBundle mainBundle]];
     BRResetPasswordViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRResetPasswordViewController"];
     [self presentViewController:vc animated:YES completion:nil];
@@ -95,6 +102,21 @@
  */
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
+}
+
+#pragma mark - private methods
+- (void)shakeAnimation: (UIView *)shakeView {
+    
+    shakeView.transform = CGAffineTransformMakeTranslation(15, 0);
+    [UIView animateWithDuration:0.2 delay:0.0 usingSpringWithDamping:0.15 initialSpringVelocity:1.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        shakeView.transform = CGAffineTransformIdentity;
+    } completion:nil];
+}
+
+#pragma mark - UITextField delegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self login];
+    return YES;
 }
 
 @end

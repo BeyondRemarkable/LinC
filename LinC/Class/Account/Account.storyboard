@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -49,6 +50,9 @@
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="0zz-Ui-sWY" id="fpM-Du-egC"/>
+                                        </connections>
                                     </textField>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="line_next_to_icon" translatesAutoresizingMaskIntoConstraints="NO" id="GFf-qu-oVW">
                                         <rect key="frame" x="44" y="5" width="10" height="33.5"/>
@@ -98,7 +102,10 @@
                                         <rect key="frame" x="62" y="0.0" width="174" height="44"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="go" secureTextEntry="YES"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="0zz-Ui-sWY" id="EaH-fh-fQO"/>
+                                        </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jWe-1P-n38" userLabel="LoginButton">
                                         <rect key="frame" x="236" y="5" width="34" height="34"/>
@@ -149,7 +156,7 @@
                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="resetPassword" destination="0zz-Ui-sWY" eventType="touchUpInside" id="doh-AL-IaR"/>
+                                    <action selector="clickForgetPassword" destination="0zz-Ui-sWY" eventType="touchUpInside" id="Z6u-Sv-y89"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eip-cH-wjB">
@@ -188,7 +195,11 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="passwordTextField" destination="Eza-Yr-uwK" id="Efn-l9-c2m"/>
+                        <outlet property="passwordView" destination="cWM-tF-J1T" id="mcF-4o-7wu"/>
                         <outlet property="userIcon" destination="U6m-cr-4fJ" id="DEW-hO-DI6"/>
+                        <outlet property="userNameTextField" destination="xdd-V6-DIA" id="7ta-5b-yPJ"/>
+                        <outlet property="userNameView" destination="9On-6I-3ts" id="YHv-VG-9uh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z5L-NY-2EZ" userLabel="First Responder" sceneMemberID="firstResponder"/>

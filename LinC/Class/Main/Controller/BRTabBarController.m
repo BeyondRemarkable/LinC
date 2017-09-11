@@ -79,7 +79,7 @@
     
     // 设置tabBarItem的文字颜色属性
     [childVc.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:BRColor(94, 94, 94)} forState:UIControlStateNormal];
-    [childVc.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:BRColor(82, 190, 61)} forState:UIControlStateSelected];
+    [childVc.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:BRColor(22, 117, 179)} forState:UIControlStateSelected];
     
     BRNavigationController *navigationVc = [[BRNavigationController alloc] initWithRootViewController:childVc];
     [self addChildViewController:navigationVc];
