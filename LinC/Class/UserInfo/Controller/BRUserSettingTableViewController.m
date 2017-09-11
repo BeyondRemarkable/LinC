@@ -60,10 +60,12 @@ typedef enum NSUInteger {
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRUserInfo" bundle:[NSBundle mainBundle]];
+    
     if (indexPath.section == TableViewSectionZerro) {
         if (indexPath.row == SettingPassword) {
             
-            BRPasswordViewController *vc = [[BRPasswordViewController alloc] initWithNibName:@"BRPasswordViewController" bundle:nil];
+            BRPasswordViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRPasswordViewController"];
             [self.navigationController pushViewController:vc animated:YES];
         }
     }

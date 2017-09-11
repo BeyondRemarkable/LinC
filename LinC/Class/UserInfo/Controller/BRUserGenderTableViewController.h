@@ -14,10 +14,14 @@
 
 @end
 
-@interface BRUserGenderViewController : UIViewController
+@interface BRUserGenderTableViewController : UITableViewController
 
-@property (assign, nonatomic) BOOL isMale;
+
 
 @property(nonatomic,assign)id delegate;
+
+@property (nonatomic, assign) BOOL status;
+@property (nonatomic, copy) NSString *gender;
+
 
 @end

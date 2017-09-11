@@ -8,7 +8,7 @@
 
 #import "BRUserInfoSetUpTableViewController.h"
 #import "BRUserNameTextViewController.h"
-#import "BRUserGenderViewController.h"
+#import "BRUserGenderTableViewController.h"
 #import "BRLocationListViewController.h"
 
 @interface BRUserInfoSetUpTableViewController ()<sendGenderProtocol, sendUserNameProtocol>
@@ -30,12 +30,17 @@ typedef enum NSUInteger {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationController.navigationBar.hidden = NO;
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    // Set navigationBar background color
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
+    self.navigationController.navigationBar.translucent = YES;
+
+    UIImageView *ig = [[UIImageView alloc] initWithFrame:self.view.bounds];
+    ig.image = [UIImage imageNamed:@"background"];
+    self.tableView.backgroundView = ig;
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -54,26 +59,30 @@ typedef enum NSUInteger {
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRUserInfo" bundle:[NSBundle mainBundle]];
+
+    // User nick name text field
+    if (indexPath.row == UserNameCell) {
+        BRUserNameTextViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRUserNameTextViewController"];
+        vc.delegate = self;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
     
-        // User nick name text field
-        if (indexPath.row == UserNameCell) {
-            BRUserNameTextViewController *vc = [[BRUserNameTextViewController alloc] initWithNibName:@"BRUserNameTextViewController" bundle:nil];
-            vc.delegate = self;
-            [self.navigationController pushViewController:vc animated:YES];
-        }
-        
-        //    // User's gender
-        if (indexPath.row == UserGenderCell) {
-            BRUserGenderViewController *vc = [[BRUserGenderViewController alloc] initWithNibName:@"BRUserGenderViewController" bundle:nil];
-            vc.delegate = self;
-            [self.navigationController pushViewController:vc animated:YES];
-        }
+    //    // User's gender
+    if (indexPath.row == UserGenderCell) {
+
+        BRUserGenderTableViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRUserGenderTableViewController"];
+        vc.status = true;
+        vc.delegate = self;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
     
-        if (indexPath.row == UserLocationCell) {
-            BRLocationListViewController *vc = [[BRLocationListViewController alloc] initWithNibName:@"BRLocationListViewController" bundle:nil];
-//            vc.delegate = self;
-            [self.navigationController pushViewController:vc animated:YES];
-        }
+    if (indexPath.row == UserLocationCell) {
+        BRLocationListViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRLocationListViewController"];
+        //            vc.delegate = self;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 #pragma mark delegate methods

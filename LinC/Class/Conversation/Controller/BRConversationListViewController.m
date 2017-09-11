@@ -58,16 +58,13 @@
     [self.dropDownVC.view removeFromSuperview];
     self.dropDownVC = nil;
     [self presentViewController:vc animated:YES completion:nil];
-    
 }
 
 - (void)dropdownMenu {
     self.navigationItem.rightBarButtonItem.enabled = NO;
     if (!self.dropDownVC) {
         self.dropDownVC = [[BRDropDownViewController alloc] initWithNibName:@"BRDropDownViewController" bundle:nil];
-        
         UIView *dropDownMenuView = self.dropDownVC.view;
-        
         [self.dropDownVC.chatButton addTarget:self action:@selector(chatBtnTapped:) forControlEvents:UIControlEventTouchUpInside];
         [self.dropDownVC.scanQRCodeButton addTarget:self action:@selector(scanQRCodeBtnTapped:) forControlEvents:UIControlEventTouchUpInside];
         

@@ -7,7 +7,6 @@
 //
 
 #import "BRScannerViewController.h"
-#import "BRFriendInfoViewController.h"
 #import <AVFoundation/AVFoundation.h>
 
 @interface BRScannerViewController () <AVCaptureMetadataOutputObjectsDelegate>
@@ -98,11 +97,11 @@
 
 - (void)setUpFriendInfo {
     
-    UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRFriendInfo" bundle:nil];
+//    UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRFriendInfo" bundle:nil];
     
-    BRFriendInfoViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRFriendInfoTableViewController"];
+//    BRFriendInfoViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRFriendInfoTableViewController"];
     
-    [self.navigationController pushViewController:vc animated:YES];
+//    [self.navigationController pushViewController:vc animated:YES];
 }
 
 /**

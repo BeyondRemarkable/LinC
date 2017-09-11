@@ -10,7 +10,6 @@
 #import "BRLocationCitiListTableViewController.h"
 
 @interface BRLocationListViewController ()<UITableViewDelegate, UITableViewDataSource>
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (nonatomic, strong) NSMutableArray *provincesArray;
 @property (nonatomic, strong) NSMutableArray *plistData;
@@ -85,12 +84,11 @@ static NSString * const cellIdentifier = @"LocationListCell";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary *citydict = self.plistData[indexPath.row];
-    BRLocationCitiListTableViewController *vc = [[BRLocationCitiListTableViewController alloc] initWithNibName:@"BRLocationCitiListTableViewController" bundle:nil];
     
+    BRLocationCitiListTableViewController *vc = [[BRLocationCitiListTableViewController alloc] init];
     vc.cityData = citydict;
     
     [self.navigationController pushViewController:vc animated:YES];
-    
 }
 
 

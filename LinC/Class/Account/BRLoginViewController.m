@@ -8,9 +8,12 @@
 
 #import "BRLoginViewController.h"
 #import "BRTabBarController.h"
+#import "BRResetPasswordViewController.h"
 #import <AFNetworking.h>
 #import "BRHTTPSessionManager.h"
 #import <MBProgressHUD.h>
+
+
 
 @interface BRLoginViewController ()
 {
@@ -80,6 +83,11 @@
     }];
     
     
+}
+- (IBAction)resetPassword {
+    UIStoryboard *sc = [UIStoryboard storyboardWithName:@"Account" bundle:[NSBundle mainBundle]];
+    BRResetPasswordViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRResetPasswordViewController"];
+    [self presentViewController:vc animated:YES completion:nil];
 }
 
 /**
