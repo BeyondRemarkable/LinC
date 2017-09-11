@@ -7,119 +7,109 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		276E75111F3B9A6F00D5A917 /* BREmotionEscape.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75101F3B9A6F00D5A917 /* BREmotionEscape.m */; };
-		276E75141F3B9C5200D5A917 /* BRConvertToCommonEmoticonsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75131F3B9C5200D5A917 /* BRConvertToCommonEmoticonsHelper.m */; };
-		276E75171F3B9FCF00D5A917 /* BREmoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75161F3B9FCF00D5A917 /* BREmoji.m */; };
-		276E751A1F3BA02200D5A917 /* BREmojiEmoticons.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75191F3BA02200D5A917 /* BREmojiEmoticons.m */; };
-		276E751D1F3BA60100D5A917 /* BRMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E751C1F3BA60100D5A917 /* BRMessageViewController.m */; };
-		276E751F1F3BB48D00D5A917 /* BRConversationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 276E751E1F3BB48D00D5A917 /* BRConversationCell.xib */; };
-		276E75221F3CD44C00D5A917 /* BRMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75211F3CD44C00D5A917 /* BRMessageModel.m */; };
-		276E75251F3CDA6B00D5A917 /* BRMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75241F3CDA6B00D5A917 /* BRMessageCell.m */; };
-		276E75281F3CDC3C00D5A917 /* BRBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75271F3CDC3C00D5A917 /* BRBubbleView.m */; };
-		276E752C1F3CDE2C00D5A917 /* BRBubbleView+Text.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E752B1F3CDE2C00D5A917 /* BRBubbleView+Text.m */; };
-		276E752F1F3CDF0500D5A917 /* BRBubbleView+Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E752E1F3CDF0500D5A917 /* BRBubbleView+Image.m */; };
-		276E75321F3CDF7D00D5A917 /* BRBubbleView+Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75311F3CDF7D00D5A917 /* BRBubbleView+Location.m */; };
-		276E75351F3CE0B700D5A917 /* BRBubbleView+Voice.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75341F3CE0B700D5A917 /* BRBubbleView+Voice.m */; };
-		276E75381F3CE12C00D5A917 /* BRBubbleView+Video.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75371F3CE12C00D5A917 /* BRBubbleView+Video.m */; };
-		276E753B1F3CE1E300D5A917 /* BRBubbleView+File.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E753A1F3CE1E300D5A917 /* BRBubbleView+File.m */; };
-		276E753E1F3CE5D600D5A917 /* BRBaseMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E753D1F3CE5D600D5A917 /* BRBaseMessageCell.m */; };
-		276E75411F3CED4F00D5A917 /* BRCustomMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75401F3CED4F00D5A917 /* BRCustomMessageCell.m */; };
-		276E75441F3CEE2F00D5A917 /* BRBubbleView+Gif.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75431F3CEE2F00D5A917 /* BRBubbleView+Gif.m */; };
-		276E754C1F3D0C1500D5A917 /* BRChatToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E754B1F3D0C1500D5A917 /* BRChatToolbar.m */; };
-		276E754F1F3D0F5000D5A917 /* BREmotionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E754E1F3D0F5000D5A917 /* BREmotionManager.m */; };
-		276E75521F3E05DA00D5A917 /* BRFacialView.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75511F3E05DA00D5A917 /* BRFacialView.m */; };
-		276E75551F3E090D00D5A917 /* BRFaceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75541F3E090D00D5A917 /* BRFaceView.m */; };
-		276E75581F3E22DB00D5A917 /* BRTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75571F3E22DB00D5A917 /* BRTextView.m */; };
-		276E755B1F3E253200D5A917 /* BRRecordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E755A1F3E253200D5A917 /* BRRecordView.m */; };
-		276E75621F3E282200D5A917 /* BRCDDeviceManagerBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75611F3E282200D5A917 /* BRCDDeviceManagerBase.m */; };
-		276E75651F3E292A00D5A917 /* BRCDDeviceManager+Media.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75641F3E292A00D5A917 /* BRCDDeviceManager+Media.m */; };
-		276E75681F3E2A2E00D5A917 /* BRAudioPlayerUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75671F3E2A2E00D5A917 /* BRAudioPlayerUtil.m */; };
 		276E756A1F3E2B0200D5A917 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E75691F3E2B0200D5A917 /* AVFoundation.framework */; };
-		276E756D1F3E2B8700D5A917 /* BRAudioRecorderUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E756C1F3E2B8700D5A917 /* BRAudioRecorderUtil.m */; };
-		276E75701F3E2C4D00D5A917 /* BRVoiceConverter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 276E756F1F3E2C4D00D5A917 /* BRVoiceConverter.mm */; };
-		276E75781F3E2D7600D5A917 /* amrFileCodec.mm in Sources */ = {isa = PBXBuildFile; fileRef = 276E75721F3E2D7600D5A917 /* amrFileCodec.mm */; };
-		276E75791F3E2D7600D5A917 /* wav.mm in Sources */ = {isa = PBXBuildFile; fileRef = 276E75771F3E2D7600D5A917 /* wav.mm */; };
-		276E757D1F3E2EEF00D5A917 /* BRCDDeviceManager+Remind.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E757C1F3E2EEF00D5A917 /* BRCDDeviceManager+Remind.m */; };
 		276E757F1F3E2F1E00D5A917 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E757E1F3E2F1E00D5A917 /* AudioToolbox.framework */; };
-		276E75821F3E2F7900D5A917 /* BRCDDeviceManager+Microphone.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75811F3E2F7900D5A917 /* BRCDDeviceManager+Microphone.m */; };
-		276E75851F3E2FD600D5A917 /* BRCDDeviceManager+ProximitySensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75841F3E2FD600D5A917 /* BRCDDeviceManager+ProximitySensor.m */; };
-		276E758B1F3E321100D5A917 /* BRChatToolbarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E758A1F3E321100D5A917 /* BRChatToolbarItem.m */; };
-		276E758E1F3E35BD00D5A917 /* BRSDKHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E758D1F3E35BD00D5A917 /* BRSDKHelper.m */; };
 		276E75901F3E390100D5A917 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E758F1F3E390100D5A917 /* UserNotifications.framework */; };
-		276E75931F3E40FF00D5A917 /* BRLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75921F3E40FF00D5A917 /* BRLocationViewController.m */; };
 		276E75971F3E5AA600D5A917 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E75961F3E5AA600D5A917 /* AVKit.framework */; };
-		276E759A1F3E5C8E00D5A917 /* BRMessageTimeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75991F3E5C8E00D5A917 /* BRMessageTimeCell.m */; };
-		276E759D1F3F4E5600D5A917 /* BRMessageReadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E759C1F3F4E5600D5A917 /* BRMessageReadManager.m */; };
-		276E75A41F421A6900D5A917 /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E75A21F421A6900D5A917 /* libopencore-amrnb.a */; };
-		276E75A51F421A6900D5A917 /* libopencore-amrwb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E75A31F421A6900D5A917 /* libopencore-amrwb.a */; };
-		276E75A81F4227AD00D5A917 /* Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75A71F4227AD00D5A917 /* Common.m */; };
-		276E75AD1F4365EA00D5A917 /* BRMediaBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75AB1F4365EA00D5A917 /* BRMediaBrowserViewController.m */; };
-		276E75B31F4379CD00D5A917 /* BRMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75B21F4379CD00D5A917 /* BRMedia.m */; };
-		276E75B71F43A44300D5A917 /* BRMediaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 276E75B51F43A44300D5A917 /* BRMediaCell.m */; };
-		276E75D61F45F10C00D5A917 /* BRMediaBrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 276E75D51F45F10C00D5A917 /* BRMediaBrowserViewController.xib */; };
-		278CD9451F506FB6008D6BD1 /* BRChatBarMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 278CD9441F506FB6008D6BD1 /* BRChatBarMoreView.m */; };
-		278CD9491F507462008D6BD1 /* BRChatBarMoreViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 278CD9471F507462008D6BD1 /* BRChatBarMoreViewCell.m */; };
-		278CD94A1F507462008D6BD1 /* BRChatBarMoreViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 278CD9481F507462008D6BD1 /* BRChatBarMoreViewCell.xib */; };
 		278CD94C1F549192008D6BD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 278CD94B1F549192008D6BD1 /* Assets.xcassets */; };
-		278CD9531F59B055008D6BD1 /* BRHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 278CD9521F59B055008D6BD1 /* BRHTTPSessionManager.m */; };
 		27CA03B11F38F21600D0F132 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CA03B01F38F21600D0F132 /* main.m */; };
 		27CA03CA1F38F21600D0F132 /* LinCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CA03C91F38F21600D0F132 /* LinCTests.m */; };
 		27CA03D51F38F21600D0F132 /* LinCUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CA03D41F38F21600D0F132 /* LinCUITests.m */; };
-		27E9A22E1F3B84F4001937A0 /* BRConversationListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E9A2141F3B84F4001937A0 /* BRConversationListViewController.m */; };
-		27E9A22F1F3B84F4001937A0 /* BRConversationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E9A2171F3B84F4001937A0 /* BRConversationModel.m */; };
-		27E9A2301F3B84F4001937A0 /* BRAvatarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E9A21A1F3B84F4001937A0 /* BRAvatarView.m */; };
-		27E9A2311F3B84F4001937A0 /* BRConversationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E9A21C1F3B84F4001937A0 /* BRConversationCell.m */; };
-		27E9A2321F3B84F4001937A0 /* NSDate+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E9A2201F3B84F4001937A0 /* NSDate+Category.m */; };
-		27E9A2331F3B84F4001937A0 /* NSDateFormatter+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E9A2221F3B84F4001937A0 /* NSDateFormatter+Category.m */; };
-		27E9A2341F3B84F4001937A0 /* NSString+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E9A2241F3B84F4001937A0 /* NSString+Helper.m */; };
-		27E9A2351F3B84F4001937A0 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E9A2261F3B84F4001937A0 /* UIView+Extension.m */; };
-		27E9A2361F3B84F4001937A0 /* BRNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E9A2291F3B84F4001937A0 /* BRNavigationController.m */; };
-		27E9A2371F3B84F4001937A0 /* BRRefreshTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E9A22B1F3B84F4001937A0 /* BRRefreshTableViewController.m */; };
-		27E9A2381F3B84F4001937A0 /* BRTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E9A22D1F3B84F4001937A0 /* BRTabBarController.m */; };
-		27E9A23E1F3B8BE3001937A0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E9A23D1F3B8BE3001937A0 /* AppDelegate.m */; };
-		27E9A2421F3B8BFA001937A0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27E9A2401F3B8BFA001937A0 /* LaunchScreen.storyboard */; };
-		27E9A2431F3B8BFA001937A0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27E9A2411F3B8BFA001937A0 /* Main.storyboard */; };
 		777EE2E01DE2D56D25A06FA2 /* libPods-LinC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7644E4D020BABDE5A91405CF /* libPods-LinC.a */; };
-		E90A1CDB1F42AA76001033CB /* BRContactListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90A1CCF1F42AA76001033CB /* BRContactListViewController.m */; };
-		E90A1CDD1F42AA76001033CB /* BRContactListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E90A1CD31F42AA76001033CB /* BRContactListModel.m */; };
-		E90A1CDE1F42AA76001033CB /* BRContactListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E90A1CD61F42AA76001033CB /* BRContactListTableViewCell.m */; };
-		E90A1CDF1F42AA76001033CB /* BRContactListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E90A1CD71F42AA76001033CB /* BRContactListTableViewCell.xib */; };
-		E90A1CE01F42AA76001033CB /* BRFriendInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90A1CD91F42AA76001033CB /* BRFriendInfoViewController.m */; };
-		E90A1CE11F42AA76001033CB /* BRFriendInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E90A1CDA1F42AA76001033CB /* BRFriendInfoViewController.xib */; };
-		E90A1CF71F42AA85001033CB /* BRUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90A1CE41F42AA85001033CB /* BRUserInfoViewController.m */; };
-		E90A1CF81F42AA85001033CB /* BRLocationListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90A1CE81F42AA85001033CB /* BRLocationListViewController.m */; };
-		E90A1CF91F42AA85001033CB /* BRLocationListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E90A1CE91F42AA85001033CB /* BRLocationListViewController.xib */; };
-		E90A1CFA1F42AA85001033CB /* BRUserGenderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90A1CEB1F42AA85001033CB /* BRUserGenderViewController.m */; };
-		E90A1CFB1F42AA85001033CB /* BRUserGenderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E90A1CEC1F42AA85001033CB /* BRUserGenderViewController.xib */; };
-		E90A1CFC1F42AA85001033CB /* BRUserImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90A1CEE1F42AA85001033CB /* BRUserImageViewController.m */; };
-		E90A1CFD1F42AA85001033CB /* BRUserImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E90A1CEF1F42AA85001033CB /* BRUserImageViewController.xib */; };
-		E90A1CFE1F42AA85001033CB /* BRUserInfoViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E90A1CF01F42AA85001033CB /* BRUserInfoViewController.storyboard */; };
-		E90A1CFF1F42AA85001033CB /* BRUserNameTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90A1CF21F42AA85001033CB /* BRUserNameTextViewController.m */; };
-		E90A1D001F42AA85001033CB /* BRUserNameTextViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E90A1CF31F42AA85001033CB /* BRUserNameTextViewController.xib */; };
-		E90A1D011F42AA85001033CB /* BRWhatsUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90A1CF51F42AA85001033CB /* BRWhatsUpViewController.m */; };
-		E90A1D021F42AA85001033CB /* BRWhatsUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E90A1CF61F42AA85001033CB /* BRWhatsUpViewController.xib */; };
-		E910E7341F4DDC2D00F5C9BC /* BRPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E910E7321F4DDC2D00F5C9BC /* BRPasswordViewController.m */; };
-		E910E7351F4DDC2D00F5C9BC /* BRPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E910E7331F4DDC2D00F5C9BC /* BRPasswordViewController.xib */; };
-		E9160F241F507A620072495A /* BRQRCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9160F221F507A620072495A /* BRQRCodeViewController.m */; };
-		E9160F251F507A620072495A /* BRQRCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9160F231F507A620072495A /* BRQRCodeViewController.xib */; };
-		E92912541F4DCE8C00092B2A /* BRUserSettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E92912521F4DCE8C00092B2A /* BRUserSettingTableViewController.m */; };
-		E92912571F4DD1F000092B2A /* BRUserSettingTableViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E92912561F4DD1F000092B2A /* BRUserSettingTableViewController.storyboard */; };
-		E932C5291F4B547E0045AB60 /* ProvincesAndCities.plist in Resources */ = {isa = PBXBuildFile; fileRef = E932C5281F4B547E0045AB60 /* ProvincesAndCities.plist */; };
-		E932C52D1F4B67AE0045AB60 /* BRLocationCitiListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E932C52B1F4B67AE0045AB60 /* BRLocationCitiListTableViewController.m */; };
-		E932C52E1F4B67AE0045AB60 /* BRLocationCitiListTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E932C52C1F4B67AE0045AB60 /* BRLocationCitiListTableViewController.xib */; };
-		E9422D861F50A8FC0008911E /* BRAddingFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9422D841F50A8FC0008911E /* BRAddingFriendViewController.m */; };
-		E9422D871F50A8FC0008911E /* BRAddingFriendViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9422D851F50A8FC0008911E /* BRAddingFriendViewController.xib */; };
-		E9422D8B1F50AD6E0008911E /* BRScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9422D891F50AD6E0008911E /* BRScannerViewController.m */; };
-		E9422D8C1F50AD6E0008911E /* BRScannerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9422D8A1F50AD6E0008911E /* BRScannerViewController.xib */; };
-		E9422D901F50B1790008911E /* BRFriendInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9422D8E1F50B1780008911E /* BRFriendInfoTableViewController.m */; };
-		E9422D931F50B4FE0008911E /* BRFriendInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9422D921F50B4FE0008911E /* BRFriendInfo.storyboard */; };
-		E95841981F4B337A00B3693F /* BRUserAccountSetUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E95841971F4B337A00B3693F /* BRUserAccountSetUpViewController.m */; };
-		E958419B1F4B344000B3693F /* BRUserInfoSetUpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E958419A1F4B344000B3693F /* BRUserInfoSetUpTableViewController.m */; };
-		E9A3ACEC1F476174006810BE /* BRLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A3ACEB1F476174006810BE /* BRLoginViewController.m */; };
-		E9A3ACF21F476253006810BE /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9A3ACF11F476253006810BE /* Account.storyboard */; };
-		E9A3ACF31F476253006810BE /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9A3ACF11F476253006810BE /* Account.storyboard */; };
-		E9A3ACF41F476253006810BE /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9A3ACF11F476253006810BE /* Account.storyboard */; };
-		E9FEC22D1F550C3100BD7047 /* BRDropDownViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9FEC22B1F550C3100BD7047 /* BRDropDownViewController.m */; };
+		E90F7B791F670DC300333382 /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E90F7AA61F670DC300333382 /* Account.storyboard */; };
+		E90F7B7A1F670DC300333382 /* BRAccountNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AA81F670DC300333382 /* BRAccountNavigationController.m */; };
+		E90F7B7B1F670DC300333382 /* BRLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AAA1F670DC300333382 /* BRLoginViewController.m */; };
+		E90F7B7C1F670DC300333382 /* BRResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AAC1F670DC300333382 /* BRResetPasswordViewController.m */; };
+		E90F7B7D1F670DC300333382 /* BRUserAccountSetUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AAE1F670DC300333382 /* BRUserAccountSetUpViewController.m */; };
+		E90F7B7E1F670DC300333382 /* BRUserInfoSetUpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AB01F670DC300333382 /* BRUserInfoSetUpTableViewController.m */; };
+		E90F7B7F1F670DC300333382 /* BRAddingFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AB41F670DC300333382 /* BRAddingFriendViewController.m */; };
+		E90F7B801F670DC300333382 /* BRAddingFriendViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E90F7AB51F670DC300333382 /* BRAddingFriendViewController.xib */; };
+		E90F7B811F670DC300333382 /* BRContactListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AB71F670DC300333382 /* BRContactListViewController.m */; };
+		E90F7B821F670DC300333382 /* BRFriendInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E90F7AB81F670DC300333382 /* BRFriendInfo.storyboard */; };
+		E90F7B831F670DC300333382 /* BRFriendInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7ABA1F670DC300333382 /* BRFriendInfoTableViewController.m */; };
+		E90F7B841F670DC300333382 /* BRScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7ABC1F670DC300333382 /* BRScannerViewController.m */; };
+		E90F7B851F670DC300333382 /* BRScannerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E90F7ABD1F670DC300333382 /* BRScannerViewController.xib */; };
+		E90F7B861F670DC300333382 /* BRContactListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AC01F670DC300333382 /* BRContactListModel.m */; };
+		E90F7B871F670DC300333382 /* BRContactListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AC41F670DC300333382 /* BRContactListTableViewCell.m */; };
+		E90F7B881F670DC300333382 /* BRContactListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E90F7AC51F670DC300333382 /* BRContactListTableViewCell.xib */; };
+		E90F7B891F670DC300333382 /* BRConversationListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AC91F670DC300333382 /* BRConversationListViewController.m */; };
+		E90F7B8A1F670DC300333382 /* BRDropDownViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7ACB1F670DC300333382 /* BRDropDownViewController.m */; };
+		E90F7B8B1F670DC300333382 /* BRDropDownViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E90F7ACC1F670DC300333382 /* BRDropDownViewController.xib */; };
+		E90F7B8C1F670DC300333382 /* BRConversationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7ACF1F670DC300333382 /* BRConversationModel.m */; };
+		E90F7B8D1F670DC300333382 /* BRAvatarView.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AD31F670DC300333382 /* BRAvatarView.m */; };
+		E90F7B8E1F670DC300333382 /* BRConversationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AD51F670DC300333382 /* BRConversationCell.m */; };
+		E90F7B8F1F670DC300333382 /* BRConversationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E90F7AD61F670DC300333382 /* BRConversationCell.xib */; };
+		E90F7B901F670DC300333382 /* BRHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AD91F670DC300333382 /* BRHTTPSessionManager.m */; };
+		E90F7B911F670DC300333382 /* BRSDKHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7ADB1F670DC300333382 /* BRSDKHelper.m */; };
+		E90F7B921F670DC300333382 /* NSDate+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7ADE1F670DC300333382 /* NSDate+Category.m */; };
+		E90F7B931F670DC300333382 /* NSDateFormatter+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AE01F670DC300333382 /* NSDateFormatter+Category.m */; };
+		E90F7B941F670DC300333382 /* NSString+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AE21F670DC300333382 /* NSString+Helper.m */; };
+		E90F7B951F670DC300333382 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AE41F670DC300333382 /* UIView+Extension.m */; };
+		E90F7B961F670DC300333382 /* BRNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AE71F670DC300333382 /* BRNavigationController.m */; };
+		E90F7B971F670DC300333382 /* BRRefreshTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AE91F670DC300333382 /* BRRefreshTableViewController.m */; };
+		E90F7B981F670DC300333382 /* BRTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AEB1F670DC300333382 /* BRTabBarController.m */; };
+		E90F7B991F670DC300333382 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E90F7AEE1F670DC300333382 /* LaunchScreen.storyboard */; };
+		E90F7B9A1F670DC300333382 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E90F7AEF1F670DC300333382 /* Main.storyboard */; };
+		E90F7B9B1F670DC300333382 /* BRBubbleView+File.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AF31F670DC300333382 /* BRBubbleView+File.m */; };
+		E90F7B9C1F670DC300333382 /* BRBubbleView+Gif.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AF51F670DC300333382 /* BRBubbleView+Gif.m */; };
+		E90F7B9D1F670DC300333382 /* BRBubbleView+Image.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AF71F670DC300333382 /* BRBubbleView+Image.m */; };
+		E90F7B9E1F670DC300333382 /* BRBubbleView+Location.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AF91F670DC300333382 /* BRBubbleView+Location.m */; };
+		E90F7B9F1F670DC300333382 /* BRBubbleView+Text.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AFB1F670DC300333382 /* BRBubbleView+Text.m */; };
+		E90F7BA01F670DC300333382 /* BRBubbleView+Video.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AFD1F670DC300333382 /* BRBubbleView+Video.m */; };
+		E90F7BA11F670DC300333382 /* BRBubbleView+Voice.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AFF1F670DC300333382 /* BRBubbleView+Voice.m */; };
+		E90F7BA21F670DC300333382 /* BRCDDeviceManager+Media.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B011F670DC300333382 /* BRCDDeviceManager+Media.m */; };
+		E90F7BA31F670DC300333382 /* BRCDDeviceManager+Microphone.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B031F670DC300333382 /* BRCDDeviceManager+Microphone.m */; };
+		E90F7BA41F670DC300333382 /* BRCDDeviceManager+ProximitySensor.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B051F670DC300333382 /* BRCDDeviceManager+ProximitySensor.m */; };
+		E90F7BA51F670DC300333382 /* BRCDDeviceManager+Remind.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B071F670DC300333382 /* BRCDDeviceManager+Remind.m */; };
+		E90F7BA61F670DC300333382 /* BRLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B0A1F670DC300333382 /* BRLocationViewController.m */; };
+		E90F7BA71F670DC300333382 /* BRMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B0C1F670DC300333382 /* BRMessageViewController.m */; };
+		E90F7BA81F670DC300333382 /* amrFileCodec.mm in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B0F1F670DC300333382 /* amrFileCodec.mm */; };
+		E90F7BA91F670DC300333382 /* BRAudioPlayerUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B111F670DC300333382 /* BRAudioPlayerUtil.m */; };
+		E90F7BAA1F670DC300333382 /* BRAudioRecorderUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B131F670DC300333382 /* BRAudioRecorderUtil.m */; };
+		E90F7BAB1F670DC300333382 /* BRCDDeviceManagerBase.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B161F670DC300333382 /* BRCDDeviceManagerBase.m */; };
+		E90F7BAC1F670DC300333382 /* BRChatToolbarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B1A1F670DC300333382 /* BRChatToolbarItem.m */; };
+		E90F7BAD1F670DC300333382 /* BRConvertToCommonEmoticonsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B1C1F670DC300333382 /* BRConvertToCommonEmoticonsHelper.m */; };
+		E90F7BAE1F670DC400333382 /* BREmoji.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B1E1F670DC300333382 /* BREmoji.m */; };
+		E90F7BAF1F670DC400333382 /* BREmojiEmoticons.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B201F670DC300333382 /* BREmojiEmoticons.m */; };
+		E90F7BB01F670DC400333382 /* BREmotionEscape.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B221F670DC300333382 /* BREmotionEscape.m */; };
+		E90F7BB11F670DC400333382 /* BREmotionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B241F670DC300333382 /* BREmotionManager.m */; };
+		E90F7BB21F670DC400333382 /* BRMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B261F670DC300333382 /* BRMessageModel.m */; };
+		E90F7BB31F670DC400333382 /* BRMessageReadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B281F670DC300333382 /* BRMessageReadManager.m */; };
+		E90F7BB41F670DC400333382 /* BRVoiceConverter.mm in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B2A1F670DC300333382 /* BRVoiceConverter.mm */; };
+		E90F7BB51F670DC400333382 /* wav.mm in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B311F670DC300333382 /* wav.mm */; };
+		E90F7BB61F670DC400333382 /* BRBaseMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B341F670DC300333382 /* BRBaseMessageCell.m */; };
+		E90F7BB71F670DC400333382 /* BRBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B361F670DC300333382 /* BRBubbleView.m */; };
+		E90F7BB81F670DC400333382 /* BRChatBarMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B381F670DC300333382 /* BRChatBarMoreView.m */; };
+		E90F7BB91F670DC400333382 /* BRChatBarMoreViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B3A1F670DC300333382 /* BRChatBarMoreViewCell.m */; };
+		E90F7BBA1F670DC400333382 /* BRChatBarMoreViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E90F7B3B1F670DC300333382 /* BRChatBarMoreViewCell.xib */; };
+		E90F7BBB1F670DC400333382 /* BRChatToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B3D1F670DC300333382 /* BRChatToolbar.m */; };
+		E90F7BBC1F670DC400333382 /* BRCustomMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B3F1F670DC300333382 /* BRCustomMessageCell.m */; };
+		E90F7BBD1F670DC400333382 /* BRFaceView.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B411F670DC300333382 /* BRFaceView.m */; };
+		E90F7BBE1F670DC400333382 /* BRFacialView.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B431F670DC300333382 /* BRFacialView.m */; };
+		E90F7BBF1F670DC400333382 /* BRMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B451F670DC300333382 /* BRMessageCell.m */; };
+		E90F7BC01F670DC400333382 /* BRMessageTimeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B471F670DC300333382 /* BRMessageTimeCell.m */; };
+		E90F7BC11F670DC400333382 /* BRRecordView.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B491F670DC300333382 /* BRRecordView.m */; };
+		E90F7BC21F670DC400333382 /* BRTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B4B1F670DC300333382 /* BRTextView.m */; };
+		E90F7BC31F670DC400333382 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B4E1F670DC300333382 /* AppDelegate.m */; };
+		E90F7BC41F670DC400333382 /* Common.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B501F670DC300333382 /* Common.m */; };
+		E90F7BC51F670DC400333382 /* BRMediaBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B531F670DC300333382 /* BRMediaBrowserViewController.m */; };
+		E90F7BC61F670DC400333382 /* BRMediaBrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E90F7B541F670DC300333382 /* BRMediaBrowserViewController.xib */; };
+		E90F7BC71F670DC400333382 /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E90F7B561F670DC300333382 /* libopencore-amrnb.a */; };
+		E90F7BC81F670DC400333382 /* libopencore-amrwb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E90F7B571F670DC300333382 /* libopencore-amrwb.a */; };
+		E90F7BC91F670DC400333382 /* BRMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B5B1F670DC300333382 /* BRMedia.m */; };
+		E90F7BCA1F670DC400333382 /* ProvincesAndCities.plist in Resources */ = {isa = PBXBuildFile; fileRef = E90F7B5C1F670DC300333382 /* ProvincesAndCities.plist */; };
+		E90F7BCB1F670DC400333382 /* BRMediaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B5F1F670DC300333382 /* BRMediaCell.m */; };
+		E90F7BCC1F670DC400333382 /* BRLocationCitiListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B631F670DC300333382 /* BRLocationCitiListTableViewController.m */; };
+		E90F7BCD1F670DC400333382 /* BRLocationListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B651F670DC300333382 /* BRLocationListViewController.m */; };
+		E90F7BCE1F670DC400333382 /* BRPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B671F670DC300333382 /* BRPasswordViewController.m */; };
+		E90F7BCF1F670DC400333382 /* BRQRCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B691F670DC300333382 /* BRQRCodeViewController.m */; };
+		E90F7BD01F670DC400333382 /* BRUserGenderTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B6B1F670DC300333382 /* BRUserGenderTableViewController.m */; };
+		E90F7BD11F670DC400333382 /* BRUserImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B6D1F670DC300333382 /* BRUserImageViewController.m */; };
+		E90F7BD21F670DC400333382 /* BRUserInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E90F7B6E1F670DC300333382 /* BRUserInfo.storyboard */; };
+		E90F7BD31F670DC400333382 /* BRUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B701F670DC300333382 /* BRUserInfoViewController.m */; };
+		E90F7BD41F670DC400333382 /* BRUserNameTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B721F670DC300333382 /* BRUserNameTextViewController.m */; };
+		E90F7BD51F670DC400333382 /* BRUserSettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B741F670DC300333382 /* BRUserSettingTableViewController.m */; };
+		E90F7BD61F670DC400333382 /* BRWhatsUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B761F670DC300333382 /* BRWhatsUpViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -140,120 +130,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		276E750F1F3B9A6F00D5A917 /* BREmotionEscape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BREmotionEscape.h; sourceTree = "<group>"; };
-		276E75101F3B9A6F00D5A917 /* BREmotionEscape.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BREmotionEscape.m; sourceTree = "<group>"; };
-		276E75121F3B9C5200D5A917 /* BRConvertToCommonEmoticonsHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRConvertToCommonEmoticonsHelper.h; sourceTree = "<group>"; };
-		276E75131F3B9C5200D5A917 /* BRConvertToCommonEmoticonsHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRConvertToCommonEmoticonsHelper.m; sourceTree = "<group>"; };
-		276E75151F3B9FCF00D5A917 /* BREmoji.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BREmoji.h; sourceTree = "<group>"; };
-		276E75161F3B9FCF00D5A917 /* BREmoji.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BREmoji.m; sourceTree = "<group>"; };
-		276E75181F3BA02200D5A917 /* BREmojiEmoticons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BREmojiEmoticons.h; sourceTree = "<group>"; };
-		276E75191F3BA02200D5A917 /* BREmojiEmoticons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BREmojiEmoticons.m; sourceTree = "<group>"; };
-		276E751B1F3BA60100D5A917 /* BRMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRMessageViewController.h; sourceTree = "<group>"; };
-		276E751C1F3BA60100D5A917 /* BRMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRMessageViewController.m; sourceTree = "<group>"; };
-		276E751E1F3BB48D00D5A917 /* BRConversationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRConversationCell.xib; sourceTree = "<group>"; };
-		276E75201F3CD44C00D5A917 /* BRMessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRMessageModel.h; sourceTree = "<group>"; };
-		276E75211F3CD44C00D5A917 /* BRMessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRMessageModel.m; sourceTree = "<group>"; };
-		276E75231F3CDA6B00D5A917 /* BRMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRMessageCell.h; sourceTree = "<group>"; };
-		276E75241F3CDA6B00D5A917 /* BRMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRMessageCell.m; sourceTree = "<group>"; };
-		276E75261F3CDC3C00D5A917 /* BRBubbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRBubbleView.h; sourceTree = "<group>"; };
-		276E75271F3CDC3C00D5A917 /* BRBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRBubbleView.m; sourceTree = "<group>"; };
-		276E752A1F3CDE2C00D5A917 /* BRBubbleView+Text.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BRBubbleView+Text.h"; sourceTree = "<group>"; };
-		276E752B1F3CDE2C00D5A917 /* BRBubbleView+Text.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BRBubbleView+Text.m"; sourceTree = "<group>"; };
-		276E752D1F3CDF0500D5A917 /* BRBubbleView+Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BRBubbleView+Image.h"; sourceTree = "<group>"; };
-		276E752E1F3CDF0500D5A917 /* BRBubbleView+Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BRBubbleView+Image.m"; sourceTree = "<group>"; };
-		276E75301F3CDF7D00D5A917 /* BRBubbleView+Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BRBubbleView+Location.h"; sourceTree = "<group>"; };
-		276E75311F3CDF7D00D5A917 /* BRBubbleView+Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BRBubbleView+Location.m"; sourceTree = "<group>"; };
-		276E75331F3CE0B700D5A917 /* BRBubbleView+Voice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BRBubbleView+Voice.h"; sourceTree = "<group>"; };
-		276E75341F3CE0B700D5A917 /* BRBubbleView+Voice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BRBubbleView+Voice.m"; sourceTree = "<group>"; };
-		276E75361F3CE12C00D5A917 /* BRBubbleView+Video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BRBubbleView+Video.h"; sourceTree = "<group>"; };
-		276E75371F3CE12C00D5A917 /* BRBubbleView+Video.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BRBubbleView+Video.m"; sourceTree = "<group>"; };
-		276E75391F3CE1E300D5A917 /* BRBubbleView+File.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BRBubbleView+File.h"; sourceTree = "<group>"; };
-		276E753A1F3CE1E300D5A917 /* BRBubbleView+File.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BRBubbleView+File.m"; sourceTree = "<group>"; };
-		276E753C1F3CE5D600D5A917 /* BRBaseMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRBaseMessageCell.h; sourceTree = "<group>"; };
-		276E753D1F3CE5D600D5A917 /* BRBaseMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRBaseMessageCell.m; sourceTree = "<group>"; };
-		276E753F1F3CED4F00D5A917 /* BRCustomMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRCustomMessageCell.h; sourceTree = "<group>"; };
-		276E75401F3CED4F00D5A917 /* BRCustomMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRCustomMessageCell.m; sourceTree = "<group>"; };
-		276E75421F3CEE2F00D5A917 /* BRBubbleView+Gif.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BRBubbleView+Gif.h"; sourceTree = "<group>"; };
-		276E75431F3CEE2F00D5A917 /* BRBubbleView+Gif.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BRBubbleView+Gif.m"; sourceTree = "<group>"; };
-		276E75451F3CF3C500D5A917 /* IModelChatCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IModelChatCell.h; sourceTree = "<group>"; };
-		276E75461F3CF3E600D5A917 /* IMessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMessageModel.h; sourceTree = "<group>"; };
-		276E75471F3CF90B00D5A917 /* IConversationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IConversationModel.h; sourceTree = "<group>"; };
-		276E75491F3CFAB400D5A917 /* IModelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IModelCell.h; sourceTree = "<group>"; };
-		276E754A1F3D0C1500D5A917 /* BRChatToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRChatToolbar.h; sourceTree = "<group>"; };
-		276E754B1F3D0C1500D5A917 /* BRChatToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRChatToolbar.m; sourceTree = "<group>"; };
-		276E754D1F3D0F5000D5A917 /* BREmotionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BREmotionManager.h; sourceTree = "<group>"; };
-		276E754E1F3D0F5000D5A917 /* BREmotionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BREmotionManager.m; sourceTree = "<group>"; };
-		276E75501F3E05DA00D5A917 /* BRFacialView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRFacialView.h; sourceTree = "<group>"; };
-		276E75511F3E05DA00D5A917 /* BRFacialView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRFacialView.m; sourceTree = "<group>"; };
-		276E75531F3E090D00D5A917 /* BRFaceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRFaceView.h; sourceTree = "<group>"; };
-		276E75541F3E090D00D5A917 /* BRFaceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRFaceView.m; sourceTree = "<group>"; };
-		276E75561F3E22DB00D5A917 /* BRTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRTextView.h; sourceTree = "<group>"; };
-		276E75571F3E22DB00D5A917 /* BRTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRTextView.m; sourceTree = "<group>"; };
-		276E75591F3E253200D5A917 /* BRRecordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRRecordView.h; sourceTree = "<group>"; };
-		276E755A1F3E253200D5A917 /* BRRecordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRRecordView.m; sourceTree = "<group>"; };
-		276E755C1F3E269200D5A917 /* BRCDDeviceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRCDDeviceManager.h; sourceTree = "<group>"; };
-		276E755D1F3E276C00D5A917 /* BRCDDeviceManagerProximitySensorDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRCDDeviceManagerProximitySensorDelegate.h; sourceTree = "<group>"; };
-		276E755F1F3E27CE00D5A917 /* BRCDDeviceManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRCDDeviceManagerDelegate.h; sourceTree = "<group>"; };
-		276E75601F3E282200D5A917 /* BRCDDeviceManagerBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRCDDeviceManagerBase.h; sourceTree = "<group>"; };
-		276E75611F3E282200D5A917 /* BRCDDeviceManagerBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRCDDeviceManagerBase.m; sourceTree = "<group>"; };
-		276E75631F3E292A00D5A917 /* BRCDDeviceManager+Media.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BRCDDeviceManager+Media.h"; sourceTree = "<group>"; };
-		276E75641F3E292A00D5A917 /* BRCDDeviceManager+Media.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BRCDDeviceManager+Media.m"; sourceTree = "<group>"; };
-		276E75661F3E2A2E00D5A917 /* BRAudioPlayerUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRAudioPlayerUtil.h; sourceTree = "<group>"; };
-		276E75671F3E2A2E00D5A917 /* BRAudioPlayerUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRAudioPlayerUtil.m; sourceTree = "<group>"; };
 		276E75691F3E2B0200D5A917 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		276E756B1F3E2B8700D5A917 /* BRAudioRecorderUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRAudioRecorderUtil.h; sourceTree = "<group>"; };
-		276E756C1F3E2B8700D5A917 /* BRAudioRecorderUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRAudioRecorderUtil.m; sourceTree = "<group>"; };
-		276E756E1F3E2C4D00D5A917 /* BRVoiceConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRVoiceConverter.h; sourceTree = "<group>"; };
-		276E756F1F3E2C4D00D5A917 /* BRVoiceConverter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BRVoiceConverter.mm; sourceTree = "<group>"; };
-		276E75711F3E2D7600D5A917 /* amrFileCodec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = amrFileCodec.h; sourceTree = "<group>"; };
-		276E75721F3E2D7600D5A917 /* amrFileCodec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = amrFileCodec.mm; sourceTree = "<group>"; };
-		276E75731F3E2D7600D5A917 /* dec_if.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dec_if.h; sourceTree = "<group>"; };
-		276E75741F3E2D7600D5A917 /* interf_dec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = interf_dec.h; sourceTree = "<group>"; };
-		276E75751F3E2D7600D5A917 /* interf_enc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = interf_enc.h; sourceTree = "<group>"; };
-		276E75761F3E2D7600D5A917 /* wav.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wav.h; sourceTree = "<group>"; };
-		276E75771F3E2D7600D5A917 /* wav.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = wav.mm; sourceTree = "<group>"; };
-		276E757A1F3E2DC900D5A917 /* DemoErrorCode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DemoErrorCode.h; sourceTree = "<group>"; };
-		276E757B1F3E2EEF00D5A917 /* BRCDDeviceManager+Remind.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BRCDDeviceManager+Remind.h"; sourceTree = "<group>"; };
-		276E757C1F3E2EEF00D5A917 /* BRCDDeviceManager+Remind.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BRCDDeviceManager+Remind.m"; sourceTree = "<group>"; };
 		276E757E1F3E2F1E00D5A917 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		276E75801F3E2F7900D5A917 /* BRCDDeviceManager+Microphone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BRCDDeviceManager+Microphone.h"; sourceTree = "<group>"; };
-		276E75811F3E2F7900D5A917 /* BRCDDeviceManager+Microphone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BRCDDeviceManager+Microphone.m"; sourceTree = "<group>"; };
-		276E75831F3E2FD600D5A917 /* BRCDDeviceManager+ProximitySensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BRCDDeviceManager+ProximitySensor.h"; sourceTree = "<group>"; };
-		276E75841F3E2FD600D5A917 /* BRCDDeviceManager+ProximitySensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BRCDDeviceManager+ProximitySensor.m"; sourceTree = "<group>"; };
-		276E75891F3E321100D5A917 /* BRChatToolbarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRChatToolbarItem.h; sourceTree = "<group>"; };
-		276E758A1F3E321100D5A917 /* BRChatToolbarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRChatToolbarItem.m; sourceTree = "<group>"; };
-		276E758C1F3E35BD00D5A917 /* BRSDKHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRSDKHelper.h; sourceTree = "<group>"; };
-		276E758D1F3E35BD00D5A917 /* BRSDKHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRSDKHelper.m; sourceTree = "<group>"; };
 		276E758F1F3E390100D5A917 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
-		276E75911F3E40FF00D5A917 /* BRLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRLocationViewController.h; sourceTree = "<group>"; };
-		276E75921F3E40FF00D5A917 /* BRLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRLocationViewController.m; sourceTree = "<group>"; };
 		276E75941F3E5A6100D5A917 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		276E75961F3E5AA600D5A917 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
-		276E75981F3E5C8E00D5A917 /* BRMessageTimeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRMessageTimeCell.h; sourceTree = "<group>"; };
-		276E75991F3E5C8E00D5A917 /* BRMessageTimeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRMessageTimeCell.m; sourceTree = "<group>"; };
-		276E759B1F3F4E5600D5A917 /* BRMessageReadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRMessageReadManager.h; sourceTree = "<group>"; };
-		276E759C1F3F4E5600D5A917 /* BRMessageReadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRMessageReadManager.m; sourceTree = "<group>"; };
-		276E75A11F42057300D5A917 /* LinC.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinC.pch; sourceTree = "<group>"; };
-		276E75A21F421A6900D5A917 /* libopencore-amrnb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrnb.a"; sourceTree = "<group>"; };
-		276E75A31F421A6900D5A917 /* libopencore-amrwb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrwb.a"; sourceTree = "<group>"; };
-		276E75A61F4227AD00D5A917 /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
-		276E75A71F4227AD00D5A917 /* Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Common.m; sourceTree = "<group>"; };
-		276E75AA1F4365EA00D5A917 /* BRMediaBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRMediaBrowserViewController.h; sourceTree = "<group>"; };
-		276E75AB1F4365EA00D5A917 /* BRMediaBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRMediaBrowserViewController.m; sourceTree = "<group>"; };
-		276E75B11F4379CD00D5A917 /* BRMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRMedia.h; sourceTree = "<group>"; };
-		276E75B21F4379CD00D5A917 /* BRMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRMedia.m; sourceTree = "<group>"; };
-		276E75B41F43A44300D5A917 /* BRMediaCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRMediaCell.h; sourceTree = "<group>"; };
-		276E75B51F43A44300D5A917 /* BRMediaCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRMediaCell.m; sourceTree = "<group>"; };
-		276E75D51F45F10C00D5A917 /* BRMediaBrowserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRMediaBrowserViewController.xib; sourceTree = "<group>"; };
-		278CD9431F506FB6008D6BD1 /* BRChatBarMoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRChatBarMoreView.h; sourceTree = "<group>"; };
-		278CD9441F506FB6008D6BD1 /* BRChatBarMoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRChatBarMoreView.m; sourceTree = "<group>"; };
-		278CD9461F507462008D6BD1 /* BRChatBarMoreViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRChatBarMoreViewCell.h; sourceTree = "<group>"; };
-		278CD9471F507462008D6BD1 /* BRChatBarMoreViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRChatBarMoreViewCell.m; sourceTree = "<group>"; };
-		278CD9481F507462008D6BD1 /* BRChatBarMoreViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRChatBarMoreViewCell.xib; sourceTree = "<group>"; };
 		278CD94B1F549192008D6BD1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		278CD94D1F549AB7008D6BD1 /* in.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = in.caf; sourceTree = "<group>"; };
-		278CD9511F59B055008D6BD1 /* BRHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRHTTPSessionManager.h; sourceTree = "<group>"; };
-		278CD9521F59B055008D6BD1 /* BRHTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRHTTPSessionManager.m; sourceTree = "<group>"; };
 		27CA03AC1F38F21600D0F132 /* LinC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LinC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27CA03B01F38F21600D0F132 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		27CA03C01F38F21600D0F132 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -263,96 +146,195 @@
 		27CA03D01F38F21600D0F132 /* LinCUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LinCUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		27CA03D41F38F21600D0F132 /* LinCUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LinCUITests.m; sourceTree = "<group>"; };
 		27CA03D61F38F21600D0F132 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		27E9A2131F3B84F4001937A0 /* BRConversationListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRConversationListViewController.h; sourceTree = "<group>"; };
-		27E9A2141F3B84F4001937A0 /* BRConversationListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRConversationListViewController.m; sourceTree = "<group>"; };
-		27E9A2161F3B84F4001937A0 /* BRConversationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRConversationModel.h; sourceTree = "<group>"; };
-		27E9A2171F3B84F4001937A0 /* BRConversationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRConversationModel.m; sourceTree = "<group>"; };
-		27E9A2191F3B84F4001937A0 /* BRAvatarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRAvatarView.h; sourceTree = "<group>"; };
-		27E9A21A1F3B84F4001937A0 /* BRAvatarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRAvatarView.m; sourceTree = "<group>"; };
-		27E9A21B1F3B84F4001937A0 /* BRConversationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRConversationCell.h; sourceTree = "<group>"; };
-		27E9A21C1F3B84F4001937A0 /* BRConversationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRConversationCell.m; sourceTree = "<group>"; };
-		27E9A21F1F3B84F4001937A0 /* NSDate+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Category.h"; sourceTree = "<group>"; };
-		27E9A2201F3B84F4001937A0 /* NSDate+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Category.m"; sourceTree = "<group>"; };
-		27E9A2211F3B84F4001937A0 /* NSDateFormatter+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+Category.h"; sourceTree = "<group>"; };
-		27E9A2221F3B84F4001937A0 /* NSDateFormatter+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+Category.m"; sourceTree = "<group>"; };
-		27E9A2231F3B84F4001937A0 /* NSString+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Helper.h"; sourceTree = "<group>"; };
-		27E9A2241F3B84F4001937A0 /* NSString+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Helper.m"; sourceTree = "<group>"; };
-		27E9A2251F3B84F4001937A0 /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
-		27E9A2261F3B84F4001937A0 /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
-		27E9A2281F3B84F4001937A0 /* BRNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRNavigationController.h; sourceTree = "<group>"; };
-		27E9A2291F3B84F4001937A0 /* BRNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRNavigationController.m; sourceTree = "<group>"; };
-		27E9A22A1F3B84F4001937A0 /* BRRefreshTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRRefreshTableViewController.h; sourceTree = "<group>"; };
-		27E9A22B1F3B84F4001937A0 /* BRRefreshTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRRefreshTableViewController.m; sourceTree = "<group>"; };
-		27E9A22C1F3B84F4001937A0 /* BRTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRTabBarController.h; sourceTree = "<group>"; };
-		27E9A22D1F3B84F4001937A0 /* BRTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRTabBarController.m; sourceTree = "<group>"; };
-		27E9A23C1F3B8BE3001937A0 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		27E9A23D1F3B8BE3001937A0 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		27E9A2401F3B8BFA001937A0 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		27E9A2411F3B8BFA001937A0 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		7644E4D020BABDE5A91405CF /* libPods-LinC.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LinC.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C9BD64024967E79CE634497 /* Pods-LinC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LinC.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LinC/Pods-LinC.debug.xcconfig"; sourceTree = "<group>"; };
 		94F6AAD2F8CDC6DB43F6386A /* Pods-LinC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LinC.release.xcconfig"; path = "Pods/Target Support Files/Pods-LinC/Pods-LinC.release.xcconfig"; sourceTree = "<group>"; };
-		E90A1CCE1F42AA76001033CB /* BRContactListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRContactListViewController.h; sourceTree = "<group>"; };
-		E90A1CCF1F42AA76001033CB /* BRContactListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRContactListViewController.m; sourceTree = "<group>"; };
-		E90A1CD21F42AA76001033CB /* BRContactListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRContactListModel.h; sourceTree = "<group>"; };
-		E90A1CD31F42AA76001033CB /* BRContactListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRContactListModel.m; sourceTree = "<group>"; };
-		E90A1CD51F42AA76001033CB /* BRContactListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRContactListTableViewCell.h; sourceTree = "<group>"; };
-		E90A1CD61F42AA76001033CB /* BRContactListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRContactListTableViewCell.m; sourceTree = "<group>"; };
-		E90A1CD71F42AA76001033CB /* BRContactListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRContactListTableViewCell.xib; sourceTree = "<group>"; };
-		E90A1CD81F42AA76001033CB /* BRFriendInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRFriendInfoViewController.h; sourceTree = "<group>"; };
-		E90A1CD91F42AA76001033CB /* BRFriendInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRFriendInfoViewController.m; sourceTree = "<group>"; };
-		E90A1CDA1F42AA76001033CB /* BRFriendInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRFriendInfoViewController.xib; sourceTree = "<group>"; };
-		E90A1CE31F42AA85001033CB /* BRUserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRUserInfoViewController.h; sourceTree = "<group>"; };
-		E90A1CE41F42AA85001033CB /* BRUserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRUserInfoViewController.m; sourceTree = "<group>"; };
-		E90A1CE71F42AA85001033CB /* BRLocationListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRLocationListViewController.h; sourceTree = "<group>"; };
-		E90A1CE81F42AA85001033CB /* BRLocationListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRLocationListViewController.m; sourceTree = "<group>"; };
-		E90A1CE91F42AA85001033CB /* BRLocationListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRLocationListViewController.xib; sourceTree = "<group>"; };
-		E90A1CEA1F42AA85001033CB /* BRUserGenderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRUserGenderViewController.h; sourceTree = "<group>"; };
-		E90A1CEB1F42AA85001033CB /* BRUserGenderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRUserGenderViewController.m; sourceTree = "<group>"; };
-		E90A1CEC1F42AA85001033CB /* BRUserGenderViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRUserGenderViewController.xib; sourceTree = "<group>"; };
-		E90A1CED1F42AA85001033CB /* BRUserImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRUserImageViewController.h; sourceTree = "<group>"; };
-		E90A1CEE1F42AA85001033CB /* BRUserImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRUserImageViewController.m; sourceTree = "<group>"; };
-		E90A1CEF1F42AA85001033CB /* BRUserImageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRUserImageViewController.xib; sourceTree = "<group>"; };
-		E90A1CF01F42AA85001033CB /* BRUserInfoViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BRUserInfoViewController.storyboard; sourceTree = "<group>"; };
-		E90A1CF11F42AA85001033CB /* BRUserNameTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRUserNameTextViewController.h; sourceTree = "<group>"; };
-		E90A1CF21F42AA85001033CB /* BRUserNameTextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRUserNameTextViewController.m; sourceTree = "<group>"; };
-		E90A1CF31F42AA85001033CB /* BRUserNameTextViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRUserNameTextViewController.xib; sourceTree = "<group>"; };
-		E90A1CF41F42AA85001033CB /* BRWhatsUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRWhatsUpViewController.h; sourceTree = "<group>"; };
-		E90A1CF51F42AA85001033CB /* BRWhatsUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRWhatsUpViewController.m; sourceTree = "<group>"; };
-		E90A1CF61F42AA85001033CB /* BRWhatsUpViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRWhatsUpViewController.xib; sourceTree = "<group>"; };
-		E910E7311F4DDC2D00F5C9BC /* BRPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRPasswordViewController.h; sourceTree = "<group>"; };
-		E910E7321F4DDC2D00F5C9BC /* BRPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRPasswordViewController.m; sourceTree = "<group>"; };
-		E910E7331F4DDC2D00F5C9BC /* BRPasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRPasswordViewController.xib; sourceTree = "<group>"; };
-		E9160F211F507A620072495A /* BRQRCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRQRCodeViewController.h; sourceTree = "<group>"; };
-		E9160F221F507A620072495A /* BRQRCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRQRCodeViewController.m; sourceTree = "<group>"; };
-		E9160F231F507A620072495A /* BRQRCodeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRQRCodeViewController.xib; sourceTree = "<group>"; };
-		E92912511F4DCE8C00092B2A /* BRUserSettingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRUserSettingTableViewController.h; sourceTree = "<group>"; };
-		E92912521F4DCE8C00092B2A /* BRUserSettingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRUserSettingTableViewController.m; sourceTree = "<group>"; };
-		E92912561F4DD1F000092B2A /* BRUserSettingTableViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BRUserSettingTableViewController.storyboard; sourceTree = "<group>"; };
-		E932C5281F4B547E0045AB60 /* ProvincesAndCities.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ProvincesAndCities.plist; sourceTree = "<group>"; };
-		E932C52A1F4B67AE0045AB60 /* BRLocationCitiListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRLocationCitiListTableViewController.h; sourceTree = "<group>"; };
-		E932C52B1F4B67AE0045AB60 /* BRLocationCitiListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRLocationCitiListTableViewController.m; sourceTree = "<group>"; };
-		E932C52C1F4B67AE0045AB60 /* BRLocationCitiListTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRLocationCitiListTableViewController.xib; sourceTree = "<group>"; };
-		E9422D831F50A8FC0008911E /* BRAddingFriendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRAddingFriendViewController.h; sourceTree = "<group>"; };
-		E9422D841F50A8FC0008911E /* BRAddingFriendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRAddingFriendViewController.m; sourceTree = "<group>"; };
-		E9422D851F50A8FC0008911E /* BRAddingFriendViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRAddingFriendViewController.xib; sourceTree = "<group>"; };
-		E9422D881F50AD6E0008911E /* BRScannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRScannerViewController.h; sourceTree = "<group>"; };
-		E9422D891F50AD6E0008911E /* BRScannerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRScannerViewController.m; sourceTree = "<group>"; };
-		E9422D8A1F50AD6E0008911E /* BRScannerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRScannerViewController.xib; sourceTree = "<group>"; };
-		E9422D8D1F50B1780008911E /* BRFriendInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRFriendInfoTableViewController.h; sourceTree = "<group>"; };
-		E9422D8E1F50B1780008911E /* BRFriendInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRFriendInfoTableViewController.m; sourceTree = "<group>"; };
-		E9422D921F50B4FE0008911E /* BRFriendInfo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BRFriendInfo.storyboard; sourceTree = "<group>"; };
-		E94AD9601F44A7DD00A1AEF3 /* IUserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IUserModel.h; sourceTree = "<group>"; };
-		E95841961F4B337A00B3693F /* BRUserAccountSetUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRUserAccountSetUpViewController.h; sourceTree = "<group>"; };
-		E95841971F4B337A00B3693F /* BRUserAccountSetUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRUserAccountSetUpViewController.m; sourceTree = "<group>"; };
-		E95841991F4B344000B3693F /* BRUserInfoSetUpTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRUserInfoSetUpTableViewController.h; sourceTree = "<group>"; };
-		E958419A1F4B344000B3693F /* BRUserInfoSetUpTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRUserInfoSetUpTableViewController.m; sourceTree = "<group>"; };
-		E9A3ACEA1F476174006810BE /* BRLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRLoginViewController.h; sourceTree = "<group>"; };
-		E9A3ACEB1F476174006810BE /* BRLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRLoginViewController.m; sourceTree = "<group>"; };
-		E9A3ACF11F476253006810BE /* Account.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Account.storyboard; sourceTree = "<group>"; };
-		E9FEC22A1F550C3100BD7047 /* BRDropDownViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRDropDownViewController.h; sourceTree = "<group>"; };
-		E9FEC22B1F550C3100BD7047 /* BRDropDownViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRDropDownViewController.m; sourceTree = "<group>"; };
-		E9FEC22C1F550C3100BD7047 /* BRDropDownViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRDropDownViewController.xib; sourceTree = "<group>"; };
+		E90F7AA61F670DC300333382 /* Account.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Account.storyboard; sourceTree = "<group>"; };
+		E90F7AA71F670DC300333382 /* BRAccountNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRAccountNavigationController.h; sourceTree = "<group>"; };
+		E90F7AA81F670DC300333382 /* BRAccountNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRAccountNavigationController.m; sourceTree = "<group>"; };
+		E90F7AA91F670DC300333382 /* BRLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRLoginViewController.h; sourceTree = "<group>"; };
+		E90F7AAA1F670DC300333382 /* BRLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRLoginViewController.m; sourceTree = "<group>"; };
+		E90F7AAB1F670DC300333382 /* BRResetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRResetPasswordViewController.h; sourceTree = "<group>"; };
+		E90F7AAC1F670DC300333382 /* BRResetPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRResetPasswordViewController.m; sourceTree = "<group>"; };
+		E90F7AAD1F670DC300333382 /* BRUserAccountSetUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRUserAccountSetUpViewController.h; sourceTree = "<group>"; };
+		E90F7AAE1F670DC300333382 /* BRUserAccountSetUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRUserAccountSetUpViewController.m; sourceTree = "<group>"; };
+		E90F7AAF1F670DC300333382 /* BRUserInfoSetUpTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRUserInfoSetUpTableViewController.h; sourceTree = "<group>"; };
+		E90F7AB01F670DC300333382 /* BRUserInfoSetUpTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRUserInfoSetUpTableViewController.m; sourceTree = "<group>"; };
+		E90F7AB31F670DC300333382 /* BRAddingFriendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRAddingFriendViewController.h; sourceTree = "<group>"; };
+		E90F7AB41F670DC300333382 /* BRAddingFriendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRAddingFriendViewController.m; sourceTree = "<group>"; };
+		E90F7AB51F670DC300333382 /* BRAddingFriendViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRAddingFriendViewController.xib; sourceTree = "<group>"; };
+		E90F7AB61F670DC300333382 /* BRContactListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRContactListViewController.h; sourceTree = "<group>"; };
+		E90F7AB71F670DC300333382 /* BRContactListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRContactListViewController.m; sourceTree = "<group>"; };
+		E90F7AB81F670DC300333382 /* BRFriendInfo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BRFriendInfo.storyboard; sourceTree = "<group>"; };
+		E90F7AB91F670DC300333382 /* BRFriendInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRFriendInfoTableViewController.h; sourceTree = "<group>"; };
+		E90F7ABA1F670DC300333382 /* BRFriendInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRFriendInfoTableViewController.m; sourceTree = "<group>"; };
+		E90F7ABB1F670DC300333382 /* BRScannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRScannerViewController.h; sourceTree = "<group>"; };
+		E90F7ABC1F670DC300333382 /* BRScannerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRScannerViewController.m; sourceTree = "<group>"; };
+		E90F7ABD1F670DC300333382 /* BRScannerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRScannerViewController.xib; sourceTree = "<group>"; };
+		E90F7ABF1F670DC300333382 /* BRContactListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRContactListModel.h; sourceTree = "<group>"; };
+		E90F7AC01F670DC300333382 /* BRContactListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRContactListModel.m; sourceTree = "<group>"; };
+		E90F7AC11F670DC300333382 /* IUserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IUserModel.h; sourceTree = "<group>"; };
+		E90F7AC31F670DC300333382 /* BRContactListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRContactListTableViewCell.h; sourceTree = "<group>"; };
+		E90F7AC41F670DC300333382 /* BRContactListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRContactListTableViewCell.m; sourceTree = "<group>"; };
+		E90F7AC51F670DC300333382 /* BRContactListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRContactListTableViewCell.xib; sourceTree = "<group>"; };
+		E90F7AC81F670DC300333382 /* BRConversationListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRConversationListViewController.h; sourceTree = "<group>"; };
+		E90F7AC91F670DC300333382 /* BRConversationListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRConversationListViewController.m; sourceTree = "<group>"; };
+		E90F7ACA1F670DC300333382 /* BRDropDownViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRDropDownViewController.h; sourceTree = "<group>"; };
+		E90F7ACB1F670DC300333382 /* BRDropDownViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRDropDownViewController.m; sourceTree = "<group>"; };
+		E90F7ACC1F670DC300333382 /* BRDropDownViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRDropDownViewController.xib; sourceTree = "<group>"; };
+		E90F7ACE1F670DC300333382 /* BRConversationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRConversationModel.h; sourceTree = "<group>"; };
+		E90F7ACF1F670DC300333382 /* BRConversationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRConversationModel.m; sourceTree = "<group>"; };
+		E90F7AD01F670DC300333382 /* IConversationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IConversationModel.h; sourceTree = "<group>"; };
+		E90F7AD21F670DC300333382 /* BRAvatarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRAvatarView.h; sourceTree = "<group>"; };
+		E90F7AD31F670DC300333382 /* BRAvatarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRAvatarView.m; sourceTree = "<group>"; };
+		E90F7AD41F670DC300333382 /* BRConversationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRConversationCell.h; sourceTree = "<group>"; };
+		E90F7AD51F670DC300333382 /* BRConversationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRConversationCell.m; sourceTree = "<group>"; };
+		E90F7AD61F670DC300333382 /* BRConversationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRConversationCell.xib; sourceTree = "<group>"; };
+		E90F7AD81F670DC300333382 /* BRHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRHTTPSessionManager.h; sourceTree = "<group>"; };
+		E90F7AD91F670DC300333382 /* BRHTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRHTTPSessionManager.m; sourceTree = "<group>"; };
+		E90F7ADA1F670DC300333382 /* BRSDKHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRSDKHelper.h; sourceTree = "<group>"; };
+		E90F7ADB1F670DC300333382 /* BRSDKHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRSDKHelper.m; sourceTree = "<group>"; };
+		E90F7ADD1F670DC300333382 /* NSDate+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Category.h"; sourceTree = "<group>"; };
+		E90F7ADE1F670DC300333382 /* NSDate+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Category.m"; sourceTree = "<group>"; };
+		E90F7ADF1F670DC300333382 /* NSDateFormatter+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+Category.h"; sourceTree = "<group>"; };
+		E90F7AE01F670DC300333382 /* NSDateFormatter+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+Category.m"; sourceTree = "<group>"; };
+		E90F7AE11F670DC300333382 /* NSString+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Helper.h"; sourceTree = "<group>"; };
+		E90F7AE21F670DC300333382 /* NSString+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Helper.m"; sourceTree = "<group>"; };
+		E90F7AE31F670DC300333382 /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
+		E90F7AE41F670DC300333382 /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
+		E90F7AE61F670DC300333382 /* BRNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRNavigationController.h; sourceTree = "<group>"; };
+		E90F7AE71F670DC300333382 /* BRNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRNavigationController.m; sourceTree = "<group>"; };
+		E90F7AE81F670DC300333382 /* BRRefreshTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRRefreshTableViewController.h; sourceTree = "<group>"; };
+		E90F7AE91F670DC300333382 /* BRRefreshTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRRefreshTableViewController.m; sourceTree = "<group>"; };
+		E90F7AEA1F670DC300333382 /* BRTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRTabBarController.h; sourceTree = "<group>"; };
+		E90F7AEB1F670DC300333382 /* BRTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRTabBarController.m; sourceTree = "<group>"; };
+		E90F7AEC1F670DC300333382 /* IModelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IModelCell.h; sourceTree = "<group>"; };
+		E90F7AEE1F670DC300333382 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		E90F7AEF1F670DC300333382 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		E90F7AF21F670DC300333382 /* BRBubbleView+File.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BRBubbleView+File.h"; sourceTree = "<group>"; };
+		E90F7AF31F670DC300333382 /* BRBubbleView+File.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BRBubbleView+File.m"; sourceTree = "<group>"; };
+		E90F7AF41F670DC300333382 /* BRBubbleView+Gif.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BRBubbleView+Gif.h"; sourceTree = "<group>"; };
+		E90F7AF51F670DC300333382 /* BRBubbleView+Gif.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BRBubbleView+Gif.m"; sourceTree = "<group>"; };
+		E90F7AF61F670DC300333382 /* BRBubbleView+Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BRBubbleView+Image.h"; sourceTree = "<group>"; };
+		E90F7AF71F670DC300333382 /* BRBubbleView+Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BRBubbleView+Image.m"; sourceTree = "<group>"; };
+		E90F7AF81F670DC300333382 /* BRBubbleView+Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BRBubbleView+Location.h"; sourceTree = "<group>"; };
+		E90F7AF91F670DC300333382 /* BRBubbleView+Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BRBubbleView+Location.m"; sourceTree = "<group>"; };
+		E90F7AFA1F670DC300333382 /* BRBubbleView+Text.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BRBubbleView+Text.h"; sourceTree = "<group>"; };
+		E90F7AFB1F670DC300333382 /* BRBubbleView+Text.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BRBubbleView+Text.m"; sourceTree = "<group>"; };
+		E90F7AFC1F670DC300333382 /* BRBubbleView+Video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BRBubbleView+Video.h"; sourceTree = "<group>"; };
+		E90F7AFD1F670DC300333382 /* BRBubbleView+Video.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BRBubbleView+Video.m"; sourceTree = "<group>"; };
+		E90F7AFE1F670DC300333382 /* BRBubbleView+Voice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BRBubbleView+Voice.h"; sourceTree = "<group>"; };
+		E90F7AFF1F670DC300333382 /* BRBubbleView+Voice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BRBubbleView+Voice.m"; sourceTree = "<group>"; };
+		E90F7B001F670DC300333382 /* BRCDDeviceManager+Media.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BRCDDeviceManager+Media.h"; sourceTree = "<group>"; };
+		E90F7B011F670DC300333382 /* BRCDDeviceManager+Media.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BRCDDeviceManager+Media.m"; sourceTree = "<group>"; };
+		E90F7B021F670DC300333382 /* BRCDDeviceManager+Microphone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BRCDDeviceManager+Microphone.h"; sourceTree = "<group>"; };
+		E90F7B031F670DC300333382 /* BRCDDeviceManager+Microphone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BRCDDeviceManager+Microphone.m"; sourceTree = "<group>"; };
+		E90F7B041F670DC300333382 /* BRCDDeviceManager+ProximitySensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BRCDDeviceManager+ProximitySensor.h"; sourceTree = "<group>"; };
+		E90F7B051F670DC300333382 /* BRCDDeviceManager+ProximitySensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BRCDDeviceManager+ProximitySensor.m"; sourceTree = "<group>"; };
+		E90F7B061F670DC300333382 /* BRCDDeviceManager+Remind.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BRCDDeviceManager+Remind.h"; sourceTree = "<group>"; };
+		E90F7B071F670DC300333382 /* BRCDDeviceManager+Remind.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BRCDDeviceManager+Remind.m"; sourceTree = "<group>"; };
+		E90F7B091F670DC300333382 /* BRLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRLocationViewController.h; sourceTree = "<group>"; };
+		E90F7B0A1F670DC300333382 /* BRLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRLocationViewController.m; sourceTree = "<group>"; };
+		E90F7B0B1F670DC300333382 /* BRMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRMessageViewController.h; sourceTree = "<group>"; };
+		E90F7B0C1F670DC300333382 /* BRMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRMessageViewController.m; sourceTree = "<group>"; };
+		E90F7B0E1F670DC300333382 /* amrFileCodec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = amrFileCodec.h; sourceTree = "<group>"; };
+		E90F7B0F1F670DC300333382 /* amrFileCodec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = amrFileCodec.mm; sourceTree = "<group>"; };
+		E90F7B101F670DC300333382 /* BRAudioPlayerUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRAudioPlayerUtil.h; sourceTree = "<group>"; };
+		E90F7B111F670DC300333382 /* BRAudioPlayerUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRAudioPlayerUtil.m; sourceTree = "<group>"; };
+		E90F7B121F670DC300333382 /* BRAudioRecorderUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRAudioRecorderUtil.h; sourceTree = "<group>"; };
+		E90F7B131F670DC300333382 /* BRAudioRecorderUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRAudioRecorderUtil.m; sourceTree = "<group>"; };
+		E90F7B141F670DC300333382 /* BRCDDeviceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRCDDeviceManager.h; sourceTree = "<group>"; };
+		E90F7B151F670DC300333382 /* BRCDDeviceManagerBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRCDDeviceManagerBase.h; sourceTree = "<group>"; };
+		E90F7B161F670DC300333382 /* BRCDDeviceManagerBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRCDDeviceManagerBase.m; sourceTree = "<group>"; };
+		E90F7B171F670DC300333382 /* BRCDDeviceManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRCDDeviceManagerDelegate.h; sourceTree = "<group>"; };
+		E90F7B181F670DC300333382 /* BRCDDeviceManagerProximitySensorDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRCDDeviceManagerProximitySensorDelegate.h; sourceTree = "<group>"; };
+		E90F7B191F670DC300333382 /* BRChatToolbarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRChatToolbarItem.h; sourceTree = "<group>"; };
+		E90F7B1A1F670DC300333382 /* BRChatToolbarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRChatToolbarItem.m; sourceTree = "<group>"; };
+		E90F7B1B1F670DC300333382 /* BRConvertToCommonEmoticonsHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRConvertToCommonEmoticonsHelper.h; sourceTree = "<group>"; };
+		E90F7B1C1F670DC300333382 /* BRConvertToCommonEmoticonsHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRConvertToCommonEmoticonsHelper.m; sourceTree = "<group>"; };
+		E90F7B1D1F670DC300333382 /* BREmoji.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BREmoji.h; sourceTree = "<group>"; };
+		E90F7B1E1F670DC300333382 /* BREmoji.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BREmoji.m; sourceTree = "<group>"; };
+		E90F7B1F1F670DC300333382 /* BREmojiEmoticons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BREmojiEmoticons.h; sourceTree = "<group>"; };
+		E90F7B201F670DC300333382 /* BREmojiEmoticons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BREmojiEmoticons.m; sourceTree = "<group>"; };
+		E90F7B211F670DC300333382 /* BREmotionEscape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BREmotionEscape.h; sourceTree = "<group>"; };
+		E90F7B221F670DC300333382 /* BREmotionEscape.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BREmotionEscape.m; sourceTree = "<group>"; };
+		E90F7B231F670DC300333382 /* BREmotionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BREmotionManager.h; sourceTree = "<group>"; };
+		E90F7B241F670DC300333382 /* BREmotionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BREmotionManager.m; sourceTree = "<group>"; };
+		E90F7B251F670DC300333382 /* BRMessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRMessageModel.h; sourceTree = "<group>"; };
+		E90F7B261F670DC300333382 /* BRMessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRMessageModel.m; sourceTree = "<group>"; };
+		E90F7B271F670DC300333382 /* BRMessageReadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRMessageReadManager.h; sourceTree = "<group>"; };
+		E90F7B281F670DC300333382 /* BRMessageReadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRMessageReadManager.m; sourceTree = "<group>"; };
+		E90F7B291F670DC300333382 /* BRVoiceConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRVoiceConverter.h; sourceTree = "<group>"; };
+		E90F7B2A1F670DC300333382 /* BRVoiceConverter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BRVoiceConverter.mm; sourceTree = "<group>"; };
+		E90F7B2B1F670DC300333382 /* dec_if.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dec_if.h; sourceTree = "<group>"; };
+		E90F7B2C1F670DC300333382 /* IMessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMessageModel.h; sourceTree = "<group>"; };
+		E90F7B2D1F670DC300333382 /* IModelChatCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IModelChatCell.h; sourceTree = "<group>"; };
+		E90F7B2E1F670DC300333382 /* interf_dec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = interf_dec.h; sourceTree = "<group>"; };
+		E90F7B2F1F670DC300333382 /* interf_enc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = interf_enc.h; sourceTree = "<group>"; };
+		E90F7B301F670DC300333382 /* wav.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wav.h; sourceTree = "<group>"; };
+		E90F7B311F670DC300333382 /* wav.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = wav.mm; sourceTree = "<group>"; };
+		E90F7B331F670DC300333382 /* BRBaseMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRBaseMessageCell.h; sourceTree = "<group>"; };
+		E90F7B341F670DC300333382 /* BRBaseMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRBaseMessageCell.m; sourceTree = "<group>"; };
+		E90F7B351F670DC300333382 /* BRBubbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRBubbleView.h; sourceTree = "<group>"; };
+		E90F7B361F670DC300333382 /* BRBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRBubbleView.m; sourceTree = "<group>"; };
+		E90F7B371F670DC300333382 /* BRChatBarMoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRChatBarMoreView.h; sourceTree = "<group>"; };
+		E90F7B381F670DC300333382 /* BRChatBarMoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRChatBarMoreView.m; sourceTree = "<group>"; };
+		E90F7B391F670DC300333382 /* BRChatBarMoreViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRChatBarMoreViewCell.h; sourceTree = "<group>"; };
+		E90F7B3A1F670DC300333382 /* BRChatBarMoreViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRChatBarMoreViewCell.m; sourceTree = "<group>"; };
+		E90F7B3B1F670DC300333382 /* BRChatBarMoreViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRChatBarMoreViewCell.xib; sourceTree = "<group>"; };
+		E90F7B3C1F670DC300333382 /* BRChatToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRChatToolbar.h; sourceTree = "<group>"; };
+		E90F7B3D1F670DC300333382 /* BRChatToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRChatToolbar.m; sourceTree = "<group>"; };
+		E90F7B3E1F670DC300333382 /* BRCustomMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRCustomMessageCell.h; sourceTree = "<group>"; };
+		E90F7B3F1F670DC300333382 /* BRCustomMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRCustomMessageCell.m; sourceTree = "<group>"; };
+		E90F7B401F670DC300333382 /* BRFaceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRFaceView.h; sourceTree = "<group>"; };
+		E90F7B411F670DC300333382 /* BRFaceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRFaceView.m; sourceTree = "<group>"; };
+		E90F7B421F670DC300333382 /* BRFacialView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRFacialView.h; sourceTree = "<group>"; };
+		E90F7B431F670DC300333382 /* BRFacialView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRFacialView.m; sourceTree = "<group>"; };
+		E90F7B441F670DC300333382 /* BRMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRMessageCell.h; sourceTree = "<group>"; };
+		E90F7B451F670DC300333382 /* BRMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRMessageCell.m; sourceTree = "<group>"; };
+		E90F7B461F670DC300333382 /* BRMessageTimeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRMessageTimeCell.h; sourceTree = "<group>"; };
+		E90F7B471F670DC300333382 /* BRMessageTimeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRMessageTimeCell.m; sourceTree = "<group>"; };
+		E90F7B481F670DC300333382 /* BRRecordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRRecordView.h; sourceTree = "<group>"; };
+		E90F7B491F670DC300333382 /* BRRecordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRRecordView.m; sourceTree = "<group>"; };
+		E90F7B4A1F670DC300333382 /* BRTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRTextView.h; sourceTree = "<group>"; };
+		E90F7B4B1F670DC300333382 /* BRTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRTextView.m; sourceTree = "<group>"; };
+		E90F7B4D1F670DC300333382 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		E90F7B4E1F670DC300333382 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		E90F7B4F1F670DC300333382 /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		E90F7B501F670DC300333382 /* Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Common.m; sourceTree = "<group>"; };
+		E90F7B521F670DC300333382 /* BRMediaBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRMediaBrowserViewController.h; sourceTree = "<group>"; };
+		E90F7B531F670DC300333382 /* BRMediaBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRMediaBrowserViewController.m; sourceTree = "<group>"; };
+		E90F7B541F670DC300333382 /* BRMediaBrowserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRMediaBrowserViewController.xib; sourceTree = "<group>"; };
+		E90F7B551F670DC300333382 /* DemoErrorCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoErrorCode.h; sourceTree = "<group>"; };
+		E90F7B561F670DC300333382 /* libopencore-amrnb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrnb.a"; sourceTree = "<group>"; };
+		E90F7B571F670DC300333382 /* libopencore-amrwb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrwb.a"; sourceTree = "<group>"; };
+		E90F7B581F670DC300333382 /* LinC.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinC.pch; sourceTree = "<group>"; };
+		E90F7B5A1F670DC300333382 /* BRMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRMedia.h; sourceTree = "<group>"; };
+		E90F7B5B1F670DC300333382 /* BRMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRMedia.m; sourceTree = "<group>"; };
+		E90F7B5C1F670DC300333382 /* ProvincesAndCities.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ProvincesAndCities.plist; sourceTree = "<group>"; };
+		E90F7B5E1F670DC300333382 /* BRMediaCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRMediaCell.h; sourceTree = "<group>"; };
+		E90F7B5F1F670DC300333382 /* BRMediaCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRMediaCell.m; sourceTree = "<group>"; };
+		E90F7B621F670DC300333382 /* BRLocationCitiListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRLocationCitiListTableViewController.h; sourceTree = "<group>"; };
+		E90F7B631F670DC300333382 /* BRLocationCitiListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRLocationCitiListTableViewController.m; sourceTree = "<group>"; };
+		E90F7B641F670DC300333382 /* BRLocationListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRLocationListViewController.h; sourceTree = "<group>"; };
+		E90F7B651F670DC300333382 /* BRLocationListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRLocationListViewController.m; sourceTree = "<group>"; };
+		E90F7B661F670DC300333382 /* BRPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRPasswordViewController.h; sourceTree = "<group>"; };
+		E90F7B671F670DC300333382 /* BRPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRPasswordViewController.m; sourceTree = "<group>"; };
+		E90F7B681F670DC300333382 /* BRQRCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRQRCodeViewController.h; sourceTree = "<group>"; };
+		E90F7B691F670DC300333382 /* BRQRCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRQRCodeViewController.m; sourceTree = "<group>"; };
+		E90F7B6A1F670DC300333382 /* BRUserGenderTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRUserGenderTableViewController.h; sourceTree = "<group>"; };
+		E90F7B6B1F670DC300333382 /* BRUserGenderTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRUserGenderTableViewController.m; sourceTree = "<group>"; };
+		E90F7B6C1F670DC300333382 /* BRUserImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRUserImageViewController.h; sourceTree = "<group>"; };
+		E90F7B6D1F670DC300333382 /* BRUserImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRUserImageViewController.m; sourceTree = "<group>"; };
+		E90F7B6E1F670DC300333382 /* BRUserInfo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BRUserInfo.storyboard; sourceTree = "<group>"; };
+		E90F7B6F1F670DC300333382 /* BRUserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRUserInfoViewController.h; sourceTree = "<group>"; };
+		E90F7B701F670DC300333382 /* BRUserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRUserInfoViewController.m; sourceTree = "<group>"; };
+		E90F7B711F670DC300333382 /* BRUserNameTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRUserNameTextViewController.h; sourceTree = "<group>"; };
+		E90F7B721F670DC300333382 /* BRUserNameTextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRUserNameTextViewController.m; sourceTree = "<group>"; };
+		E90F7B731F670DC300333382 /* BRUserSettingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRUserSettingTableViewController.h; sourceTree = "<group>"; };
+		E90F7B741F670DC300333382 /* BRUserSettingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRUserSettingTableViewController.m; sourceTree = "<group>"; };
+		E90F7B751F670DC300333382 /* BRWhatsUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRWhatsUpViewController.h; sourceTree = "<group>"; };
+		E90F7B761F670DC300333382 /* BRWhatsUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRWhatsUpViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -361,11 +343,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				276E75971F3E5AA600D5A917 /* AVKit.framework in Frameworks */,
-				276E75A41F421A6900D5A917 /* libopencore-amrnb.a in Frameworks */,
+				E90F7BC71F670DC400333382 /* libopencore-amrnb.a in Frameworks */,
 				276E75901F3E390100D5A917 /* UserNotifications.framework in Frameworks */,
 				276E757F1F3E2F1E00D5A917 /* AudioToolbox.framework in Frameworks */,
 				276E756A1F3E2B0200D5A917 /* AVFoundation.framework in Frameworks */,
-				276E75A51F421A6900D5A917 /* libopencore-amrwb.a in Frameworks */,
+				E90F7BC81F670DC400333382 /* libopencore-amrwb.a in Frameworks */,
 				777EE2E01DE2D56D25A06FA2 /* libPods-LinC.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -409,172 +391,6 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		276E750B1F3B99BF00D5A917 /* Message */ = {
-			isa = PBXGroup;
-			children = (
-				276E75291F3CDE0700D5A917 /* Category */,
-				276E750E1F3B9A0500D5A917 /* View */,
-				276E750D1F3B99F500D5A917 /* Model */,
-				276E750C1F3B99D500D5A917 /* Controller */,
-			);
-			path = Message;
-			sourceTree = "<group>";
-		};
-		276E750C1F3B99D500D5A917 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				276E751B1F3BA60100D5A917 /* BRMessageViewController.h */,
-				276E751C1F3BA60100D5A917 /* BRMessageViewController.m */,
-				276E75911F3E40FF00D5A917 /* BRLocationViewController.h */,
-				276E75921F3E40FF00D5A917 /* BRLocationViewController.m */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		276E750D1F3B99F500D5A917 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				276E75711F3E2D7600D5A917 /* amrFileCodec.h */,
-				276E75721F3E2D7600D5A917 /* amrFileCodec.mm */,
-				276E75731F3E2D7600D5A917 /* dec_if.h */,
-				276E75741F3E2D7600D5A917 /* interf_dec.h */,
-				276E75751F3E2D7600D5A917 /* interf_enc.h */,
-				276E75761F3E2D7600D5A917 /* wav.h */,
-				276E75771F3E2D7600D5A917 /* wav.mm */,
-				276E75461F3CF3E600D5A917 /* IMessageModel.h */,
-				276E75451F3CF3C500D5A917 /* IModelChatCell.h */,
-				276E750F1F3B9A6F00D5A917 /* BREmotionEscape.h */,
-				276E75101F3B9A6F00D5A917 /* BREmotionEscape.m */,
-				276E75121F3B9C5200D5A917 /* BRConvertToCommonEmoticonsHelper.h */,
-				276E75131F3B9C5200D5A917 /* BRConvertToCommonEmoticonsHelper.m */,
-				276E75151F3B9FCF00D5A917 /* BREmoji.h */,
-				276E75161F3B9FCF00D5A917 /* BREmoji.m */,
-				276E75181F3BA02200D5A917 /* BREmojiEmoticons.h */,
-				276E75191F3BA02200D5A917 /* BREmojiEmoticons.m */,
-				276E75201F3CD44C00D5A917 /* BRMessageModel.h */,
-				276E75211F3CD44C00D5A917 /* BRMessageModel.m */,
-				276E754D1F3D0F5000D5A917 /* BREmotionManager.h */,
-				276E754E1F3D0F5000D5A917 /* BREmotionManager.m */,
-				276E755C1F3E269200D5A917 /* BRCDDeviceManager.h */,
-				276E755D1F3E276C00D5A917 /* BRCDDeviceManagerProximitySensorDelegate.h */,
-				276E755F1F3E27CE00D5A917 /* BRCDDeviceManagerDelegate.h */,
-				276E75601F3E282200D5A917 /* BRCDDeviceManagerBase.h */,
-				276E75611F3E282200D5A917 /* BRCDDeviceManagerBase.m */,
-				276E75661F3E2A2E00D5A917 /* BRAudioPlayerUtil.h */,
-				276E75671F3E2A2E00D5A917 /* BRAudioPlayerUtil.m */,
-				276E756B1F3E2B8700D5A917 /* BRAudioRecorderUtil.h */,
-				276E756C1F3E2B8700D5A917 /* BRAudioRecorderUtil.m */,
-				276E756E1F3E2C4D00D5A917 /* BRVoiceConverter.h */,
-				276E756F1F3E2C4D00D5A917 /* BRVoiceConverter.mm */,
-				276E75891F3E321100D5A917 /* BRChatToolbarItem.h */,
-				276E758A1F3E321100D5A917 /* BRChatToolbarItem.m */,
-				276E759B1F3F4E5600D5A917 /* BRMessageReadManager.h */,
-				276E759C1F3F4E5600D5A917 /* BRMessageReadManager.m */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		276E750E1F3B9A0500D5A917 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				276E75231F3CDA6B00D5A917 /* BRMessageCell.h */,
-				276E75241F3CDA6B00D5A917 /* BRMessageCell.m */,
-				276E753C1F3CE5D600D5A917 /* BRBaseMessageCell.h */,
-				276E753D1F3CE5D600D5A917 /* BRBaseMessageCell.m */,
-				276E753F1F3CED4F00D5A917 /* BRCustomMessageCell.h */,
-				276E75401F3CED4F00D5A917 /* BRCustomMessageCell.m */,
-				276E75981F3E5C8E00D5A917 /* BRMessageTimeCell.h */,
-				276E75991F3E5C8E00D5A917 /* BRMessageTimeCell.m */,
-				276E75261F3CDC3C00D5A917 /* BRBubbleView.h */,
-				276E75271F3CDC3C00D5A917 /* BRBubbleView.m */,
-				276E754A1F3D0C1500D5A917 /* BRChatToolbar.h */,
-				276E754B1F3D0C1500D5A917 /* BRChatToolbar.m */,
-				276E75501F3E05DA00D5A917 /* BRFacialView.h */,
-				276E75511F3E05DA00D5A917 /* BRFacialView.m */,
-				276E75531F3E090D00D5A917 /* BRFaceView.h */,
-				276E75541F3E090D00D5A917 /* BRFaceView.m */,
-				276E75561F3E22DB00D5A917 /* BRTextView.h */,
-				276E75571F3E22DB00D5A917 /* BRTextView.m */,
-				276E75591F3E253200D5A917 /* BRRecordView.h */,
-				276E755A1F3E253200D5A917 /* BRRecordView.m */,
-				278CD9431F506FB6008D6BD1 /* BRChatBarMoreView.h */,
-				278CD9441F506FB6008D6BD1 /* BRChatBarMoreView.m */,
-				278CD9461F507462008D6BD1 /* BRChatBarMoreViewCell.h */,
-				278CD9471F507462008D6BD1 /* BRChatBarMoreViewCell.m */,
-				278CD9481F507462008D6BD1 /* BRChatBarMoreViewCell.xib */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		276E75291F3CDE0700D5A917 /* Category */ = {
-			isa = PBXGroup;
-			children = (
-				276E752A1F3CDE2C00D5A917 /* BRBubbleView+Text.h */,
-				276E752B1F3CDE2C00D5A917 /* BRBubbleView+Text.m */,
-				276E752D1F3CDF0500D5A917 /* BRBubbleView+Image.h */,
-				276E752E1F3CDF0500D5A917 /* BRBubbleView+Image.m */,
-				276E75301F3CDF7D00D5A917 /* BRBubbleView+Location.h */,
-				276E75311F3CDF7D00D5A917 /* BRBubbleView+Location.m */,
-				276E75331F3CE0B700D5A917 /* BRBubbleView+Voice.h */,
-				276E75341F3CE0B700D5A917 /* BRBubbleView+Voice.m */,
-				276E75361F3CE12C00D5A917 /* BRBubbleView+Video.h */,
-				276E75371F3CE12C00D5A917 /* BRBubbleView+Video.m */,
-				276E75391F3CE1E300D5A917 /* BRBubbleView+File.h */,
-				276E753A1F3CE1E300D5A917 /* BRBubbleView+File.m */,
-				276E75421F3CEE2F00D5A917 /* BRBubbleView+Gif.h */,
-				276E75431F3CEE2F00D5A917 /* BRBubbleView+Gif.m */,
-				276E75631F3E292A00D5A917 /* BRCDDeviceManager+Media.h */,
-				276E75641F3E292A00D5A917 /* BRCDDeviceManager+Media.m */,
-				276E757B1F3E2EEF00D5A917 /* BRCDDeviceManager+Remind.h */,
-				276E757C1F3E2EEF00D5A917 /* BRCDDeviceManager+Remind.m */,
-				276E75801F3E2F7900D5A917 /* BRCDDeviceManager+Microphone.h */,
-				276E75811F3E2F7900D5A917 /* BRCDDeviceManager+Microphone.m */,
-				276E75831F3E2FD600D5A917 /* BRCDDeviceManager+ProximitySensor.h */,
-				276E75841F3E2FD600D5A917 /* BRCDDeviceManager+ProximitySensor.m */,
-			);
-			path = Category;
-			sourceTree = "<group>";
-		};
-		276E75481F3CFAA000D5A917 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				278CD9511F59B055008D6BD1 /* BRHTTPSessionManager.h */,
-				278CD9521F59B055008D6BD1 /* BRHTTPSessionManager.m */,
-				276E75491F3CFAB400D5A917 /* IModelCell.h */,
-				276E758C1F3E35BD00D5A917 /* BRSDKHelper.h */,
-				276E758D1F3E35BD00D5A917 /* BRSDKHelper.m */,
-			);
-			name = Model;
-			sourceTree = "<group>";
-		};
-		276E75A91F43631400D5A917 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				276E75AA1F4365EA00D5A917 /* BRMediaBrowserViewController.h */,
-				276E75AB1F4365EA00D5A917 /* BRMediaBrowserViewController.m */,
-				276E75D51F45F10C00D5A917 /* BRMediaBrowserViewController.xib */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		276E75AF1F436C2600D5A917 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				276E75B41F43A44300D5A917 /* BRMediaCell.h */,
-				276E75B51F43A44300D5A917 /* BRMediaCell.m */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		276E75B01F4379A100D5A917 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				276E75B11F4379CD00D5A917 /* BRMedia.h */,
-				276E75B21F4379CD00D5A917 /* BRMedia.m */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		27CA03A31F38F21600D0F132 = {
 			isa = PBXGroup;
 			children = (
@@ -600,7 +416,7 @@
 		27CA03AE1F38F21600D0F132 /* LinC */ = {
 			isa = PBXGroup;
 			children = (
-				27E9A2101F3B84F4001937A0 /* Class */,
+				E90F7AA41F670DC300333382 /* Class */,
 				27CA03AF1F38F21600D0F132 /* Supporting Files */,
 			);
 			path = LinC;
@@ -635,261 +451,405 @@
 			path = LinCUITests;
 			sourceTree = "<group>";
 		};
-		27E9A2101F3B84F4001937A0 /* Class */ = {
+		E90F7AA41F670DC300333382 /* Class */ = {
 			isa = PBXGroup;
 			children = (
-				E9A3ACE91F476174006810BE /* Account */,
-				E90A1CCC1F42AA66001033CB /* UserInfo */,
-				E90A1CCB1F42AA33001033CB /* ContactList */,
-				276E750B1F3B99BF00D5A917 /* Message */,
-				27E9A23B1F3B8BE3001937A0 /* Other */,
-				27E9A2111F3B84F4001937A0 /* Conversation */,
-				27E9A21D1F3B84F4001937A0 /* Main */,
+				E90F7AA51F670DC300333382 /* Account */,
+				E90F7AB11F670DC300333382 /* ContactList */,
+				E90F7AC61F670DC300333382 /* Conversation */,
+				E90F7AD71F670DC300333382 /* Main */,
+				E90F7AF01F670DC300333382 /* Message */,
+				E90F7B4C1F670DC300333382 /* Other */,
+				E90F7B601F670DC300333382 /* UserInfo */,
 			);
 			path = Class;
 			sourceTree = "<group>";
 		};
-		27E9A2111F3B84F4001937A0 /* Conversation */ = {
+		E90F7AA51F670DC300333382 /* Account */ = {
 			isa = PBXGroup;
 			children = (
-				27E9A2121F3B84F4001937A0 /* Controller */,
-				27E9A2151F3B84F4001937A0 /* Model */,
-				27E9A2181F3B84F4001937A0 /* View */,
+				E90F7AA61F670DC300333382 /* Account.storyboard */,
+				E90F7AA71F670DC300333382 /* BRAccountNavigationController.h */,
+				E90F7AA81F670DC300333382 /* BRAccountNavigationController.m */,
+				E90F7AA91F670DC300333382 /* BRLoginViewController.h */,
+				E90F7AAA1F670DC300333382 /* BRLoginViewController.m */,
+				E90F7AAB1F670DC300333382 /* BRResetPasswordViewController.h */,
+				E90F7AAC1F670DC300333382 /* BRResetPasswordViewController.m */,
+				E90F7AAD1F670DC300333382 /* BRUserAccountSetUpViewController.h */,
+				E90F7AAE1F670DC300333382 /* BRUserAccountSetUpViewController.m */,
+				E90F7AAF1F670DC300333382 /* BRUserInfoSetUpTableViewController.h */,
+				E90F7AB01F670DC300333382 /* BRUserInfoSetUpTableViewController.m */,
 			);
-			path = Conversation;
+			path = Account;
 			sourceTree = "<group>";
 		};
-		27E9A2121F3B84F4001937A0 /* Controller */ = {
+		E90F7AB11F670DC300333382 /* ContactList */ = {
 			isa = PBXGroup;
 			children = (
-				27E9A2131F3B84F4001937A0 /* BRConversationListViewController.h */,
-				27E9A2141F3B84F4001937A0 /* BRConversationListViewController.m */,
+				E90F7AB21F670DC300333382 /* Controller */,
+				E90F7ABE1F670DC300333382 /* Model */,
+				E90F7AC21F670DC300333382 /* View */,
+			);
+			path = ContactList;
+			sourceTree = "<group>";
+		};
+		E90F7AB21F670DC300333382 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E90F7AB31F670DC300333382 /* BRAddingFriendViewController.h */,
+				E90F7AB41F670DC300333382 /* BRAddingFriendViewController.m */,
+				E90F7AB51F670DC300333382 /* BRAddingFriendViewController.xib */,
+				E90F7AB61F670DC300333382 /* BRContactListViewController.h */,
+				E90F7AB71F670DC300333382 /* BRContactListViewController.m */,
+				E90F7AB81F670DC300333382 /* BRFriendInfo.storyboard */,
+				E90F7AB91F670DC300333382 /* BRFriendInfoTableViewController.h */,
+				E90F7ABA1F670DC300333382 /* BRFriendInfoTableViewController.m */,
+				E90F7ABB1F670DC300333382 /* BRScannerViewController.h */,
+				E90F7ABC1F670DC300333382 /* BRScannerViewController.m */,
+				E90F7ABD1F670DC300333382 /* BRScannerViewController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		27E9A2151F3B84F4001937A0 /* Model */ = {
+		E90F7ABE1F670DC300333382 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				276E75471F3CF90B00D5A917 /* IConversationModel.h */,
-				27E9A2161F3B84F4001937A0 /* BRConversationModel.h */,
-				27E9A2171F3B84F4001937A0 /* BRConversationModel.m */,
+				E90F7ABF1F670DC300333382 /* BRContactListModel.h */,
+				E90F7AC01F670DC300333382 /* BRContactListModel.m */,
+				E90F7AC11F670DC300333382 /* IUserModel.h */,
 			);
 			path = Model;
 			sourceTree = "<group>";
 		};
-		27E9A2181F3B84F4001937A0 /* View */ = {
+		E90F7AC21F670DC300333382 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				27E9A2191F3B84F4001937A0 /* BRAvatarView.h */,
-				27E9A21A1F3B84F4001937A0 /* BRAvatarView.m */,
-				27E9A21B1F3B84F4001937A0 /* BRConversationCell.h */,
-				27E9A21C1F3B84F4001937A0 /* BRConversationCell.m */,
-				276E751E1F3BB48D00D5A917 /* BRConversationCell.xib */,
-				E9FEC22A1F550C3100BD7047 /* BRDropDownViewController.h */,
-				E9FEC22B1F550C3100BD7047 /* BRDropDownViewController.m */,
-				E9FEC22C1F550C3100BD7047 /* BRDropDownViewController.xib */,
+				E90F7AC31F670DC300333382 /* BRContactListTableViewCell.h */,
+				E90F7AC41F670DC300333382 /* BRContactListTableViewCell.m */,
+				E90F7AC51F670DC300333382 /* BRContactListTableViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
 		};
-		27E9A21D1F3B84F4001937A0 /* Main */ = {
+		E90F7AC61F670DC300333382 /* Conversation */ = {
 			isa = PBXGroup;
 			children = (
-				276E75481F3CFAA000D5A917 /* Model */,
-				27E9A23F1F3B8BFA001937A0 /* View */,
-				27E9A21E1F3B84F4001937A0 /* Category */,
-				27E9A2271F3B84F4001937A0 /* Controller */,
+				E90F7AC71F670DC300333382 /* Controller */,
+				E90F7ACD1F670DC300333382 /* Model */,
+				E90F7AD11F670DC300333382 /* View */,
 			);
-			path = Main;
+			path = Conversation;
 			sourceTree = "<group>";
 		};
-		27E9A21E1F3B84F4001937A0 /* Category */ = {
+		E90F7AC71F670DC300333382 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				27E9A21F1F3B84F4001937A0 /* NSDate+Category.h */,
-				27E9A2201F3B84F4001937A0 /* NSDate+Category.m */,
-				27E9A2211F3B84F4001937A0 /* NSDateFormatter+Category.h */,
-				27E9A2221F3B84F4001937A0 /* NSDateFormatter+Category.m */,
-				27E9A2231F3B84F4001937A0 /* NSString+Helper.h */,
-				27E9A2241F3B84F4001937A0 /* NSString+Helper.m */,
-				27E9A2251F3B84F4001937A0 /* UIView+Extension.h */,
-				27E9A2261F3B84F4001937A0 /* UIView+Extension.m */,
-			);
-			path = Category;
-			sourceTree = "<group>";
-		};
-		27E9A2271F3B84F4001937A0 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				27E9A2281F3B84F4001937A0 /* BRNavigationController.h */,
-				27E9A2291F3B84F4001937A0 /* BRNavigationController.m */,
-				27E9A22A1F3B84F4001937A0 /* BRRefreshTableViewController.h */,
-				27E9A22B1F3B84F4001937A0 /* BRRefreshTableViewController.m */,
-				27E9A22C1F3B84F4001937A0 /* BRTabBarController.h */,
-				27E9A22D1F3B84F4001937A0 /* BRTabBarController.m */,
+				E90F7AC81F670DC300333382 /* BRConversationListViewController.h */,
+				E90F7AC91F670DC300333382 /* BRConversationListViewController.m */,
+				E90F7ACA1F670DC300333382 /* BRDropDownViewController.h */,
+				E90F7ACB1F670DC300333382 /* BRDropDownViewController.m */,
+				E90F7ACC1F670DC300333382 /* BRDropDownViewController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		27E9A23B1F3B8BE3001937A0 /* Other */ = {
+		E90F7ACD1F670DC300333382 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				276E75B01F4379A100D5A917 /* Model */,
-				276E75AF1F436C2600D5A917 /* View */,
-				276E75A91F43631400D5A917 /* Controller */,
-				276E75A61F4227AD00D5A917 /* Common.h */,
-				276E75A71F4227AD00D5A917 /* Common.m */,
-				276E75A21F421A6900D5A917 /* libopencore-amrnb.a */,
-				276E75A31F421A6900D5A917 /* libopencore-amrwb.a */,
-				276E757A1F3E2DC900D5A917 /* DemoErrorCode.h */,
-				27E9A23C1F3B8BE3001937A0 /* AppDelegate.h */,
-				27E9A23D1F3B8BE3001937A0 /* AppDelegate.m */,
-				276E75A11F42057300D5A917 /* LinC.pch */,
-				E932C5281F4B547E0045AB60 /* ProvincesAndCities.plist */,
+				E90F7ACE1F670DC300333382 /* BRConversationModel.h */,
+				E90F7ACF1F670DC300333382 /* BRConversationModel.m */,
+				E90F7AD01F670DC300333382 /* IConversationModel.h */,
 			);
-			path = Other;
+			path = Model;
 			sourceTree = "<group>";
 		};
-		27E9A23F1F3B8BFA001937A0 /* View */ = {
+		E90F7AD11F670DC300333382 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				27E9A2401F3B8BFA001937A0 /* LaunchScreen.storyboard */,
-				27E9A2411F3B8BFA001937A0 /* Main.storyboard */,
+				E90F7AD21F670DC300333382 /* BRAvatarView.h */,
+				E90F7AD31F670DC300333382 /* BRAvatarView.m */,
+				E90F7AD41F670DC300333382 /* BRConversationCell.h */,
+				E90F7AD51F670DC300333382 /* BRConversationCell.m */,
+				E90F7AD61F670DC300333382 /* BRConversationCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
 		};
-		E90A1CCB1F42AA33001033CB /* ContactList */ = {
+		E90F7AD71F670DC300333382 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				E90A1CCD1F42AA76001033CB /* Controller */,
-				E90A1CD11F42AA76001033CB /* Model */,
-				E90A1CD41F42AA76001033CB /* View */,
+				E90F7AD81F670DC300333382 /* BRHTTPSessionManager.h */,
+				E90F7AD91F670DC300333382 /* BRHTTPSessionManager.m */,
+				E90F7ADA1F670DC300333382 /* BRSDKHelper.h */,
+				E90F7ADB1F670DC300333382 /* BRSDKHelper.m */,
+				E90F7ADC1F670DC300333382 /* Category */,
+				E90F7AE51F670DC300333382 /* Controller */,
+				E90F7AEC1F670DC300333382 /* IModelCell.h */,
+				E90F7AED1F670DC300333382 /* View */,
 			);
-			name = ContactList;
+			path = Main;
 			sourceTree = "<group>";
 		};
-		E90A1CCC1F42AA66001033CB /* UserInfo */ = {
+		E90F7ADC1F670DC300333382 /* Category */ = {
 			isa = PBXGroup;
 			children = (
-				E90A1CE21F42AA85001033CB /* Controller */,
-				E90A1CE51F42AA85001033CB /* Model */,
-				E90A1CE61F42AA85001033CB /* View */,
+				E90F7ADD1F670DC300333382 /* NSDate+Category.h */,
+				E90F7ADE1F670DC300333382 /* NSDate+Category.m */,
+				E90F7ADF1F670DC300333382 /* NSDateFormatter+Category.h */,
+				E90F7AE01F670DC300333382 /* NSDateFormatter+Category.m */,
+				E90F7AE11F670DC300333382 /* NSString+Helper.h */,
+				E90F7AE21F670DC300333382 /* NSString+Helper.m */,
+				E90F7AE31F670DC300333382 /* UIView+Extension.h */,
+				E90F7AE41F670DC300333382 /* UIView+Extension.m */,
 			);
-			name = UserInfo;
+			path = Category;
 			sourceTree = "<group>";
 		};
-		E90A1CCD1F42AA76001033CB /* Controller */ = {
+		E90F7AE51F670DC300333382 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				E90A1CCE1F42AA76001033CB /* BRContactListViewController.h */,
-				E90A1CCF1F42AA76001033CB /* BRContactListViewController.m */,
-				E9422D831F50A8FC0008911E /* BRAddingFriendViewController.h */,
-				E9422D841F50A8FC0008911E /* BRAddingFriendViewController.m */,
-				E9422D851F50A8FC0008911E /* BRAddingFriendViewController.xib */,
-				E9422D8D1F50B1780008911E /* BRFriendInfoTableViewController.h */,
-				E9422D8E1F50B1780008911E /* BRFriendInfoTableViewController.m */,
-				E9422D921F50B4FE0008911E /* BRFriendInfo.storyboard */,
+				E90F7AE61F670DC300333382 /* BRNavigationController.h */,
+				E90F7AE71F670DC300333382 /* BRNavigationController.m */,
+				E90F7AE81F670DC300333382 /* BRRefreshTableViewController.h */,
+				E90F7AE91F670DC300333382 /* BRRefreshTableViewController.m */,
+				E90F7AEA1F670DC300333382 /* BRTabBarController.h */,
+				E90F7AEB1F670DC300333382 /* BRTabBarController.m */,
 			);
-			name = Controller;
-			path = ContactList/Controller;
+			path = Controller;
 			sourceTree = "<group>";
 		};
-		E90A1CD11F42AA76001033CB /* Model */ = {
+		E90F7AED1F670DC300333382 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E94AD9601F44A7DD00A1AEF3 /* IUserModel.h */,
-				E90A1CD21F42AA76001033CB /* BRContactListModel.h */,
-				E90A1CD31F42AA76001033CB /* BRContactListModel.m */,
+				E90F7AEE1F670DC300333382 /* LaunchScreen.storyboard */,
+				E90F7AEF1F670DC300333382 /* Main.storyboard */,
 			);
-			name = Model;
-			path = ContactList/Model;
+			path = View;
 			sourceTree = "<group>";
 		};
-		E90A1CD41F42AA76001033CB /* View */ = {
+		E90F7AF01F670DC300333382 /* Message */ = {
 			isa = PBXGroup;
 			children = (
-				E9422D881F50AD6E0008911E /* BRScannerViewController.h */,
-				E9422D891F50AD6E0008911E /* BRScannerViewController.m */,
-				E9422D8A1F50AD6E0008911E /* BRScannerViewController.xib */,
-				E90A1CD51F42AA76001033CB /* BRContactListTableViewCell.h */,
-				E90A1CD61F42AA76001033CB /* BRContactListTableViewCell.m */,
-				E90A1CD71F42AA76001033CB /* BRContactListTableViewCell.xib */,
-				E90A1CD81F42AA76001033CB /* BRFriendInfoViewController.h */,
-				E90A1CD91F42AA76001033CB /* BRFriendInfoViewController.m */,
-				E90A1CDA1F42AA76001033CB /* BRFriendInfoViewController.xib */,
+				E90F7AF11F670DC300333382 /* Category */,
+				E90F7B081F670DC300333382 /* Controller */,
+				E90F7B0D1F670DC300333382 /* Model */,
+				E90F7B321F670DC300333382 /* View */,
 			);
-			name = View;
-			path = ContactList/View;
+			path = Message;
 			sourceTree = "<group>";
 		};
-		E90A1CE21F42AA85001033CB /* Controller */ = {
+		E90F7AF11F670DC300333382 /* Category */ = {
 			isa = PBXGroup;
 			children = (
-				E90A1CE31F42AA85001033CB /* BRUserInfoViewController.h */,
-				E90A1CE41F42AA85001033CB /* BRUserInfoViewController.m */,
+				E90F7AF21F670DC300333382 /* BRBubbleView+File.h */,
+				E90F7AF31F670DC300333382 /* BRBubbleView+File.m */,
+				E90F7AF41F670DC300333382 /* BRBubbleView+Gif.h */,
+				E90F7AF51F670DC300333382 /* BRBubbleView+Gif.m */,
+				E90F7AF61F670DC300333382 /* BRBubbleView+Image.h */,
+				E90F7AF71F670DC300333382 /* BRBubbleView+Image.m */,
+				E90F7AF81F670DC300333382 /* BRBubbleView+Location.h */,
+				E90F7AF91F670DC300333382 /* BRBubbleView+Location.m */,
+				E90F7AFA1F670DC300333382 /* BRBubbleView+Text.h */,
+				E90F7AFB1F670DC300333382 /* BRBubbleView+Text.m */,
+				E90F7AFC1F670DC300333382 /* BRBubbleView+Video.h */,
+				E90F7AFD1F670DC300333382 /* BRBubbleView+Video.m */,
+				E90F7AFE1F670DC300333382 /* BRBubbleView+Voice.h */,
+				E90F7AFF1F670DC300333382 /* BRBubbleView+Voice.m */,
+				E90F7B001F670DC300333382 /* BRCDDeviceManager+Media.h */,
+				E90F7B011F670DC300333382 /* BRCDDeviceManager+Media.m */,
+				E90F7B021F670DC300333382 /* BRCDDeviceManager+Microphone.h */,
+				E90F7B031F670DC300333382 /* BRCDDeviceManager+Microphone.m */,
+				E90F7B041F670DC300333382 /* BRCDDeviceManager+ProximitySensor.h */,
+				E90F7B051F670DC300333382 /* BRCDDeviceManager+ProximitySensor.m */,
+				E90F7B061F670DC300333382 /* BRCDDeviceManager+Remind.h */,
+				E90F7B071F670DC300333382 /* BRCDDeviceManager+Remind.m */,
 			);
-			name = Controller;
-			path = UserInfo/Controller;
+			path = Category;
 			sourceTree = "<group>";
 		};
-		E90A1CE51F42AA85001033CB /* Model */ = {
+		E90F7B081F670DC300333382 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				E90F7B091F670DC300333382 /* BRLocationViewController.h */,
+				E90F7B0A1F670DC300333382 /* BRLocationViewController.m */,
+				E90F7B0B1F670DC300333382 /* BRMessageViewController.h */,
+				E90F7B0C1F670DC300333382 /* BRMessageViewController.m */,
 			);
-			name = Model;
-			path = UserInfo/Model;
+			path = Controller;
 			sourceTree = "<group>";
 		};
-		E90A1CE61F42AA85001033CB /* View */ = {
+		E90F7B0D1F670DC300333382 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				E90A1CE71F42AA85001033CB /* BRLocationListViewController.h */,
-				E90A1CE81F42AA85001033CB /* BRLocationListViewController.m */,
-				E90A1CE91F42AA85001033CB /* BRLocationListViewController.xib */,
-				E90A1CEA1F42AA85001033CB /* BRUserGenderViewController.h */,
-				E90A1CEB1F42AA85001033CB /* BRUserGenderViewController.m */,
-				E90A1CEC1F42AA85001033CB /* BRUserGenderViewController.xib */,
-				E90A1CED1F42AA85001033CB /* BRUserImageViewController.h */,
-				E90A1CEE1F42AA85001033CB /* BRUserImageViewController.m */,
-				E90A1CEF1F42AA85001033CB /* BRUserImageViewController.xib */,
-				E90A1CF01F42AA85001033CB /* BRUserInfoViewController.storyboard */,
-				E90A1CF11F42AA85001033CB /* BRUserNameTextViewController.h */,
-				E90A1CF21F42AA85001033CB /* BRUserNameTextViewController.m */,
-				E90A1CF31F42AA85001033CB /* BRUserNameTextViewController.xib */,
-				E90A1CF41F42AA85001033CB /* BRWhatsUpViewController.h */,
-				E90A1CF51F42AA85001033CB /* BRWhatsUpViewController.m */,
-				E90A1CF61F42AA85001033CB /* BRWhatsUpViewController.xib */,
-				E932C52A1F4B67AE0045AB60 /* BRLocationCitiListTableViewController.h */,
-				E932C52B1F4B67AE0045AB60 /* BRLocationCitiListTableViewController.m */,
-				E932C52C1F4B67AE0045AB60 /* BRLocationCitiListTableViewController.xib */,
-				E92912511F4DCE8C00092B2A /* BRUserSettingTableViewController.h */,
-				E92912521F4DCE8C00092B2A /* BRUserSettingTableViewController.m */,
-				E92912561F4DD1F000092B2A /* BRUserSettingTableViewController.storyboard */,
-				E910E7311F4DDC2D00F5C9BC /* BRPasswordViewController.h */,
-				E910E7321F4DDC2D00F5C9BC /* BRPasswordViewController.m */,
-				E910E7331F4DDC2D00F5C9BC /* BRPasswordViewController.xib */,
-				E9160F211F507A620072495A /* BRQRCodeViewController.h */,
-				E9160F221F507A620072495A /* BRQRCodeViewController.m */,
-				E9160F231F507A620072495A /* BRQRCodeViewController.xib */,
+				E90F7B0E1F670DC300333382 /* amrFileCodec.h */,
+				E90F7B0F1F670DC300333382 /* amrFileCodec.mm */,
+				E90F7B101F670DC300333382 /* BRAudioPlayerUtil.h */,
+				E90F7B111F670DC300333382 /* BRAudioPlayerUtil.m */,
+				E90F7B121F670DC300333382 /* BRAudioRecorderUtil.h */,
+				E90F7B131F670DC300333382 /* BRAudioRecorderUtil.m */,
+				E90F7B141F670DC300333382 /* BRCDDeviceManager.h */,
+				E90F7B151F670DC300333382 /* BRCDDeviceManagerBase.h */,
+				E90F7B161F670DC300333382 /* BRCDDeviceManagerBase.m */,
+				E90F7B171F670DC300333382 /* BRCDDeviceManagerDelegate.h */,
+				E90F7B181F670DC300333382 /* BRCDDeviceManagerProximitySensorDelegate.h */,
+				E90F7B191F670DC300333382 /* BRChatToolbarItem.h */,
+				E90F7B1A1F670DC300333382 /* BRChatToolbarItem.m */,
+				E90F7B1B1F670DC300333382 /* BRConvertToCommonEmoticonsHelper.h */,
+				E90F7B1C1F670DC300333382 /* BRConvertToCommonEmoticonsHelper.m */,
+				E90F7B1D1F670DC300333382 /* BREmoji.h */,
+				E90F7B1E1F670DC300333382 /* BREmoji.m */,
+				E90F7B1F1F670DC300333382 /* BREmojiEmoticons.h */,
+				E90F7B201F670DC300333382 /* BREmojiEmoticons.m */,
+				E90F7B211F670DC300333382 /* BREmotionEscape.h */,
+				E90F7B221F670DC300333382 /* BREmotionEscape.m */,
+				E90F7B231F670DC300333382 /* BREmotionManager.h */,
+				E90F7B241F670DC300333382 /* BREmotionManager.m */,
+				E90F7B251F670DC300333382 /* BRMessageModel.h */,
+				E90F7B261F670DC300333382 /* BRMessageModel.m */,
+				E90F7B271F670DC300333382 /* BRMessageReadManager.h */,
+				E90F7B281F670DC300333382 /* BRMessageReadManager.m */,
+				E90F7B291F670DC300333382 /* BRVoiceConverter.h */,
+				E90F7B2A1F670DC300333382 /* BRVoiceConverter.mm */,
+				E90F7B2B1F670DC300333382 /* dec_if.h */,
+				E90F7B2C1F670DC300333382 /* IMessageModel.h */,
+				E90F7B2D1F670DC300333382 /* IModelChatCell.h */,
+				E90F7B2E1F670DC300333382 /* interf_dec.h */,
+				E90F7B2F1F670DC300333382 /* interf_enc.h */,
+				E90F7B301F670DC300333382 /* wav.h */,
+				E90F7B311F670DC300333382 /* wav.mm */,
 			);
-			name = View;
-			path = UserInfo/View;
+			path = Model;
 			sourceTree = "<group>";
 		};
-		E9A3ACE91F476174006810BE /* Account */ = {
+		E90F7B321F670DC300333382 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E9A3ACEA1F476174006810BE /* BRLoginViewController.h */,
-				E9A3ACEB1F476174006810BE /* BRLoginViewController.m */,
-				E9A3ACF11F476253006810BE /* Account.storyboard */,
-				E95841961F4B337A00B3693F /* BRUserAccountSetUpViewController.h */,
-				E95841971F4B337A00B3693F /* BRUserAccountSetUpViewController.m */,
-				E95841991F4B344000B3693F /* BRUserInfoSetUpTableViewController.h */,
-				E958419A1F4B344000B3693F /* BRUserInfoSetUpTableViewController.m */,
+				E90F7B331F670DC300333382 /* BRBaseMessageCell.h */,
+				E90F7B341F670DC300333382 /* BRBaseMessageCell.m */,
+				E90F7B351F670DC300333382 /* BRBubbleView.h */,
+				E90F7B361F670DC300333382 /* BRBubbleView.m */,
+				E90F7B371F670DC300333382 /* BRChatBarMoreView.h */,
+				E90F7B381F670DC300333382 /* BRChatBarMoreView.m */,
+				E90F7B391F670DC300333382 /* BRChatBarMoreViewCell.h */,
+				E90F7B3A1F670DC300333382 /* BRChatBarMoreViewCell.m */,
+				E90F7B3B1F670DC300333382 /* BRChatBarMoreViewCell.xib */,
+				E90F7B3C1F670DC300333382 /* BRChatToolbar.h */,
+				E90F7B3D1F670DC300333382 /* BRChatToolbar.m */,
+				E90F7B3E1F670DC300333382 /* BRCustomMessageCell.h */,
+				E90F7B3F1F670DC300333382 /* BRCustomMessageCell.m */,
+				E90F7B401F670DC300333382 /* BRFaceView.h */,
+				E90F7B411F670DC300333382 /* BRFaceView.m */,
+				E90F7B421F670DC300333382 /* BRFacialView.h */,
+				E90F7B431F670DC300333382 /* BRFacialView.m */,
+				E90F7B441F670DC300333382 /* BRMessageCell.h */,
+				E90F7B451F670DC300333382 /* BRMessageCell.m */,
+				E90F7B461F670DC300333382 /* BRMessageTimeCell.h */,
+				E90F7B471F670DC300333382 /* BRMessageTimeCell.m */,
+				E90F7B481F670DC300333382 /* BRRecordView.h */,
+				E90F7B491F670DC300333382 /* BRRecordView.m */,
+				E90F7B4A1F670DC300333382 /* BRTextView.h */,
+				E90F7B4B1F670DC300333382 /* BRTextView.m */,
 			);
-			path = Account;
+			path = View;
+			sourceTree = "<group>";
+		};
+		E90F7B4C1F670DC300333382 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				E90F7B4D1F670DC300333382 /* AppDelegate.h */,
+				E90F7B4E1F670DC300333382 /* AppDelegate.m */,
+				E90F7B4F1F670DC300333382 /* Common.h */,
+				E90F7B501F670DC300333382 /* Common.m */,
+				E90F7B511F670DC300333382 /* Controller */,
+				E90F7B551F670DC300333382 /* DemoErrorCode.h */,
+				E90F7B561F670DC300333382 /* libopencore-amrnb.a */,
+				E90F7B571F670DC300333382 /* libopencore-amrwb.a */,
+				E90F7B581F670DC300333382 /* LinC.pch */,
+				E90F7B591F670DC300333382 /* Model */,
+				E90F7B5C1F670DC300333382 /* ProvincesAndCities.plist */,
+				E90F7B5D1F670DC300333382 /* View */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
+		E90F7B511F670DC300333382 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E90F7B521F670DC300333382 /* BRMediaBrowserViewController.h */,
+				E90F7B531F670DC300333382 /* BRMediaBrowserViewController.m */,
+				E90F7B541F670DC300333382 /* BRMediaBrowserViewController.xib */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		E90F7B591F670DC300333382 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E90F7B5A1F670DC300333382 /* BRMedia.h */,
+				E90F7B5B1F670DC300333382 /* BRMedia.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E90F7B5D1F670DC300333382 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E90F7B5E1F670DC300333382 /* BRMediaCell.h */,
+				E90F7B5F1F670DC300333382 /* BRMediaCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E90F7B601F670DC300333382 /* UserInfo */ = {
+			isa = PBXGroup;
+			children = (
+				E90F7B611F670DC300333382 /* Controller */,
+				E90F7B771F670DC300333382 /* Model */,
+				E90F7B781F670DC300333382 /* View */,
+			);
+			path = UserInfo;
+			sourceTree = "<group>";
+		};
+		E90F7B611F670DC300333382 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E90F7B621F670DC300333382 /* BRLocationCitiListTableViewController.h */,
+				E90F7B631F670DC300333382 /* BRLocationCitiListTableViewController.m */,
+				E90F7B641F670DC300333382 /* BRLocationListViewController.h */,
+				E90F7B651F670DC300333382 /* BRLocationListViewController.m */,
+				E90F7B661F670DC300333382 /* BRPasswordViewController.h */,
+				E90F7B671F670DC300333382 /* BRPasswordViewController.m */,
+				E90F7B681F670DC300333382 /* BRQRCodeViewController.h */,
+				E90F7B691F670DC300333382 /* BRQRCodeViewController.m */,
+				E90F7B6A1F670DC300333382 /* BRUserGenderTableViewController.h */,
+				E90F7B6B1F670DC300333382 /* BRUserGenderTableViewController.m */,
+				E90F7B6C1F670DC300333382 /* BRUserImageViewController.h */,
+				E90F7B6D1F670DC300333382 /* BRUserImageViewController.m */,
+				E90F7B6E1F670DC300333382 /* BRUserInfo.storyboard */,
+				E90F7B6F1F670DC300333382 /* BRUserInfoViewController.h */,
+				E90F7B701F670DC300333382 /* BRUserInfoViewController.m */,
+				E90F7B711F670DC300333382 /* BRUserNameTextViewController.h */,
+				E90F7B721F670DC300333382 /* BRUserNameTextViewController.m */,
+				E90F7B731F670DC300333382 /* BRUserSettingTableViewController.h */,
+				E90F7B741F670DC300333382 /* BRUserSettingTableViewController.m */,
+				E90F7B751F670DC300333382 /* BRWhatsUpViewController.h */,
+				E90F7B761F670DC300333382 /* BRWhatsUpViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		E90F7B771F670DC300333382 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E90F7B781F670DC300333382 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -973,7 +933,7 @@
 					};
 					27CA03CF1F38F21600D0F132 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = M4YWTY9R92;
+						DevelopmentTeam = E259J6P932;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 27CA03AB1F38F21600D0F132;
 					};
@@ -1004,29 +964,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E90A1D021F42AA85001033CB /* BRWhatsUpViewController.xib in Resources */,
-				278CD94A1F507462008D6BD1 /* BRChatBarMoreViewCell.xib in Resources */,
-				27E9A2431F3B8BFA001937A0 /* Main.storyboard in Resources */,
+				E90F7B991F670DC300333382 /* LaunchScreen.storyboard in Resources */,
+				E90F7B9A1F670DC300333382 /* Main.storyboard in Resources */,
+				E90F7B801F670DC300333382 /* BRAddingFriendViewController.xib in Resources */,
+				E90F7B791F670DC300333382 /* Account.storyboard in Resources */,
+				E90F7BC61F670DC400333382 /* BRMediaBrowserViewController.xib in Resources */,
+				E90F7BBA1F670DC400333382 /* BRChatBarMoreViewCell.xib in Resources */,
+				E90F7B821F670DC300333382 /* BRFriendInfo.storyboard in Resources */,
+				E90F7B8B1F670DC300333382 /* BRDropDownViewController.xib in Resources */,
+				E90F7B851F670DC300333382 /* BRScannerViewController.xib in Resources */,
+				E90F7B881F670DC300333382 /* BRContactListTableViewCell.xib in Resources */,
+				E90F7BCA1F670DC400333382 /* ProvincesAndCities.plist in Resources */,
+				E90F7B8F1F670DC300333382 /* BRConversationCell.xib in Resources */,
 				278CD94C1F549192008D6BD1 /* Assets.xcassets in Resources */,
-				E90A1CFD1F42AA85001033CB /* BRUserImageViewController.xib in Resources */,
-				E932C52E1F4B67AE0045AB60 /* BRLocationCitiListTableViewController.xib in Resources */,
-				276E751F1F3BB48D00D5A917 /* BRConversationCell.xib in Resources */,
-				E9422D871F50A8FC0008911E /* BRAddingFriendViewController.xib in Resources */,
-				E90A1CFB1F42AA85001033CB /* BRUserGenderViewController.xib in Resources */,
-				E910E7351F4DDC2D00F5C9BC /* BRPasswordViewController.xib in Resources */,
-				E9A3ACF21F476253006810BE /* Account.storyboard in Resources */,
-				E92912571F4DD1F000092B2A /* BRUserSettingTableViewController.storyboard in Resources */,
-				E9422D931F50B4FE0008911E /* BRFriendInfo.storyboard in Resources */,
-				27E9A2421F3B8BFA001937A0 /* LaunchScreen.storyboard in Resources */,
-				E932C5291F4B547E0045AB60 /* ProvincesAndCities.plist in Resources */,
-				E90A1CE11F42AA76001033CB /* BRFriendInfoViewController.xib in Resources */,
-				E9422D8C1F50AD6E0008911E /* BRScannerViewController.xib in Resources */,
-				E90A1CDF1F42AA76001033CB /* BRContactListTableViewCell.xib in Resources */,
-				E90A1CF91F42AA85001033CB /* BRLocationListViewController.xib in Resources */,
-				276E75D61F45F10C00D5A917 /* BRMediaBrowserViewController.xib in Resources */,
-				E90A1D001F42AA85001033CB /* BRUserNameTextViewController.xib in Resources */,
-				E90A1CFE1F42AA85001033CB /* BRUserInfoViewController.storyboard in Resources */,
-				E9160F251F507A620072495A /* BRQRCodeViewController.xib in Resources */,
+				E90F7BD21F670DC400333382 /* BRUserInfo.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1034,7 +985,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E9A3ACF31F476253006810BE /* Account.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1042,7 +992,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E9A3ACF41F476253006810BE /* Account.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1110,85 +1059,86 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E9A3ACEC1F476174006810BE /* BRLoginViewController.m in Sources */,
-				276E75851F3E2FD600D5A917 /* BRCDDeviceManager+ProximitySensor.m in Sources */,
-				E958419B1F4B344000B3693F /* BRUserInfoSetUpTableViewController.m in Sources */,
-				E932C52D1F4B67AE0045AB60 /* BRLocationCitiListTableViewController.m in Sources */,
-				E90A1CF71F42AA85001033CB /* BRUserInfoViewController.m in Sources */,
-				276E75381F3CE12C00D5A917 /* BRBubbleView+Video.m in Sources */,
-				276E754C1F3D0C1500D5A917 /* BRChatToolbar.m in Sources */,
-				E9422D8B1F50AD6E0008911E /* BRScannerViewController.m in Sources */,
-				27E9A22F1F3B84F4001937A0 /* BRConversationModel.m in Sources */,
-				276E755B1F3E253200D5A917 /* BRRecordView.m in Sources */,
-				E90A1CFA1F42AA85001033CB /* BRUserGenderViewController.m in Sources */,
-				27E9A2331F3B84F4001937A0 /* NSDateFormatter+Category.m in Sources */,
-				276E757D1F3E2EEF00D5A917 /* BRCDDeviceManager+Remind.m in Sources */,
-				278CD9531F59B055008D6BD1 /* BRHTTPSessionManager.m in Sources */,
-				276E75931F3E40FF00D5A917 /* BRLocationViewController.m in Sources */,
-				E95841981F4B337A00B3693F /* BRUserAccountSetUpViewController.m in Sources */,
-				276E751A1F3BA02200D5A917 /* BREmojiEmoticons.m in Sources */,
-				278CD9451F506FB6008D6BD1 /* BRChatBarMoreView.m in Sources */,
-				276E75551F3E090D00D5A917 /* BRFaceView.m in Sources */,
-				27E9A2351F3B84F4001937A0 /* UIView+Extension.m in Sources */,
-				276E758E1F3E35BD00D5A917 /* BRSDKHelper.m in Sources */,
-				276E751D1F3BA60100D5A917 /* BRMessageViewController.m in Sources */,
-				E9FEC22D1F550C3100BD7047 /* BRDropDownViewController.m in Sources */,
-				27E9A2301F3B84F4001937A0 /* BRAvatarView.m in Sources */,
-				E9422D861F50A8FC0008911E /* BRAddingFriendViewController.m in Sources */,
-				E9160F241F507A620072495A /* BRQRCodeViewController.m in Sources */,
-				276E75AD1F4365EA00D5A917 /* BRMediaBrowserViewController.m in Sources */,
-				E90A1CFC1F42AA85001033CB /* BRUserImageViewController.m in Sources */,
-				E90A1CDE1F42AA76001033CB /* BRContactListTableViewCell.m in Sources */,
-				276E75221F3CD44C00D5A917 /* BRMessageModel.m in Sources */,
-				276E752C1F3CDE2C00D5A917 /* BRBubbleView+Text.m in Sources */,
-				276E75141F3B9C5200D5A917 /* BRConvertToCommonEmoticonsHelper.m in Sources */,
-				E90A1CE01F42AA76001033CB /* BRFriendInfoViewController.m in Sources */,
-				E90A1CDB1F42AA76001033CB /* BRContactListViewController.m in Sources */,
-				276E753E1F3CE5D600D5A917 /* BRBaseMessageCell.m in Sources */,
-				276E75351F3CE0B700D5A917 /* BRBubbleView+Voice.m in Sources */,
-				276E75581F3E22DB00D5A917 /* BRTextView.m in Sources */,
-				276E75321F3CDF7D00D5A917 /* BRBubbleView+Location.m in Sources */,
-				276E75111F3B9A6F00D5A917 /* BREmotionEscape.m in Sources */,
-				E90A1D011F42AA85001033CB /* BRWhatsUpViewController.m in Sources */,
-				276E75701F3E2C4D00D5A917 /* BRVoiceConverter.mm in Sources */,
-				276E756D1F3E2B8700D5A917 /* BRAudioRecorderUtil.m in Sources */,
-				276E75621F3E282200D5A917 /* BRCDDeviceManagerBase.m in Sources */,
-				276E759D1F3F4E5600D5A917 /* BRMessageReadManager.m in Sources */,
-				E92912541F4DCE8C00092B2A /* BRUserSettingTableViewController.m in Sources */,
-				276E75781F3E2D7600D5A917 /* amrFileCodec.mm in Sources */,
-				27E9A2341F3B84F4001937A0 /* NSString+Helper.m in Sources */,
-				276E75B31F4379CD00D5A917 /* BRMedia.m in Sources */,
-				E9422D901F50B1790008911E /* BRFriendInfoTableViewController.m in Sources */,
-				276E759A1F3E5C8E00D5A917 /* BRMessageTimeCell.m in Sources */,
-				E90A1CDD1F42AA76001033CB /* BRContactListModel.m in Sources */,
-				27E9A2371F3B84F4001937A0 /* BRRefreshTableViewController.m in Sources */,
-				E910E7341F4DDC2D00F5C9BC /* BRPasswordViewController.m in Sources */,
-				E90A1CFF1F42AA85001033CB /* BRUserNameTextViewController.m in Sources */,
-				276E75521F3E05DA00D5A917 /* BRFacialView.m in Sources */,
-				276E75281F3CDC3C00D5A917 /* BRBubbleView.m in Sources */,
-				27E9A2321F3B84F4001937A0 /* NSDate+Category.m in Sources */,
-				276E75821F3E2F7900D5A917 /* BRCDDeviceManager+Microphone.m in Sources */,
-				27E9A23E1F3B8BE3001937A0 /* AppDelegate.m in Sources */,
+				E90F7BD51F670DC400333382 /* BRUserSettingTableViewController.m in Sources */,
+				E90F7BC01F670DC400333382 /* BRMessageTimeCell.m in Sources */,
+				E90F7B911F670DC300333382 /* BRSDKHelper.m in Sources */,
+				E90F7B8C1F670DC300333382 /* BRConversationModel.m in Sources */,
+				E90F7BD01F670DC400333382 /* BRUserGenderTableViewController.m in Sources */,
 				27CA03B11F38F21600D0F132 /* main.m in Sources */,
-				27E9A22E1F3B84F4001937A0 /* BRConversationListViewController.m in Sources */,
-				276E75171F3B9FCF00D5A917 /* BREmoji.m in Sources */,
-				276E754F1F3D0F5000D5A917 /* BREmotionManager.m in Sources */,
-				276E758B1F3E321100D5A917 /* BRChatToolbarItem.m in Sources */,
-				E90A1CF81F42AA85001033CB /* BRLocationListViewController.m in Sources */,
-				27E9A2381F3B84F4001937A0 /* BRTabBarController.m in Sources */,
-				276E75411F3CED4F00D5A917 /* BRCustomMessageCell.m in Sources */,
-				276E75651F3E292A00D5A917 /* BRCDDeviceManager+Media.m in Sources */,
-				27E9A2311F3B84F4001937A0 /* BRConversationCell.m in Sources */,
-				276E752F1F3CDF0500D5A917 /* BRBubbleView+Image.m in Sources */,
-				276E75A81F4227AD00D5A917 /* Common.m in Sources */,
-				276E75791F3E2D7600D5A917 /* wav.mm in Sources */,
-				278CD9491F507462008D6BD1 /* BRChatBarMoreViewCell.m in Sources */,
-				276E75681F3E2A2E00D5A917 /* BRAudioPlayerUtil.m in Sources */,
-				27E9A2361F3B84F4001937A0 /* BRNavigationController.m in Sources */,
-				276E75B71F43A44300D5A917 /* BRMediaCell.m in Sources */,
-				276E75441F3CEE2F00D5A917 /* BRBubbleView+Gif.m in Sources */,
-				276E753B1F3CE1E300D5A917 /* BRBubbleView+File.m in Sources */,
-				276E75251F3CDA6B00D5A917 /* BRMessageCell.m in Sources */,
+				E90F7B7A1F670DC300333382 /* BRAccountNavigationController.m in Sources */,
+				E90F7BAD1F670DC300333382 /* BRConvertToCommonEmoticonsHelper.m in Sources */,
+				E90F7B871F670DC300333382 /* BRContactListTableViewCell.m in Sources */,
+				E90F7B7E1F670DC300333382 /* BRUserInfoSetUpTableViewController.m in Sources */,
+				E90F7BAB1F670DC300333382 /* BRCDDeviceManagerBase.m in Sources */,
+				E90F7BAE1F670DC400333382 /* BREmoji.m in Sources */,
+				E90F7B811F670DC300333382 /* BRContactListViewController.m in Sources */,
+				E90F7BC41F670DC400333382 /* Common.m in Sources */,
+				E90F7BAF1F670DC400333382 /* BREmojiEmoticons.m in Sources */,
+				E90F7BAC1F670DC300333382 /* BRChatToolbarItem.m in Sources */,
+				E90F7BCF1F670DC400333382 /* BRQRCodeViewController.m in Sources */,
+				E90F7BB91F670DC400333382 /* BRChatBarMoreViewCell.m in Sources */,
+				E90F7BB71F670DC400333382 /* BRBubbleView.m in Sources */,
+				E90F7B7B1F670DC300333382 /* BRLoginViewController.m in Sources */,
+				E90F7BCE1F670DC400333382 /* BRPasswordViewController.m in Sources */,
+				E90F7B8E1F670DC300333382 /* BRConversationCell.m in Sources */,
+				E90F7BBE1F670DC400333382 /* BRFacialView.m in Sources */,
+				E90F7B9E1F670DC300333382 /* BRBubbleView+Location.m in Sources */,
+				E90F7B8D1F670DC300333382 /* BRAvatarView.m in Sources */,
+				E90F7B971F670DC300333382 /* BRRefreshTableViewController.m in Sources */,
+				E90F7BA91F670DC300333382 /* BRAudioPlayerUtil.m in Sources */,
+				E90F7BA01F670DC300333382 /* BRBubbleView+Video.m in Sources */,
+				E90F7BC51F670DC400333382 /* BRMediaBrowserViewController.m in Sources */,
+				E90F7B931F670DC300333382 /* NSDateFormatter+Category.m in Sources */,
+				E90F7BB81F670DC400333382 /* BRChatBarMoreView.m in Sources */,
+				E90F7BA41F670DC300333382 /* BRCDDeviceManager+ProximitySensor.m in Sources */,
+				E90F7BB41F670DC400333382 /* BRVoiceConverter.mm in Sources */,
+				E90F7BBD1F670DC400333382 /* BRFaceView.m in Sources */,
+				E90F7BA61F670DC300333382 /* BRLocationViewController.m in Sources */,
+				E90F7BD61F670DC400333382 /* BRWhatsUpViewController.m in Sources */,
+				E90F7B961F670DC300333382 /* BRNavigationController.m in Sources */,
+				E90F7BD31F670DC400333382 /* BRUserInfoViewController.m in Sources */,
+				E90F7B9C1F670DC300333382 /* BRBubbleView+Gif.m in Sources */,
+				E90F7BB51F670DC400333382 /* wav.mm in Sources */,
+				E90F7BBB1F670DC400333382 /* BRChatToolbar.m in Sources */,
+				E90F7BCC1F670DC400333382 /* BRLocationCitiListTableViewController.m in Sources */,
+				E90F7B831F670DC300333382 /* BRFriendInfoTableViewController.m in Sources */,
+				E90F7B8A1F670DC300333382 /* BRDropDownViewController.m in Sources */,
+				E90F7B921F670DC300333382 /* NSDate+Category.m in Sources */,
+				E90F7BCB1F670DC400333382 /* BRMediaCell.m in Sources */,
+				E90F7BD11F670DC400333382 /* BRUserImageViewController.m in Sources */,
+				E90F7BAA1F670DC300333382 /* BRAudioRecorderUtil.m in Sources */,
+				E90F7B7D1F670DC300333382 /* BRUserAccountSetUpViewController.m in Sources */,
+				E90F7B9D1F670DC300333382 /* BRBubbleView+Image.m in Sources */,
+				E90F7B841F670DC300333382 /* BRScannerViewController.m in Sources */,
+				E90F7BB21F670DC400333382 /* BRMessageModel.m in Sources */,
+				E90F7B891F670DC300333382 /* BRConversationListViewController.m in Sources */,
+				E90F7BB31F670DC400333382 /* BRMessageReadManager.m in Sources */,
+				E90F7BA31F670DC300333382 /* BRCDDeviceManager+Microphone.m in Sources */,
+				E90F7BC31F670DC400333382 /* AppDelegate.m in Sources */,
+				E90F7B901F670DC300333382 /* BRHTTPSessionManager.m in Sources */,
+				E90F7BB61F670DC400333382 /* BRBaseMessageCell.m in Sources */,
+				E90F7BA11F670DC300333382 /* BRBubbleView+Voice.m in Sources */,
+				E90F7B861F670DC300333382 /* BRContactListModel.m in Sources */,
+				E90F7BA81F670DC300333382 /* amrFileCodec.mm in Sources */,
+				E90F7BC21F670DC400333382 /* BRTextView.m in Sources */,
+				E90F7B981F670DC300333382 /* BRTabBarController.m in Sources */,
+				E90F7B951F670DC300333382 /* UIView+Extension.m in Sources */,
+				E90F7BCD1F670DC400333382 /* BRLocationListViewController.m in Sources */,
+				E90F7B9F1F670DC300333382 /* BRBubbleView+Text.m in Sources */,
+				E90F7B7C1F670DC300333382 /* BRResetPasswordViewController.m in Sources */,
+				E90F7BD41F670DC400333382 /* BRUserNameTextViewController.m in Sources */,
+				E90F7BA51F670DC300333382 /* BRCDDeviceManager+Remind.m in Sources */,
+				E90F7BBF1F670DC400333382 /* BRMessageCell.m in Sources */,
+				E90F7BC11F670DC400333382 /* BRRecordView.m in Sources */,
+				E90F7BA71F670DC300333382 /* BRMessageViewController.m in Sources */,
+				E90F7B7F1F670DC300333382 /* BRAddingFriendViewController.m in Sources */,
+				E90F7BB01F670DC400333382 /* BREmotionEscape.m in Sources */,
+				E90F7BA21F670DC300333382 /* BRCDDeviceManager+Media.m in Sources */,
+				E90F7B9B1F670DC300333382 /* BRBubbleView+File.m in Sources */,
+				E90F7B941F670DC300333382 /* NSString+Helper.m in Sources */,
+				E90F7BBC1F670DC400333382 /* BRCustomMessageCell.m in Sources */,
+				E90F7BC91F670DC400333382 /* BRMedia.m in Sources */,
+				E90F7BB11F670DC400333382 /* BREmotionManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1265,7 +1215,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1307,7 +1257,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -1383,7 +1333,7 @@
 		27CA03E01F38F21600D0F132 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEVELOPMENT_TEAM = M4YWTY9R92;
+				DEVELOPMENT_TEAM = E259J6P932;
 				INFOPLIST_FILE = LinCUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.BeyondRemarkable.LinCUITests;
@@ -1395,7 +1345,7 @@
 		27CA03E11F38F21600D0F132 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEVELOPMENT_TEAM = M4YWTY9R92;
+				DEVELOPMENT_TEAM = E259J6P932;
 				INFOPLIST_FILE = LinCUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.BeyondRemarkable.LinCUITests;

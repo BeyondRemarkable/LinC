@@ -9,7 +9,7 @@
 #import "BRUserInfoViewController.h"
 #import "BRUserImageViewController.h"
 #import "BRUserNameTextViewController.h"
-#import "BRUserGenderViewController.h"
+#import "BRUserGenderTableViewController.h"
 #import "BRLocationListViewController.h"
 #import "BRWhatsUpViewController.h"
 #import "BRLocationCitiListTableViewController.h"
@@ -82,17 +82,20 @@ typedef enum NSUInteger {
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRUserInfo" bundle:[NSBundle mainBundle]];
+    
     // Section Zerro of table view
     if (indexPath.section == TableViewSectionZero ) {
         // Image cell
         if (indexPath.row == UserImageCell) {
-            BRUserImageViewController *vc = [[BRUserImageViewController alloc] initWithNibName:@"BRUserImageViewController" bundle:nil];
+            BRUserImageViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRUserImageViewController"];
             vc.imageIcon.image = self.imageIcon.image;
             [self.navigationController pushViewController:vc animated:YES];
         }
         // User nick name text field
         if (indexPath.row == UserNameCell) {
-            BRUserNameTextViewController *vc = [[BRUserNameTextViewController alloc] initWithNibName:@"BRUserNameTextViewController" bundle:nil];
+            BRUserNameTextViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRUserNameTextViewController"];
             vc.nameText = self.userName.text;
             vc.delegate = self;
             [self.navigationController pushViewController:vc animated:YES];
@@ -100,38 +103,33 @@ typedef enum NSUInteger {
         
         // User's gender
         if (indexPath.row == UserGenderCell) {
-            BRUserGenderViewController *vc = [[BRUserGenderViewController alloc] initWithNibName:@"BRUserGenderViewController" bundle:nil];
+        
+            BRUserGenderTableViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRUserGenderTableViewController"];
             vc.delegate = self;
-            if ([self.gender.text.lowercaseString isEqual: @"male"]) {
-                vc.isMale = true;
-            } else {
-                vc.isMale = false;
-            }
             [self.navigationController pushViewController:vc animated:YES];
         }
         
         if (indexPath.row == UserQRCodeCell) {
-            BRQRCodeViewController *vc = [[BRQRCodeViewController alloc] initWithNibName:@"BRQRCodeViewController" bundle:nil];
+            BRQRCodeViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRQRCodeViewController"];
             
             vc.accountId = @"xjfklsdjfkladsjfe@gmail.com";
             [self.navigationController pushViewController:vc animated:YES];
         }
-        
-        
     }
     
     // Section one of table view
     if (indexPath.section == TableViewSectionOne) {
         // User's location list cell
         if (indexPath.row == UserLocationCell) {
-            BRLocationListViewController *vc = [[BRLocationListViewController alloc] initWithNibName:@"BRLocationListViewController" bundle:nil];
+            
+            BRLocationListViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRLocationListViewController"];
             
             [self.navigationController pushViewController:vc animated:YES];
         }
         
         // What's up text view cell
         if (indexPath.row == UserWhatsUpCell) {
-            BRWhatsUpViewController *vc = [[BRWhatsUpViewController alloc] initWithNibName:@"BRWhatsUpViewController" bundle:nil];
+            BRWhatsUpViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRWhatsUpViewController"];
             vc.whatUpText = self.whatsup.text;
             vc.delegate = self;
             [self.navigationController pushViewController:vc animated:YES];
@@ -141,7 +139,7 @@ typedef enum NSUInteger {
     if (indexPath.section == TableViewSectionTwo) {
         // User's setting
         if (indexPath.row == UserSettingCell) {
-            UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRUserSettingTableViewController" bundle:nil];
+            
             BRUserSettingTableViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRUserSettingTableViewController"];
             [self.navigationController pushViewController:vc animated:YES];
         }

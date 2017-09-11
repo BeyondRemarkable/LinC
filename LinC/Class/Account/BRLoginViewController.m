@@ -8,7 +8,10 @@
 
 #import "BRLoginViewController.h"
 #import "BRTabBarController.h"
+#import "BRResetPasswordViewController.h"
 #import <AFNetworking.h>
+
+
 
 @interface BRLoginViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *userIcon;
@@ -26,8 +29,7 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background"]];
-
-
+    
     // Do any additional setup after loading the view.
 //    NSString *URLString = @"http://result.eolinker.com/narZcZX99a011291c85f9c02ed38bd1e5219ede029d8ceb?uri=/api/v1/account/profile/show";
 //    //    NSDictionary *parameters = @{@"foo": @"bar", @"baz": @[@1, @2, @3]};
@@ -55,6 +57,11 @@
     BRTabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:@"BRTabBarController"];
     [[UIApplication sharedApplication].keyWindow setRootViewController:vc];
     
+}
+- (IBAction)resetPassword {
+    UIStoryboard *sc = [UIStoryboard storyboardWithName:@"Account" bundle:[NSBundle mainBundle]];
+    BRResetPasswordViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRResetPasswordViewController"];
+    [self presentViewController:vc animated:YES completion:nil];
 }
 
 /**

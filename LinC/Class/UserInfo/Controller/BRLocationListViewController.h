@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BRLocationListViewController : UIViewController
+@interface BRLocationListViewController : UITableViewController
 
 @end

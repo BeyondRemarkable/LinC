@@ -38,7 +38,7 @@
         [self setupChildVc:contactListVC title:@"Contact List" imageName:@"tabbar_chats_normal" selectedImageName:@"tabbar_chats_selected"];
         
         // Add user infromation view controller
-        UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRUserInfoViewController" bundle:nil];
+        UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRUserInfo" bundle:nil];
         BRUserInfoViewController *vc =  [sc instantiateViewControllerWithIdentifier:@"BRUserInfoViewController"];
         [self setupChildVc:vc title:@"About Me" imageName:@"tabbar_chats_normal" selectedImageName:@"tabbar_chats_selected"];
     }

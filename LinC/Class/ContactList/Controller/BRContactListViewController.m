@@ -8,7 +8,6 @@
 
 #import "BRContactListViewController.h"
 #import "BRContactListTableViewCell.h"
-#import "BRFriendInfoViewController.h"
 #import "IUserModel.h"
 #import "BRAddingFriendViewController.h"
 #import <MJRefresh.h>
@@ -124,13 +123,6 @@ static NSString * const cellIdentifier = @"ContactListCell";
         
         cell.nickName.text = self.storedListArray[indexPath.row];
         
-//        if (indexPath.row == 0) {
-//            cell.nickName.text = @"New Friend";
-//        }
-//        if (indexPath.row == 1) {
-//            cell.nickName.text = @"Group";
-//        }
-        
         return cell;
     } else {
     
@@ -188,12 +180,6 @@ static NSString * const cellIdentifier = @"ContactListCell";
     if (indexPath.section == TableViewSectionOne) {
         BRContactListModel *contactListModel = self.dataArray[indexPath.row];
         
-        BRFriendInfoViewController *friendVC = [[BRFriendInfoViewController alloc] initWithNibName:@"BRFriendInfoView" bundle:nil];
-        
-        friendVC.imageIcon.image = [UIImage imageNamed:contactListModel.iconURL];
-        friendVC.userName.text = contactListModel.userName;
-        
-        [self.navigationController pushViewController: friendVC animated:YES];
     }
     
 }
