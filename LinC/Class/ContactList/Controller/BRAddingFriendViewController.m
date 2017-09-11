@@ -11,6 +11,7 @@
 #import "BRFriendInfoTableViewController.h"
 
 @interface BRAddingFriendViewController () <UITextFieldDelegate>
+@property (weak, nonatomic) IBOutlet UITextField *friendIDTextField;
 
 @end
 
@@ -19,7 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    
+    [self.friendIDTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     [self setupNavigationBarItem];
 }
 
@@ -59,7 +60,7 @@
 }
 
 #pragma mark - UITextField delegate
-- (void)textFieldDidBeginEditing:(UITextField *)textField {
+- (void)textFieldDidChange:(UITextField *)textField {
     if (textField.text.length == 0) {
         self.navigationItem.rightBarButtonItem.enabled = NO;
     }

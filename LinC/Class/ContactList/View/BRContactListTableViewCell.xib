@@ -26,7 +26,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="64.5" height="64.5"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="1fw-vC-Pfg" firstAttribute="leading" secondItem="oGg-MV-xr1" secondAttribute="leading" id="7Ce-qP-EyZ"/>
                             <constraint firstItem="1fw-vC-Pfg" firstAttribute="top" secondItem="oGg-MV-xr1" secondAttribute="top" id="ENZ-E5-Hwj"/>
@@ -36,8 +36,8 @@
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UKG-b3-rLX">
-                        <rect key="frame" x="89.5" y="28" width="66" height="30"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                        <rect key="frame" x="89.5" y="30.5" width="53" height="24"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>

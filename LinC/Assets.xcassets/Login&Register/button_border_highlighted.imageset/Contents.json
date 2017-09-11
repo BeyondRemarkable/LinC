@@ -8,8 +8,8 @@
           "width" : 1
         },
         "cap-insets" : {
-          "right" : 350,
-          "left" : 350
+          "right" : 8,
+          "left" : 8
         }
       },
       "idiom" : "universal",
@@ -17,7 +17,19 @@
       "scale" : "1x"
     },
     {
+      "resizing" : {
+        "mode" : "3-part-horizontal",
+        "center" : {
+          "mode" : "stretch",
+          "width" : 1
+        },
+        "cap-insets" : {
+          "right" : 17,
+          "left" : 17
+        }
+      },
       "idiom" : "universal",
+      "filename" : "button_border_highlighted-1.png",
       "scale" : "2x"
     },
     {
