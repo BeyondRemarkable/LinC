@@ -520,7 +520,7 @@
                                     <constraint firstAttribute="height" constant="30" id="9bZ-cs-wcs"/>
                                     <constraint firstAttribute="width" constant="30" id="ZIo-ze-GWI"/>
                                 </constraints>
-                                <state key="normal" image="back">
+                                <state key="normal" image="close">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
@@ -717,6 +717,7 @@
         <image name="back" width="20" height="20"/>
         <image name="button_border" width="701" height="349"/>
         <image name="button_border_highlighted" width="701" height="349"/>
+        <image name="close" width="263" height="263"/>
         <image name="hline_next_to_icon" width="352" height="54"/>
         <image name="line_next_to_icon" width="54" height="352"/>
         <image name="login_button" width="263" height="263"/>
