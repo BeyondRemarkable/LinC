@@ -22,12 +22,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    [self.navigationController setNavigationBarHidden: NO];
-//    
-//    UIBarButtonItem *backBtn = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(backToVC)];
-//    
-//    [self.navigationItem setLeftBarButtonItem:backBtn];
-    
     if (self.isFriend) {
         [self.addFriendButton setHidden:YES];
     }
@@ -36,21 +30,16 @@
         [self.deleteFriendButton setHidden:YES];
     }
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"more_info"] style:UIBarButtonItemStylePlain target:self action:@selector(clickMoreInfo)];
+    [self setupNavigationBarItem];
 }
 
-- (void)backToVC{
-    
-    for (UIViewController *controller in self.navigationController.viewControllers) {
-        
-        //Do not forget to import AnOldViewController.h
-        if ([controller isKindOfClass:[BRAddingFriendViewController class]]) {
-            
-            [self.navigationController popToViewController:controller
-                                                  animated:YES];
-            break;
-        }
-    }
+- (void)setupNavigationBarItem {
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn setFrame:CGRectMake(0, 0, 35, 35)];
+    [btn setBackgroundImage:[UIImage imageNamed:@"more_info"] forState:UIControlStateNormal];
+    [btn setBackgroundImage:[UIImage imageNamed:@"more_info_highlighted"] forState:UIControlStateHighlighted];
+    [btn addTarget:self action:@selector(clickMoreInfo) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
 }
 
 
@@ -61,7 +50,7 @@
 
 #pragma mark - button actions
 - (void)clickMoreInfo {
-    
+    NSLog(@"clickMoreInfo");
 }
 
 - (IBAction)clickAddFriend:(id)sender {

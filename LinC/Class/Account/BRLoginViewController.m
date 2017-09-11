@@ -83,6 +83,8 @@
             hud.mode = MBProgressHUDModeText;
             hud.label.text = dict[@"message"];
             [hud hideAnimated:YES afterDelay:1.5];
+            
+            [self.passwordTextField becomeFirstResponder];
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         [hud hideAnimated:YES];

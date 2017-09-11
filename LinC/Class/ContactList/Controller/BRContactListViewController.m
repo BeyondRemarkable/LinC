@@ -15,9 +15,8 @@
 
 @interface BRContactListViewController () <UITableViewDelegate, UITableViewDataSource>
 
-//@property (weak, nonatomic) IBOutlet UITableView *tableView;
-
 @property (nonatomic, strong) NSArray *storedListArray;
+@property (nonatomic, strong) NSArray *storedIconArray;
 
 @end
 
@@ -47,11 +46,6 @@ static NSString * const cellIdentifier = @"ContactListCell";
 
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 
 /**
  *  Lazy load NSArray storedListArray
@@ -67,6 +61,18 @@ static NSString * const cellIdentifier = @"ContactListCell";
 }
 
 /**
+ *  Lazy load NSArray storedIconArray
+ *
+ *  @return _storedIconArray
+ */
+- (NSArray *)storedIconArray {
+    if (_storedIconArray == nil) {
+        _storedIconArray = [NSArray array];
+    }
+    return _storedIconArray;
+}
+
+/**
  * Set up tableView
  */
 - (void)setUpTableView
@@ -78,15 +84,20 @@ static NSString * const cellIdentifier = @"ContactListCell";
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([BRContactListTableViewCell class]) bundle:nil] forCellReuseIdentifier:cellIdentifier];
     
     self.storedListArray = @[@"New Friend", @"Group"];
+    self.storedIconArray = @[[UIImage imageNamed:@"new_friend_request"], [UIImage imageNamed:@"owned_group"]];
 }
-
-#pragma mark 
 
 - (void)setUpNavigationBarItem {
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"add_new_friend"] style:UIBarButtonItemStylePlain target:self action: @selector(addNewFriend)];
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn setFrame:CGRectMake(0, 0, 35, 35)];
+    [btn setBackgroundImage:[UIImage imageNamed:@"add_new_friend"] forState:UIControlStateNormal];
+    [btn setBackgroundImage:[UIImage imageNamed:@"add_new_friend_highlighted"] forState:UIControlStateHighlighted];
+    [btn addTarget:self action:@selector(clickAddNewFriend) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
 }
 
--(void)addNewFriend {
+#pragma mark - button action
+-(void)clickAddNewFriend {
 //    BRAddingContentView *cView = [[[NSBundle mainBundle] loadNibNamed:@"BRAddingContentView" owner:self options:nil] firstObject];
 //    cView.frame = CGRectMake(50, 50, 200, 200);
 //    cView.backgroundColor = [UIColor redColor];
@@ -121,7 +132,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
         BRContactListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         
         cell.nickName.text = self.storedListArray[indexPath.row];
-        
+        cell.imageIcon.image = self.storedIconArray[indexPath.row];
         return cell;
     } else {
     
