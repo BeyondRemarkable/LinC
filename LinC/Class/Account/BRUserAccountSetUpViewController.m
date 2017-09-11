@@ -11,6 +11,7 @@
 #import "BRHTTPSessionManager.h"
 #import "BRUserInfoSetUpTableViewController.h"
 #import "BRTabBarController.h"
+#import "UIView+Animation.h"
 #import <MBProgressHUD.h>
 
 @interface BRUserAccountSetUpViewController () <UITextFieldDelegate>
@@ -97,7 +98,7 @@
     
     email = self.emailTextField.text;
     if (email.length == 0) {
-        [self shakeAnimation:self.emailRegisterView];
+        [self.emailRegisterView shakeAnimation];
         return;
     } else if(![self isValidEmail:email]) {
         hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -226,26 +227,18 @@
     
 }
 
-- (void)shakeAnimation: (UIView *)shakeView {
-    
-    shakeView.transform = CGAffineTransformMakeTranslation(15, 0);
-    [UIView animateWithDuration:0.2 delay:0.0 usingSpringWithDamping:0.15 initialSpringVelocity:1.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        shakeView.transform = CGAffineTransformIdentity;
-    } completion:nil];
-}
-
 - (BOOL)isTextFieldEmpty {
     if (self.userNameTextField.text.length == 0 /* check user name available later */) {
-        [self shakeAnimation:self.userNameView];
+        [self.userNameView shakeAnimation];
         return NO;
     } else  if (self.passwordTextField.text.length == 0 /*check password strong later*/) {
-        [self shakeAnimation: self.passwordView];
+        [self.passwordView shakeAnimation];
         return false;
     } else if (self.passwordConfirmTextField.text.length == 0) {
-        [self shakeAnimation:self.passwordConfirmView];
+        [self.passwordConfirmView shakeAnimation];
         return false;
     } else if (self.codeTextField.text.length == 0 /*check code match later*/) {
-        [self shakeAnimation: self.codeView];
+        [self.codeView shakeAnimation];
         return false;
     }
     return true;
@@ -286,6 +279,11 @@
     return true;
 }
 
+
+/**
+ Check all textfield 
+ Show details label if textfield requirement not match.
+ */
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     // Add detail label for password textfield
@@ -306,7 +304,6 @@
                 self.passwordConfirmViewTopConstraint.constant = 46;
                 
                 [textField layoutIfNeeded];
-                
                 [UIView animateWithDuration:0.4 animations:^{
                     [self.registerView layoutIfNeeded];
                     if (self.passwordConfirmDetailsLabel) {
@@ -366,12 +363,14 @@
     }
 }
 
+// Password regex check
 - (BOOL)ispasswordStrong:(NSString *)passwordString {
     NSPredicate *regexPassword = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"^(?=.{6,32}$)(?=.*\\d)(?=.*[a-zA-Z]).*$"];
 
     return [regexPassword evaluateWithObject:passwordString];
 }
 
+// Email regex check
 -(BOOL)isValidEmail:(NSString *)emailString
 {
     NSString *emailRegex = @"^.+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2}[A-Za-z]*$";

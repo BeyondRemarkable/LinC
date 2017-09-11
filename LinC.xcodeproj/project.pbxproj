@@ -110,6 +110,7 @@
 		E90F7BD41F670DC400333382 /* BRUserNameTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B721F670DC300333382 /* BRUserNameTextViewController.m */; };
 		E90F7BD51F670DC400333382 /* BRUserSettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B741F670DC300333382 /* BRUserSettingTableViewController.m */; };
 		E90F7BD61F670DC400333382 /* BRWhatsUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B761F670DC300333382 /* BRWhatsUpViewController.m */; };
+		E90F7BD91F67368200333382 /* UIView+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7BD81F67368200333382 /* UIView+Animation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -137,12 +138,6 @@
 		276E75961F3E5AA600D5A917 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		278CD94B1F549192008D6BD1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		278CD94D1F549AB7008D6BD1 /* in.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = in.caf; sourceTree = "<group>"; };
-		278CD9511F59B055008D6BD1 /* BRHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRHTTPSessionManager.h; sourceTree = "<group>"; };
-		278CD9521F59B055008D6BD1 /* BRHTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRHTTPSessionManager.m; sourceTree = "<group>"; };
-		278CD9561F62EC48008D6BD1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		278CD9621F66FA5F008D6BD1 /* BRScannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRScannerViewController.h; sourceTree = "<group>"; };
-		278CD9631F66FA5F008D6BD1 /* BRScannerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRScannerViewController.m; sourceTree = "<group>"; };
-		278CD9641F66FA5F008D6BD1 /* BRScannerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRScannerViewController.xib; sourceTree = "<group>"; };
 		27CA03AC1F38F21600D0F132 /* LinC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LinC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27CA03B01F38F21600D0F132 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		27CA03C01F38F21600D0F132 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -341,6 +336,8 @@
 		E90F7B741F670DC300333382 /* BRUserSettingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRUserSettingTableViewController.m; sourceTree = "<group>"; };
 		E90F7B751F670DC300333382 /* BRWhatsUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRWhatsUpViewController.h; sourceTree = "<group>"; };
 		E90F7B761F670DC300333382 /* BRWhatsUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRWhatsUpViewController.m; sourceTree = "<group>"; };
+		E90F7BD71F67368200333382 /* UIView+Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Animation.h"; sourceTree = "<group>"; };
+		E90F7BD81F67368200333382 /* UIView+Animation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Animation.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -607,6 +604,8 @@
 				E90F7AE21F670DC300333382 /* NSString+Helper.m */,
 				E90F7AE31F670DC300333382 /* UIView+Extension.h */,
 				E90F7AE41F670DC300333382 /* UIView+Extension.m */,
+				E90F7BD71F67368200333382 /* UIView+Animation.h */,
+				E90F7BD81F67368200333382 /* UIView+Animation.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1104,6 +1103,7 @@
 				E90F7B961F670DC300333382 /* BRNavigationController.m in Sources */,
 				E90F7BD31F670DC400333382 /* BRUserInfoViewController.m in Sources */,
 				E90F7B9C1F670DC300333382 /* BRBubbleView+Gif.m in Sources */,
+				E90F7BD91F67368200333382 /* UIView+Animation.m in Sources */,
 				E90F7BB51F670DC400333382 /* wav.mm in Sources */,
 				E90F7BBB1F670DC400333382 /* BRChatToolbar.m in Sources */,
 				E90F7BCC1F670DC400333382 /* BRLocationCitiListTableViewController.m in Sources */,

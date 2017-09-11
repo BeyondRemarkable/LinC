@@ -9,8 +9,9 @@
 #import "BRLoginViewController.h"
 #import "BRTabBarController.h"
 #import "BRResetPasswordViewController.h"
-#import <AFNetworking.h>
 #import "BRHTTPSessionManager.h"
+#import "UIView+Animation.h"
+#import <AFNetworking.h>
 #import <MBProgressHUD.h>
 
 
@@ -46,14 +47,14 @@
     NSString *userName = self.userNameTextField.text;
     if (userName.length == 0) {
         // 抖动提示用户
-        [self shakeAnimation:self.userNameView];
+        [self.userNameView shakeAnimation];
         [self.userNameTextField becomeFirstResponder];
         return;
     }
     NSString *password = self.passwordTextField.text;
     if (password.length == 0) {
         // 抖动提示用户
-        [self shakeAnimation:self.passwordView];
+        [self.passwordView shakeAnimation];
         [self.passwordTextField becomeFirstResponder];
         return;
     }
@@ -102,15 +103,6 @@
  */
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
-}
-
-#pragma mark - private methods
-- (void)shakeAnimation: (UIView *)shakeView {
-    
-    shakeView.transform = CGAffineTransformMakeTranslation(15, 0);
-    [UIView animateWithDuration:0.2 delay:0.0 usingSpringWithDamping:0.15 initialSpringVelocity:1.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        shakeView.transform = CGAffineTransformIdentity;
-    } completion:nil];
 }
 
 #pragma mark - UITextField delegate

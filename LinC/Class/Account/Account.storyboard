@@ -800,6 +800,7 @@
                                         <state key="highlighted" backgroundImage="button_border_highlighted"/>
                                         <connections>
                                             <action selector="getCodeAction:" destination="5ik-MP-MfZ" eventType="touchUpInside" id="QOC-1h-VLQ"/>
+                                            <action selector="resetPasswordBtn" destination="z55-sv-Yhp" eventType="touchUpInside" id="nqm-jV-JqK"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -824,6 +825,10 @@
                             <constraint firstItem="2ul-wi-A9L" firstAttribute="leading" secondItem="MhJ-hx-OYu" secondAttribute="leadingMargin" constant="10" id="mFZ-pf-Ebg"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="emailContentView" destination="YHi-Tu-qdY" id="eJx-y2-dV6"/>
+                        <outlet property="emailID" destination="BQa-x8-3Wd" id="0kV-Fb-3o5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iEH-z9-OOZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -850,7 +855,7 @@
     </scenes>
     <resources>
         <image name="back" width="20" height="20"/>
-        <image name="button_border" width="701" height="349"/>
+        <image name="button_border" width="146" height="44"/>
         <image name="button_border_highlighted" width="701" height="349"/>
         <image name="close" width="263" height="263"/>
         <image name="hline_next_to_icon" width="352" height="54"/>
