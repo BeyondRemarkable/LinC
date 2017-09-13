@@ -9,10 +9,10 @@
 #import "AppDelegate.h"
 #import "BRSDKHelper.h"
 #import <Hyphenate/Hyphenate.h>
-
+#import "BRTabBarController.h"
 #import "BRLoginViewController.h"
 
-@interface AppDelegate ()
+@interface AppDelegate () <EMClientDelegate>
 
 @end
 
@@ -28,12 +28,19 @@
                                          apnsCertName:apnsCertName
                                           otherConfig:@{kSDKConfigEnableConsoleLogger:[NSNumber numberWithBool:YES]}];
     
-    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Account" bundle:[NSBundle mainBundle]];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *token = [userDefaults objectForKey:kLoginTokenKey];
+    if (token) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+        BRTabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:@"BRTabBarController"];
+        self.window.rootViewController = vc;
+    }
+    else {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Account" bundle:[NSBundle mainBundle]];
 
-    BRLoginViewController *loginVc = [storyboard instantiateInitialViewController];
-    self.window.rootViewController = loginVc;
-    [self.window makeKeyAndVisible];
+        BRLoginViewController *loginVc = [storyboard instantiateInitialViewController];
+        self.window.rootViewController = loginVc;
+    }
     
     return YES;
 }
