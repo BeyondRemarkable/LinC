@@ -155,22 +155,14 @@ static NSString * const cellIdentifier = @"ContactListCell";
 /**
  * Set up white space between groups
  */
-//-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-//{
-//    if (section == 0) {
-//        return 50;
-//    } else {
-//        return 0;
-//    }
-//}
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 1;
+}
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (section == TableViewSectionZerro) {
-        return 40;
-    } else {
-        return 70;
-    }
+    return 20;
 }
 
 

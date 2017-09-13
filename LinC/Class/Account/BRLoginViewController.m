@@ -13,6 +13,7 @@
 #import "UIView+Animation.h"
 #import <AFNetworking.h>
 #import <MBProgressHUD.h>
+#import <Hyphenate/Hyphenate.h>
 
 
 
@@ -37,7 +38,16 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background"]];
-
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *savedUserName = [userDefaults objectForKey:kLoginUserNameKey];
+    NSString *savedPassword = [userDefaults objectForKey:kLoginPasswordKey];
+    if (savedUserName) {
+        self.userNameTextField.text = savedUserName;
+    }
+    if (savedPassword) {
+        self.passwordTextField.text = savedPassword;
+    }
 }
 
 - (IBAction)login {
@@ -72,13 +82,24 @@
     }
     [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dict = (NSDictionary *)responseObject;
+        // 登录成功
         if ([dict[@"status"] isEqualToString:@"success"]) {
             [hud hideAnimated:YES];
+            // 存储用户名密码
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            [userDefaults setObject:userName forKey:kLoginUserNameKey];
+            [userDefaults setObject:password forKey:kLoginPasswordKey];
+            [userDefaults setObject:dict[@"data"][@"token"] forKey:kLoginTokenKey];
+            [userDefaults synchronize];
+            
+            // 设置自动登录
+            [[EMClient sharedClient].options setIsAutoLogin:YES];
             
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
             BRTabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:@"BRTabBarController"];
             [[UIApplication sharedApplication].keyWindow setRootViewController:vc];
         }
+        // 登录失败
         else {
             hud.mode = MBProgressHUDModeText;
             hud.label.text = dict[@"message"];
