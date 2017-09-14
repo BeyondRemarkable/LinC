@@ -1046,7 +1046,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-LinC/Pods-LinC-frameworks.sh",
-				"${PODS_ROOT}/Hyphenate/ios_IM_Hyphenate_sdk_3.3.4/HyphenateFullSDK/Hyphenate.framework",
+				"${PODS_ROOT}/Hyphenate/ios_IM_Hyphenate_sdk_3.3.4r1/HyphenateFullSDK/Hyphenate.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
