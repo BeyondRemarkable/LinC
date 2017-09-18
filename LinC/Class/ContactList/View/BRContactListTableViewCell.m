@@ -38,13 +38,13 @@
     // Set image radius
     self.imageIcon.layer.cornerRadius = self.imageIcon.frame.size.width / 2;
     self.imageIcon.clipsToBounds = YES;
-    
-    [self.imageIcon sd_setImageWithURL:[NSURL URLWithString:contactListModel.iconURL] placeholderImage:[UIImage imageNamed:@"placeHolder"]];
-    
-    if (contactListModel.userName == nil) {
-        self.nickName.text = contactListModel.userID;
-    } else {
-        self.nickName.text = contactListModel.userName;
-    }
+//    
+//    [self.imageIcon sd_setImageWithURL:[NSURL URLWithString:contactListModel.iconURL] placeholderImage:[UIImage imageNamed:@"placeHolder"]];
+//    
+//    if (contactListModel.userName == nil) {
+//        self.nickName.text = contactListModel.userID;
+//    } else {
+//        self.nickName.text = contactListModel.userName;
+//    }
 }
 @end

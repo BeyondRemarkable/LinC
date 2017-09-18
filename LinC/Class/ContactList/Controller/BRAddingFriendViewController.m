@@ -9,6 +9,7 @@
 #import "BRAddingFriendViewController.h"
 #import "BRScannerViewController.h"
 #import "BRFriendInfoTableViewController.h"
+#import "BRAddedFriendTableViewController.h"
 #import <Hyphenate/Hyphenate.h>
 #import <MJRefresh.h>
 
@@ -31,29 +32,21 @@
     [self.navigationController setNavigationBarHidden: NO];
 }
 
+// Set up Nagigation Bar Items
 - (void)setupNavigationBarItem {
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Search" style:UIBarButtonItemStylePlain target:self action: @selector(searchByID:)];
     self.navigationItem.rightBarButtonItem.enabled = NO;
 }
 
 - (void)searchByID:(NSString *)ID {
-    [[EMClient sharedClient].contactManager addContact:ID message:@"" completion:^(NSString *aUsername, EMError *aError) {
-        if (aError == nil) {
-            [self.navigationController popViewControllerAnimated:YES];
-        }
-        else {
-            NSLog(@"%@", aError.errorDescription);
-        }
-    }];
-    
-    
-    
-    
+  
     UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRFriendInfo" bundle:[NSBundle mainBundle]];
-    BRFriendInfoTableViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRFriendInfoTableViewController"];
+    BRAddedFriendTableViewController *vc = [sc instantiateViewControllerWithIdentifier: @"BRAddedFriendTableViewController"];
+    vc.userID = self.friendIDTextField.text;
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
     
 //    BRFriendInfoTableViewController
-    [self.navigationController pushViewController:vc animated:YES];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 - (IBAction)scanQRCodeBtn {

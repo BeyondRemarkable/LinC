@@ -112,6 +112,7 @@
 		E90F7BD51F670DC400333382 /* BRUserSettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B741F670DC300333382 /* BRUserSettingTableViewController.m */; };
 		E90F7BD61F670DC400333382 /* BRWhatsUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B761F670DC300333382 /* BRWhatsUpViewController.m */; };
 		E90F7BD91F67368200333382 /* UIView+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7BD81F67368200333382 /* UIView+Animation.m */; };
+		E95FA8CB1F7065C50023BB1C /* BRAddedFriendTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E95FA8CA1F7065C50023BB1C /* BRAddedFriendTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -341,6 +342,8 @@
 		E90F7B761F670DC300333382 /* BRWhatsUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRWhatsUpViewController.m; sourceTree = "<group>"; };
 		E90F7BD71F67368200333382 /* UIView+Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Animation.h"; sourceTree = "<group>"; };
 		E90F7BD81F67368200333382 /* UIView+Animation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Animation.m"; sourceTree = "<group>"; };
+		E95FA8C91F7065C50023BB1C /* BRAddedFriendTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRAddedFriendTableViewController.h; sourceTree = "<group>"; };
+		E95FA8CA1F7065C50023BB1C /* BRAddedFriendTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRAddedFriendTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -527,6 +530,8 @@
 				E90F7ABB1F670DC300333382 /* BRScannerViewController.h */,
 				E90F7ABC1F670DC300333382 /* BRScannerViewController.m */,
 				E90F7ABD1F670DC300333382 /* BRScannerViewController.xib */,
+				E95FA8C91F7065C50023BB1C /* BRAddedFriendTableViewController.h */,
+				E95FA8CA1F7065C50023BB1C /* BRAddedFriendTableViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1090,6 +1095,7 @@
 				E90F7B7E1F670DC300333382 /* BRUserInfoSetUpTableViewController.m in Sources */,
 				E90F7BAB1F670DC300333382 /* BRCDDeviceManagerBase.m in Sources */,
 				E90F7BAE1F670DC400333382 /* BREmoji.m in Sources */,
+				E95FA8CB1F7065C50023BB1C /* BRAddedFriendTableViewController.m in Sources */,
 				E90F7B811F670DC300333382 /* BRContactListViewController.m in Sources */,
 				E90F7BC41F670DC400333382 /* Common.m in Sources */,
 				E90F7BAF1F670DC400333382 /* BREmojiEmoticons.m in Sources */,

@@ -9,7 +9,6 @@
 #import "BRFriendInfoTableViewController.h"
 #import "BRAddingFriendViewController.h"
 
-
 @interface BRFriendInfoTableViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *addFriendButton;
 @property (weak, nonatomic) IBOutlet UIButton *deleteFriendButton;
@@ -42,6 +41,8 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
 }
 
+
+
 #pragma mark - UITableView data source
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -59,7 +60,7 @@
 }
 
 - (IBAction)clickAddFriend:(id)sender {
-    
+   
 }
 
 - (IBAction)clickDeleteFriend:(id)sender {
@@ -67,6 +68,8 @@
 }
 
 - (IBAction)clickChat:(id)sender {
-    
 }
+
+
+
 @end

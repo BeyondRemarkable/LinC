@@ -11,6 +11,7 @@
 #import "IUserModel.h"
 #import "BRAddingFriendViewController.h"
 #import "BRMessageViewController.h"
+#import "BRClientManager.h"
 #import <MJRefresh.h>
 
 
@@ -72,6 +73,12 @@ static NSString * const cellIdentifier = @"ContactListCell";
     }
     return _storedIconArray;
 }
+
+//// Load all friends model 
+//- (void)loadData {
+//    self.dataArray = [[[EMClient sharedClient].contactManager getContacts] copy];
+//    NSLog(@"%@", self.dataArray);
+//}
 
 /**
  * Set up tableView

@@ -24,9 +24,4 @@
 /** @brief 用户头像 */
 @property (strong, nonatomic) UIImage *avatarImage;
 
-
-
-- (void)loadWithDictionary:(NSDictionary *)dict;
-
-
 @end

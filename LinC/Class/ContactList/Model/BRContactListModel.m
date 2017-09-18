@@ -10,10 +10,6 @@
 
 @implementation BRContactListModel
 
-- (void)loadWithDictionary:(NSDictionary *)dict
-{
-    
-}
 
 - (instancetype)initWithBuddy:(NSString *)buddy
 {
