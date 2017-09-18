@@ -11,6 +11,7 @@
 #import "BRResetPasswordViewController.h"
 #import "BRHTTPSessionManager.h"
 #import "UIView+Animation.h"
+#import "BRClientManager.h"
 #import <AFNetworking.h>
 #import <MBProgressHUD.h>
 #import <Hyphenate/Hyphenate.h>
@@ -118,7 +119,16 @@
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         [hud hideAnimated:YES];
-        NSLog(@"%@", error.localizedDescription);
+        
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+        BRTabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:@"BRTabBarController"];
+        [[UIApplication sharedApplication].keyWindow setRootViewController:vc];
+    } failure:^(EMError *error) {
+        hud.mode = MBProgressHUDModeText;
+        hud.label.text = error.errorDescription;
+        [hud hideAnimated:YES afterDelay:1.5];
+        
+        [self.passwordTextField becomeFirstResponder];
     }];
     
     
