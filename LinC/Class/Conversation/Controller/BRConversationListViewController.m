@@ -42,12 +42,21 @@
     self.view.backgroundColor = [UIColor whiteColor];
     [self.tableView registerNib:[UINib nibWithNibName:@"BRConversationCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:[BRConversationCell cellIdentifierWithModel:nil]];
     [self tableViewDidTriggerHeaderRefresh];
-    [self setUpNavigationBar];
+    [self setUpNavigationBarItem];
     
 }
 
-- (void)setUpNavigationBar {
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@""] style:UIBarButtonItemStylePlain target:self action: @selector(dropdownMenu)];
+//- (void)setUpNavigationBar {
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@""] style:UIBarButtonItemStylePlain target:self action: @selector(dropdownMenu)];
+//}
+
+- (void)setUpNavigationBarItem {
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn setFrame:CGRectMake(0, 0, 35, 35)];
+    [btn setBackgroundImage:[UIImage imageNamed:@"add_setting"] forState:UIControlStateNormal];
+    [btn setBackgroundImage:[UIImage imageNamed:@"add_setting_highlighted"] forState:UIControlStateHighlighted];
+    [btn addTarget:self action:@selector(clickAddDropdownMenu) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
 }
 
 - (void)chatBtnTapped:(UIButton *)sender {
@@ -60,7 +69,7 @@
     [self presentViewController:vc animated:YES completion:nil];
 }
 
-- (void)dropdownMenu {
+- (void)clickAddDropdownMenu {
     self.navigationItem.rightBarButtonItem.enabled = NO;
     if (!self.dropDownVC) {
         self.dropDownVC = [[BRDropDownViewController alloc] initWithNibName:@"BRDropDownViewController" bundle:nil];
@@ -107,10 +116,6 @@
             self.dropDownVC = nil;
         }];
     }
-}
-
-- (void)AddDropdownMenu {
-    
 }
 
 #pragma mark - Table view data source

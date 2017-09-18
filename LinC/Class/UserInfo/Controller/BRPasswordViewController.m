@@ -10,9 +10,7 @@
 
 @interface BRPasswordViewController ()
 
-@property (weak, nonatomic) IBOutlet UITextField *oldPwd;
-@property (weak, nonatomic) IBOutlet UITextField *theNewPwd;
-@property (weak, nonatomic) IBOutlet UITextField *confirmPwd;
+
 
 @end
 
@@ -22,6 +20,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    UIBarButtonItem *saveBtn = [[UIBarButtonItem alloc] initWithTitle:@"save" style:UIBarButtonItemStylePlain target:self action:@selector(saveBtn)];
+    self.navigationItem.rightBarButtonItem = saveBtn;
 
 }
 
@@ -30,6 +31,18 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)saveBtn {
+    
+}
 
+#pragma UITableViewDelegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return 54;
+    } else {
+        return 20;
+    }
+}
 
 @end

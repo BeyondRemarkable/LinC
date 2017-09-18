@@ -11,6 +11,7 @@
 #import "BRPasswordViewController.h"
 #import "BRHTTPSessionManager.h"
 #import <MBProgressHUD.h>
+#import <SAMKeychain.h>
 
 @interface BRUserSettingTableViewController ()
 {
@@ -83,7 +84,9 @@ typedef enum NSUInteger {
                 // 登出
                 BRHTTPSessionManager *manager = [BRHTTPSessionManager manager];
                 NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-                NSString *token = [userDefaults objectForKey:kLoginTokenKey];
+                NSString *accountName = [userDefaults objectForKey:kLoginUserNameKey];
+                NSString *token = [SAMKeychain passwordForService:kServiceName account:accountName];
+                
                 [manager.requestSerializer setValue:[@"Bearer " stringByAppendingString:token]  forHTTPHeaderField:@"Authorization"];
                 NSString *url =  [kBaseURL stringByAppendingPathComponent:@"/api/v1/account/logout"];
                 [manager POST:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -91,7 +94,7 @@ typedef enum NSUInteger {
                     if ([dict[@"status"] isEqualToString:@"success"]) {
                         [hud hideAnimated:YES];
                         // 删除保存的token
-                        [userDefaults removeObjectForKey:kLoginTokenKey];
+                        [SAMKeychain deletePasswordForService:kServiceName account:accountName];
                         // 显示登录界面
                         UIStoryboard *sc = [UIStoryboard storyboardWithName:@"Account" bundle:[NSBundle mainBundle]];
                         BRLoginViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRLoginViewController"];

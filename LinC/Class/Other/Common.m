@@ -16,3 +16,6 @@ NSString *const kLoginTokenKey = @"loginToken";
 NSString *const kLoginStatusKey = @"loginStatus";
 
 NSString *const kBaseURL = @"http://br-im.reactivetesting.online/";
+
+NSString *const kServiceName = @"com.BeyondRemarkable.LinC";
+

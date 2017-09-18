@@ -22,6 +22,8 @@ extern NSString *const kLoginUserNameKey;
 extern NSString *const kLoginPasswordKey;
 extern NSString *const kLoginTokenKey;
 extern NSString *const kLoginStatusKey;
+extern NSString *const kServiceName;
+extern NSString *const kServiceToken;
 
 extern NSString *const kBaseURL;
 

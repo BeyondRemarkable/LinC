@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BRPasswordViewController : UIViewController
+@interface BRPasswordViewController : UITableViewController
 
 @end

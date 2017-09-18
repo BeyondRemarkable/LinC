@@ -1011,6 +1011,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-LinC/Pods-LinC-resources.sh",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
+				"${PODS_ROOT}/SAMKeychain/Support/SAMKeychain.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (

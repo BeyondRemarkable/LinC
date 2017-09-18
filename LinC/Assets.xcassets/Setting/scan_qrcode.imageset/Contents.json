@@ -2,6 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "scan_qrcode.png",
       "scale" : "1x"
     },
     {

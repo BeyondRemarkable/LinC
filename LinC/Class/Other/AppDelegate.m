@@ -11,6 +11,7 @@
 #import <Hyphenate/Hyphenate.h>
 #import "BRTabBarController.h"
 #import "BRLoginViewController.h"
+#import <SAMKeychain.h>
 
 @interface AppDelegate () <EMClientDelegate>
 
@@ -29,7 +30,10 @@
                                           otherConfig:@{kSDKConfigEnableConsoleLogger:[NSNumber numberWithBool:YES]}];
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *token = [userDefaults objectForKey:kLoginTokenKey];
+    NSString *accountName = [userDefaults objectForKey:kLoginUserNameKey];
+    
+    NSString *token = [SAMKeychain passwordForService:kServiceName account:accountName];
+    
     if (token) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
         BRTabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:@"BRTabBarController"];
@@ -70,6 +74,5 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
-
 
 @end

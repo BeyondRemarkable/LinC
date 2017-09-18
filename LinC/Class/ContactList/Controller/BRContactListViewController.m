@@ -181,9 +181,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
     // User contact list cell
     if (indexPath.section == TableViewSectionOne) {
         BRContactListModel *contactListModel = self.dataArray[indexPath.row];
-        
     }
-    
 }
 
 

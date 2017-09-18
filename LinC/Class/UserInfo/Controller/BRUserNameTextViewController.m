@@ -26,6 +26,10 @@
     } else {
         self.userNameTextField.text = self.nameText;
     }
+    
+    UIBarButtonItem *saveBtn = [[UIBarButtonItem alloc] initWithTitle:@"save" style:UIBarButtonItemStylePlain target:self action:@selector(saveBtn)];
+    self.navigationItem.rightBarButtonItem = saveBtn;
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -33,7 +37,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)saveBtn:(id)sender {
+- (void)saveBtn {
     [self.delegate sendUserNameBack:self.userNameTextField.text];
     [self.navigationController popViewControllerAnimated:YES];
 }

@@ -67,6 +67,16 @@ typedef enum NSUInteger {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveTestNotification:) name:@"location" object:nil];
 }
 
+- (IBAction)imageBtnClicked:(UIButton *)sender {
+    
+    UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRUserInfo" bundle:[NSBundle mainBundle]];
+    BRUserImageViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRUserImageViewController"];
+    vc.imageIcon.image = self.imageIcon.image;
+    [self.navigationController pushViewController:vc animated:YES];
+    
+}
+
+
 #pragma mark UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -75,7 +85,12 @@ typedef enum NSUInteger {
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 1;
+    
+    if (section == [tableView numberOfSections] - 1) {
+        return 20;
+    } else {
+        return 0.01;
+    }
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -87,9 +102,9 @@ typedef enum NSUInteger {
     if (indexPath.section == TableViewSectionZero ) {
         // Image cell
         if (indexPath.row == UserImageCell) {
-            BRUserImageViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRUserImageViewController"];
-            vc.imageIcon.image = self.imageIcon.image;
-            [self.navigationController pushViewController:vc animated:YES];
+//            BRUserImageViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRUserImageViewController"];
+//            vc.imageIcon.image = self.imageIcon.image;
+//            [self.navigationController pushViewController:vc animated:YES];
         }
         // User nick name text field
         if (indexPath.row == UserNameCell) {

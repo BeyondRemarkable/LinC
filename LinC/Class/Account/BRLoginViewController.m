@@ -14,6 +14,7 @@
 #import <AFNetworking.h>
 #import <MBProgressHUD.h>
 #import <Hyphenate/Hyphenate.h>
+#import <SAMKeychain.h>
 
 
 
@@ -41,7 +42,10 @@
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *savedUserName = [userDefaults objectForKey:kLoginUserNameKey];
-    NSString *savedPassword = [userDefaults objectForKey:kLoginPasswordKey];
+    
+//    NSString *savedPassword = [[[SAMKeychain accountsForService:kLoginPasswordKey] lastObject] objectForKey:@"acct"];
+    NSString *savedPassword = [SAMKeychain passwordForService:kServiceName account:savedUserName];
+    
     if (savedUserName) {
         self.userNameTextField.text = savedUserName;
     }
@@ -85,19 +89,24 @@
         // 登录成功
         if ([dict[@"status"] isEqualToString:@"success"]) {
             [hud hideAnimated:YES];
-            // 存储用户名密码
+            
+            // 存储用户名, token和密码
+            NSError *error = nil;
+
             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
             [userDefaults setObject:userName forKey:kLoginUserNameKey];
-            [userDefaults setObject:password forKey:kLoginPasswordKey];
-            [userDefaults setObject:dict[@"data"][@"token"] forKey:kLoginTokenKey];
             [userDefaults synchronize];
             
-            // 设置自动登录
-            [[EMClient sharedClient].options setIsAutoLogin:YES];
+            [SAMKeychain setPassword:dict[@"data"][@"token"] forService:kServiceName account:userName error:&error];
+            [SAMKeychain setPassword:password forService:kLoginUserNameKey account:userName];
+            EMError *loginError = [[EMClient sharedClient] loginWithUsername:userName password: password];
             
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-            BRTabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:@"BRTabBarController"];
-            [[UIApplication sharedApplication].keyWindow setRootViewController:vc];
+            if (!loginError) {
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+                BRTabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:@"BRTabBarController"];
+                [[UIApplication sharedApplication].keyWindow setRootViewController:vc];
+            }
+            
         }
         // 登录失败
         else {
@@ -126,6 +135,14 @@
  */
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
+}
+
+// Email regex check
+-(BOOL)isValidEmail:(NSString *)emailString
+{
+    NSString *emailRegex = @"^.+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2}[A-Za-z]*$";
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+    return [emailTest evaluateWithObject:emailString];
 }
 
 #pragma mark - UITextField delegate
