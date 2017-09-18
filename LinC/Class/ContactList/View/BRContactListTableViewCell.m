@@ -31,20 +31,20 @@
 
 
 
--(void)setContactList:(BRContactListModel *)contactList
+-(void)setContactListModel:(BRContactListModel *)contactListModel
 {
-    _contactList = contactList;
+    _contactListModel = contactListModel;
     
     // Set image radius
     self.imageIcon.layer.cornerRadius = self.imageIcon.frame.size.width / 2;
     self.imageIcon.clipsToBounds = YES;
     
-    [self.imageIcon sd_setImageWithURL:[NSURL URLWithString:contactList.iconURL] placeholderImage:[UIImage imageNamed:@"placeHolder"]];
+    [self.imageIcon sd_setImageWithURL:[NSURL URLWithString:contactListModel.iconURL] placeholderImage:[UIImage imageNamed:@"placeHolder"]];
     
-    if (contactList.userName == nil) {
-        self.nickName.text = contactList.userID;
+    if (contactListModel.userName == nil) {
+        self.nickName.text = contactListModel.userID;
     } else {
-        self.nickName.text = contactList.userName;
+        self.nickName.text = contactListModel.userName;
     }
 }
 @end

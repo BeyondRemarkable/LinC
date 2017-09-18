@@ -13,6 +13,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageIcon;
 @property (weak, nonatomic) IBOutlet UILabel *nickName;
 
-@property(nonatomic, strong) BRContactListModel *contactList;
+@property(nonatomic, strong) BRContactListModel *contactListModel;
 
 @end
