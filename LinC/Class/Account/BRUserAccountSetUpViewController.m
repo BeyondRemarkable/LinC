@@ -93,6 +93,7 @@
 #pragma mark - button action
 
 - (IBAction)backAction:(id)sender {
+    [self.view endEditing:YES];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

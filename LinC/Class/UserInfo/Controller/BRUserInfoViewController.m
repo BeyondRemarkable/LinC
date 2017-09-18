@@ -28,6 +28,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *gender;
 @property (weak, nonatomic) IBOutlet UILabel *location;
 @property (weak, nonatomic) IBOutlet UILabel *whatsup;
+@property (weak, nonatomic) IBOutlet UILabel *userAccountIDDetailLabel;
 
 @end
 
@@ -65,6 +66,10 @@ typedef enum NSUInteger {
     // Do any additional setup after loading the view from its nib.
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveTestNotification:) name:@"location" object:nil];
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    self.userAccountIDDetailLabel.text = [userDefaults objectForKey:kLoginUserNameKey];
+    
 }
 
 - (IBAction)imageBtnClicked:(UIButton *)sender {
@@ -95,7 +100,6 @@ typedef enum NSUInteger {
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRUserInfo" bundle:[NSBundle mainBundle]];
     
     // Section Zerro of table view
@@ -125,7 +129,7 @@ typedef enum NSUInteger {
         if (indexPath.row == UserQRCodeCell) {
             BRQRCodeViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRQRCodeViewController"];
             
-            vc.accountId = @"xjfklsdjfkladsjfe@gmail.com";
+            vc.accountId = self.userAccountIDDetailLabel.text;
             [self.navigationController pushViewController:vc animated:YES];
         }
     }

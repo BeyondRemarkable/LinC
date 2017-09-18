@@ -55,7 +55,7 @@
 
 #pragma mark - button actions
 - (void)clickMoreInfo {
-    NSLog(@"clickMoreInfo");
+    
 }
 
 - (IBAction)clickAddFriend:(id)sender {

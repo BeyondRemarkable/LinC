@@ -9,6 +9,7 @@
 #import "BRAddingFriendViewController.h"
 #import "BRScannerViewController.h"
 #import "BRFriendInfoTableViewController.h"
+#import <MJRefresh.h>
 
 @interface BRAddingFriendViewController () <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *friendIDTextField;
@@ -35,6 +36,9 @@
 }
 
 - (void)searchByID:(NSString *)ID {
+    
+    
+    
     
     UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRFriendInfo" bundle:[NSBundle mainBundle]];
     BRFriendInfoTableViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRFriendInfoTableViewController"];
