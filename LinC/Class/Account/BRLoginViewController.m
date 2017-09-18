@@ -41,11 +41,11 @@
     
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background"]];
     
+    // 从userdefault和keychai 获取用户名 密码
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *savedUserName = [userDefaults objectForKey:kLoginUserNameKey];
-    
-//    NSString *savedPassword = [[[SAMKeychain accountsForService:kLoginPasswordKey] lastObject] objectForKey:@"acct"];
-    NSString *savedPassword = [SAMKeychain passwordForService:kServiceName account:savedUserName];
+
+    NSString *savedPassword = [SAMKeychain passwordForService:kLoginPasswordKey account:savedUserName];
     
     if (savedUserName) {
         self.userNameTextField.text = savedUserName;
@@ -76,48 +76,8 @@
     
     hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
-    BRHTTPSessionManager *manager = [BRHTTPSessionManager manager];
-    NSString *url =  [kBaseURL stringByAppendingPathComponent:@"/api/v1/auth/login"];
-    NSDictionary *parameters;
-    if ([userName containsString:@"@"] && [userName containsString:@"."]) {
-        parameters = @{@"email":userName, @"password":password};
-    }
-    else {
-        parameters = @{@"username":userName, @"password":password};
-    }
-    [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSDictionary *dict = (NSDictionary *)responseObject;
-        // 登录成功
-        if ([dict[@"status"] isEqualToString:@"success"]) {
-            [hud hideAnimated:YES];
-            
-            // 存储用户名, token和密码
-            NSError *error = nil;
-
-            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-            [userDefaults setObject:userName forKey:kLoginUserNameKey];
-            [userDefaults synchronize];
-            
-            [SAMKeychain setPassword:dict[@"data"][@"token"] forService:kServiceName account:userName error:&error];
-            [SAMKeychain setPassword:password forService:kLoginUserNameKey account:userName];
-            EMError *loginError = [[EMClient sharedClient] loginWithUsername:userName password: password];
-            
-            if (!loginError) {
-                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-                BRTabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:@"BRTabBarController"];
-                [[UIApplication sharedApplication].keyWindow setRootViewController:vc];
-            }
-            
-        }
-        // 登录失败
-        else {
-            hud.mode = MBProgressHUDModeText;
-            hud.label.text = dict[@"message"];
-            [hud hideAnimated:YES afterDelay:1.5];
-            
-            [self.passwordTextField becomeFirstResponder];
-        }
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+    // 用我们服务器做登录
+    [[BRClientManager sharedManager] loginWithUsername:userName password:password success:^(NSString *username) {
         [hud hideAnimated:YES];
         
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
@@ -145,14 +105,6 @@
  */
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
-}
-
-// Email regex check
--(BOOL)isValidEmail:(NSString *)emailString
-{
-    NSString *emailRegex = @"^.+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2}[A-Za-z]*$";
-    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
-    return [emailTest evaluateWithObject:emailString];
 }
 
 #pragma mark - UITextField delegate
