@@ -12,10 +12,8 @@
 
 @interface BRContactListModel : NSObject <IUserModel>
 
-@property (nonatomic, retain) NSString *iconURL;
-@property (nonatomic, retain) NSString *userName;
+/** 好友环信id(用户环信id) */
 @property (nonatomic, retain) NSString *userID;
-
 
 /** @brief 好友环信id(用户环信id) */
 @property (strong, nonatomic, readonly) NSString *buddy;
