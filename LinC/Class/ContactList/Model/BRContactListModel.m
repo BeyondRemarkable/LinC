@@ -17,6 +17,7 @@
 
 - (instancetype)initWithBuddy:(NSString *)buddy
 {
+    self.userID = buddy;
     return self;
 }
 

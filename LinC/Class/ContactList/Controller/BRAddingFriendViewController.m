@@ -36,6 +36,14 @@
 }
 
 - (void)searchByID:(NSString *)ID {
+    [[EMClient sharedClient].contactManager addContact:ID message:@"" completion:^(NSString *aUsername, EMError *aError) {
+        if (aError == nil) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+        else {
+            NSLog(@"%@", aError.errorDescription);
+        }
+    }];
     
     
     
