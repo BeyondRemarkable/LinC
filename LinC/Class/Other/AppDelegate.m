@@ -11,6 +11,7 @@
 #import <Hyphenate/Hyphenate.h>
 #import "BRTabBarController.h"
 #import "BRLoginViewController.h"
+#import "BRHTTPSessionManager.h"
 
 @interface AppDelegate () <EMClientDelegate>
 
@@ -29,26 +30,45 @@
                                           otherConfig:@{kSDKConfigEnableConsoleLogger:[NSNumber numberWithBool:YES]}];
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *userName = [userDefaults objectForKey:kLoginUserNameKey];
     NSString *token = [userDefaults objectForKey:kLoginTokenKey];
-    if (token) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-        BRTabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:@"BRTabBarController"];
-        self.window.rootViewController = vc;
-    }
-    else {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Account" bundle:[NSBundle mainBundle]];
-
-        BRLoginViewController *loginVc = [storyboard instantiateInitialViewController];
-        self.window.rootViewController = loginVc;
-    }
+    [[EMClient sharedClient] loginWithUsername:userName token:token completion:^(NSString *aUsername, EMError *aError) {
+        NSLog(@"%@ token:%@", aError.errorDescription, token);
+    }];
+//    if (token) {
+//        BRHTTPSessionManager *manager = [BRHTTPSessionManager manager];
+//        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+//        NSString *token = [userDefaults objectForKey:kLoginTokenKey];
+//        [manager.requestSerializer setValue:[@"Bearer " stringByAppendingString:token]  forHTTPHeaderField:@"Authorization"];
+//        NSString *url =  [kBaseURL stringByAppendingPathComponent:@"/api/v1/account/profile/show"];
+//        [manager GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//            NSDictionary * dict = (NSDictionary *)responseObject;
+//            if ([dict[@"status"] isEqualToString:@"success"]) {
+//                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+//                BRTabBarController *mainVc = [storyboard instantiateInitialViewController];
+//                self.window.rootViewController = mainVc;
+//            }
+//        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+//            
+//        }];
+//    }
+//    else {
+//        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Account" bundle:[NSBundle mainBundle]];
+//
+//        BRLoginViewController *loginVc = [storyboard instantiateInitialViewController];
+//        self.window.rootViewController = loginVc;
+//    }
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Account" bundle:[NSBundle mainBundle]];
+    
+    BRLoginViewController *loginVc = [storyboard instantiateInitialViewController];
+    self.window.rootViewController = loginVc;
     
     return YES;
 }
 
 
 - (void)applicationWillResignActive:(UIApplication *)application {
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+    
 }
 
 

@@ -12,6 +12,7 @@
 #import "BRUserInfoSetUpTableViewController.h"
 #import "BRTabBarController.h"
 #import "UIView+Animation.h"
+#import "BRClientManager.h"
 #import <MBProgressHUD.h>
 
 @interface BRUserAccountSetUpViewController () <UITextFieldDelegate>
@@ -89,6 +90,8 @@
     self.codeTextField.delegate = self;
 }
 
+#pragma mark - button action
+
 - (IBAction)backAction:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -127,6 +130,9 @@
             } completion:^(BOOL finished) {
                 [self.userNameTextField becomeFirstResponder];
             }];
+            
+            // 清空emailTextField
+            self.emailTextField.text = @"";
         }
         else if ([dict[@"status"] isEqualToString:@"error"]) {
             hud.mode = MBProgressHUDModeText;
@@ -144,9 +150,11 @@
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     [alertController addAction:[UIAlertAction actionWithTitle:@"Use different email" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self clearRegisterInformation];
+        
+        // 平移动画
         self.registerViewLeftConstraint.constant = SCREEN_WIDTH;
         self.registerViewRightConstraint.constant = -SCREEN_WIDTH;
-        
         self.emailViewLeftConstraint.constant = 0;
         self.emailViewRightConstraint.constant = 0;
         [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
@@ -177,104 +185,91 @@
 - (IBAction)registerAction:(id)sender {
     [self.view endEditing:YES];
     
-    if (![self isTextFieldEmpty]) {
+    // 如果存在未填信息
+    if ([self isTextFieldEmpty]) {
+        return;
+    }
+    // 如果密码信息有误
+    if (self.passwordDetailsLabel || self.passwordConfirmDetailsLabel) {
         return;
     }
     
-    if (self.passwordDetailsLabel) {
-        hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.mode = MBProgressHUDModeText;
-        hud.label.text = @"Set up strong password";
-        [hud hideAnimated:YES afterDelay:1.5];
-        return;
-    }
-    if (self.passwordConfirmDetailsLabel) {
-        hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.mode = MBProgressHUDModeText;
-        hud.label.text = @"password are not match";
-        [hud hideAnimated:YES afterDelay:1.5];
-        return;
-    }
 
     hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    BRHTTPSessionManager *manager = [BRHTTPSessionManager manager];
-    NSString *url = [kBaseURL stringByAppendingPathComponent:@"/api/v1/auth/register/confirm"];
-    NSDictionary *parameters = @{
-                                 @"username":self.userNameTextField.text,
-                                 @"password":self.passwordTextField.text,
-                                 @"email":self.emailTextField.text,
-                                 @"code":self.codeTextField.text
-                                 };
-    [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
-        [self responseWithJSONData:responseObject];
-        
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+    [[BRClientManager sharedManager] registerWithEmail:self.emailTextField.text username:self.userNameTextField.text password:self.passwordTextField.text code:self.codeTextField.text success:^(NSString *username) {
         [hud hideAnimated:YES];
-        NSLog(@"%@", error.localizedDescription);
+        
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+        BRTabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:@"BRTabBarController"];
+        [[UIApplication sharedApplication].keyWindow setRootViewController:vc];
+    } failure:^(EMError *error) {
+        hud.mode = MBProgressHUDModeText;
+        hud.label.text = error.errorDescription;
+        [hud hideAnimated:YES afterDelay:1.5];
     }];
     
+}
+
+#pragma mark - private methods
+
+- (void)clearRegisterInformation {
+    // 清空所有TextField
+    self.userNameTextField.text = @"";
+    self.passwordTextField.text = @"";
+    self.passwordConfirmTextField.text = @"";
+    self.codeTextField.text = @"";
     
-//-------Details info for register------------------
-//    UIStoryboard *sc  = [UIStoryboard storyboardWithName:@"Account" bundle:[NSBundle mainBundle]];
-//    BRUserInfoSetUpTableViewController *vc = [sc instantiateViewControllerWithIdentifier: @"UserInfoQuickSetup"];
-//    
-//    [self.navigationController pushViewController:vc animated:YES];
-//---------------------------------------------------
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-    BRTabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:@"BRTabBarController"];
-    [[UIApplication sharedApplication].keyWindow setRootViewController:vc];
-    
+    // 删除红字提示
+    if (self.passwordDetailsLabel) {
+        self.passwordConfirmViewTopConstraint.constant = 10;
+        [self.passwordConfirmTextField layoutIfNeeded];
+        [self.passwordDetailsLabel removeFromSuperview];
+        self.passwordDetailsLabel = nil;
+    }
+    if (self.passwordConfirmDetailsLabel) {
+        self.codeViewTopConstraint.constant = 10;
+        [self.codeTextField layoutIfNeeded];
+        [self.passwordConfirmDetailsLabel removeFromSuperview];
+        self.passwordConfirmDetailsLabel = nil;
+    }
 }
 
 - (BOOL)isTextFieldEmpty {
     if (self.userNameTextField.text.length == 0 /* check user name available later */) {
         [self.userNameView shakeAnimation];
-        return NO;
+        return YES;
     } else  if (self.passwordTextField.text.length == 0 /*check password strong later*/) {
         [self.passwordView shakeAnimation];
-        return false;
+        return YES;
     } else if (self.passwordConfirmTextField.text.length == 0) {
         [self.passwordConfirmView shakeAnimation];
-        return false;
+        return YES;
     } else if (self.codeTextField.text.length == 0 /*check code match later*/) {
         [self.codeView shakeAnimation];
-        return false;
+        return YES;
     }
-    return true;
-}
-
-- (void)responseWithJSONData:(id)responseObject {
-    
-    if ([responseObject isKindOfClass:[NSDictionary class]]) {
-        NSDictionary *dict = (NSDictionary *)responseObject;
-        if ([dict[@"status"] isEqualToString:@"success"]) {
-            [hud hideAnimated:YES];
-            
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Account" bundle:nil];
-            BRUserInfoSetUpTableViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"UserInfoQuickSetup"];
-            [self.navigationController pushViewController:vc animated:YES];
-        }
-        else if ([dict[@"status"] isEqualToString:@"error"]) {
-            hud.mode = MBProgressHUDModeText;
-            hud.label.text = dict[@"message"];
-            [hud hideAnimated:YES afterDelay:1.5];
-        }
-    }
+    return NO;
 }
 
 #pragma mark UITextFieldDelegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+    if (textField == self.emailTextField) {
+        [self getCodeAction:nil];
+    }
+    
     if (textField == self.userNameTextField) {
         [self.passwordTextField becomeFirstResponder];
     }
-    if (textField== self.passwordTextField) {
+    if (textField == self.passwordTextField) {
         [self.passwordConfirmTextField becomeFirstResponder];
     }
     if (textField == self.passwordConfirmTextField) {
         [self.codeTextField becomeFirstResponder];
+    }
+    if (textField == self.codeTextField) {
+        [self registerAction:nil];
     }
     return true;
 }
@@ -330,7 +325,7 @@
     }
     // Add detail label for password confrim textfield
     if (textField == self.passwordConfirmTextField) {
-        if (textField.text.length > 0 && textField.text != self.passwordTextField.text) {
+        if (textField.text.length > 0 && ![textField.text isEqualToString:self.passwordTextField.text]) {
             
             if (!self.passwordConfirmDetailsLabel) {
                 UILabel *label = [[UILabel alloc] init];

@@ -31,6 +31,7 @@
                                     <state key="normal" title="Add Friend" backgroundImage="background_blue">
                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
+                                    <state key="highlighted" backgroundImage="background_blue_highlighted"/>
                                     <connections>
                                         <action selector="clickAddFriend:" destination="iUV-o7-iS1" eventType="touchUpInside" id="nM1-RJ-APk"/>
                                     </connections>
@@ -40,6 +41,7 @@
                                     <state key="normal" title="Delete" backgroundImage="background_red">
                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
+                                    <state key="highlighted" backgroundImage="background_red_highlighted"/>
                                     <connections>
                                         <action selector="clickDeleteFriend:" destination="iUV-o7-iS1" eventType="touchUpInside" id="aNL-5T-DJP"/>
                                     </connections>
@@ -49,6 +51,7 @@
                                     <state key="normal" title="Chat" backgroundImage="background_blue">
                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
+                                    <state key="highlighted" backgroundImage="background_blue_highlighted"/>
                                     <connections>
                                         <action selector="clickChat:" destination="iUV-o7-iS1" eventType="touchUpInside" id="PSU-AP-kmw"/>
                                     </connections>
@@ -242,6 +245,8 @@
     </scenes>
     <resources>
         <image name="background_blue" width="15" height="40"/>
+        <image name="background_blue_highlighted" width="15" height="40"/>
         <image name="background_red" width="15" height="40"/>
+        <image name="background_red_highlighted" width="15" height="40"/>
     </resources>
 </document>
