@@ -9,6 +9,7 @@
 #import "BRAddingFriendViewController.h"
 #import "BRScannerViewController.h"
 #import "BRFriendInfoTableViewController.h"
+#import <Hyphenate/Hyphenate.h>
 #import <MJRefresh.h>
 
 @interface BRAddingFriendViewController () <UITextFieldDelegate>
