@@ -10,6 +10,7 @@
 #import "BRContactListTableViewCell.h"
 #import "IUserModel.h"
 #import "BRAddingFriendViewController.h"
+#import "BRMessageViewController.h"
 #import <MJRefresh.h>
 
 
@@ -23,7 +24,7 @@
 @implementation BRContactListViewController
 
 typedef enum : NSInteger {
-    TableViewSectionZerro = 0,
+    TableViewSectionZero = 0,
     TableViewSectionOne,
 } TableViewSession;
 
@@ -43,7 +44,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
     [self setUpTableView];
     [self setUpNavigationBarItem];
     
-
+    [self tableViewDidTriggerHeaderRefresh];
 }
 
 
@@ -118,7 +119,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
  
-    if (section == TableViewSectionZerro ) {
+    if (section == TableViewSectionZero ) {
         return self.storedListArray.count;
     } else {
         return self.dataArray.count;
@@ -128,7 +129,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    if (indexPath.section == TableViewSectionZerro) {
+    if (indexPath.section == TableViewSectionZero) {
         BRContactListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         
         cell.nickName.text = self.storedListArray[indexPath.row];
@@ -138,8 +139,8 @@ static NSString * const cellIdentifier = @"ContactListCell";
     
         BRContactListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
-        id<IUserModel> contactListModel = [self.dataArray objectAtIndex: indexPath.row];
-        cell.contactList = contactListModel;
+        id<IUserModel> contactListModel = [self.dataArray objectAtIndex:indexPath.row];
+        cell.contactListModel = contactListModel;
     
         return cell;
     }
@@ -170,7 +171,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // New friend and group session
-    if (indexPath.section == TableViewSectionZerro) {
+    if (indexPath.section == TableViewSectionZero) {
         if (indexPath.row == TableVIewGroup) {
             
         }
@@ -181,7 +182,8 @@ static NSString * const cellIdentifier = @"ContactListCell";
     // User contact list cell
     if (indexPath.section == TableViewSectionOne) {
         BRContactListModel *contactListModel = self.dataArray[indexPath.row];
-        
+        BRMessageViewController *vc = [[BRMessageViewController alloc] initWithConversationChatter:contactListModel.userID conversationType:EMConversationTypeChat];
+        [self.navigationController pushViewController:vc animated:YES];
     }
     
 }

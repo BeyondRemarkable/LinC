@@ -9,6 +9,7 @@
 #import "BRAddingFriendViewController.h"
 #import "BRScannerViewController.h"
 #import "BRFriendInfoTableViewController.h"
+#import <Hyphenate/Hyphenate.h>
 
 @interface BRAddingFriendViewController () <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *friendIDTextField;
@@ -35,6 +36,14 @@
 }
 
 - (void)searchByID:(NSString *)ID {
+    [[EMClient sharedClient].contactManager addContact:ID message:@"" completion:^(NSString *aUsername, EMError *aError) {
+        if (aError == nil) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+        else {
+            NSLog(@"%@", aError.errorDescription);
+        }
+    }];
     
     UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRFriendInfo" bundle:[NSBundle mainBundle]];
     BRFriendInfoTableViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRFriendInfoTableViewController"];

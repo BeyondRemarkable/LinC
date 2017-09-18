@@ -18,6 +18,7 @@
 		27FC23F11F6C4A9F001148D7 /* BRHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FC23EE1F6C4A9F001148D7 /* BRHTTPSessionManager.m */; };
 		27FC23F21F6C4A9F001148D7 /* BRSDKHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FC23F01F6C4A9F001148D7 /* BRSDKHelper.m */; };
 		27FC23F51F6C4C2C001148D7 /* BRClientManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FC23F41F6C4C2C001148D7 /* BRClientManager.m */; };
+		27FC23F81F7025D6001148D7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27FC23F71F7025D6001148D7 /* Main.storyboard */; };
 		777EE2E01DE2D56D25A06FA2 /* libPods-LinC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7644E4D020BABDE5A91405CF /* libPods-LinC.a */; };
 		E90F7B791F670DC300333382 /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E90F7AA61F670DC300333382 /* Account.storyboard */; };
 		E90F7B7A1F670DC300333382 /* BRAccountNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AA81F670DC300333382 /* BRAccountNavigationController.m */; };
@@ -50,7 +51,6 @@
 		E90F7B971F670DC300333382 /* BRRefreshTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AE91F670DC300333382 /* BRRefreshTableViewController.m */; };
 		E90F7B981F670DC300333382 /* BRTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AEB1F670DC300333382 /* BRTabBarController.m */; };
 		E90F7B991F670DC300333382 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E90F7AEE1F670DC300333382 /* LaunchScreen.storyboard */; };
-		E90F7B9A1F670DC300333382 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E90F7AEF1F670DC300333382 /* Main.storyboard */; };
 		E90F7B9B1F670DC300333382 /* BRBubbleView+File.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AF31F670DC300333382 /* BRBubbleView+File.m */; };
 		E90F7B9C1F670DC300333382 /* BRBubbleView+Gif.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AF51F670DC300333382 /* BRBubbleView+Gif.m */; };
 		E90F7B9D1F670DC300333382 /* BRBubbleView+Image.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AF71F670DC300333382 /* BRBubbleView+Image.m */; };
@@ -154,6 +154,8 @@
 		27FC23F01F6C4A9F001148D7 /* BRSDKHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRSDKHelper.m; sourceTree = "<group>"; };
 		27FC23F31F6C4C2C001148D7 /* BRClientManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRClientManager.h; sourceTree = "<group>"; };
 		27FC23F41F6C4C2C001148D7 /* BRClientManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRClientManager.m; sourceTree = "<group>"; };
+		27FC23F61F702310001148D7 /* IModelCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IModelCell.h; sourceTree = "<group>"; };
+		27FC23F71F7025D6001148D7 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		7644E4D020BABDE5A91405CF /* libPods-LinC.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LinC.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C9BD64024967E79CE634497 /* Pods-LinC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LinC.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LinC/Pods-LinC.debug.xcconfig"; sourceTree = "<group>"; };
 		94F6AAD2F8CDC6DB43F6386A /* Pods-LinC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LinC.release.xcconfig"; path = "Pods/Target Support Files/Pods-LinC/Pods-LinC.release.xcconfig"; sourceTree = "<group>"; };
@@ -212,9 +214,7 @@
 		E90F7AE91F670DC300333382 /* BRRefreshTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRRefreshTableViewController.m; sourceTree = "<group>"; };
 		E90F7AEA1F670DC300333382 /* BRTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRTabBarController.h; sourceTree = "<group>"; };
 		E90F7AEB1F670DC300333382 /* BRTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRTabBarController.m; sourceTree = "<group>"; };
-		E90F7AEC1F670DC300333382 /* IModelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IModelCell.h; sourceTree = "<group>"; };
 		E90F7AEE1F670DC300333382 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		E90F7AEF1F670DC300333382 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		E90F7AF21F670DC300333382 /* BRBubbleView+File.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BRBubbleView+File.h"; sourceTree = "<group>"; };
 		E90F7AF31F670DC300333382 /* BRBubbleView+File.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BRBubbleView+File.m"; sourceTree = "<group>"; };
 		E90F7AF41F670DC300333382 /* BRBubbleView+Gif.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BRBubbleView+Gif.h"; sourceTree = "<group>"; };
@@ -464,6 +464,7 @@
 				27FC23EE1F6C4A9F001148D7 /* BRHTTPSessionManager.m */,
 				27FC23EF1F6C4A9F001148D7 /* BRSDKHelper.h */,
 				27FC23F01F6C4A9F001148D7 /* BRSDKHelper.m */,
+				27FC23F61F702310001148D7 /* IModelCell.h */,
 				27FC23F31F6C4C2C001148D7 /* BRClientManager.h */,
 				27FC23F41F6C4C2C001148D7 /* BRClientManager.m */,
 			);
@@ -600,7 +601,6 @@
 				27FC23EC1F6C4A56001148D7 /* Model */,
 				E90F7ADC1F670DC300333382 /* Category */,
 				E90F7AE51F670DC300333382 /* Controller */,
-				E90F7AEC1F670DC300333382 /* IModelCell.h */,
 				E90F7AED1F670DC300333382 /* View */,
 			);
 			path = Main;
@@ -632,6 +632,7 @@
 				E90F7AE91F670DC300333382 /* BRRefreshTableViewController.m */,
 				E90F7AEA1F670DC300333382 /* BRTabBarController.h */,
 				E90F7AEB1F670DC300333382 /* BRTabBarController.m */,
+				27FC23F71F7025D6001148D7 /* Main.storyboard */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -640,7 +641,6 @@
 			isa = PBXGroup;
 			children = (
 				E90F7AEE1F670DC300333382 /* LaunchScreen.storyboard */,
-				E90F7AEF1F670DC300333382 /* Main.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -983,13 +983,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				E90F7B991F670DC300333382 /* LaunchScreen.storyboard in Resources */,
-				E90F7B9A1F670DC300333382 /* Main.storyboard in Resources */,
 				E90F7B801F670DC300333382 /* BRAddingFriendViewController.xib in Resources */,
 				E90F7B791F670DC300333382 /* Account.storyboard in Resources */,
 				E90F7BC61F670DC400333382 /* BRMediaBrowserViewController.xib in Resources */,
 				E90F7BBA1F670DC400333382 /* BRChatBarMoreViewCell.xib in Resources */,
 				E90F7B821F670DC300333382 /* BRFriendInfo.storyboard in Resources */,
 				E90F7B8B1F670DC300333382 /* BRDropDownViewController.xib in Resources */,
+				27FC23F81F7025D6001148D7 /* Main.storyboard in Resources */,
 				E90F7B851F670DC300333382 /* BRScannerViewController.xib in Resources */,
 				E90F7B881F670DC300333382 /* BRContactListTableViewCell.xib in Resources */,
 				E90F7BCA1F670DC400333382 /* ProvincesAndCities.plist in Resources */,
