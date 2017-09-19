@@ -8,12 +8,12 @@
 
 #import "BRMessageCell.h"
 
-extern NSString *const EaseMessageCellIdentifierSendText;
-extern NSString *const EaseMessageCellIdentifierSendLocation;
-extern NSString *const EaseMessageCellIdentifierSendVoice;
-extern NSString *const EaseMessageCellIdentifierSendVideo;
-extern NSString *const EaseMessageCellIdentifierSendImage;
-extern NSString *const EaseMessageCellIdentifierSendFile;
+extern NSString *const BRMessageCellIdentifierSendText;
+extern NSString *const BRMessageCellIdentifierSendLocation;
+extern NSString *const BRMessageCellIdentifierSendVoice;
+extern NSString *const BRMessageCellIdentifierSendVideo;
+extern NSString *const BRMessageCellIdentifierSendImage;
+extern NSString *const BRMessageCellIdentifierSendFile;
 
 @interface BRBaseMessageCell : BRMessageCell
 

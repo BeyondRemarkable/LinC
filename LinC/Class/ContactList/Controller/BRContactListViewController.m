@@ -182,6 +182,8 @@ static NSString * const cellIdentifier = @"ContactListCell";
     // User contact list cell
     if (indexPath.section == TableViewSectionOne) {
         BRContactListModel *contactListModel = self.dataArray[indexPath.row];
+        BRMessageViewController *vc = [[BRMessageViewController alloc] initWithConversationChatter:contactListModel.userID conversationType:EMConversationTypeChat];
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 

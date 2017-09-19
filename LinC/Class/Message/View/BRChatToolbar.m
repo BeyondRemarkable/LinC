@@ -20,9 +20,10 @@
 @property (nonatomic) BOOL isShowButtomView;
 @property (strong, nonatomic) UIView *activityButtomView;
 @property (strong, nonatomic) UIView *toolbarView;
+@property (nonatomic, strong) UIButton *styleButton;
 @property (strong, nonatomic) UIButton *recordButton;
 @property (strong, nonatomic) UIButton *moreButton;
-@property (strong, nonatomic) UIButton *faceButton;
+@property (strong, nonatomic) UIButton *emojiButton;
 @property (nonatomic) CGFloat previousTextViewContentHeight;//上一次inputTextView的contentSize.height
 @property (nonatomic) NSLayoutConstraint *inputViewWidthItemsLeftConstraint;
 @property (nonatomic) NSLayoutConstraint *inputViewWidthoutItemsLeftConstraint;
@@ -112,40 +113,63 @@
     _toolbarBackgroundImageView.backgroundColor = [UIColor clearColor];
     [_toolbarView addSubview:_toolbarBackgroundImageView];
     
+    CGFloat btnX = self.horizontalPadding;
+    CGFloat btnY = self.verticalPadding;
+    CGFloat btnH = self.toolbarView.frame.size.height - self.verticalPadding * 2;
+    CGFloat btnW = btnH;
+    //change input type
+    _styleButton = [[UIButton alloc] initWithFrame:CGRectMake(btnX, btnY, btnW, btnH)];
+    _styleButton.accessibilityIdentifier = @"style";
+    _styleButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    [_styleButton setImage:[UIImage imageNamed:@"chatbar_record"] forState:UIControlStateNormal];
+    [_styleButton setImage:[UIImage imageNamed:@"chatbar_record_highlighted"] forState:UIControlStateHighlighted];
+    [_styleButton setImage:[UIImage imageNamed:@"chatbar_keyboard"] forState:UIControlStateSelected];
+    [_styleButton addTarget:self action:@selector(styleButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [_toolbarView addSubview:_styleButton];
+    
+    //emoji
+    btnX = self.toolbarView.frame.size.width - btnW * 2 - self.horizontalPadding * 2;
+    _emojiButton = [[UIButton alloc] initWithFrame:CGRectMake(btnX, btnY, btnW, btnH)];
+    _emojiButton.accessibilityIdentifier = @"emoji";
+    _emojiButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    [_emojiButton setImage:[UIImage imageNamed:@"chatbar_emoji"] forState:UIControlStateNormal];
+    [_emojiButton setImage:[UIImage imageNamed:@"chatbar_emoji_highlighted"] forState:UIControlStateHighlighted];
+    [_emojiButton setImage:[UIImage imageNamed:@"chatbar_keyboard"] forState:UIControlStateSelected];
+    [_emojiButton addTarget:self action:@selector(faceButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [_toolbarView addSubview:_emojiButton];
+    
+    //more
+    btnX = self.toolbarView.frame.size.width - btnW - self.horizontalPadding;
+    _moreButton = [[UIButton alloc] initWithFrame:CGRectMake(btnX, btnY, btnW, btnH)];
+    _moreButton.accessibilityIdentifier = @"more";
+    _moreButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    [_moreButton setImage:[UIImage imageNamed:@"chatbar_more"] forState:UIControlStateNormal];
+    [_moreButton setImage:[UIImage imageNamed:@"chatBar_more_highlighted"] forState:UIControlStateHighlighted];
+    [_moreButton setImage:[UIImage imageNamed:@"chatbar_keyboard"] forState:UIControlStateSelected];
+    [_moreButton addTarget:self action:@selector(moreButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [_toolbarView addSubview:_moreButton];
+    
     //input textview
-    _inputTextView = [[BRTextView alloc] initWithFrame:CGRectMake(self.horizontalPadding, self.verticalPadding, self.frame.size.width - self.verticalPadding * 2, self.frame.size.height - self.verticalPadding * 2)];
+    _inputTextView = [[BRTextView alloc] initWithFrame:CGRectMake(self.horizontalPadding * 2 + btnW, self.verticalPadding, self.frame.size.width - self.horizontalPadding * 5 - btnW * 3, self.frame.size.height - self.verticalPadding * 2)];
     _inputTextView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     _inputTextView.scrollEnabled = YES;
     _inputTextView.returnKeyType = UIReturnKeySend;
     _inputTextView.enablesReturnKeyAutomatically = YES; // UITextView内部判断send按钮是否可以用
-    _inputTextView.placeHolder = NSLocalizedString(@"message.toolBar.inputPlaceHolder", @"input a new message");
     _inputTextView.delegate = self;
-    _inputTextView.backgroundColor = [UIColor clearColor];
+    _inputTextView.backgroundColor = [UIColor whiteColor];
     _inputTextView.layer.borderColor = [UIColor colorWithWhite:0.8f alpha:1.0f].CGColor;
     _inputTextView.layer.borderWidth = 0.65f;
     _inputTextView.layer.cornerRadius = 6.0f;
     _previousTextViewContentHeight = [self _getTextViewContentH:_inputTextView];
     [_toolbarView addSubview:_inputTextView];
     
-    //change input type
-    UIButton *styleChangeButton = [[UIButton alloc] init];
-    styleChangeButton.accessibilityIdentifier = @"style";
-    styleChangeButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    [styleChangeButton setImage:[UIImage imageNamed:@"chatbar_record"] forState:UIControlStateNormal];
-    [styleChangeButton setImage:[UIImage imageNamed:@"chatbar_record_highlighted"] forState:UIControlStateHighlighted];
-    [styleChangeButton setImage:[UIImage imageNamed:@"chatbar_keyboard"] forState:UIControlStateSelected];
-    [styleChangeButton addTarget:self action:@selector(styleButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    
-    BRChatToolbarItem *styleItem = [[BRChatToolbarItem alloc] initWithButton:styleChangeButton withView:nil];
-    [self setInputViewLeftItems:@[styleItem]];
-    
     //record
     self.recordButton = [[UIButton alloc] initWithFrame:self.inputTextView.frame];
     self.recordButton.accessibilityIdentifier = @"record";
     self.recordButton.titleLabel.font = [UIFont systemFontOfSize:15.0];
     [self.recordButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    [self.recordButton setBackgroundImage:[[UIImage imageNamed:@"EaseUIResource.bundle/chatBar_recordBg"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateNormal];
-    [self.recordButton setBackgroundImage:[[UIImage imageNamed:@"EaseUIResource.bundle/chatBar_recordSelectedBg"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateHighlighted];
+    [self.recordButton setBackgroundImage:[[UIImage imageNamed:@"button_border"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateNormal];
+    [self.recordButton setBackgroundImage:[[UIImage imageNamed:@"button_border_highlighted"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateHighlighted];
     [self.recordButton setTitle:kTouchToRecord forState:UIControlStateNormal];
     [self.recordButton setTitle:kTouchToFinish forState:UIControlStateHighlighted];
     self.recordButton.hidden = YES;
@@ -156,28 +180,6 @@
     [self.recordButton addTarget:self action:@selector(recordDragInside) forControlEvents:UIControlEventTouchDragEnter];
     self.recordButton.hidden = YES;
     [self.toolbarView addSubview:self.recordButton];
-    
-    //emoji
-    self.faceButton = [[UIButton alloc] init];
-    self.faceButton.accessibilityIdentifier = @"face";
-    self.faceButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    [self.faceButton setImage:[UIImage imageNamed:@"chatbar_emoji"] forState:UIControlStateNormal];
-    [self.faceButton setImage:[UIImage imageNamed:@"chatbar_emoji_highlighted"] forState:UIControlStateHighlighted];
-    [self.faceButton setImage:[UIImage imageNamed:@"chatbar_keyboard"] forState:UIControlStateSelected];
-    [self.faceButton addTarget:self action:@selector(faceButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    BRChatToolbarItem *faceItem = [[BRChatToolbarItem alloc] initWithButton:self.faceButton withView:self.faceView];
-    
-    //more
-    self.moreButton = [[UIButton alloc] init];
-    self.moreButton.accessibilityIdentifier = @"more";
-    self.moreButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    [self.moreButton setImage:[UIImage imageNamed:@"chatbar_more"] forState:UIControlStateNormal];
-    [self.moreButton setImage:[UIImage imageNamed:@"chatBar_more_highlighted"] forState:UIControlStateHighlighted];
-    [self.moreButton setImage:[UIImage imageNamed:@"chatbar_keyboard"] forState:UIControlStateSelected];
-    [self.moreButton addTarget:self action:@selector(moreButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    BRChatToolbarItem *moreItem = [[BRChatToolbarItem alloc] initWithButton:self.moreButton withView:self.moreView];
-    
-    [self setInputViewRightItems:@[faceItem, moreItem]];
 }
 
 - (void)dealloc
@@ -215,7 +217,7 @@
 - (UIView *)moreView
 {
     if (_moreView == nil) {
-        _moreView = [[BRChatBarMoreView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_toolbarView.frame), self.frame.size.width, 195) type:self.chatBarType];
+        _moreView = [[BRChatBarMoreView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_toolbarView.frame), self.frame.size.width, 220) type:self.chatBarType];
         _moreView.backgroundColor = [UIColor colorWithRed:240 / 255.0 green:242 / 255.0 blue:247 / 255.0 alpha:1.0];
         _moreView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     }
@@ -228,7 +230,7 @@
 - (void)setDelegate:(id)delegate
 {
     _delegate = delegate;
-    if ([_moreView isKindOfClass:[BRChatBarMoreView class]]) {
+    if ([self.moreView isKindOfClass:[BRChatBarMoreView class]]) {
         [(BRChatBarMoreView *)_moreView setDelegate:delegate];
     }
 }
@@ -297,8 +299,8 @@
     [self.toolbarView addSubview:self.moreButton];
     
     oMaxX -= self.horizontalPadding;
-    self.faceButton.frame = CGRectMake(oMaxX, oY, itemWidth, itemHeight);
-    [self.toolbarView addSubview:self.faceButton];
+//    self.faceButton.frame = CGRectMake(oMaxX, oY, itemWidth, itemHeight);
+//    [self.toolbarView addSubview:self.faceButton];
     
     CGRect inputFrame = self.inputTextView.frame;
     CGFloat value = oMaxX - CGRectGetMaxX(inputFrame);
@@ -456,8 +458,8 @@
     
     self.recordButton.selected = NO;
     [self.recordButton setImage:[UIImage imageNamed:@"chatbar_record_highlighted"] forState:UIControlStateHighlighted];
-    self.faceButton.selected = NO;
-    [self.faceButton setImage:[UIImage imageNamed:@"chatbar_emoji_highlighted"] forState:UIControlStateHighlighted];
+    self.emojiButton.selected = NO;
+    [self.emojiButton setImage:[UIImage imageNamed:@"chatbar_emoji_highlighted"] forState:UIControlStateHighlighted];
     self.moreButton.selected = NO;
     [self.moreButton setImage:[UIImage imageNamed:@"chatbar_more_highlighted"] forState:UIControlStateHighlighted];
     
@@ -643,8 +645,8 @@
     if (button.selected) {
         [button setImage:[UIImage imageNamed:@"chatbar_keyboard_highlighted"] forState:UIControlStateHighlighted];
         
-        self.faceButton.selected = NO;
-        [self.faceButton setImage:[UIImage imageNamed:@"chatbar_emoji_highlighted"] forState:UIControlStateHighlighted];
+        self.emojiButton.selected = NO;
+        [self.emojiButton setImage:[UIImage imageNamed:@"chatbar_emoji_highlighted"] forState:UIControlStateHighlighted];
         self.moreButton.selected = NO;
         [self.moreButton setImage:[UIImage imageNamed:@"chatbar_more_highlighted"] forState:UIControlStateHighlighted];
         
@@ -774,8 +776,8 @@
     
     self.recordButton.selected = NO;
     [self.recordButton setImage:[UIImage imageNamed:@"chatbar_record_highlighted"] forState:UIControlStateHighlighted];
-    self.faceButton.selected = NO;
-    [self.faceButton setImage:[UIImage imageNamed:@"chatbar_emoji_highlighted"] forState:UIControlStateHighlighted];
+    self.emojiButton.selected = NO;
+    [self.emojiButton setImage:[UIImage imageNamed:@"chatbar_emoji_highlighted"] forState:UIControlStateHighlighted];
     self.moreButton.selected = NO;
     [self.moreButton setImage:[UIImage imageNamed:@"chatbar_more_highlighted"] forState:UIControlStateHighlighted];
     
