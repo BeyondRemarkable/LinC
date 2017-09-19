@@ -26,8 +26,8 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ccJ-rN-ZNp">
-                        <rect key="frame" x="0.0" y="88" width="88" height="52"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <rect key="frame" x="0.0" y="93" width="88" height="47"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -35,7 +35,7 @@
             </view>
             <constraints>
                 <constraint firstItem="ccJ-rN-ZNp" firstAttribute="leading" secondItem="YYg-kq-whV" secondAttribute="leading" id="1Ou-x8-3hR"/>
-                <constraint firstItem="ccJ-rN-ZNp" firstAttribute="top" secondItem="6CB-Fj-EJo" secondAttribute="bottom" id="3DK-H5-Dcc"/>
+                <constraint firstItem="ccJ-rN-ZNp" firstAttribute="top" secondItem="6CB-Fj-EJo" secondAttribute="bottom" constant="5" id="3DK-H5-Dcc"/>
                 <constraint firstAttribute="trailing" secondItem="ccJ-rN-ZNp" secondAttribute="trailing" id="Hph-xm-lQq"/>
                 <constraint firstItem="6CB-Fj-EJo" firstAttribute="leading" secondItem="YYg-kq-whV" secondAttribute="leading" id="gmM-9L-8m3"/>
                 <constraint firstItem="6CB-Fj-EJo" firstAttribute="top" secondItem="YYg-kq-whV" secondAttribute="top" id="gte-Og-L7l"/>

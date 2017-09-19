@@ -95,11 +95,13 @@
 -(void)recordButtonTouchUpInside
 {
     [_timer invalidate];
+    _timer = nil;
 }
 
 -(void)recordButtonTouchUpOutside
 {
     [_timer invalidate];
+    _timer = nil;
 }
 
 -(void)recordButtonDragInside

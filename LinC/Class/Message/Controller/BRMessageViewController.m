@@ -106,8 +106,8 @@ typedef enum : NSUInteger {
     self.chatToolbar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     
     //Initializa the gesture recognizer
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyBoardHidden:)];
-    [self.view addGestureRecognizer:tap];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapTableView:)];
+    [self.tableView addGestureRecognizer:tap];
     
     _lpgr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
     _lpgr.minimumPressDuration = 0.5;
@@ -130,11 +130,11 @@ typedef enum : NSUInteger {
                                                  name:UIApplicationDidBecomeActiveNotification
                                                object:nil];
     
-    [[BRBaseMessageCell appearance] setSendBubbleBackgroundImage:[[UIImage imageNamed:@"chat_sender_bubbleBg"] stretchableImageWithLeftCapWidth:5 topCapHeight:35]];
-    [[BRBaseMessageCell appearance] setRecvBubbleBackgroundImage:[[UIImage imageNamed:@"chat_receiver_bubbleBg"] stretchableImageWithLeftCapWidth:35 topCapHeight:35]];
+    [[BRBaseMessageCell appearance] setSendBubbleBackgroundImage:[UIImage imageNamed:@"chat_sender_bubbleBg"]];
+    [[BRBaseMessageCell appearance] setRecvBubbleBackgroundImage:[UIImage imageNamed:@"chat_receiver_bubbleBg"]];
     
-//    [[BRBaseMessageCell appearance] setSendMessageVoiceAnimationImages:@[[UIImage imageNamed:@"EaseUIResource.bundle/chat_sender_audio_playing_full"], [UIImage imageNamed:@"EaseUIResource.bundle/chat_sender_audio_playing_000"], [UIImage imageNamed:@"EaseUIResource.bundle/chat_sender_audio_playing_001"], [UIImage imageNamed:@"EaseUIResource.bundle/chat_sender_audio_playing_002"], [UIImage imageNamed:@"EaseUIResource.bundle/chat_sender_audio_playing_003"]]];
-//    [[BRBaseMessageCell appearance] setRecvMessageVoiceAnimationImages:@[[UIImage imageNamed:@"EaseUIResource.bundle/chat_receiver_audio_playing_full"],[UIImage imageNamed:@"EaseUIResource.bundle/chat_receiver_audio_playing000"], [UIImage imageNamed:@"EaseUIResource.bundle/chat_receiver_audio_playing001"], [UIImage imageNamed:@"EaseUIResource.bundle/chat_receiver_audio_playing002"], [UIImage imageNamed:@"EaseUIResource.bundle/chat_receiver_audio_playing003"]]];
+    [[BRBaseMessageCell appearance] setSendMessageVoiceAnimationImages:@[[UIImage imageNamed:@"chat_sender_audio_playing_full"], [UIImage imageNamed:@"chat_sender_audio_playing_0"], [UIImage imageNamed:@"chat_sender_audio_playing_1"], [UIImage imageNamed:@"chat_sender_audio_playing_2"], [UIImage imageNamed:@"chat_sender_audio_playing_3"]]];
+    [[BRBaseMessageCell appearance] setRecvMessageVoiceAnimationImages:@[[UIImage imageNamed:@"chat_receiver_audio_playing_full"],[UIImage imageNamed:@"chat_receiver_audio_playing_0"], [UIImage imageNamed:@"chat_receiver_audio_playing_1"], [UIImage imageNamed:@"chat_receiver_audio_playing_2"], [UIImage imageNamed:@"chat_receiver_audio_playing_3"]]];
     
     [[BRBaseMessageCell appearance] setAvatarSize:40.f];
     [[BRBaseMessageCell appearance] setAvatarCornerRadius:20.f];
@@ -165,11 +165,6 @@ typedef enum : NSUInteger {
         BREmotionManager *manager= [[BREmotionManager alloc] initWithType:BREmotionDefault emotionRow:3 emotionCol:7 emotions:emotions tagImage:[UIImage imageNamed:emotion.emotionId]];
         [self.faceView setEmotionManagers:@[manager]];
     }
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)dealloc
@@ -691,7 +686,9 @@ typedef enum : NSUInteger {
     NSString *localPath = [model.fileLocalPath length] > 0 ? model.fileLocalPath : videoBody.localPath;
     if ([localPath length] == 0) {
         hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
         hud.label.text = NSLocalizedString(@"message.videoFail", @"video for failure!");
+        [hud hideAnimated:YES afterDelay:1.5];
         return;
     }
     
@@ -707,12 +704,14 @@ typedef enum : NSUInteger {
     void (^completion)(EMMessage *aMessage, EMError *error) = ^(EMMessage *aMessage, EMError *error) {
         if (!error)
         {
+            [hud hideAnimated:YES];
             [weakSelf _reloadTableViewDataWithMessage:aMessage];
         }
         else
         {
-            hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.mode = MBProgressHUDModeText;
             hud.label.text = NSLocalizedString(@"message.thumImageFail", @"thumbnail for failure!");
+            [hud hideAnimated:YES afterDelay:1.5];
         }
     };
     
@@ -732,12 +731,13 @@ typedef enum : NSUInteger {
     hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.label.text = NSLocalizedString(@"message.downloadingVideo", @"downloading video...");
     [[EMClient sharedClient].chatManager downloadMessageAttachment:model.message progress:nil completion:^(EMMessage *message, EMError *error) {
-        [hud hideAnimated:YES];
         if (!error) {
+            [hud hideAnimated:YES];
             block();
         }else{
-            hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.mode = MBProgressHUDModeText;
             hud.label.text = NSLocalizedString(@"message.videoFail", @"video for failure!");
+            [hud hideAnimated:YES afterDelay:1.5];
         }
     }];
 }
@@ -771,8 +771,8 @@ typedef enum : NSUInteger {
             hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             hud.label.text = NSLocalizedString(@"message.downloadingImage", @"downloading a image...");
             [[EMClient sharedClient].chatManager downloadMessageAttachment:model.message progress:nil completion:^(EMMessage *message, EMError *error) {
-                [hud hideAnimated:YES];
                 if (!error) {
+                    [hud hideAnimated:YES];
                     //send the acknowledgement
                     [weakSelf _sendHasReadResponseForMessages:@[model.message] isRead:YES];
                     NSString *localPath = message == nil ? model.fileLocalPath : [(EMImageMessageBody*)message.body localPath];
@@ -790,17 +790,23 @@ typedef enum : NSUInteger {
                         return ;
                     }
                 }
-                hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                hud.label.text = NSLocalizedString(@"message.imageFail", @"image for failure!");
+                else {
+                    hud.mode = MBProgressHUDModeText;
+                    hud.label.text = error.errorDescription;
+                    [hud hideAnimated:YES afterDelay:1.5];
+                }
             }];
         }else{
+            hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             //get the message thumbnail
             [[EMClient sharedClient].chatManager downloadMessageThumbnail:model.message progress:nil completion:^(EMMessage *message, EMError *error) {
                 if (!error) {
+                    [hud hideAnimated:YES];
                     [weakSelf _reloadTableViewDataWithMessage:model.message];
                 }else{
-                    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                    hud.mode = MBProgressHUDModeText;
                     hud.label.text = NSLocalizedString(@"message.thumImageFail", @"thumbnail for failure!");
+                    [hud hideAnimated:YES afterDelay:1.5];
                 }
             }];
         }
@@ -826,7 +832,16 @@ typedef enum : NSUInteger {
     {
         hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.label.text = NSLocalizedString(@"message.downloadingAudio", @"downloading voice, click later");
-        [[EMClient sharedClient].chatManager downloadMessageAttachment:model.message progress:nil completion:nil];
+        [[EMClient sharedClient].chatManager downloadMessageAttachment:model.message progress:nil completion:^(EMMessage *message, EMError *error) {
+            if (error == nil) {
+                [hud hideAnimated:YES];
+            }
+            else {
+                hud.mode = MBProgressHUDModeText;
+                hud.label.text = error.errorDescription;
+                [hud hideAnimated:YES afterDelay:1.5];
+            }
+        }];
         return;
     }
     
@@ -939,9 +954,8 @@ typedef enum : NSUInteger {
 
 #pragma mark - GestureRecognizer
 
--(void)keyBoardHidden:(UITapGestureRecognizer *)tapRecognizer
-{
-    if (tapRecognizer.state == UIGestureRecognizerStateEnded) {
+- (void)tapTableView:(UITapGestureRecognizer *)tap {
+    if (tap.state == UIGestureRecognizerStateEnded) {
         [self.chatToolbar endEditing:YES];
     }
 }
@@ -1097,6 +1111,11 @@ typedef enum : NSUInteger {
     }
 }
 
+#pragma mark - UIScrollviewDelegate
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [self.chatToolbar endEditing:YES];
+}
+
 #pragma mark - UIImagePickerControllerDelegate
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
@@ -1170,7 +1189,7 @@ typedef enum : NSUInteger {
     [[BRSDKHelper shareHelper] setIsShowingimagePicker:NO];
 }
 
-#pragma mark - EaseMessageCellDelegate
+#pragma mark - BRMessageCellDelegate
 
 - (void)messageCellSelected:(id<IMessageModel>)model
 {
@@ -1472,7 +1491,7 @@ typedef enum : NSUInteger {
     }
 }
 
-#pragma mark - EaseChatBarMoreViewDelegate
+#pragma mark - BRChatBarMoreViewDelegate
 
 - (void)moreView:(BRChatBarMoreView *)moreView didItemInMoreViewAtIndex:(NSInteger)index
 {

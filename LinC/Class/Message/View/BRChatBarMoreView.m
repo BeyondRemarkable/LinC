@@ -9,9 +9,9 @@
 #import "BRChatBarMoreView.h"
 #import "BRChatBarMoreViewCell.h"
 
-#define MOREVIEW_ITEM_SIZE CGSizeMake(50,60)
-#define INSETS 10
-#define PADDING 25
+#define MOREVIEW_ITEM_SIZE CGSizeMake(63,80)
+#define INSETS 20
+#define PADDING 40
 
 @implementation UIView (MoreView)
 
@@ -65,11 +65,15 @@
     _layout.minimumLineSpacing = INSETS;
     _layout.minimumInteritemSpacing = PADDING;
     _layout.itemSize = MOREVIEW_ITEM_SIZE;
-    _layout.sectionInset = UIEdgeInsetsMake(INSETS, PADDING, INSETS + PADDING, PADDING);
+    _layout.sectionInset = UIEdgeInsetsMake(INSETS, INSETS, INSETS, INSETS);
+//    _layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+
     _collectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:_layout];
     _collectionView.backgroundColor = [UIColor whiteColor];
+    _collectionView.pagingEnabled = YES;
     _collectionView.dataSource = self;
     _collectionView.delegate = self;
+    [self addSubview:_collectionView];
     [_collectionView registerNib:[UINib nibWithNibName:@"BRChatBarMoreViewCell" bundle:nil] forCellWithReuseIdentifier:[BRChatBarMoreViewCell cellReuseIdentifier]];
     
     _pageControl = [[UIPageControl alloc] init];
@@ -91,7 +95,9 @@
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return 1;
+    NSInteger numSection = 1;
+    self.pageControl.numberOfPages = numSection;
+    return numSection;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -109,27 +115,27 @@
     
     switch (indexPath.item) {
         case 0:
-            [cell.imageView setImage:[UIImage imageNamed:@"location"]];
+            [cell.imageView setImage:[UIImage imageNamed:@"chatbar_location"]];
             cell.titleLabel.text = NSLocalizedString(@"Location", nil);
             break;
             
         case 1:
-            [cell.imageView setImage:[UIImage imageNamed:@"Camera"]];
+            [cell.imageView setImage:[UIImage imageNamed:@"chatbar_camera"]];
             cell.titleLabel.text = NSLocalizedString(@"Camera", nil);
             break;
         
         case 2:
-            [cell.imageView setImage:[UIImage imageNamed:@"Album"]];
+            [cell.imageView setImage:[UIImage imageNamed:@"chatbar_album"]];
             cell.titleLabel.text = NSLocalizedString(@"Album", nil);
             break;
             
         case 3:
-            [cell.imageView setImage:[UIImage imageNamed:@"Voice"]];
+            [cell.imageView setImage:[UIImage imageNamed:@"chatbar_audiocall"]];
             cell.titleLabel.text = NSLocalizedString(@"Voice", nil);
             break;
             
         case 4:
-            [cell.imageView setImage:[UIImage imageNamed:@"Video"]];
+            [cell.imageView setImage:[UIImage imageNamed:@"chatbar_videocall"]];
             cell.titleLabel.text = NSLocalizedString(@"Video", nil);
             break;
             
