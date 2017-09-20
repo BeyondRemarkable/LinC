@@ -268,7 +268,7 @@
                 _statusButton.hidden = YES;
                 [_activity stopAnimating];
                 if (self.model.isMessageRead) {
-                    _hasRead.hidden = NO;
+//                    _hasRead.hidden = NO;
                 }
             }
                 break;
