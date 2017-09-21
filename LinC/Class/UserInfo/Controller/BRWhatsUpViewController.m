@@ -24,11 +24,8 @@
     self.automaticallyAdjustsScrollViewInsets = false;
     self.whatsUpTextView.delegate = self;
     
-    if ([self.whatUpText isEqual: @"Detail"]) {
-        self.whatsUpTextView.text = nil;
-    } else {
-        self.whatsUpTextView.text = self.whatUpText;
-    }
+    self.whatsUpTextView.text = self.whatUpText;
+    [self.whatsUpTextView becomeFirstResponder];
     
     UIBarButtonItem *saveBtn = [[UIBarButtonItem alloc] initWithTitle:@"save" style:UIBarButtonItemStylePlain target:self action:@selector(saveBtn)];
     self.navigationItem.rightBarButtonItem = saveBtn;
@@ -37,20 +34,10 @@
 
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-- (IBAction)saveBtn:(id)sender {
-    
-    if (![self.whatsUpTextView.text isEqualToString:self.whatUpText]) {
-        [self.delegate sendWhatUpBack:self.whatsUpTextView.text];
-    }
-    [self.navigationController popToRootViewControllerAnimated:YES];
-}
-
 - (void)saveBtn {
-    [self.delegate sendWhatUpBack: self.whatsUpTextView.text];
+    if (_delegate && [_delegate respondsToSelector:@selector(whatsUpDidChangeTo:)]) {
+        [_delegate whatsUpDidChangeTo:self.whatsUpTextView.text];
+    }
     [self.navigationController popViewControllerAnimated:YES];
 }
 

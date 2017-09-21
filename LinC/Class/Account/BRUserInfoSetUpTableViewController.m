@@ -7,11 +7,11 @@
 //
 
 #import "BRUserInfoSetUpTableViewController.h"
-#import "BRUserNameTextViewController.h"
+#import "BRNicknameTextViewController.h"
 #import "BRUserGenderTableViewController.h"
 #import "BRLocationListViewController.h"
 
-@interface BRUserInfoSetUpTableViewController ()<sendGenderProtocol, sendUserNameProtocol>
+@interface BRUserInfoSetUpTableViewController ()<BRUserGenderTableViewControllerDelegate, BRNicknameTextViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *userGender;
 @property (weak, nonatomic) IBOutlet UILabel *userName;
 
@@ -64,7 +64,7 @@ typedef enum NSUInteger {
 
     // User nick name text field
     if (indexPath.row == UserNameCell) {
-        BRUserNameTextViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRUserNameTextViewController"];
+        BRNicknameTextViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRUserNameTextViewController"];
         vc.delegate = self;
         [self.navigationController pushViewController:vc animated:YES];
     }
@@ -88,15 +88,13 @@ typedef enum NSUInteger {
 #pragma mark delegate methods
 
 // Set up user gender from BRUserGenderViewCOntroller
-- (void)sendGenderBack:(NSString *)gender
-{
-    self.userGender.text = gender;
+- (void)genderDidChangeTo:(NSString *)newGender {
+    self.userGender.text = newGender;
 }
 
 // Set up user nick name from BRUserNameTextViewController
-- (void)sendUserNameBack:(NSString *)userName
-{
-    self.userName.text = userName;
+- (void)nicknameDidChangeTo:(NSString *)newNickname {
+    self.userName.text = newNickname;
 }
 - (IBAction)finishBtn:(id)sender {
 }

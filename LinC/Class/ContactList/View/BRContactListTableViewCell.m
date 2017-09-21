@@ -35,16 +35,12 @@
 {
     _contactListModel = contactListModel;
     
-    // Set image radius
-    self.imageIcon.layer.cornerRadius = self.imageIcon.frame.size.width / 2;
-    self.imageIcon.clipsToBounds = YES;
+    [self.imageIcon sd_setImageWithURL:[NSURL URLWithString:contactListModel.avatarURLPath] placeholderImage:[UIImage imageNamed:@"placeholder"]];
     
-    [self.imageIcon sd_setImageWithURL:[NSURL URLWithString:contactListModel.iconURL] placeholderImage:[UIImage imageNamed:@"placeHolder"]];
-    
-    if (contactListModel.userName == nil) {
-        self.nickName.text = contactListModel.userID;
+    if (contactListModel.nickname == nil) {
+        self.nickName.text = contactListModel.username;
     } else {
-        self.nickName.text = contactListModel.userName;
+        self.nickName.text = contactListModel.nickname;
     }
 }
 @end

@@ -19,11 +19,16 @@
 /**
  登录方法
  */
-- (void)loginWithUsername:(NSString *)username password:(NSString *)password success:(void (^)(NSString *username))successBlock failure:(void (^)(EMError *error))failureBlock;
+- (void)loginWithUsername:(NSString *)username password:(NSString *)password success:(void (^)(NSString *message))successBlock failure:(void (^)(EMError *error))failureBlock;
 
 /**
  注册方法
  */
-- (void)registerWithEmail: (NSString *)email username:(NSString *)username password:(NSString *)password code:(NSString *)code success:(void (^)(NSString *username))successBlock failure:(void (^)(EMError *error))failureBlock;
+- (void)registerWithEmail: (NSString *)email username:(NSString *)username password:(NSString *)password code:(NSString *)code success:(void (^)(NSString *username, NSString *password))successBlock failure:(void (^)(EMError *error))failureBlock;
+
+/**
+ 登出方法
+ */
+- (void)logoutIfSuccess:(void (^)(NSString *message))successBlock failure:(void (^)(EMError *error))failureBlock;
 
 @end

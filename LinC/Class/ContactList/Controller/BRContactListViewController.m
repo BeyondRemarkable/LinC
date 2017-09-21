@@ -170,6 +170,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     // New friend and group session
     if (indexPath.section == TableViewSectionZero) {
         if (indexPath.row == TableVIewGroup) {
@@ -182,7 +183,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
     // User contact list cell
     if (indexPath.section == TableViewSectionOne) {
         BRContactListModel *contactListModel = self.dataArray[indexPath.row];
-        BRMessageViewController *vc = [[BRMessageViewController alloc] initWithConversationChatter:contactListModel.userID conversationType:EMConversationTypeChat];
+        BRMessageViewController *vc = [[BRMessageViewController alloc] initWithConversationChatter:contactListModel.username conversationType:EMConversationTypeChat];
         [self.navigationController pushViewController:vc animated:YES];
     }
 }

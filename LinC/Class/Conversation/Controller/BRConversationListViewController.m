@@ -15,8 +15,10 @@
 #import "BRConvertToCommonEmoticonsHelper.h"
 #import "BRDropDownViewController.h"
 #import "BRScannerViewController.h"
+#import "BRClientManager.h"
+#import <SAMKeychain.h>
 
-@interface BRConversationListViewController ()
+@interface BRConversationListViewController () <EMClientDelegate>
 
 @property (nonatomic, strong) BRDropDownViewController *dropDownVC;
 
@@ -44,6 +46,8 @@
     [self tableViewDidTriggerHeaderRefresh];
     [self setUpNavigationBarItem];
     
+    self.navigationItem.title = @"Connecting...";
+    [[EMClient sharedClient] addDelegate:self delegateQueue:dispatch_get_main_queue()];
 }
 
 //- (void)setUpNavigationBar {
@@ -242,6 +246,17 @@
 - (void)didUpdateGroupList:(NSArray *)groupList
 {
     [self tableViewDidTriggerHeaderRefresh];
+}
+
+#pragma mark - EMCliendDelegate
+
+- (void)connectionStateDidChange:(EMConnectionState)aConnectionState {
+    if (aConnectionState == EMConnectionConnected) {
+        self.navigationItem.title = @"LinC";
+    }
+    else {
+        self.navigationItem.title = @"Disconnected";
+    }
 }
 
 #pragma mark - registerNotifications

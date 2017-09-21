@@ -8,7 +8,7 @@
 
 #import "BRUserInfoViewController.h"
 #import "BRUserImageViewController.h"
-#import "BRUserNameTextViewController.h"
+#import "BRNicknameTextViewController.h"
 #import "BRUserGenderTableViewController.h"
 #import "BRLocationListViewController.h"
 #import "BRWhatsUpViewController.h"
@@ -18,17 +18,16 @@
 #import "BRQRCodeViewController.h"
 
 
-@interface BRUserInfoViewController ()<UITableViewDelegate, UITableViewDataSource, sendGenderProtocol, sendUserNameProtocol, sendWhatUpProtocol>
+@interface BRUserInfoViewController ()<UITableViewDelegate, UITableViewDataSource, BRUserGenderTableViewControllerDelegate, BRNicknameTextViewControllerDelegate, BRWhatsUpViewControllerDelegate>
 
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageIcon;
-@property (weak, nonatomic) IBOutlet UILabel *userName;
-@property (weak, nonatomic) IBOutlet UILabel *accountID;
+@property (weak, nonatomic) IBOutlet UILabel *nickname;
+@property (weak, nonatomic) IBOutlet UILabel *username;
 @property (weak, nonatomic) IBOutlet UILabel *qrCode;
 @property (weak, nonatomic) IBOutlet UILabel *gender;
 @property (weak, nonatomic) IBOutlet UILabel *location;
 @property (weak, nonatomic) IBOutlet UILabel *whatsup;
-@property (weak, nonatomic) IBOutlet UILabel *userAccountIDDetailLabel;
 
 @end
 
@@ -45,8 +44,8 @@ typedef enum NSUInteger {
     
     // Section zero
     UserImageCell = 0,
+    UserNicknameCell,
     UserNameCell,
-    UserAccountIDCell,
     UserQRCodeCell,
     UserGenderCell,
     
@@ -57,7 +56,7 @@ typedef enum NSUInteger {
     // Section Two
     UserSettingCell = 0,
     
-} UserInfo;
+} UserInfoCellName;
 
 
 
@@ -68,7 +67,7 @@ typedef enum NSUInteger {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveTestNotification:) name:@"location" object:nil];
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    self.userAccountIDDetailLabel.text = [userDefaults objectForKey:kLoginUserNameKey];
+    self.username.text = [userDefaults objectForKey:kLoginUserNameKey];
     
 }
 
@@ -111,9 +110,9 @@ typedef enum NSUInteger {
 //            [self.navigationController pushViewController:vc animated:YES];
         }
         // User nick name text field
-        if (indexPath.row == UserNameCell) {
-            BRUserNameTextViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRUserNameTextViewController"];
-            vc.nameText = self.userName.text;
+        if (indexPath.row == UserNicknameCell) {
+            BRNicknameTextViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRNicknameTextViewController"];
+            vc.nameText = self.nickname.text;
             vc.delegate = self;
             [self.navigationController pushViewController:vc animated:YES];
         }
@@ -129,7 +128,7 @@ typedef enum NSUInteger {
         if (indexPath.row == UserQRCodeCell) {
             BRQRCodeViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRQRCodeViewController"];
             
-            vc.accountId = self.userAccountIDDetailLabel.text;
+            vc.username = self.username.text;
             [self.navigationController pushViewController:vc animated:YES];
         }
     }
@@ -166,21 +165,18 @@ typedef enum NSUInteger {
 #pragma mark delegate methods
 
 // Set up user gender from BRUserGenderViewCOntroller
-- (void)sendGenderBack:(NSString *)gender
-{
-    self.gender.text = gender;
+- (void)genderDidChangeTo:(NSString *)newGender {
+    self.gender.text = newGender;
 }
 
 // Set up user nick name from BRUserNameTextViewController
-- (void)sendUserNameBack:(NSString *)userName
-{
-    self.userName.text = userName;
+- (void)nicknameDidChangeTo:(NSString *)newNickname {
+    self.nickname.text = newNickname;
 }
 
 // Set up user nick name from
--(void)sendWhatUpBack:(NSString *)text
-{
-    self.whatsup.text = text;
+- (void)whatsUpDidChangeTo:(NSString *)newWhatsUp {
+    self.whatsup.text = newWhatsUp;
 }
 
 // Set up location BRWhatsUpViewController

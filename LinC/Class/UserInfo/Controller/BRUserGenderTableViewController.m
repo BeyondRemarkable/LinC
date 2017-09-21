@@ -30,15 +30,13 @@
 }
 
 - (void)saveBtn {
-    [self.delegate sendGenderBack:self.gender];
+    if (_delegate && [_delegate respondsToSelector:@selector(genderDidChangeTo:)]) {
+        [_delegate genderDidChangeTo:self.gender];
+    }
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
+#pragma mark - Table view delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
    
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];

@@ -197,12 +197,19 @@
     
 
     hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[BRClientManager sharedManager] registerWithEmail:self.emailTextField.text username:self.userNameTextField.text password:self.passwordTextField.text code:self.codeTextField.text success:^(NSString *username) {
-        [hud hideAnimated:YES];
+    [[BRClientManager sharedManager] registerWithEmail:self.emailTextField.text username:self.userNameTextField.text password:self.passwordTextField.text code:self.codeTextField.text success:^(NSString *username, NSString *password) {
+        // 注册完成后执行登录
+        [[BRClientManager sharedManager] loginWithUsername:username password:password success:^(NSString *username) {
+            [hud hideAnimated:YES];
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+            BRTabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:@"BRTabBarController"];
+            [[UIApplication sharedApplication].keyWindow setRootViewController:vc];
+        } failure:^(EMError *error) {
+            hud.mode = MBProgressHUDModeText;
+            hud.label.text = error.errorDescription;
+            [hud hideAnimated:YES afterDelay:1.5];
+        }];
         
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-        BRTabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:@"BRTabBarController"];
-        [[UIApplication sharedApplication].keyWindow setRootViewController:vc];
     } failure:^(EMError *error) {
         hud.mode = MBProgressHUDModeText;
         hud.label.text = error.errorDescription;
