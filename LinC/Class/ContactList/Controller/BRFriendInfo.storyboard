@@ -8,9 +8,83 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Adding Friend View Controller-->
+        <scene sceneID="F1X-lW-IcN">
+            <objects>
+                <viewController storyboardIdentifier="BRAddingFriendViewController" id="4io-rp-CKB" customClass="BRAddingFriendViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="gEh-f8-X85"/>
+                        <viewControllerLayoutGuide type="bottom" id="F7B-Fh-wsw"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="spJ-Xm-Hq9">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gkg-2x-v1n">
+                                <rect key="frame" x="0.0" y="140" width="375" height="120"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search friend ID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G5l-Eh-E2m">
+                                        <rect key="frame" x="10" y="0.0" width="123.5" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="7J4-Io-Fyg">
+                                        <rect key="frame" x="10" y="31" width="265" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="search"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yOM-dH-CxN">
+                                        <rect key="frame" x="10" y="76" width="300" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="300" id="SE6-wA-4Zl"/>
+                                            <constraint firstAttribute="height" constant="40" id="cK7-tN-DCZ"/>
+                                        </constraints>
+                                        <state key="normal" title="Scan friend's QR code" image="scan_qrcode">
+                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted" title="Scan friend's QR code" image="scan_qrcode_highlighted">
+                                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="scanQRCodeBtn" destination="4io-rp-CKB" eventType="touchUpInside" id="01t-1B-tO7"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="G5l-Eh-E2m" firstAttribute="top" secondItem="gkg-2x-v1n" secondAttribute="top" id="AhE-s0-eYI"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="120" id="KVN-D0-Juh"/>
+                                    <constraint firstItem="yOM-dH-CxN" firstAttribute="leading" secondItem="G5l-Eh-E2m" secondAttribute="leading" id="QSY-ZD-pDk"/>
+                                    <constraint firstItem="7J4-Io-Fyg" firstAttribute="leading" secondItem="G5l-Eh-E2m" secondAttribute="leading" id="Xh7-Dc-FrB"/>
+                                    <constraint firstItem="7J4-Io-Fyg" firstAttribute="top" secondItem="G5l-Eh-E2m" secondAttribute="bottom" constant="10" id="aM9-27-oCe"/>
+                                    <constraint firstItem="G5l-Eh-E2m" firstAttribute="leading" secondItem="gkg-2x-v1n" secondAttribute="leading" constant="10" id="iRO-jl-odx"/>
+                                    <constraint firstAttribute="trailing" secondItem="7J4-Io-Fyg" secondAttribute="trailing" constant="100" id="k60-MA-qJK"/>
+                                    <constraint firstAttribute="height" constant="120" id="reV-4W-n18"/>
+                                    <constraint firstItem="yOM-dH-CxN" firstAttribute="top" secondItem="7J4-Io-Fyg" secondAttribute="bottom" constant="15" id="znB-Ms-9TQ"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="gkg-2x-v1n" secondAttribute="trailing" id="8PT-fd-Shz"/>
+                            <constraint firstItem="gkg-2x-v1n" firstAttribute="leading" secondItem="spJ-Xm-Hq9" secondAttribute="leading" id="k53-kn-Li8"/>
+                            <constraint firstItem="gkg-2x-v1n" firstAttribute="centerY" secondItem="spJ-Xm-Hq9" secondAttribute="centerY" multiplier="0.6" id="tBP-YH-weo"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="friendIDTextField" destination="7J4-Io-Fyg" id="2LJ-Bd-dzD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tFO-Lr-iIy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-668" y="4"/>
+        </scene>
         <!--Friend Info Table View Controller-->
         <scene sceneID="ndZ-w0-4UN">
             <objects>
@@ -236,6 +310,11 @@
                         <outlet property="addFriendButton" destination="Fz8-1x-Ddx" id="6pk-NY-1X3"/>
                         <outlet property="chatButton" destination="LAS-qH-xVi" id="Voj-zt-ueV"/>
                         <outlet property="deleteFriendButton" destination="LFR-7v-9gM" id="hPy-fY-er2"/>
+                        <outlet property="userGender" destination="jSJ-kk-tCc" id="Vgh-jC-dyG"/>
+                        <outlet property="userID" destination="U0U-MT-POy" id="taK-7S-gQt"/>
+                        <outlet property="userLocation" destination="orm-Ji-7cD" id="lya-nI-ytk"/>
+                        <outlet property="userNickName" destination="7u9-u7-BjR" id="w6v-lf-oEW"/>
+                        <outlet property="userWhatUp" destination="T5I-ZY-rG4" id="OnD-3O-R5N"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iyC-FU-PFy" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -290,7 +369,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U3d-Ee-qnV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1704.8" y="4.9475262368815596"/>
+            <point key="canvasLocation" x="1447" y="5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="YNB-Vv-hBo">
@@ -316,5 +395,7 @@
         <image name="background_blue_highlighted" width="15" height="40"/>
         <image name="background_red" width="15" height="40"/>
         <image name="background_red_highlighted" width="15" height="40"/>
+        <image name="scan_qrcode" width="35" height="35"/>
+        <image name="scan_qrcode_highlighted" width="35" height="35"/>
     </resources>
 </document>

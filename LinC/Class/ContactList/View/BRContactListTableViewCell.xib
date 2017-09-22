@@ -22,7 +22,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oGg-MV-xr1" userLabel="UIViewForImageIcon">
                         <rect key="frame" x="10" y="10" width="64.5" height="64.5"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1fw-vC-Pfg">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user_default" translatesAutoresizingMaskIntoConstraints="NO" id="1fw-vC-Pfg">
                                 <rect key="frame" x="0.0" y="0.0" width="64.5" height="64.5"/>
                             </imageView>
                         </subviews>
@@ -57,4 +57,7 @@
             <point key="canvasLocation" x="-157" y="82"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="user_default" width="50" height="50"/>
+    </resources>
 </document>

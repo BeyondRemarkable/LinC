@@ -42,8 +42,8 @@
 - (void)sendBtn {
     
     [self.view endEditing:YES];
-    EMError *error = [[EMClient sharedClient].contactManager addContact:self.userID message: self.userMessage.text];
     hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    EMError *error = [[EMClient sharedClient].contactManager addContact:self.userID message: self.userMessage.text];
     hud.mode = MBProgressHUDModeText;
     if (error) {
         hud.label.text = error.errorDescription;

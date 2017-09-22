@@ -27,7 +27,6 @@
 		E90F7B7D1F670DC300333382 /* BRUserAccountSetUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AAE1F670DC300333382 /* BRUserAccountSetUpViewController.m */; };
 		E90F7B7E1F670DC300333382 /* BRUserInfoSetUpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AB01F670DC300333382 /* BRUserInfoSetUpTableViewController.m */; };
 		E90F7B7F1F670DC300333382 /* BRAddingFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AB41F670DC300333382 /* BRAddingFriendViewController.m */; };
-		E90F7B801F670DC300333382 /* BRAddingFriendViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E90F7AB51F670DC300333382 /* BRAddingFriendViewController.xib */; };
 		E90F7B811F670DC300333382 /* BRContactListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AB71F670DC300333382 /* BRContactListViewController.m */; };
 		E90F7B821F670DC300333382 /* BRFriendInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E90F7AB81F670DC300333382 /* BRFriendInfo.storyboard */; };
 		E90F7B831F670DC300333382 /* BRFriendInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7ABA1F670DC300333382 /* BRFriendInfoTableViewController.m */; };
@@ -173,7 +172,6 @@
 		E90F7AB01F670DC300333382 /* BRUserInfoSetUpTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRUserInfoSetUpTableViewController.m; sourceTree = "<group>"; };
 		E90F7AB31F670DC300333382 /* BRAddingFriendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRAddingFriendViewController.h; sourceTree = "<group>"; };
 		E90F7AB41F670DC300333382 /* BRAddingFriendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRAddingFriendViewController.m; sourceTree = "<group>"; };
-		E90F7AB51F670DC300333382 /* BRAddingFriendViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRAddingFriendViewController.xib; sourceTree = "<group>"; };
 		E90F7AB61F670DC300333382 /* BRContactListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRContactListViewController.h; sourceTree = "<group>"; };
 		E90F7AB71F670DC300333382 /* BRContactListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRContactListViewController.m; sourceTree = "<group>"; };
 		E90F7AB81F670DC300333382 /* BRFriendInfo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BRFriendInfo.storyboard; sourceTree = "<group>"; };
@@ -521,7 +519,6 @@
 			children = (
 				E90F7AB31F670DC300333382 /* BRAddingFriendViewController.h */,
 				E90F7AB41F670DC300333382 /* BRAddingFriendViewController.m */,
-				E90F7AB51F670DC300333382 /* BRAddingFriendViewController.xib */,
 				E90F7AB61F670DC300333382 /* BRContactListViewController.h */,
 				E90F7AB71F670DC300333382 /* BRContactListViewController.m */,
 				E90F7AB81F670DC300333382 /* BRFriendInfo.storyboard */,
@@ -988,7 +985,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E90F7B991F670DC300333382 /* LaunchScreen.storyboard in Resources */,
-				E90F7B801F670DC300333382 /* BRAddingFriendViewController.xib in Resources */,
 				E90F7B791F670DC300333382 /* Account.storyboard in Resources */,
 				E90F7BC61F670DC400333382 /* BRMediaBrowserViewController.xib in Resources */,
 				E90F7BBA1F670DC400333382 /* BRChatBarMoreViewCell.xib in Resources */,

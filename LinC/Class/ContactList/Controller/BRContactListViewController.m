@@ -41,7 +41,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+
     [self setUpTableView];
     [self setUpNavigationBarItem];
     
@@ -74,12 +74,6 @@ static NSString * const cellIdentifier = @"ContactListCell";
     return _storedIconArray;
 }
 
-//// Load all friends model 
-//- (void)loadData {
-//    self.dataArray = [[[EMClient sharedClient].contactManager getContacts] copy];
-//    NSLog(@"%@", self.dataArray);
-//}
-
 /**
  * Set up tableView
  */
@@ -95,6 +89,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
     self.storedIconArray = @[[UIImage imageNamed:@"new_friend_request"], [UIImage imageNamed:@"owned_group"]];
 }
 
+// Set up navigation bar items
 - (void)setUpNavigationBarItem {
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     [btn setFrame:CGRectMake(0, 0, 35, 35)];
@@ -106,12 +101,10 @@ static NSString * const cellIdentifier = @"ContactListCell";
 
 #pragma mark - button action
 -(void)clickAddNewFriend {
-//    BRAddingContentView *cView = [[[NSBundle mainBundle] loadNibNamed:@"BRAddingContentView" owner:self options:nil] firstObject];
-//    cView.frame = CGRectMake(50, 50, 200, 200);
-//    cView.backgroundColor = [UIColor redColor];
-//    [self.view addSubview: cView];
     
-    BRAddingFriendViewController *vc = [[BRAddingFriendViewController alloc] initWithNibName:@"BRAddingFriendViewController" bundle:nil];
+    UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRFriendInfo" bundle:[NSBundle mainBundle]];
+    
+    BRAddingFriendViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRAddingFriendViewController"];
     
     [self.navigationController pushViewController:vc animated:YES];
     
@@ -140,6 +133,8 @@ static NSString * const cellIdentifier = @"ContactListCell";
         BRContactListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         
         cell.nickName.text = self.storedListArray[indexPath.row];
+        
+        cell.nickName.font = [UIFont systemFontOfSize:17];
         cell.imageIcon.image = self.storedIconArray[indexPath.row];
         return cell;
     } else {
@@ -149,6 +144,8 @@ static NSString * const cellIdentifier = @"ContactListCell";
         id<IUserModel> contactListModel = [self.dataArray objectAtIndex:indexPath.row];
         cell.contactListModel = contactListModel;
     
+        
+        
         return cell;
     }
 }
@@ -177,6 +174,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     // New friend and group session
     if (indexPath.section == TableViewSectionZero) {
         if (indexPath.row == TableVIewGroup) {
@@ -209,6 +207,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
             NSArray *blockList = [[EMClient sharedClient].contactManager getBlackList];
             for (NSInteger i = 0; i < buddyList.count; i++) {
                 NSString *buddy = [buddyList objectAtIndex:i];
+                NSLog(@"%@", buddy);
                 if (![blockList containsObject:buddy]) {
                     [contactsSource addObject:buddy];
                     

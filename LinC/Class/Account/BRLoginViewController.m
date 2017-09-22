@@ -90,8 +90,6 @@
         
         [self.passwordTextField becomeFirstResponder];
     }];
-    
-    
 }
 
 - (IBAction)clickForgetPassword {

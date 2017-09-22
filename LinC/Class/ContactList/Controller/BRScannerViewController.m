@@ -7,6 +7,7 @@
 //
 
 #import "BRScannerViewController.h"
+#import "BRFriendInfoTableViewController.h"
 #import <AVFoundation/AVFoundation.h>
 
 @interface BRScannerViewController () <AVCaptureMetadataOutputObjectsDelegate>
@@ -91,17 +92,20 @@
         
         NSLog(@"%@",  metadataObject.stringValue);
         
-        [self setUpFriendInfo];
+        [self searchFriendWithUserID:(NSString *)metadataObject.stringValue];
     }
 }
 
-- (void)setUpFriendInfo {
+// Send scan result to BRAddingFriendViewController
+- (void)searchFriendWithUserID:(NSString *)searchID {
     
-//    UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRFriendInfo" bundle:nil];
-    
-//    BRFriendInfoViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRFriendInfoTableViewController"];
-    
-//    [self.navigationController pushViewController:vc animated:YES];
+    UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRFriendInfo" bundle:[NSBundle mainBundle]];
+
+    BRFriendInfoTableViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRFriendInfoTableViewController"];
+//    [self.navigationController setNavigationBarHidden: NO];
+    vc.isFriend = NO;
+    vc.searchID = searchID;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 /**

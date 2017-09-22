@@ -9,7 +9,6 @@
 #import "BRAddingFriendViewController.h"
 #import "BRScannerViewController.h"
 #import "BRFriendInfoTableViewController.h"
-#import "BRAddedFriendTableViewController.h"
 #import <Hyphenate/Hyphenate.h>
 #import <MJRefresh.h>
 
@@ -41,8 +40,8 @@
 - (void)searchByID:(NSString *)ID {
   
     UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRFriendInfo" bundle:[NSBundle mainBundle]];
-    BRAddedFriendTableViewController *vc = [sc instantiateViewControllerWithIdentifier: @"BRAddedFriendTableViewController"];
-    vc.userID = self.friendIDTextField.text;
+    BRFriendInfoTableViewController *vc = [sc instantiateViewControllerWithIdentifier: @"BRFriendInfoTableViewController"];
+    vc.searchID = self.friendIDTextField.text;
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
     
 //    BRFriendInfoTableViewController

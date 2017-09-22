@@ -36,8 +36,11 @@
     _contactListModel = contactListModel;
     
     // Set image radius
-    self.imageIcon.layer.cornerRadius = self.imageIcon.frame.size.width / 2;
-    self.imageIcon.clipsToBounds = YES;
+//    self.imageIcon.layer.cornerRadius = self.imageIcon.frame.size.width / 2;
+//    self.imageIcon.clipsToBounds = YES;
+    
+    // Set up user name
+    self.nickName.text = contactListModel.userID;
 //    
 //    [self.imageIcon sd_setImageWithURL:[NSURL URLWithString:contactListModel.iconURL] placeholderImage:[UIImage imageNamed:@"placeHolder"]];
 //    
