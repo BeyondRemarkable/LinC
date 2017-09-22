@@ -10,6 +10,6 @@
 
 @interface BRQRCodeViewController : UIViewController
 
-@property (nonatomic, copy) NSString *accountId;
+@property (nonatomic, copy) NSString *username;
 
 @end

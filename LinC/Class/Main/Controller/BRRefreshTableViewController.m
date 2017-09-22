@@ -26,11 +26,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.view.backgroundColor = BRColor(235, 235, 236);
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) style:self.style];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.tableFooterView = self.defaultFooterView;
+    _tableView.backgroundColor = [UIColor clearColor];
     [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
     [self.view addSubview:_tableView];
     

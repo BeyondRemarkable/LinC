@@ -129,7 +129,7 @@
 //}
 
 
-- (void)registerWithEmail:(NSString *)email username:(NSString *)username password:(NSString *)password code:(NSString *)code success:(void (^)(NSString *))successBlock failure:(void (^)(EMError *))failureBlock {
+- (void)registerWithEmail:(NSString *)email username:(NSString *)username password:(NSString *)password code:(NSString *)code success:(void (^)(NSString *, NSString *))successBlock failure:(void (^)(EMError *))failureBlock {
     BRHTTPSessionManager *manager = [BRHTTPSessionManager manager];
     NSString *url = [kBaseURL stringByAppendingPathComponent:@"/api/v1/auth/register/confirm"];
     NSDictionary *parameters = @{
@@ -141,7 +141,7 @@
     [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dict = (NSDictionary *)responseObject;
         if ([dict[@"status"] isEqualToString:@"success"]) {
-            successBlock(username);
+            successBlock(username, password);
         }
         else {
             EMError *error = [EMError errorWithDescription:dict[@"message"] code:EMErrorUserAlreadyExist];
@@ -150,6 +150,28 @@
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@", error.localizedDescription);
+    }];
+}
+
+- (void)logoutIfSuccess:(void (^)(NSString *))successBlock failure:(void (^)(EMError *))failureBlock {
+    BRHTTPSessionManager *manager = [BRHTTPSessionManager manager];
+    NSString *url = [kBaseURL stringByAppendingPathComponent:@"/api/v1/account/logout"];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *username = [userDefaults objectForKey:kLoginUserNameKey];
+    NSString *token = [SAMKeychain passwordForService:kLoginTokenKey account:username];
+    [manager.requestSerializer setValue:[@"Bearer " stringByAppendingString:token]  forHTTPHeaderField:@"Authorization"];
+    [manager POST:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *dict = (NSDictionary *)responseObject;
+        if ([dict[@"status"] isEqualToString:@"success"]) {
+            successBlock(dict[@"message"]);
+        }
+        else {
+            EMError *error = [EMError errorWithDescription:dict[@"message"] code:EMErrorGeneral];
+            failureBlock(error);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        EMError *emError = [EMError errorWithDescription:error.localizedDescription code:EMErrorServerUnknownError];
+        failureBlock(emError);
     }];
 }
 

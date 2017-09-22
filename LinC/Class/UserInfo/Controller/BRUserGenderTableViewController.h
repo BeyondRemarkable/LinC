@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol sendGenderProtocol <NSObject>
+@protocol BRUserGenderTableViewControllerDelegate <NSObject>
 
-- (void)sendGenderBack:(NSString *)gender;
+- (void)genderDidChangeTo:(NSString *)newGender;
 
 @end
 
@@ -18,7 +18,7 @@
 
 
 
-@property(nonatomic,assign)id delegate;
+@property (nonatomic, weak) id<BRUserGenderTableViewControllerDelegate> delegate;
 
 @property (nonatomic, assign) BOOL status;
 @property (nonatomic, copy) NSString *gender;

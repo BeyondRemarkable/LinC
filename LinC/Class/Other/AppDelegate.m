@@ -11,7 +11,6 @@
 #import <Hyphenate/Hyphenate.h>
 #import "BRTabBarController.h"
 #import "BRLoginViewController.h"
-#import "BRHTTPSessionManager.h"
 #import "BRClientManager.h"
 #import <SAMKeychain.h>
 
@@ -31,9 +30,6 @@
                                                appkey:appkey
                                          apnsCertName:apnsCertName
                                           otherConfig:@{kSDKConfigEnableConsoleLogger:[NSNumber numberWithBool:YES]}];
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *userName = [userDefaults objectForKey:kLoginUserNameKey];
-    NSString *password = [SAMKeychain passwordForService:kLoginPasswordKey account:userName];
     
     
     if ([[EMClient sharedClient] isLoggedIn]) {

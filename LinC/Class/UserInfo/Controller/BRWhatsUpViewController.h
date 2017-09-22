@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol sendWhatUpProtocol <NSObject>
+@protocol BRWhatsUpViewControllerDelegate <NSObject>
 
-- (void)sendWhatUpBack: (NSString *)text;
+- (void)whatsUpDidChangeTo:(NSString *)newWhatsUp;
 
 @end
 
@@ -19,6 +19,6 @@
 
 @property (nonatomic, assign) NSString *whatUpText;
 
-@property (nonatomic, assign) id delegate;
+@property (nonatomic, weak) id<BRWhatsUpViewControllerDelegate> delegate;
 
 @end

@@ -107,7 +107,7 @@
 		E90F7BD11F670DC400333382 /* BRUserImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B6D1F670DC300333382 /* BRUserImageViewController.m */; };
 		E90F7BD21F670DC400333382 /* BRUserInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E90F7B6E1F670DC300333382 /* BRUserInfo.storyboard */; };
 		E90F7BD31F670DC400333382 /* BRUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B701F670DC300333382 /* BRUserInfoViewController.m */; };
-		E90F7BD41F670DC400333382 /* BRUserNameTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B721F670DC300333382 /* BRUserNameTextViewController.m */; };
+		E90F7BD41F670DC400333382 /* BRNicknameTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B721F670DC300333382 /* BRNicknameTextViewController.m */; };
 		E90F7BD51F670DC400333382 /* BRUserSettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B741F670DC300333382 /* BRUserSettingTableViewController.m */; };
 		E90F7BD61F670DC400333382 /* BRWhatsUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B761F670DC300333382 /* BRWhatsUpViewController.m */; };
 		E90F7BD91F67368200333382 /* UIView+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7BD81F67368200333382 /* UIView+Animation.m */; };
@@ -332,8 +332,8 @@
 		E90F7B6E1F670DC300333382 /* BRUserInfo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BRUserInfo.storyboard; sourceTree = "<group>"; };
 		E90F7B6F1F670DC300333382 /* BRUserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRUserInfoViewController.h; sourceTree = "<group>"; };
 		E90F7B701F670DC300333382 /* BRUserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRUserInfoViewController.m; sourceTree = "<group>"; };
-		E90F7B711F670DC300333382 /* BRUserNameTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRUserNameTextViewController.h; sourceTree = "<group>"; };
-		E90F7B721F670DC300333382 /* BRUserNameTextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRUserNameTextViewController.m; sourceTree = "<group>"; };
+		E90F7B711F670DC300333382 /* BRNicknameTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRNicknameTextViewController.h; sourceTree = "<group>"; };
+		E90F7B721F670DC300333382 /* BRNicknameTextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRNicknameTextViewController.m; sourceTree = "<group>"; };
 		E90F7B731F670DC300333382 /* BRUserSettingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRUserSettingTableViewController.h; sourceTree = "<group>"; };
 		E90F7B741F670DC300333382 /* BRUserSettingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRUserSettingTableViewController.m; sourceTree = "<group>"; };
 		E90F7B751F670DC300333382 /* BRWhatsUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRWhatsUpViewController.h; sourceTree = "<group>"; };
@@ -848,8 +848,8 @@
 				E90F7B6E1F670DC300333382 /* BRUserInfo.storyboard */,
 				E90F7B6F1F670DC300333382 /* BRUserInfoViewController.h */,
 				E90F7B701F670DC300333382 /* BRUserInfoViewController.m */,
-				E90F7B711F670DC300333382 /* BRUserNameTextViewController.h */,
-				E90F7B721F670DC300333382 /* BRUserNameTextViewController.m */,
+				E90F7B711F670DC300333382 /* BRNicknameTextViewController.h */,
+				E90F7B721F670DC300333382 /* BRNicknameTextViewController.m */,
 				E90F7B731F670DC300333382 /* BRUserSettingTableViewController.h */,
 				E90F7B741F670DC300333382 /* BRUserSettingTableViewController.m */,
 				E90F7B751F670DC300333382 /* BRWhatsUpViewController.h */,
@@ -1149,7 +1149,7 @@
 				E90F7BCD1F670DC400333382 /* BRLocationListViewController.m in Sources */,
 				E90F7B9F1F670DC300333382 /* BRBubbleView+Text.m in Sources */,
 				E90F7B7C1F670DC300333382 /* BRResetPasswordViewController.m in Sources */,
-				E90F7BD41F670DC400333382 /* BRUserNameTextViewController.m in Sources */,
+				E90F7BD41F670DC400333382 /* BRNicknameTextViewController.m in Sources */,
 				E90F7BA51F670DC300333382 /* BRCDDeviceManager+Remind.m in Sources */,
 				E90F7BBF1F670DC400333382 /* BRMessageCell.m in Sources */,
 				E90F7BC11F670DC400333382 /* BRRecordView.m in Sources */,
