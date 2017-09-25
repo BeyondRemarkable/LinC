@@ -13,7 +13,6 @@
 
 
 
-
 @end
 
 @implementation BRContactListTableViewCell
@@ -21,7 +20,38 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+
+    self.badgeLabel.layer.cornerRadius = self.badgeLabel.frame.size.height/2;
+    self.badgeLabel.layer.masksToBounds = YES;
+    
 }
+
+#pragma mark - setter
+- (void)setBadgeValue:(NSInteger)badgeValue {
+    _badgeValue = badgeValue;
+    
+    if (badgeValue > 0) {
+        self.badgeLabel.hidden = NO;
+    }
+    else{
+        self.badgeLabel.hidden = YES;
+    }
+    
+    if (badgeValue > 99) {
+        self.badgeLabel.text = @"...";
+    }
+    else{
+        self.badgeLabel.text = [NSString stringWithFormat:@"%ld", (long)_badgeValue];
+    }
+}
+
+- (void)setShowBadge:(BOOL)showBadge {
+    if (_showBadge != showBadge) {
+        _showBadge = showBadge;
+        self.badgeLabel.hidden = !_showBadge;
+    }
+}
+
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
@@ -35,19 +65,12 @@
 {
     _contactListModel = contactListModel;
     
-    // Set image radius
-//    self.imageIcon.layer.cornerRadius = self.imageIcon.frame.size.width / 2;
-//    self.imageIcon.clipsToBounds = YES;
+    [self.imageIcon sd_setImageWithURL:[NSURL URLWithString:contactListModel.avatarURLPath] placeholderImage:[UIImage imageNamed:@"placeholder"]];
     
-    // Set up user name
-    self.nickName.text = contactListModel.userID;
-//    
-//    [self.imageIcon sd_setImageWithURL:[NSURL URLWithString:contactListModel.iconURL] placeholderImage:[UIImage imageNamed:@"placeHolder"]];
-//    
-//    if (contactListModel.userName == nil) {
-//        self.nickName.text = contactListModel.userID;
-//    } else {
-//        self.nickName.text = contactListModel.userName;
-//    }
+    if (contactListModel.nickname == nil) {
+        self.nickName.text = contactListModel.username;
+    } else {
+        self.nickName.text = contactListModel.nickname;
+    }
 }
 @end

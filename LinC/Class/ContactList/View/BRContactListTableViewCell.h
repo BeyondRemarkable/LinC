@@ -12,6 +12,16 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageIcon;
 @property (weak, nonatomic) IBOutlet UILabel *nickName;
+@property (weak, nonatomic) IBOutlet UILabel *badgeLabel;
+
+/** @brief 角标数 */
+@property (nonatomic) NSInteger badgeValue;
+
+/** @brief 是否显示角标 */
+@property (nonatomic) BOOL showBadge;
+
+///** @brief 头像圆角 */
+//@property (nonatomic) CGFloat imageCornerRadius UI_APPEARANCE_SELECTOR;
 
 @property(nonatomic, strong) BRContactListModel *contactListModel;
 

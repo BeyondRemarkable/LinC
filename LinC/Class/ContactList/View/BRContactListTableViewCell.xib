@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -41,16 +42,30 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vzO-dn-SMQ">
+                        <rect key="frame" x="262" y="27.5" width="30" height="30"/>
+                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="3lH-Go-lL4"/>
+                            <constraint firstAttribute="width" constant="30" id="8u3-Em-2lT"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="oGg-MV-xr1" secondAttribute="bottom" constant="10" id="9wf-gn-6yR"/>
                     <constraint firstItem="UKG-b3-rLX" firstAttribute="centerY" secondItem="oGg-MV-xr1" secondAttribute="centerY" id="JAA-u8-ZeV"/>
                     <constraint firstItem="oGg-MV-xr1" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="SdH-bs-zzn"/>
+                    <constraint firstItem="vzO-dn-SMQ" firstAttribute="centerY" secondItem="UKG-b3-rLX" secondAttribute="centerY" id="Xwh-pI-RMj"/>
                     <constraint firstItem="UKG-b3-rLX" firstAttribute="leading" secondItem="oGg-MV-xr1" secondAttribute="trailing" constant="15" id="baG-sw-vly"/>
                     <constraint firstItem="oGg-MV-xr1" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="pTm-vf-xpP"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="vzO-dn-SMQ" secondAttribute="trailing" constant="20" id="qEE-IH-pIB"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="badgeLabel" destination="vzO-dn-SMQ" id="uiE-EB-bdZ"/>
                 <outlet property="imageIcon" destination="1fw-vC-Pfg" id="Y2J-zH-kA6"/>
                 <outlet property="nickName" destination="UKG-b3-rLX" id="gfb-rN-UMH"/>
             </connections>

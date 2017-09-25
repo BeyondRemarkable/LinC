@@ -10,15 +10,20 @@
 #import "BRContactListTableViewCell.h"
 #import "IUserModel.h"
 #import "BRAddingFriendViewController.h"
-#import "BRMessageViewController.h"
+#import "BRFriendInfoTableViewController.h"
+#import "BRFriendRequestTableViewController.h"
 #import "BRClientManager.h"
 #import <MJRefresh.h>
+#import "BRFileWithNewFriendsRequestData.h"
+#import "BRNewFriendTableViewController.h"
 
-
-@interface BRContactListViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface BRContactListViewController () <EMContactManagerDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) NSArray *storedListArray;
 @property (nonatomic, strong) NSArray *storedIconArray;
+
+@property (nonatomic, copy) NSString *friendUserID;
+@property (nonatomic, copy) NSString *friendMessage;
 
 @end
 
@@ -41,11 +46,17 @@ static NSString * const cellIdentifier = @"ContactListCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-
+    
     [self setUpTableView];
     [self setUpNavigationBarItem];
     
     [self tableViewDidTriggerHeaderRefresh];
+    
+    //注册好友回调
+    [[EMClient sharedClient].contactManager addDelegate:self delegateQueue:nil];
+    //    //移除好友回调
+    //    [[EMClient sharedClient].contactManager removeDelegate:self];
+    
 }
 
 
@@ -118,7 +129,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
- 
+    
     if (section == TableViewSectionZero ) {
         return self.storedListArray.count;
     } else {
@@ -133,29 +144,20 @@ static NSString * const cellIdentifier = @"ContactListCell";
         BRContactListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         
         cell.nickName.text = self.storedListArray[indexPath.row];
-        
         cell.nickName.font = [UIFont systemFontOfSize:17];
         cell.imageIcon.image = self.storedIconArray[indexPath.row];
         return cell;
     } else {
-    
+        
         BRContactListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    
+        
         id<IUserModel> contactListModel = [self.dataArray objectAtIndex:indexPath.row];
         cell.contactListModel = contactListModel;
-    
-        
         
         return cell;
     }
 }
 
-#pragma mark UITableViewDelegate
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 50;
-}
 
 /**
  * Set up white space between groups
@@ -171,23 +173,33 @@ static NSString * const cellIdentifier = @"ContactListCell";
 }
 
 
-
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     // New friend and group session
     if (indexPath.section == TableViewSectionZero) {
         if (indexPath.row == TableVIewGroup) {
             
         }
+        // 如果有好友请求，显示好友添加数量label
         if (indexPath.row == TableViewNewFriend) {
-            
+            BRContactListTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+            if (cell.showBadge) {
+                BRNewFriendTableViewController *vc = [[BRNewFriendTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+                [self.navigationController pushViewController:vc animated:YES];
+            }
         }
     }
     // User contact list cell
     if (indexPath.section == TableViewSectionOne) {
         BRContactListModel *contactListModel = self.dataArray[indexPath.row];
-        BRMessageViewController *vc = [[BRMessageViewController alloc] initWithConversationChatter:contactListModel.username conversationType:EMConversationTypeChat];
+        
+        UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRFriendInfo" bundle:[NSBundle mainBundle]];
+        
+        BRFriendInfoTableViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRFriendInfoTableViewController"];
+        vc.searchID = contactListModel.username;
+        vc.isFriend = YES;
+        
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
@@ -226,6 +238,35 @@ static NSString * const cellIdentifier = @"ContactListCell";
         }
         [weakself tableViewDidFinishRefresh:BRRefreshTableViewWidgetHeader reload:NO];
     });
+}
+
+#pragma mark - EMContactManager delegate
+
+// 好友请求时的回调
+- (void)friendRequestDidReceiveFromUser:(NSString *)aUsername message:(NSString *)aMessage {
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    
+    BRContactListTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    cell.badgeLabel.text = [BRFileWithNewFriendsRequestData countForNewFriendRequest];
+    cell.showBadge = YES;
+    [self.tableView reloadData];
+    
+    // 收到有效的邀请
+    if ((aUsername || aMessage) ) {
+        NSDictionary *dataDict = [NSDictionary dictionaryWithObjectsAndKeys:aUsername, @"userID", aMessage, @"message", nil];
+        [BRFileWithNewFriendsRequestData savedToPlistWithData:dataDict];
+    }
+}
+
+// 好友通过邀请时的回调， 通过服务器加载好友列表
+- (void)friendshipDidAddByUser:(NSString *)aUsername {
+    [self tableViewDidTriggerHeaderRefresh];
+}
+
+//删除好友时，双方都会收到的回调
+- (void)friendshipDidRemoveByUser:(NSString *)aUsername {
+    [self tableViewDidTriggerHeaderRefresh];
 }
 
 @end

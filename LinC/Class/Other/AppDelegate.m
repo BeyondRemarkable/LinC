@@ -22,38 +22,26 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-   
     NSString *appkey = @"1153170608178531#linc-dev";
     NSString *apnsCertName = @"";
     [[BRSDKHelper shareHelper] hyphenateApplication:application
-                        didFinishLaunchingWithOptions:launchOptions
-                                               appkey:appkey
-                                         apnsCertName:apnsCertName
-                                          otherConfig:@{kSDKConfigEnableConsoleLogger:[NSNumber numberWithBool:YES]}];
+                      didFinishLaunchingWithOptions:launchOptions
+                                             appkey:appkey
+                                       apnsCertName:apnsCertName
+                                        otherConfig:@{kSDKConfigEnableConsoleLogger:[NSNumber numberWithBool:YES]}];
     
+    if ([EMClient sharedClient].options.isAutoLogin) {
+        // 之前登录过，可以显示主界面
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+        BRTabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:@"BRTabBarController"];
     
-    if ([[EMClient sharedClient] isLoggedIn]) {
+        self.window.rootViewController = vc;
+    } else {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Account" bundle:[NSBundle mainBundle]];
         BRLoginViewController *loginVc = [storyboard instantiateInitialViewController];
         self.window.rootViewController = loginVc;
-        return YES;
-    } else {
-        if ([EMClient sharedClient].options.isAutoLogin) {
-            
-            [[BRClientManager sharedManager] loginWithUsername:userName password:password success:^(NSString *username) {
-                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-                BRTabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:@"BRTabBarController"];
-                [[UIApplication sharedApplication].keyWindow setRootViewController:vc];
-            } failure:^(EMError *error) {
-                NSLog(@"%@", error.errorDescription);
-            }];
-        } else {
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Account" bundle:[NSBundle mainBundle]];
-            BRLoginViewController *loginVc = [storyboard instantiateInitialViewController];
-            self.window.rootViewController = loginVc;
-        }
     }
-    
+    [self setupOptions];
     return YES;
 }
 
@@ -80,6 +68,11 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)setupOptions {
+    [[EMClient sharedClient] addDelegate:self delegateQueue:nil];
+    [[EMClient sharedClient].options setIsAutoAcceptGroupInvitation:YES];
 }
 
 @end

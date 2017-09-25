@@ -112,6 +112,11 @@
 		E90F7BD61F670DC400333382 /* BRWhatsUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B761F670DC300333382 /* BRWhatsUpViewController.m */; };
 		E90F7BD91F67368200333382 /* UIView+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7BD81F67368200333382 /* UIView+Animation.m */; };
 		E95FA8CB1F7065C50023BB1C /* BRAddedFriendTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E95FA8CA1F7065C50023BB1C /* BRAddedFriendTableViewController.m */; };
+		E996231D1F794B5A00A90FD2 /* BRFileWithNewFriendsRequestData.m in Sources */ = {isa = PBXBuildFile; fileRef = E996231C1F794B5A00A90FD2 /* BRFileWithNewFriendsRequestData.m */; };
+		E9C5F3F51F75A8F90073A86E /* BRFriendRequestTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C5F3F41F75A8F90073A86E /* BRFriendRequestTableViewController.m */; };
+		E9C5F3F81F75AE6D0073A86E /* BRNewFriendTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C5F3F71F75AE6D0073A86E /* BRNewFriendTableViewController.m */; };
+		E9C5F3FC1F75B2940073A86E /* BRNewFriendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C5F3FA1F75B2940073A86E /* BRNewFriendTableViewCell.m */; };
+		E9C5F3FD1F75B2940073A86E /* BRNewFriendTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9C5F3FB1F75B2940073A86E /* BRNewFriendTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -342,6 +347,15 @@
 		E90F7BD81F67368200333382 /* UIView+Animation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Animation.m"; sourceTree = "<group>"; };
 		E95FA8C91F7065C50023BB1C /* BRAddedFriendTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRAddedFriendTableViewController.h; sourceTree = "<group>"; };
 		E95FA8CA1F7065C50023BB1C /* BRAddedFriendTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRAddedFriendTableViewController.m; sourceTree = "<group>"; };
+		E996231B1F794B5A00A90FD2 /* BRFileWithNewFriendsRequestData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRFileWithNewFriendsRequestData.h; sourceTree = "<group>"; };
+		E996231C1F794B5A00A90FD2 /* BRFileWithNewFriendsRequestData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRFileWithNewFriendsRequestData.m; sourceTree = "<group>"; };
+		E9C5F3F31F75A8F90073A86E /* BRFriendRequestTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRFriendRequestTableViewController.h; sourceTree = "<group>"; };
+		E9C5F3F41F75A8F90073A86E /* BRFriendRequestTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRFriendRequestTableViewController.m; sourceTree = "<group>"; };
+		E9C5F3F61F75AE6D0073A86E /* BRNewFriendTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRNewFriendTableViewController.h; sourceTree = "<group>"; };
+		E9C5F3F71F75AE6D0073A86E /* BRNewFriendTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRNewFriendTableViewController.m; sourceTree = "<group>"; };
+		E9C5F3F91F75B2940073A86E /* BRNewFriendTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRNewFriendTableViewCell.h; sourceTree = "<group>"; };
+		E9C5F3FA1F75B2940073A86E /* BRNewFriendTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRNewFriendTableViewCell.m; sourceTree = "<group>"; };
+		E9C5F3FB1F75B2940073A86E /* BRNewFriendTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRNewFriendTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -529,6 +543,10 @@
 				E90F7ABD1F670DC300333382 /* BRScannerViewController.xib */,
 				E95FA8C91F7065C50023BB1C /* BRAddedFriendTableViewController.h */,
 				E95FA8CA1F7065C50023BB1C /* BRAddedFriendTableViewController.m */,
+				E9C5F3F31F75A8F90073A86E /* BRFriendRequestTableViewController.h */,
+				E9C5F3F41F75A8F90073A86E /* BRFriendRequestTableViewController.m */,
+				E9C5F3F61F75AE6D0073A86E /* BRNewFriendTableViewController.h */,
+				E9C5F3F71F75AE6D0073A86E /* BRNewFriendTableViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -539,6 +557,8 @@
 				E90F7ABF1F670DC300333382 /* BRContactListModel.h */,
 				E90F7AC01F670DC300333382 /* BRContactListModel.m */,
 				E90F7AC11F670DC300333382 /* IUserModel.h */,
+				E996231B1F794B5A00A90FD2 /* BRFileWithNewFriendsRequestData.h */,
+				E996231C1F794B5A00A90FD2 /* BRFileWithNewFriendsRequestData.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -549,6 +569,9 @@
 				E90F7AC31F670DC300333382 /* BRContactListTableViewCell.h */,
 				E90F7AC41F670DC300333382 /* BRContactListTableViewCell.m */,
 				E90F7AC51F670DC300333382 /* BRContactListTableViewCell.xib */,
+				E9C5F3F91F75B2940073A86E /* BRNewFriendTableViewCell.h */,
+				E9C5F3FA1F75B2940073A86E /* BRNewFriendTableViewCell.m */,
+				E9C5F3FB1F75B2940073A86E /* BRNewFriendTableViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -992,6 +1015,7 @@
 				E90F7B8B1F670DC300333382 /* BRDropDownViewController.xib in Resources */,
 				27FC23F81F7025D6001148D7 /* Main.storyboard in Resources */,
 				E90F7B851F670DC300333382 /* BRScannerViewController.xib in Resources */,
+				E9C5F3FD1F75B2940073A86E /* BRNewFriendTableViewCell.xib in Resources */,
 				E90F7B881F670DC300333382 /* BRContactListTableViewCell.xib in Resources */,
 				E90F7BCA1F670DC400333382 /* ProvincesAndCities.plist in Resources */,
 				E90F7B8F1F670DC300333382 /* BRConversationCell.xib in Resources */,
@@ -1089,6 +1113,7 @@
 				E90F7BAD1F670DC300333382 /* BRConvertToCommonEmoticonsHelper.m in Sources */,
 				E90F7B871F670DC300333382 /* BRContactListTableViewCell.m in Sources */,
 				E90F7B7E1F670DC300333382 /* BRUserInfoSetUpTableViewController.m in Sources */,
+				E9C5F3FC1F75B2940073A86E /* BRNewFriendTableViewCell.m in Sources */,
 				E90F7BAB1F670DC300333382 /* BRCDDeviceManagerBase.m in Sources */,
 				E90F7BAE1F670DC400333382 /* BREmoji.m in Sources */,
 				E95FA8CB1F7065C50023BB1C /* BRAddedFriendTableViewController.m in Sources */,
@@ -1122,6 +1147,7 @@
 				E90F7B9C1F670DC300333382 /* BRBubbleView+Gif.m in Sources */,
 				E90F7BD91F67368200333382 /* UIView+Animation.m in Sources */,
 				E90F7BB51F670DC400333382 /* wav.mm in Sources */,
+				E996231D1F794B5A00A90FD2 /* BRFileWithNewFriendsRequestData.m in Sources */,
 				E90F7BBB1F670DC400333382 /* BRChatToolbar.m in Sources */,
 				E90F7BCC1F670DC400333382 /* BRLocationCitiListTableViewController.m in Sources */,
 				E90F7B831F670DC300333382 /* BRFriendInfoTableViewController.m in Sources */,
@@ -1146,10 +1172,12 @@
 				E90F7BC21F670DC400333382 /* BRTextView.m in Sources */,
 				E90F7B981F670DC300333382 /* BRTabBarController.m in Sources */,
 				E90F7B951F670DC300333382 /* UIView+Extension.m in Sources */,
+				E9C5F3F51F75A8F90073A86E /* BRFriendRequestTableViewController.m in Sources */,
 				E90F7BCD1F670DC400333382 /* BRLocationListViewController.m in Sources */,
 				E90F7B9F1F670DC300333382 /* BRBubbleView+Text.m in Sources */,
 				E90F7B7C1F670DC300333382 /* BRResetPasswordViewController.m in Sources */,
 				E90F7BD41F670DC400333382 /* BRNicknameTextViewController.m in Sources */,
+				E9C5F3F81F75AE6D0073A86E /* BRNewFriendTableViewController.m in Sources */,
 				E90F7BA51F670DC300333382 /* BRCDDeviceManager+Remind.m in Sources */,
 				E90F7BBF1F670DC400333382 /* BRMessageCell.m in Sources */,
 				E90F7BC11F670DC400333382 /* BRRecordView.m in Sources */,

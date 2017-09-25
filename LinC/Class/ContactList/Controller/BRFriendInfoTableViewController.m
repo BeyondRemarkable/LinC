@@ -10,6 +10,7 @@
 #import "BRAddingFriendViewController.h"
 #import "BRHTTPSessionManager.h"
 #import "BRAddedFriendTableViewController.h"
+#import "BRMessageViewController.h"
 #import <Hyphenate/Hyphenate.h>
 #import <AFNetworking.h>
 #import <MBProgressHUD.h>
@@ -76,11 +77,11 @@
     NSDictionary *parameters = @{@"key":@"username", @"value":self.searchID};
     
     [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"%@", responseObject);
+ 
         [self setUpUserInfoFrom:responseObject];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"53946ec09e4811e79ffc87f0172ce81b---%@", error.localizedDescription);
+        NSLog(@"%@", error.localizedDescription);
     }];
 }
 
@@ -136,6 +137,8 @@
 }
 
 - (IBAction)clickChat:(id)sender {
+      BRMessageViewController *vc = [[BRMessageViewController alloc] initWithConversationChatter:self.searchID conversationType:EMConversationTypeChat];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 
