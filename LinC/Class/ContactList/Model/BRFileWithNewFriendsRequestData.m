@@ -27,6 +27,7 @@
     if (![fileManager fileExistsAtPath: path]) {
         path = [documentsDirectory stringByAppendingPathComponent: [NSString stringWithFormat:@"newfirendRequestData.plist"]];
     }
+    NSLog(@"path=%@", path);
     return path;
 }
 
@@ -42,7 +43,7 @@
     NSLog(@"path=%@", path);
     // Write data to file
     NSMutableArray *newfriendData = [[NSMutableArray alloc] initWithContentsOfFile: path];
-    if (!newfriendData) {
+    if (newfriendData.count == 0) {
         newfriendData = [NSMutableArray array];
         [newfriendData addObject:dictData];
         [newfriendData writeToFile:path atomically:YES];
@@ -68,11 +69,11 @@
     NSString *path = [self getPath];
     NSMutableArray *newfriendData = [[NSMutableArray alloc] initWithContentsOfFile: path];
     
-    if (newfriendData.count) {
+//    if (newfriendData.count) {
         return [NSString stringWithFormat:@"%lu", (unsigned long)newfriendData.count];
-    } else {
-        return @"1";
-    }
+//    } else {
+//        return @"1";
+//    }
 }
 
 

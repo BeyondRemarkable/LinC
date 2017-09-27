@@ -48,10 +48,10 @@
         [self.chatButton setHidden:YES];
         [self.deleteFriendButton setHidden:YES];
     }
-
+    
     [self setupNavigationBarItem];
     [self loadDataFromServer];
-    }
+}
 
 
 - (void)setupNavigationBarItem {
@@ -77,7 +77,7 @@
     NSDictionary *parameters = @{@"key":@"username", @"value":self.searchID};
     
     [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
- 
+        
         [self setUpUserInfoFrom:responseObject];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -124,20 +124,40 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-
-// delete friend 
+/**
+    删除好友
+ */
 - (IBAction)clickDeleteFriend:(id)sender {
-    [[EMClient sharedClient].contactManager deleteContact:self.searchID isDeleteConversation:YES completion:^(NSString *aUsername, EMError *aError) {
-        if (!aError) {
-            hud.mode = MBProgressHUDModeText;
-            hud.label.text = @"Delete successful";
-            [hud hideAnimated:YES afterDelay:1.5];
-        }
+    UIAlertController *actionSheet =[UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Confirm Delete" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [[EMClient sharedClient].contactManager deleteContact:self.searchID isDeleteConversation:YES completion:^(NSString *aUsername, EMError *aError) {
+            if (!aError) {
+                hud.mode = MBProgressHUDModeText;
+                hud.label.text = @"Delete successful";
+                [hud hideAnimated:YES afterDelay:1.5];
+                [self performSelector:@selector(dismissVC) withObject:nil afterDelay:1.0];
+            }
+        }];
     }];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        [actionSheet dismissViewControllerAnimated:YES completion:nil];
+    }];
+    
+    [actionSheet addAction:delete];
+    [actionSheet addAction:cancel];
+    
+    [self presentViewController:actionSheet animated:YES completion:nil];
+    
+}
+
+- (void)dismissVC {
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (IBAction)clickChat:(id)sender {
-      BRMessageViewController *vc = [[BRMessageViewController alloc] initWithConversationChatter:self.searchID conversationType:EMConversationTypeChat];
+    BRMessageViewController *vc = [[BRMessageViewController alloc] initWithConversationChatter:self.searchID conversationType:EMConversationTypeChat];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

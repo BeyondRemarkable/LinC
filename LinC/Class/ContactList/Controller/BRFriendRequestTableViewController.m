@@ -57,8 +57,8 @@
     NSDictionary *parameters = @{@"key":@"username", @"value":self.searchID};
     
     [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"%@", responseObject);
-        [self setUpUserInfoFrom:responseObject];
+        NSLog(@"responseObject=%@", responseObject);
+        [self setUpUserInfoFrom: responseObject];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@", error.localizedDescription);
@@ -69,7 +69,7 @@
 - (void)setUpUserInfoFrom:(id)responseObject {
     if ([responseObject isKindOfClass:[NSDictionary class]]) {
         NSDictionary *dict = (NSDictionary *)responseObject;
-        NSLog(@"dict--%@", dict);
+        
         if ([dict[@"status"]  isEqual: @"success"]) {
             [MBProgressHUD hideHUDForView:self.view animated:YES];
             
@@ -90,7 +90,6 @@
 {
     return 10;
 }
-
 
 /**
     同意好友请求, 并删除好友请求数据

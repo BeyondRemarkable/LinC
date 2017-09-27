@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "BRContactListModel.h"
+
 @interface BRContactListTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageIcon;

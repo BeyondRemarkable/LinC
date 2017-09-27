@@ -5,7 +5,7 @@
 //  Created by zhe wu on 8/10/17.
 //  Copyright © 2017 BeyondRemarkable. All rights reserved.
 //
-
+#import <Foundation/Foundation.h>
 #import "BRContactListViewController.h"
 #import "BRContactListTableViewCell.h"
 #import "IUserModel.h"
@@ -59,6 +59,10 @@ static NSString * const cellIdentifier = @"ContactListCell";
     
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.tableView reloadData];
+}
 
 /**
  *  Lazy load NSArray storedListArray
@@ -146,6 +150,17 @@ static NSString * const cellIdentifier = @"ContactListCell";
         cell.nickName.text = self.storedListArray[indexPath.row];
         cell.nickName.font = [UIFont systemFontOfSize:17];
         cell.imageIcon.image = self.storedIconArray[indexPath.row];
+        
+        if (indexPath.row == TableViewNewFriend) {
+            NSUInteger friendRequestCount = [[BRFileWithNewFriendsRequestData countForNewFriendRequest] integerValue];
+            if (friendRequestCount) {
+                cell.badgeLabel.hidden = NO;
+                cell.badgeLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)friendRequestCount];
+            } else {
+                cell.badgeLabel.hidden = YES;
+            }
+        }
+        
         return cell;
     } else {
         
@@ -157,7 +172,6 @@ static NSString * const cellIdentifier = @"ContactListCell";
         return cell;
     }
 }
-
 
 /**
  * Set up white space between groups
@@ -184,7 +198,13 @@ static NSString * const cellIdentifier = @"ContactListCell";
         // 如果有好友请求，显示好友添加数量label
         if (indexPath.row == TableViewNewFriend) {
             BRContactListTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-            if (cell.showBadge) {
+            
+//            cell.badgeLabel.text =
+            
+            NSUInteger friendRequestCount = [[BRFileWithNewFriendsRequestData countForNewFriendRequest] integerValue];
+            
+            if (friendRequestCount) {
+                cell.badgeLabel.text = [NSString stringWithFormat:@"%lu",(unsigned long)friendRequestCount];
                 BRNewFriendTableViewController *vc = [[BRNewFriendTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
                 [self.navigationController pushViewController:vc animated:YES];
             }
@@ -248,15 +268,16 @@ static NSString * const cellIdentifier = @"ContactListCell";
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     
     BRContactListTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-    cell.badgeLabel.text = [BRFileWithNewFriendsRequestData countForNewFriendRequest];
-    cell.showBadge = YES;
-    [self.tableView reloadData];
     
     // 收到有效的邀请
     if ((aUsername || aMessage) ) {
         NSDictionary *dataDict = [NSDictionary dictionaryWithObjectsAndKeys:aUsername, @"userID", aMessage, @"message", nil];
         [BRFileWithNewFriendsRequestData savedToPlistWithData:dataDict];
     }
+    
+    cell.badgeLabel.text = [BRFileWithNewFriendsRequestData countForNewFriendRequest];
+    cell.showBadge = YES;
+    [self.tableView reloadData];
 }
 
 // 好友通过邀请时的回调， 通过服务器加载好友列表
