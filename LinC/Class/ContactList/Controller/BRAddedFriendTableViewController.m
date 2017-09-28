@@ -53,6 +53,7 @@
         hud.label.text = @"Already your friend.";
     } else {
         EMError *error = [[EMClient sharedClient].contactManager addContact:self.userID message: self.userMessage.text];
+        hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
         if (error) {
             hud.label.text = error.errorDescription;

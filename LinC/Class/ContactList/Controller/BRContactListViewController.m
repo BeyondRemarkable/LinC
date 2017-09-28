@@ -198,9 +198,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
         // 如果有好友请求，显示好友添加数量label
         if (indexPath.row == TableViewNewFriend) {
             BRContactListTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-            
-//            cell.badgeLabel.text =
-            
+
             NSUInteger friendRequestCount = [[BRFileWithNewFriendsRequestData countForNewFriendRequest] integerValue];
             
             if (friendRequestCount) {

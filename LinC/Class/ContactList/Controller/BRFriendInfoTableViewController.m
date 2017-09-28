@@ -77,7 +77,7 @@
     NSDictionary *parameters = @{@"key":@"username", @"value":self.searchID};
     
     [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         [self setUpUserInfoFrom:responseObject];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -99,6 +99,7 @@
         }
     }
 }
+
 
 #pragma mark - UITableView data source
 
@@ -152,9 +153,6 @@
     
 }
 
-- (void)dismissVC {
-    [self.navigationController popToRootViewControllerAnimated:YES];
-}
 
 - (IBAction)clickChat:(id)sender {
     BRMessageViewController *vc = [[BRMessageViewController alloc] initWithConversationChatter:self.searchID conversationType:EMConversationTypeChat];

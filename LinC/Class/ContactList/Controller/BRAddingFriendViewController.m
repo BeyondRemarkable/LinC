@@ -11,8 +11,13 @@
 #import "BRFriendInfoTableViewController.h"
 #import <Hyphenate/Hyphenate.h>
 #import <MJRefresh.h>
+#import <MBProgressHUD.h>
+#import "BRFriendRequestTableViewController.h"
 
 @interface BRAddingFriendViewController () <UITextFieldDelegate>
+{
+    MBProgressHUD *hud;
+}
 @property (weak, nonatomic) IBOutlet UITextField *friendIDTextField;
 
 @end
@@ -24,6 +29,7 @@
 
     [self.friendIDTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     [self setupNavigationBarItem];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -32,15 +38,28 @@
 }
 
 // Set up Nagigation Bar Items
-- (void)setupNavigationBarItem {
+- (void)setupNavigationBarItem
+{
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Search" style:UIBarButtonItemStylePlain target:self action: @selector(searchByID:)];
     self.navigationItem.rightBarButtonItem.enabled = NO;
 }
 
-- (void)searchByID:(NSString *)ID {
+- (void)searchByID:(NSString *)searchID {
   
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *savedUserName = [userDefaults objectForKey:kLoginUserNameKey];
+    
+    // 不能添加自己
+    if ([self.friendIDTextField.text isEqualToString:savedUserName]) {
+        hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.label.text = @"Can not add yourself.";
+        [hud hideAnimated:YES afterDelay:1.5];
+        return;
+    }
+    
     UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRFriendInfo" bundle:[NSBundle mainBundle]];
-    BRFriendInfoTableViewController *vc = [sc instantiateViewControllerWithIdentifier: @"BRFriendInfoTableViewController"];
+    BRFriendRequestTableViewController *vc = [sc instantiateViewControllerWithIdentifier: @"BRFriendRequestTableViewController"];
     vc.searchID = self.friendIDTextField.text;
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
     
@@ -54,7 +73,6 @@
     [self.navigationController pushViewController:vc animated:YES];
     
 //    [self presentViewController:vc animated:YES completion: nil];
-    
 }
 
 /**

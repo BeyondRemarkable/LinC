@@ -14,7 +14,9 @@
 #import <SAMKeychain.h>
 
 @interface BRFriendRequestTableViewController ()
-
+{
+    MBProgressHUD *hud;
+}
 // User Info labels
 @property (weak, nonatomic) IBOutlet UILabel *userNickName;
 @property (weak, nonatomic) IBOutlet UILabel *userID;
@@ -42,7 +44,7 @@
 
 
 /**
-    从服务器获取好友JSON信息，并赋值到各个label上
+    从服务器获取好友JSON信息
  */
 - (void)loadDataFromServer {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -57,7 +59,7 @@
     NSDictionary *parameters = @{@"key":@"username", @"value":self.searchID};
     
     [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"responseObject=%@", responseObject);
+        
         [self setUpUserInfoFrom: responseObject];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -65,20 +67,35 @@
     }];
 }
 
-// set up all data to user labels
+// 把从服务器获得的JSON数据赋值到各个label上
 - (void)setUpUserInfoFrom:(id)responseObject {
     if ([responseObject isKindOfClass:[NSDictionary class]]) {
         NSDictionary *dict = (NSDictionary *)responseObject;
+        NSLog(@"dict--%@", dict);
         
+        // 成功获取好友信息， 并赋值到label上
         if ([dict[@"status"]  isEqual: @"success"]) {
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-            
+
             NSArray *userArray = [dict[@"data"][@"users"] lastObject];
+          
             NSDictionary *userDict = (NSDictionary *)userArray;
             self.userID.text = userDict[@"username"];
+        } else {
+            // 获取失败， 显示失败信息 并返回
+            hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.mode = MBProgressHUDModeText;
+            [hud hideAnimated:YES afterDelay:1.5];
+            hud.label.text = dict[@"message"];
+            
+            [self performSelector:@selector(dismissVC) withObject:nil afterDelay:1.0];
         }
     }
 }
+
+- (void)dismissVC {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 
 #pragma mark - UITableView data source
 

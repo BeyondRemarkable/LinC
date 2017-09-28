@@ -117,6 +117,7 @@
 		E9C5F3F81F75AE6D0073A86E /* BRNewFriendTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C5F3F71F75AE6D0073A86E /* BRNewFriendTableViewController.m */; };
 		E9C5F3FC1F75B2940073A86E /* BRNewFriendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C5F3FA1F75B2940073A86E /* BRNewFriendTableViewCell.m */; };
 		E9C5F3FD1F75B2940073A86E /* BRNewFriendTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9C5F3FB1F75B2940073A86E /* BRNewFriendTableViewCell.xib */; };
+		E9CC14211F7C4E3C0070E4AC /* BRGroupListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CC14201F7C4E3C0070E4AC /* BRGroupListTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -356,6 +357,8 @@
 		E9C5F3F91F75B2940073A86E /* BRNewFriendTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRNewFriendTableViewCell.h; sourceTree = "<group>"; };
 		E9C5F3FA1F75B2940073A86E /* BRNewFriendTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRNewFriendTableViewCell.m; sourceTree = "<group>"; };
 		E9C5F3FB1F75B2940073A86E /* BRNewFriendTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRNewFriendTableViewCell.xib; sourceTree = "<group>"; };
+		E9CC141F1F7C4E3C0070E4AC /* BRGroupListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRGroupListTableViewController.h; sourceTree = "<group>"; };
+		E9CC14201F7C4E3C0070E4AC /* BRGroupListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRGroupListTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -547,6 +550,8 @@
 				E9C5F3F41F75A8F90073A86E /* BRFriendRequestTableViewController.m */,
 				E9C5F3F61F75AE6D0073A86E /* BRNewFriendTableViewController.h */,
 				E9C5F3F71F75AE6D0073A86E /* BRNewFriendTableViewController.m */,
+				E9CC141F1F7C4E3C0070E4AC /* BRGroupListTableViewController.h */,
+				E9CC14201F7C4E3C0070E4AC /* BRGroupListTableViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1157,6 +1162,7 @@
 				E90F7BCB1F670DC400333382 /* BRMediaCell.m in Sources */,
 				E90F7BD11F670DC400333382 /* BRUserImageViewController.m in Sources */,
 				E90F7BAA1F670DC300333382 /* BRAudioRecorderUtil.m in Sources */,
+				E9CC14211F7C4E3C0070E4AC /* BRGroupListTableViewController.m in Sources */,
 				E90F7B7D1F670DC300333382 /* BRUserAccountSetUpViewController.m in Sources */,
 				E90F7B9D1F670DC300333382 /* BRBubbleView+Image.m in Sources */,
 				E90F7B841F670DC300333382 /* BRScannerViewController.m in Sources */,
