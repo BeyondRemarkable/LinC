@@ -18,6 +18,10 @@
 
 @implementation BRContactListTableViewCell
 
++ (NSString *)cellIdentifierWithModel:(id)model {
+    return @"ContactListCell";
+}
+
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code

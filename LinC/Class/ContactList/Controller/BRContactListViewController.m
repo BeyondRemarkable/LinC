@@ -11,6 +11,7 @@
 #import "IUserModel.h"
 #import "BRAddingFriendViewController.h"
 #import "BRMessageViewController.h"
+#import "BRClientManager.h"
 #import <MJRefresh.h>
 
 
@@ -78,9 +79,8 @@ static NSString * const cellIdentifier = @"ContactListCell";
  */
 - (void)setUpTableView
 {
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    
+    self.tableView.estimatedSectionHeaderHeight = 0;
+    self.tableView.estimatedSectionFooterHeight = 0;
     //Register reuseable tableview cell
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([BRContactListTableViewCell class]) bundle:nil] forCellReuseIdentifier:cellIdentifier];
     
@@ -148,35 +148,27 @@ static NSString * const cellIdentifier = @"ContactListCell";
 
 #pragma mark UITableViewDelegate
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 50;
 }
 
-/**
- * Set up white space between groups
- */
--(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
-    return 1;
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 0.1;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     return 20;
 }
-
-
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     // New friend and group session
     if (indexPath.section == TableViewSectionZero) {
-        if (indexPath.row == TableVIewGroup) {
+        if (indexPath.row == TableViewNewFriend) {
             
         }
-        if (indexPath.row == TableViewNewFriend) {
+        else if (indexPath.row == TableVIewGroup) {
             
         }
     }
@@ -192,35 +184,29 @@ static NSString * const cellIdentifier = @"ContactListCell";
 - (void)tableViewDidTriggerHeaderRefresh
 {
     __weak typeof(self) weakself = self;
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        EMError *error = nil;
-        NSArray *buddyList = [[EMClient sharedClient].contactManager getContactsFromServerWithError:&error];
-        if (!error) {
-            NSMutableArray *contactsSource = [NSMutableArray arrayWithArray:buddyList];
-            NSMutableArray *tempDataArray = [NSMutableArray array];
+    [[EMClient sharedClient].contactManager getContactsFromServerWithCompletion:^(NSArray *aList, EMError *aError) {
+        if (!aError) {
+            NSMutableArray *contactsSource = [NSMutableArray array];
             
             // remove the contact that is currently in the black list
             NSArray *blockList = [[EMClient sharedClient].contactManager getBlackList];
-            for (NSInteger i = 0; i < buddyList.count; i++) {
-                NSString *buddy = [buddyList objectAtIndex:i];
+            for (NSInteger i = 0; i < aList.count; i++) {
+                NSString *buddy = [aList objectAtIndex:i];
                 if (![blockList containsObject:buddy]) {
                     [contactsSource addObject:buddy];
-                    
-                    BRContactListModel *model = [[BRContactListModel alloc] initWithBuddy:buddy];
-                    
-                    if(model){
-                        [tempDataArray addObject:model];
-                    }
                 }
             }
-            dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [[BRClientManager sharedManager] getUserInfoWithUsernames:contactsSource success:^(NSMutableArray *aList) {
                 [weakself.dataArray removeAllObjects];
-                [weakself.dataArray addObjectsFromArray:tempDataArray];
+                [weakself.dataArray addObjectsFromArray:aList];
                 [weakself.tableView reloadData];
-            });
+                [weakself tableViewDidFinishRefresh:BRRefreshTableViewWidgetHeader reload:NO];
+            } failure:^(EMError *aError) {
+                NSLog(@"%@", aError.errorDescription);
+            }];
         }
-        [weakself tableViewDidFinishRefresh:BRRefreshTableViewWidgetHeader reload:NO];
-    });
+    }];
 }
 
 @end

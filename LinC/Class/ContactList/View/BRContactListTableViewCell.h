@@ -15,4 +15,6 @@
 
 @property(nonatomic, strong) BRContactListModel *contactListModel;
 
++ (NSString *)cellIdentifierWithModel:(id)model;
+
 @end

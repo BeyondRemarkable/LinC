@@ -7,6 +7,7 @@
 //
 
 #import "BRContactListModel.h"
+#import "BRClientManager.h"
 
 @implementation BRContactListModel
 
@@ -17,7 +18,8 @@
 
 - (instancetype)initWithBuddy:(NSString *)buddy
 {
-    self.username = buddy;
+    _buddy = buddy;
+    _username = buddy;
     return self;
 }
 

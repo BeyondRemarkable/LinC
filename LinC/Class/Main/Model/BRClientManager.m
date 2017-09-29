@@ -8,6 +8,7 @@
 
 #import "BRClientManager.h"
 #import "BRHTTPSessionManager.h"
+#import "BRContactListModel.h"
 #import <SAMKeychain.h>
 
 @implementation BRClientManager
@@ -117,6 +118,63 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         EMError *emError = [EMError errorWithDescription:error.localizedDescription code:EMErrorServerUnknownError];
         failureBlock(emError);
+    }];
+}
+
+- (void)getUserInfoWithUsernames:(NSArray *)usernameList success:(void (^)(NSMutableArray *))successBlock failure:(void (^)(EMError *))failureBlock {
+    // 如果传入数组为空
+    if (usernameList.count == 0) {
+        return;
+    }
+    
+    BRHTTPSessionManager *manager = [BRHTTPSessionManager manager];
+    NSString *url = [kBaseURL stringByAppendingPathComponent:@"/api/v1/users/find"];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *username = [userDefaults objectForKey:kLoginUserNameKey];
+    NSString *token = [SAMKeychain passwordForService:kLoginTokenKey account:username];
+    [manager.requestSerializer setValue:[@"Bearer " stringByAppendingString:token]  forHTTPHeaderField:@"Authorization"];
+    
+    NSMutableString *jsonStr = nil;
+    // 只获取一个用户
+    if (usernameList.count == 1) {
+        jsonStr = [NSMutableString stringWithString:[usernameList firstObject]];
+    }
+    // 获取多个用户，构建json字符串
+    else {
+        jsonStr = [NSMutableString stringWithString:@"["];
+        for (NSString *username in usernameList) {
+            [jsonStr appendString:@"'"];
+            [jsonStr appendString:username];
+            [jsonStr appendString:@"',"];
+        }
+        [jsonStr replaceCharactersInRange:NSMakeRange(jsonStr.length - 1, 1) withString:@"]"];
+    }
+    NSDictionary *parameters = @{@"key":@"username",@"value":jsonStr};
+    
+    NSMutableArray *userModelArray = [NSMutableArray array];
+    [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *dict = (NSDictionary *)responseObject;
+        if ([dict[@"status"] isEqualToString:@"success"]) {
+            for (int i = 0; i < usernameList.count; i++) {
+                BRContactListModel *model = [[BRContactListModel alloc] initWithBuddy:dict[@"data"][@"users"][i][@"username"]];
+                model.username = dict[@"data"][@"users"][i][@"username"];
+                model.nickname = dict[@"data"][@"users"][i][@"nickname"];
+                if (model.nickname.length == 0) {
+                    model.nickname = model.username;
+                }
+                model.avatarURLPath = dict[@"data"][@"users"][i][@""];
+                
+                [userModelArray addObject:model];
+            }
+            successBlock(userModelArray);
+        }
+        else {
+            EMError *error = [EMError errorWithDescription:dict[@"message"] code:EMErrorGeneral];
+            failureBlock(error);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        EMError *aError = [EMError errorWithDescription:error.localizedDescription code:EMErrorServerUnknownError];
+        failureBlock(aError);
     }];
 }
 

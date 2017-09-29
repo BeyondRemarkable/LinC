@@ -629,7 +629,7 @@
     CGFloat duration = [userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     UIViewAnimationCurve curve = [userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
     
-    void(^animations)() = ^{
+    void(^animations)(void) = ^{
         [self _willShowKeyboardFromFrame:beginFrame toFrame:endFrame];
     };
     
