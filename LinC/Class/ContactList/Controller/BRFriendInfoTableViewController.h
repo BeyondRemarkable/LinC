@@ -13,5 +13,6 @@
 @interface BRFriendInfoTableViewController : UITableViewController
 @property (nonatomic, assign) BOOL isFriend;
 @property (nonatomic, copy) NSString *searchID;
+@property (nonatomic, strong) NSDictionary *friendDict;
 
 @end

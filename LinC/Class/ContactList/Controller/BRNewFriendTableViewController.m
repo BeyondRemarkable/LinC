@@ -25,7 +25,7 @@
     // Register tableview cell
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([BRNewFriendTableViewCell class]) bundle:nil] forCellReuseIdentifier:@"newFriendCell"];
     
-    // 读取文件， 更新tableview
+    // 读取需要好友请求JSON数据， 更新tableview
     self.dataArray = [BRFileWithNewFriendsRequestData getAllNewFriendRequestData];
     NSLog(@"self.dataArray--%@", self.dataArray);
     [self.tableView reloadData];
@@ -63,7 +63,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     NSDictionary *dict = self.dataArray[indexPath.row];
-    
     UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRFriendInfo" bundle:[NSBundle mainBundle]];
     BRFriendRequestTableViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRFriendRequestTableViewController"];
     vc.searchID = [dict objectForKey:@"userID"];

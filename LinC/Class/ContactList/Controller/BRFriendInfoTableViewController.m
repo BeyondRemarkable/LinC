@@ -7,9 +7,9 @@
 //
 
 #import "BRFriendInfoTableViewController.h"
-#import "BRAddingFriendViewController.h"
+#import "BRSearchFriendViewController.h"
 #import "BRHTTPSessionManager.h"
-#import "BRAddedFriendTableViewController.h"
+#import "BRRequestMessageTableViewController.h"
 #import "BRMessageViewController.h"
 #import <Hyphenate/Hyphenate.h>
 #import <AFNetworking.h>
@@ -43,16 +43,16 @@
     
     if (self.isFriend) {
         [self.addFriendButton setHidden:YES];
+        [self setUpFiendLabel];
     }
     else {
         [self.chatButton setHidden:YES];
         [self.deleteFriendButton setHidden:YES];
+        [self setUpNewFriendLabel];
     }
     
     [self setupNavigationBarItem];
-    [self loadDataFromServer];
 }
-
 
 - (void)setupNavigationBarItem {
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -63,43 +63,16 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
 }
 
-// Load JSON Data of user info from server
-- (void)loadDataFromServer {
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    
-    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-    NSString *savedUserName = [userDefault objectForKey:kLoginUserNameKey];
-    NSString *token = [SAMKeychain passwordForService:kLoginTokenKey account: savedUserName];
-    BRHTTPSessionManager *manager = [BRHTTPSessionManager manager];
-    [manager.requestSerializer setValue:[@"Bearer " stringByAppendingString:token]  forHTTPHeaderField:@"Authorization"];
-    
-    NSString *url =  [kBaseURL stringByAppendingPathComponent:@"/api/v1/users/find"];
-    NSDictionary *parameters = @{@"key":@"username", @"value":self.searchID};
-    
-    [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-        [self setUpUserInfoFrom:responseObject];
-        
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"%@", error.localizedDescription);
-    }];
+// 给各个label赋值（不是好友时）
+- (void)setUpNewFriendLabel {
+    NSDictionary *dict = self.friendDict;
+    self.userID.text = dict[@"username"];
 }
 
-// set up all data to user labels
-- (void)setUpUserInfoFrom:(id)responseObject {
-    if ([responseObject isKindOfClass:[NSDictionary class]]) {
-        NSDictionary *dict = (NSDictionary *)responseObject;
-        NSLog(@"dict--%@", dict);
-        if ([dict[@"status"]  isEqual: @"success"]) {
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-            
-            NSArray *userArray = [dict[@"data"][@"users"] lastObject];
-            NSDictionary *userDict = (NSDictionary *)userArray;
-            self.userID.text = userDict[@"username"];
-        }
-    }
+// 给各个label赋值（好友时）
+- (void)setUpFiendLabel {
+    self.userID.text = self.searchID;
 }
-
 
 #pragma mark - UITableView data source
 
@@ -117,12 +90,13 @@
     
 }
 
-- (IBAction)clickAddFriend:(id)sender {
+- (IBAction)clickAddFriend{
     UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRFriendInfo" bundle:[NSBundle mainBundle]];
     
-    BRAddedFriendTableViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRAddedFriendTableViewController"];
-    vc.userID = self.searchID;
-    [self.navigationController pushViewController:vc animated:YES];
+    BRRequestMessageTableViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRRequestMessageTableViewController"];
+    vc.userID = self.userID.text;
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 /**
@@ -134,8 +108,9 @@
     UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Confirm Delete" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [[EMClient sharedClient].contactManager deleteContact:self.searchID isDeleteConversation:YES completion:^(NSString *aUsername, EMError *aError) {
             if (!aError) {
+                hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
                 hud.mode = MBProgressHUDModeText;
-                hud.label.text = @"Delete successful";
+                hud.label.text = @"Successful delete";
                 [hud hideAnimated:YES afterDelay:1.5];
                 [self performSelector:@selector(dismissVC) withObject:nil afterDelay:1.0];
             }
@@ -151,6 +126,11 @@
     
     [self presentViewController:actionSheet animated:YES completion:nil];
     
+
+}
+
+- (void)dismissVC {
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 

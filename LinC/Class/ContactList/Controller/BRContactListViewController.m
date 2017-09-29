@@ -9,7 +9,7 @@
 #import "BRContactListViewController.h"
 #import "BRContactListTableViewCell.h"
 #import "IUserModel.h"
-#import "BRAddingFriendViewController.h"
+#import "BRSearchFriendViewController.h"
 #import "BRFriendInfoTableViewController.h"
 #import "BRFriendRequestTableViewController.h"
 #import "BRClientManager.h"
@@ -119,7 +119,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
     
     UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRFriendInfo" bundle:[NSBundle mainBundle]];
     
-    BRAddingFriendViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRAddingFriendViewController"];
+    BRSearchFriendViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRSearchFriendViewController"];
     
     [self.navigationController pushViewController:vc animated:YES];
     

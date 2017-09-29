@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BRAddedFriendTableViewController : UITableViewController
+@interface BRRequestMessageTableViewController : UITableViewController
 
 @property (nonatomic, strong) NSString *userID;
 

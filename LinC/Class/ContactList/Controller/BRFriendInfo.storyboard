@@ -12,10 +12,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Adding Friend View Controller-->
+        <!--Search Friend View Controller-->
         <scene sceneID="F1X-lW-IcN">
             <objects>
-                <viewController storyboardIdentifier="BRAddingFriendViewController" id="4io-rp-CKB" customClass="BRAddingFriendViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BRSearchFriendViewController" id="4io-rp-CKB" customClass="BRSearchFriendViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gEh-f8-X85"/>
                         <viewControllerLayoutGuide type="bottom" id="F7B-Fh-wsw"/>
@@ -107,7 +107,7 @@
                                     </state>
                                     <state key="highlighted" backgroundImage="background_blue_highlighted"/>
                                     <connections>
-                                        <action selector="clickAddFriend:" destination="iUV-o7-iS1" eventType="touchUpInside" id="nM1-RJ-APk"/>
+                                        <action selector="clickAddFriend" destination="iUV-o7-iS1" eventType="touchUpInside" id="WZf-CD-AG3"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LFR-7v-9gM">
@@ -307,7 +307,6 @@
                         </connections>
                     </tableView>
                     <connections>
-                        <outlet property="addFriendButton" destination="Fz8-1x-Ddx" id="6pk-NY-1X3"/>
                         <outlet property="chatButton" destination="LAS-qH-xVi" id="Voj-zt-ueV"/>
                         <outlet property="deleteFriendButton" destination="LFR-7v-9gM" id="hPy-fY-er2"/>
                         <outlet property="userGender" destination="jSJ-kk-tCc" id="Vgh-jC-dyG"/>
@@ -321,10 +320,10 @@
             </objects>
             <point key="canvasLocation" x="-1" y="7"/>
         </scene>
-        <!--Added Friend Table View Controller-->
+        <!--Request Message Table View Controller-->
         <scene sceneID="32V-oM-iIx">
             <objects>
-                <tableViewController storyboardIdentifier="BRAddedFriendTableViewController" id="TqS-OJ-FXy" customClass="BRAddedFriendTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="BRRequestMessageTableViewController" id="TqS-OJ-FXy" customClass="BRRequestMessageTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="Lon-W9-dcZ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

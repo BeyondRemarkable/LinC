@@ -47,7 +47,7 @@
     从服务器获取好友JSON信息
  */
 - (void)loadDataFromServer {
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
     NSString *savedUserName = [userDefault objectForKey:kLoginUserNameKey];
@@ -80,16 +80,18 @@
           
             NSDictionary *userDict = (NSDictionary *)userArray;
             self.userID.text = userDict[@"username"];
+            [hud hideAnimated:YES];
         } else {
             // 获取失败， 显示失败信息 并返回
-            hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//            hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             hud.mode = MBProgressHUDModeText;
-            [hud hideAnimated:YES afterDelay:1.5];
-            hud.label.text = dict[@"message"];
             
+            hud.label.text = dict[@"message"];
+            [hud hideAnimated:YES afterDelay:1.5];
             [self performSelector:@selector(dismissVC) withObject:nil afterDelay:1.0];
         }
     }
+    
 }
 
 - (void)dismissVC {

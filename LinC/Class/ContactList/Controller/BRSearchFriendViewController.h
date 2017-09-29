@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BRAddingFriendViewController : UIViewController
+@interface BRSearchFriendViewController : UIViewController
 
 @end

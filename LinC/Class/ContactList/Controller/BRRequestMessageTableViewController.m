@@ -6,11 +6,11 @@
 //  Copyright © 2017 BeyondRemarkable. All rights reserved.
 //
 
-#import "BRAddedFriendTableViewController.h"
+#import "BRRequestMessageTableViewController.h"
 #import "BRClientManager.h"
 #import <MBProgressHUD.h>
 
-@interface BRAddedFriendTableViewController ()
+@interface BRRequestMessageTableViewController ()
 {
     MBProgressHUD *hud;
 }
@@ -18,7 +18,7 @@
 
 @end
 
-@implementation BRAddedFriendTableViewController
+@implementation BRRequestMessageTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -38,31 +38,22 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelBtn)];
 }
 
-
-
 /**
-    添加好友，如果已经是好友 则直接返回，不是好友 则发送好友请求
+    发送好友请求
  */
 - (void)sendBtn {
     [self.view endEditing:YES];
-    
-    NSArray *contactArray = [[EMClient sharedClient].contactManager getContacts];
+
+    EMError *error = [[EMClient sharedClient].contactManager addContact:self.userID message: self.userMessage.text];
     hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    
-    if ([contactArray containsObject:self.userID]) {
-        hud.label.text = @"Already your friend.";
-    } else {
-        EMError *error = [[EMClient sharedClient].contactManager addContact:self.userID message: self.userMessage.text];
-        hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
         if (error) {
             hud.label.text = error.errorDescription;
             
         } else {
             hud.label.text = @"Send Successfully";
-            
         }
-    }
+    
     [self performSelector:@selector(dismissVC) withObject:nil afterDelay:1.0];
     [hud hideAnimated:YES afterDelay:1.5];
 }

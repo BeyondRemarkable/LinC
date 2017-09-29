@@ -104,7 +104,7 @@
     BRFriendInfoTableViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRFriendInfoTableViewController"];
 //    [self.navigationController setNavigationBarHidden: NO];
     vc.isFriend = NO;
-    vc.searchID = searchID;
+//    vc.searchID = searchID;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
