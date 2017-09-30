@@ -16,9 +16,13 @@
 #import <MJRefresh.h>
 #import "BRFileWithNewFriendsRequestData.h"
 #import "BRNewFriendTableViewController.h"
+#import "BRGroupListTableViewController.h"
+#import <MBProgressHUD.h>
 
 @interface BRContactListViewController () <EMContactManagerDelegate, UITableViewDelegate, UITableViewDataSource>
-
+{
+    MBProgressHUD *hud;
+}
 @property (nonatomic, strong) NSArray *storedListArray;
 @property (nonatomic, strong) NSArray *storedIconArray;
 
@@ -151,6 +155,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
         cell.nickName.font = [UIFont systemFontOfSize:17];
         cell.imageIcon.image = self.storedIconArray[indexPath.row];
         
+        // 有新好友请求
         if (indexPath.row == TableViewNewFriend) {
             NSUInteger friendRequestCount = [[BRFileWithNewFriendsRequestData countForNewFriendRequest] integerValue];
             if (friendRequestCount) {
@@ -160,7 +165,6 @@ static NSString * const cellIdentifier = @"ContactListCell";
                 cell.badgeLabel.hidden = YES;
             }
         }
-        
         return cell;
     } else {
         
@@ -190,21 +194,28 @@ static NSString * const cellIdentifier = @"ContactListCell";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    // New friend and group session
+    // 群聊天
     if (indexPath.section == TableViewSectionZero) {
         if (indexPath.row == TableVIewGroup) {
-            
+            BRGroupListTableViewController *vc = [[BRGroupListTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+            [self.navigationController pushViewController:vc animated:YES];
         }
         // 如果有好友请求，显示好友添加数量label
         if (indexPath.row == TableViewNewFriend) {
             BRContactListTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-
+            
             NSUInteger friendRequestCount = [[BRFileWithNewFriendsRequestData countForNewFriendRequest] integerValue];
             
             if (friendRequestCount) {
                 cell.badgeLabel.text = [NSString stringWithFormat:@"%lu",(unsigned long)friendRequestCount];
                 BRNewFriendTableViewController *vc = [[BRNewFriendTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
                 [self.navigationController pushViewController:vc animated:YES];
+            } else {
+                hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                hud.mode = MBProgressHUDModeText;
+                hud.label.text = @"No new friend.";
+                [hud hideAnimated:YES afterDelay:1.5];
+
             }
         }
     }
