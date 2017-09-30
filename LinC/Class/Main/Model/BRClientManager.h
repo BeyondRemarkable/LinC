@@ -31,4 +31,9 @@
  */
 - (void)logoutIfSuccess:(void (^)(NSString *message))successBlock failure:(void (^)(EMError *error))failureBlock;
 
+/**
+ 查询用户详情
+ */
+- (void)getUserInfoWithUsernames:(NSArray *)usernameList success:(void (^)(NSMutableArray *aList))successBlock failure:(void (^)(EMError *aError))failureBlock;
+
 @end

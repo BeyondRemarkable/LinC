@@ -34,7 +34,7 @@
         [self setupChildVc:chatsVc title:@"LinC" imageName:@"tabbar_conversationlist" selectedImageName:@"tabbar_conversationlist_selected"];
 
         // Add contact list view controller
-        BRContactListViewController *contactListVC = [[BRContactListViewController alloc] initWithStyle:UITableViewStylePlain];
+        BRContactListViewController *contactListVC = [[BRContactListViewController alloc] initWithStyle:UITableViewStyleGrouped];
         [self setupChildVc:contactListVC title:@"Contact List" imageName:@"tabbar_contactlist" selectedImageName:@"tabbar_contactlist_selected"];
         
         // Add user infromation view controller
