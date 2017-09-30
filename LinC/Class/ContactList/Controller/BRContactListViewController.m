@@ -91,7 +91,8 @@ static NSString * const cellIdentifier = @"ContactListCell";
  */
 - (void)setUpTableView
 {
-    self.tableView.dataSource = self;
+    self.tableView.estimatedSectionHeaderHeight = 0;
+    self.tableView.estimatedSectionFooterHeight = 0;
     //Register reuseable tableview cell
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([BRContactListTableViewCell class]) bundle:nil] forCellReuseIdentifier:cellIdentifier];
     
