@@ -15,6 +15,8 @@
 #import "BRConvertToCommonEmoticonsHelper.h"
 #import "BRDropDownViewController.h"
 #import "BRScannerViewController.h"
+#import "BRCreateChatViewController.h"
+#import "BRNavigationController.h"
 #import "BRClientManager.h"
 #import <SAMKeychain.h>
 
@@ -46,7 +48,7 @@
     [self tableViewDidTriggerHeaderRefresh];
     [self setUpNavigationBarItem];
     
-    self.navigationItem.title = @"Connecting...";
+    self.navigationItem.title = @"LinC";
     [[EMClient sharedClient] addDelegate:self delegateQueue:dispatch_get_main_queue()];
 }
 
@@ -64,12 +66,21 @@
 }
 
 - (void)chatBtnTapped:(UIButton *)sender {
+    [self.dropDownVC.view removeFromSuperview];
+    self.dropDownVC = nil;
+    
+    BRCreateChatViewController *vc = [[BRCreateChatViewController alloc] initWithStyle:UITableViewStylePlain];
+    BRNavigationController *naviVc = [[BRNavigationController alloc] initWithRootViewController:vc];
+    [vc setDismissCompletionBlock:^(UIViewController *vc) {
+        [self.navigationController pushViewController:vc animated:YES];
+    }];
+    [self presentViewController:naviVc animated:YES completion:nil];
 }
 
 - (void)scanQRCodeBtnTapped:(UIButton *)sender {
-    BRScannerViewController *vc = [[BRScannerViewController alloc] initWithNibName:@"BRScannerViewController" bundle:nil];
     [self.dropDownVC.view removeFromSuperview];
     self.dropDownVC = nil;
+    BRScannerViewController *vc = [[BRScannerViewController alloc] initWithNibName:@"BRScannerViewController" bundle:nil];
     [self presentViewController:vc animated:YES completion:nil];
 }
 
@@ -112,7 +123,7 @@
 {
     if (self.dropDownVC) {
         UIView *view = self.dropDownVC.view;
-        [UIView animateWithDuration:1 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
             view.frame = CGRectMake(0, -view.frame.size.height, view.frame.size.width, view.frame.size.height);
         } completion:^(BOOL finished) {
             [self.dropDownVC.view removeFromSuperview];
