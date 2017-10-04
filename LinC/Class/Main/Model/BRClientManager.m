@@ -134,21 +134,8 @@
     NSString *token = [SAMKeychain passwordForService:kLoginTokenKey account:username];
     [manager.requestSerializer setValue:[@"Bearer " stringByAppendingString:token]  forHTTPHeaderField:@"Authorization"];
     
-    NSMutableString *jsonStr = nil;
-    // 只获取一个用户
-    if (usernameList.count == 1) {
-        jsonStr = [NSMutableString stringWithString:[usernameList firstObject]];
-    }
-    // 获取多个用户，构建json字符串
-    else {
-        jsonStr = [NSMutableString stringWithString:@"["];
-        for (NSString *username in usernameList) {
-            [jsonStr appendString:@"'"];
-            [jsonStr appendString:username];
-            [jsonStr appendString:@"',"];
-        }
-        [jsonStr replaceCharactersInRange:NSMakeRange(jsonStr.length - 1, 1) withString:@"]"];
-    }
+    NSData *data = [NSJSONSerialization dataWithJSONObject:usernameList options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *jsonStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     NSDictionary *parameters = @{@"key":@"username",@"value":jsonStr};
     
     NSMutableArray *userModelArray = [NSMutableArray array];

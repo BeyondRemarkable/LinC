@@ -13,7 +13,13 @@
 @interface BRContactListModel : NSObject <IUserModel>
 
 /** 好友环信id(用户环信id) */
-@property (nonatomic, retain) NSString *username;
+@property (nonatomic, copy) NSString *username;
+/** 好友性别 */
+@property (nonatomic, copy) NSString *gender;
+/** 好友个性签名 */
+@property (nonatomic, copy) NSString *whatsUp;
+/** 好友位置 */
+@property (nonatomic, copy) NSString *location;
 
 /** @brief 好友环信id(用户环信id) */
 @property (strong, nonatomic, readonly) NSString *buddy;
