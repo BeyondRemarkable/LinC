@@ -89,9 +89,7 @@
         [session stopRunning];
         [self.scanlayer removeFromSuperlayer];
         AVMetadataMachineReadableCodeObject * metadataObject = [metadataObjects objectAtIndex : 0];
-        
-        NSLog(@"%@",  metadataObject.stringValue);
-        
+    
         [self searchFriendWithUserID:(NSString *)metadataObject.stringValue];
     }
 }
@@ -104,7 +102,7 @@
     BRFriendInfoTableViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRFriendInfoTableViewController"];
 //    [self.navigationController setNavigationBarHidden: NO];
     vc.isFriend = NO;
-//    vc.searchID = searchID;
+    vc.searchID = searchID;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -113,7 +111,7 @@
  */
 - (IBAction)cancalButton:(id)sender {
     
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popToRootViewControllerAnimated:YES];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

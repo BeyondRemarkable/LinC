@@ -69,11 +69,7 @@
     NSString *path = [self getPath];
     NSMutableArray *newfriendData = [[NSMutableArray alloc] initWithContentsOfFile: path];
     
-//    if (newfriendData.count) {
         return [NSString stringWithFormat:@"%lu", (unsigned long)newfriendData.count];
-//    } else {
-//        return @"1";
-//    }
 }
 
 

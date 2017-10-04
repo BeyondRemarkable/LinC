@@ -67,6 +67,14 @@ static NSString * const cellIdentifier = @"ContactListCell";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.tableView reloadData];
+    NSString *badgeCount = [BRFileWithNewFriendsRequestData countForNewFriendRequest];
+    // 是否需要显示tabbar bagge
+    if ([badgeCount integerValue] != 0) {
+        self.tabBarItem.badgeValue = badgeCount;
+    } else {
+        self.tabBarItem.badgeValue = nil;
+    }
+    [self.navigationController setNavigationBarHidden: NO];
 }
 
 /**
@@ -279,10 +287,11 @@ static NSString * const cellIdentifier = @"ContactListCell";
         NSDictionary *dataDict = [NSDictionary dictionaryWithObjectsAndKeys:aUsername, @"userID", aMessage, @"message", nil];
         [BRFileWithNewFriendsRequestData savedToPlistWithData:dataDict];
     }
-    
-    cell.badgeLabel.text = [BRFileWithNewFriendsRequestData countForNewFriendRequest];
+    NSString *badgeCount = [BRFileWithNewFriendsRequestData countForNewFriendRequest];
+    cell.badgeLabel.text = badgeCount;
     cell.showBadge = YES;
     [self.tableView reloadData];
+    self.tabBarItem.badgeValue = badgeCount;
 }
 
 // 好友通过邀请时的回调， 通过服务器加载好友列表

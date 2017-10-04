@@ -86,6 +86,8 @@
     
 }
 
+
+
 //- (void)addChatBadgeBy:(NSInteger)number {
 //    if (number == 0) {
 //        return;
@@ -137,5 +139,7 @@
 //    badgeNum ++;
 //    [contactItem setBadgeValue:[NSString stringWithFormat:@"%ld", badgeNum]];
 //}
+
+
 
 @end

@@ -112,7 +112,7 @@
         NSLog(@"dict--%@", dict);
         
         // 成功获取好友信息，并跳转到BRFriendInfoTableViewController
-        if ([dict[@"status"]  isEqual: @"success"]) {
+        if ([dict[@"status"] isEqual: @"success"]) {
             
             NSArray *userArray = [dict[@"data"][@"users"] lastObject];
             

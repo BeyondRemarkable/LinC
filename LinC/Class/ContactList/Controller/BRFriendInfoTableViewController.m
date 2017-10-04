@@ -65,8 +65,14 @@
 
 // 给各个label赋值（不是好友时）
 - (void)setUpNewFriendLabel {
-    NSDictionary *dict = self.friendDict;
-    self.userID.text = dict[@"username"];
+    // 通过搜索userID
+    if (self.searchID) {
+        self.userID.text = self.searchID;
+    } else {
+        // 通过扫描获得userID
+        NSDictionary *dict = self.friendDict;
+        self.userID.text = dict[@"username"];
+    }
 }
 
 // 给各个label赋值（好友时）
@@ -125,8 +131,6 @@
     [actionSheet addAction:cancel];
     
     [self presentViewController:actionSheet animated:YES completion:nil];
-    
-
 }
 
 - (void)dismissVC {
