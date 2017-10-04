@@ -28,7 +28,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *userNickName;
 @property (weak, nonatomic) IBOutlet UILabel *userID;
 @property (weak, nonatomic) IBOutlet UILabel *userGender;
-@property (weak, nonatomic) IBOutlet UILabel *userWhatUp;
+@property (weak, nonatomic) IBOutlet UILabel *userWhatsUp;
 @property (weak, nonatomic) IBOutlet UILabel *userLocation;
 
 
@@ -41,17 +41,17 @@
     
     [self.navigationController setNavigationBarHidden: NO];
     
-    if (self.isFriend) {
-        [self.addFriendButton setHidden:YES];
-        [self setUpFiendLabel];
-    }
-    else {
-        [self.chatButton setHidden:YES];
-        [self.deleteFriendButton setHidden:YES];
-        [self setUpNewFriendLabel];
-    }
-    
     [self setupNavigationBarItem];
+    
+    [self setupFriendInfo];
+}
+
+- (void)setupFriendInfo {
+    self.userNickName.text = self.contactListModel.nickname;
+    self.userID.text = self.contactListModel.username;
+    self.userGender.text = self.contactListModel.gender;
+    self.userWhatsUp.text = self.contactListModel.whatsUp;
+    self.userLocation.text = self.contactListModel.location;
 }
 
 - (void)setupNavigationBarItem {
@@ -75,9 +75,13 @@
     }
 }
 
-// 给各个label赋值（好友时）
-- (void)setUpFiendLabel {
-    self.userID.text = self.searchID;
+- (void)setContactListModel:(BRContactListModel *)contactListModel {
+    _contactListModel = contactListModel;
+    self.userNickName.text = contactListModel.nickname;
+    self.userID.text = contactListModel.username;
+    self.userGender.text = contactListModel.gender;
+    self.userWhatsUp.text = contactListModel.whatsUp;
+    self.userLocation.text = contactListModel.location;
 }
 
 #pragma mark - UITableView data source
@@ -111,8 +115,8 @@
 - (IBAction)clickDeleteFriend:(id)sender {
     UIAlertController *actionSheet =[UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
-    UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Confirm Delete" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [[EMClient sharedClient].contactManager deleteContact:self.searchID isDeleteConversation:YES completion:^(NSString *aUsername, EMError *aError) {
+    UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Confirm Delete" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        [[EMClient sharedClient].contactManager deleteContact:self.contactListModel.username isDeleteConversation:YES completion:^(NSString *aUsername, EMError *aError) {
             if (!aError) {
                 hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
                 hud.mode = MBProgressHUDModeText;
@@ -139,7 +143,7 @@
 
 
 - (IBAction)clickChat:(id)sender {
-    BRMessageViewController *vc = [[BRMessageViewController alloc] initWithConversationChatter:self.searchID conversationType:EMConversationTypeChat];
+    BRMessageViewController *vc = [[BRMessageViewController alloc] initWithConversationChatter:self.contactListModel.username conversationType:EMConversationTypeChat];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

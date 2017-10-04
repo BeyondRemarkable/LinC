@@ -14,7 +14,7 @@
 #import <MBProgressHUD.h>
 #import "BRFriendRequestTableViewController.h"
 #import <SAMKeychain.h>
-#import "BRHTTPSessionManager.h"
+#import "BRClientManager.h"
 
 @interface BRSearchFriendViewController () <UITextFieldDelegate>
 {
@@ -42,17 +42,16 @@
 // Set up Nagigation Bar Items
 - (void)setupNavigationBarItem
 {
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Search" style:UIBarButtonItemStylePlain target:self action: @selector(searchByID:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Search" style:UIBarButtonItemStylePlain target:self action: @selector(searchByID)];
     self.navigationItem.rightBarButtonItem.enabled = NO;
 }
 
-- (void)searchByID:(NSString *)searchID {
+- (void)searchByID {
   
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *savedUserName = [userDefaults objectForKey:kLoginUserNameKey];
+    NSString *currentUsername = [EMClient sharedClient].currentUsername;
     
     // 不能添加自己
-    if ([self.friendIDTextField.text isEqualToString:savedUserName]) {
+    if ([self.friendIDTextField.text isEqualToString:currentUsername]) {
         hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
         hud.label.text = @"Can not add yourself.";
@@ -60,45 +59,54 @@
         return;
     }
     
-    // 如果已经是好友，则不能继续添加
-    NSArray *contactArray = [[EMClient sharedClient].contactManager getContacts];
-    
-    if ([contactArray containsObject:self.friendIDTextField.text]) {
-        hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.mode = MBProgressHUDModeText;
-        hud.label.text = @"Already your friend.";
-        [hud hideAnimated:YES afterDelay:1.5];
-        return;
-    }
-    
-    // 从服务器获取好友信息
-    [self loadDataFromServer];
-    
-    }
-
-/**
-    从服务器获取好友JSON信息
- */
-- (void)loadDataFromServer {
     hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    
-    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-    NSString *savedUserName = [userDefault objectForKey:kLoginUserNameKey];
-    NSString *token = [SAMKeychain passwordForService:kLoginTokenKey account: savedUserName];
-    BRHTTPSessionManager *manager = [BRHTTPSessionManager manager];
-    [manager.requestSerializer setValue:[@"Bearer " stringByAppendingString:token]  forHTTPHeaderField:@"Authorization"];
-    
-    NSString *url =  [kBaseURL stringByAppendingPathComponent:@"/api/v1/users/find"];
-    NSDictionary *parameters = @{@"key":@"username", @"value":self.friendIDTextField.text};
-    
-    [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [[BRClientManager sharedManager] getUserInfoWithUsernames:[NSArray arrayWithObject:self.friendIDTextField.text] success:^(NSMutableArray *aList) {
+        [hud hideAnimated:YES];
         
-        [self setUpUserInfoFrom: responseObject];
-        
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"%@", error.localizedDescription);
+        BRContactListModel *model = [aList firstObject];
+        UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRFriendInfo" bundle:[NSBundle mainBundle]];
+        BRFriendInfoTableViewController *vc = [sc instantiateViewControllerWithIdentifier: @"BRFriendInfoTableViewController"];
+        vc.contactListModel = model;
+        // 如果已经是好友
+        NSArray *contactArray = [[EMClient sharedClient].contactManager getContacts];
+        if ([contactArray containsObject:self.friendIDTextField.text]) {
+            vc.isFriend = YES;
+        }
+        else {
+            vc.isFriend = NO;
+        }
+        // Push BRFriendInfoTableViewController
+        [self.navigationController pushViewController:vc animated:YES];
+    } failure:^(EMError *aError) {
+        hud.mode = MBProgressHUDModeText;
+        hud.label.text = aError.errorDescription;
+        [hud hideAnimated:YES afterDelay:1.5];
     }];
 }
+
+///**
+//    从服务器获取好友JSON信息
+// */
+//- (void)loadDataFromServer {
+//    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//    
+//    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+//    NSString *savedUserName = [userDefault objectForKey:kLoginUserNameKey];
+//    NSString *token = [SAMKeychain passwordForService:kLoginTokenKey account: savedUserName];
+//    BRHTTPSessionManager *manager = [BRHTTPSessionManager manager];
+//    [manager.requestSerializer setValue:[@"Bearer " stringByAppendingString:token]  forHTTPHeaderField:@"Authorization"];
+//    
+//    NSString *url =  [kBaseURL stringByAppendingPathComponent:@"/api/v1/users/find"];
+//    NSDictionary *parameters = @{@"key":@"username", @"value":self.friendIDTextField.text};
+//    
+//    [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//        
+//        [self setUpUserInfoFrom: responseObject];
+//        
+//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+//        NSLog(@"%@", error.localizedDescription);
+//    }];
+//}
 
 
 /**
@@ -114,15 +122,18 @@
         // 成功获取好友信息，并跳转到BRFriendInfoTableViewController
         if ([dict[@"status"] isEqual: @"success"]) {
             
-            NSArray *userArray = [dict[@"data"][@"users"] lastObject];
-            
-            NSDictionary *friendDict = (NSDictionary *)userArray;
+            NSDictionary *friendDict = [dict[@"data"][@"users"] lastObject];
             NSLog(@"%@", friendDict);
+            BRContactListModel *model = [[BRContactListModel alloc] initWithBuddy:friendDict[@"username"]];
+            model.nickname = friendDict[@"nickname"];
+            model.gender = friendDict[@"gender"];
+            model.whatsUp = friendDict[@"signature"];
+            model.location = friendDict[@"location"];
             [hud hideAnimated:YES];
             UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRFriendInfo" bundle:[NSBundle mainBundle]];
             BRFriendInfoTableViewController *vc = [sc instantiateViewControllerWithIdentifier: @"BRFriendInfoTableViewController"];
             vc.isFriend = NO;
-            vc.friendDict = friendDict;
+            vc.contactListModel = model;
         
             // Push BRFriendInfoTableViewController
             [self.navigationController pushViewController:vc animated:YES];
@@ -163,7 +174,7 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     if (textField.text.length > 0) {
-        [self searchByID:textField.text];
+        [self searchByID];
     }
     return YES;
 }

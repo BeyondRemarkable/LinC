@@ -47,6 +47,10 @@ typedef enum : NSInteger {
 // Tableview cell identifier
 static NSString * const cellIdentifier = @"ContactListCell";
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self tableViewDidTriggerHeaderRefresh];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -54,8 +58,6 @@ static NSString * const cellIdentifier = @"ContactListCell";
     
     [self setUpTableView];
     [self setUpNavigationBarItem];
-    
-    [self tableViewDidTriggerHeaderRefresh];
     
     //注册好友回调
     [[EMClient sharedClient].contactManager addDelegate:self delegateQueue:nil];
@@ -237,7 +239,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
         UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRFriendInfo" bundle:[NSBundle mainBundle]];
         
         BRFriendInfoTableViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRFriendInfoTableViewController"];
-        vc.searchID = contactListModel.username;
+        vc.contactListModel = contactListModel;
         vc.isFriend = YES;
         
         [self.navigationController pushViewController:vc animated:YES];
