@@ -165,4 +165,49 @@
     }];
 }
 
+- (void)getSelfInfoWithSuccess:(void (^)(BRContactListModel *))successBlock failure:(void (^)(EMError *))failureBlock {
+    BRHTTPSessionManager *manager = [BRHTTPSessionManager manager];
+    NSString *url = [kBaseURL stringByAppendingPathComponent:@"/api/v1/account/profile/show"];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *username = [userDefaults objectForKey:kLoginUserNameKey];
+    NSString *token = [SAMKeychain passwordForService:kLoginTokenKey account:username];
+    [manager.requestSerializer setValue:[@"Bearer " stringByAppendingString:token]  forHTTPHeaderField:@"Authorization"];
+    [manager GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *dict = (NSDictionary *)responseObject;
+        BRContactListModel *model = [[BRContactListModel alloc] initWithBuddy:dict[@"data"][@"user"][@"username"]];
+        model.nickname = dict[@"data"][@"user"][@"nickname"];
+        model.avatarURLPath = dict[@"data"][@"user"][@""];
+        model.gender = dict[@"data"][@"user"][@"gender"];
+        model.location = dict[@"data"][@"user"][@"location"];
+        model.whatsUp = dict[@"data"][@"user"][@"signature"];
+        successBlock(model);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        EMError *aError = [EMError errorWithDescription:error.localizedDescription code:EMErrorServerUnknownError];
+        failureBlock(aError);
+    }];
+}
+
+- (void)updateSelfInfoWithKeys:(NSArray *)keyArray values:(NSArray *)valueArray success:(void (^)(NSString *))successBlock failure:(void (^)(EMError *))failureBlock {
+    if (keyArray.count == 0) {
+        return;
+    }
+    
+    BRHTTPSessionManager *manager = [BRHTTPSessionManager manager];
+    NSString *url = [kBaseURL stringByAppendingPathComponent:@"/api/v1/account/profile/save"];
+    NSDictionary *parameters = [[NSDictionary alloc] initWithObjects:valueArray forKeys:keyArray];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *username = [userDefaults objectForKey:kLoginUserNameKey];
+    NSString *token = [SAMKeychain passwordForService:kLoginTokenKey account:username];
+    [manager.requestSerializer setValue:[@"Bearer " stringByAppendingString:token]  forHTTPHeaderField:@"Authorization"];
+    [manager PUT:url parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *dict = (NSDictionary *)responseObject;
+        successBlock(dict[@"message"]);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        EMError *aError = [EMError errorWithDescription:error.localizedDescription code:EMErrorServerUnknownError];
+        failureBlock(aError);
+    }];
+    
+    
+}
+
 @end

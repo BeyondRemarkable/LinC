@@ -16,6 +16,7 @@
 #import "BRWhatsUpViewController.h"
 #import "BRUserSettingTableViewController.h"
 #import "BRQRCodeViewController.h"
+#import "BRClientManager.h"
 
 
 @interface BRUserInfoViewController ()<UITableViewDelegate, UITableViewDataSource, BRUserGenderTableViewControllerDelegate, BRNicknameTextViewControllerDelegate, BRWhatsUpViewControllerDelegate>
@@ -58,7 +59,10 @@ typedef enum NSUInteger {
     
 } UserInfoCellName;
 
-
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -69,6 +73,16 @@ typedef enum NSUInteger {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     self.username.text = [userDefaults objectForKey:kLoginUserNameKey];
     
+    [[BRClientManager sharedManager] getSelfInfoWithSuccess:^(BRContactListModel *model) {
+        self.username.text = model.username;
+        self.nickname.text = model.nickname;
+        self.gender.text = model.gender;
+        self.location.text = model.location;
+        self.whatsup.text = model.whatsUp;
+        [self.tableView reloadData];
+    } failure:^(EMError *error) {
+        NSLog(@"%@", error.errorDescription);
+    }];
 }
 
 - (IBAction)imageBtnClicked:(UIButton *)sender {
