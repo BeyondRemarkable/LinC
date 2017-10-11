@@ -7,11 +7,15 @@
 //
 
 #import "BRNicknameTextViewController.h"
+#import "BRClientManager.h"
+#import <MBProgressHUD.h>
 
-@interface BRNicknameTextViewController ()
+@interface BRNicknameTextViewController () <UITextFieldDelegate>
+{
+    MBProgressHUD *hud;
+}
 
 @property (weak, nonatomic) IBOutlet UITextField *nicknameTextField;
-
 
 @end
 
@@ -25,17 +29,26 @@
     [self.nicknameTextField addTarget:self action:@selector(textFieldDidChange) forControlEvents:UIControlEventEditingChanged];
     [self.nicknameTextField becomeFirstResponder];
     
-    UIBarButtonItem *saveBtn = [[UIBarButtonItem alloc] initWithTitle:@"save" style:UIBarButtonItemStylePlain target:self action:@selector(saveBtn)];
+    UIBarButtonItem *saveBtn = [[UIBarButtonItem alloc] initWithTitle:@"save" style:UIBarButtonItemStylePlain target:self action:@selector(saveAction)];
     saveBtn.enabled = NO;
     self.navigationItem.rightBarButtonItem = saveBtn;
     
 }
 
-- (void)saveBtn {
-    if (_delegate && [_delegate respondsToSelector:@selector(nicknameDidChangeTo:)]) {
-        [_delegate nicknameDidChangeTo:[self.nicknameTextField.text trimString]];
-    }
-    [self.navigationController popViewControllerAnimated:YES];
+- (void)saveAction {
+    [self.nicknameTextField resignFirstResponder];
+    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [[BRClientManager sharedManager] updateSelfInfoWithKeys:@[@"nickname"] values:@[self.nicknameTextField.text] success:^(NSString *message) {
+        [hud hideAnimated:YES];
+        if (_delegate && [_delegate respondsToSelector:@selector(nicknameDidChangeTo:)]) {
+            [_delegate nicknameDidChangeTo:[self.nicknameTextField.text trimString]];
+        }
+        [self.navigationController popViewControllerAnimated:YES];
+    } failure:^(EMError *error) {
+        hud.mode = MBProgressHUDModeText;
+        hud.label.text = error.errorDescription;
+        [hud hideAnimated:YES afterDelay:1.5];
+    }];
 }
 
 - (void)textFieldDidChange {
@@ -47,5 +60,10 @@
     }
 }
 
+#pragma mark - UITextField delegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self saveAction];
+    return YES;
+}
 
 @end
