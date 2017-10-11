@@ -13,6 +13,8 @@
 #import "BRLoginViewController.h"
 #import "BRClientManager.h"
 #import <SAMKeychain.h>
+#import "BRCoreDataManager.h"
+
 
 @interface AppDelegate () <EMClientDelegate>
 
@@ -34,7 +36,7 @@
         // 之前登录过，可以显示主界面
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
         BRTabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:@"BRTabBarController"];
-    
+        
         self.window.rootViewController = vc;
     } else {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Account" bundle:[NSBundle mainBundle]];
@@ -42,6 +44,9 @@
         self.window.rootViewController = loginVc;
     }
     [self setupOptions];
+    
+    //初始化数据库
+    [[BRCoreDataManager sharedInstance] managedObjectContext];
     return YES;
 }
 
@@ -74,5 +79,7 @@
     [[EMClient sharedClient] addDelegate:self delegateQueue:nil];
     [[EMClient sharedClient].options setIsAutoAcceptGroupInvitation:YES];
 }
+
+
 
 @end

@@ -44,7 +44,9 @@
     [self setupNavigationBarItem];
     
     [self setupFriendInfo];
+    [self setFriend:self.isFriend];
 }
+
 
 - (void)setupFriendInfo {
     self.userNickName.text = self.contactListModel.nickname;
@@ -63,15 +65,14 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
 }
 
-// 给各个label赋值（不是好友时）
-- (void)setUpNewFriendLabel {
-    // 通过搜索userID
-    if (self.searchID) {
-        self.userID.text = self.searchID;
-    } else {
-        // 通过扫描获得userID
-        NSDictionary *dict = self.friendDict;
-        self.userID.text = dict[@"username"];
+- (void)setFriend:(BOOL)isFriend {
+    _isFriend = isFriend;
+    if (isFriend) {
+        [self.addFriendButton setHidden:YES];
+    }
+    else {
+        [self.chatButton setHidden:YES];
+        [self.deleteFriendButton setHidden:YES];
     }
 }
 
@@ -110,7 +111,7 @@
 }
 
 /**
-    删除好友
+ 删除好友
  */
 - (IBAction)clickDeleteFriend:(id)sender {
     UIAlertController *actionSheet =[UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
@@ -135,6 +136,7 @@
     [actionSheet addAction:cancel];
     
     [self presentViewController:actionSheet animated:YES completion:nil];
+
 }
 
 - (void)dismissVC {

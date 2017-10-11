@@ -9,10 +9,13 @@
 #import "BRScannerViewController.h"
 #import "BRFriendInfoTableViewController.h"
 #import <AVFoundation/AVFoundation.h>
+#import "BRClientManager.h"
+#import <MBProgressHUD.h>
 
 @interface BRScannerViewController () <AVCaptureMetadataOutputObjectsDelegate>
 {
     AVCaptureSession * session;
+    MBProgressHUD *hud;
 }
 
 /** Scanner's layer */
@@ -86,24 +89,49 @@
  */
 -(void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection{
     if (metadataObjects.count > 0) {
-        [session stopRunning];
-        [self.scanlayer removeFromSuperlayer];
+       
         AVMetadataMachineReadableCodeObject * metadataObject = [metadataObjects objectAtIndex : 0];
     
         [self searchFriendWithUserID:(NSString *)metadataObject.stringValue];
+        
+        [session stopRunning];
+        [self.scanlayer removeFromSuperlayer];
     }
 }
 
-// Send scan result to BRAddingFriendViewController
-- (void)searchFriendWithUserID:(NSString *)searchID {
-    
-    UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRFriendInfo" bundle:[NSBundle mainBundle]];
 
-    BRFriendInfoTableViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRFriendInfoTableViewController"];
-//    [self.navigationController setNavigationBarHidden: NO];
-    vc.isFriend = NO;
-    vc.searchID = searchID;
-    [self.navigationController pushViewController:vc animated:YES];
+/**
+     把扫描结果userID传到服务器获取User模型， 并判断好友关系
+     跳转到BRFriendInfoTableViewController
+ 
+ @param searchID NSString searchID 扫描结果
+ */
+- (void)searchFriendWithUserID:(NSString *)searchID {
+    NSArray *userIDArr = [NSArray arrayWithObject:searchID];
+    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [[BRClientManager sharedManager] getUserInfoWithUsernames:userIDArr success:^(NSMutableArray *aList) {
+        [hud hideAnimated:YES];
+        
+        BRContactListModel *model = [aList firstObject];
+        NSLog(@"%@", model);
+        UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRFriendInfo" bundle:[NSBundle mainBundle]];
+        BRFriendInfoTableViewController *vc = [sc instantiateViewControllerWithIdentifier: @"BRFriendInfoTableViewController"];
+        vc.contactListModel = model;
+        // 如果已经是好友
+        NSArray *contactArray = [[EMClient sharedClient].contactManager getContacts];
+        if ([contactArray containsObject:searchID]) {
+            vc.isFriend = YES;
+        }
+        else {
+            vc.isFriend = NO;
+        }
+        // Push BRFriendInfoTableViewController
+        [self.navigationController pushViewController:vc animated:YES];
+    } failure:^(EMError *aError) {
+        hud.mode = MBProgressHUDModeText;
+        hud.label.text = aError.errorDescription;
+        [hud hideAnimated:YES afterDelay:1.5];
+    }];
 }
 
 /**

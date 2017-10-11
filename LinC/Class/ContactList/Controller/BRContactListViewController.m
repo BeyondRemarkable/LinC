@@ -19,6 +19,9 @@
 #import "BRNewFriendTableViewController.h"
 #import "BRGroupListTableViewController.h"
 #import <MBProgressHUD.h>
+#import "BRCoreDataManager.h"
+#import "BRUserInfo+CoreDataClass.h"
+#import "BRFriendsInfo+CoreDataClass.h"
 
 @interface BRContactListViewController () <EMContactManagerDelegate, UITableViewDelegate, UITableViewDataSource>
 {
@@ -47,11 +50,6 @@ typedef enum : NSInteger {
 // Tableview cell identifier
 static NSString * const cellIdentifier = @"ContactListCell";
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self tableViewDidTriggerHeaderRefresh];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -63,6 +61,10 @@ static NSString * const cellIdentifier = @"ContactListCell";
     [[EMClient sharedClient].contactManager addDelegate:self delegateQueue:nil];
     //    //移除好友回调
     //    [[EMClient sharedClient].contactManager removeDelegate:self];
+    
+     NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
+     NSArray *resultArr = [[BRCoreDataManager sharedInstance] fetchDataBy:username fromEntity:@"BRUserInfo"];
+    BRUserInfo *userInfo = (BRUserInfo *)[resultArr lastObject];
     
 }
 
@@ -77,6 +79,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
         self.tabBarItem.badgeValue = nil;
     }
     [self.navigationController setNavigationBarHidden: NO];
+    [self tableViewDidTriggerHeaderRefresh];
 }
 
 /**
@@ -136,7 +139,6 @@ static NSString * const cellIdentifier = @"ContactListCell";
     BRSearchFriendViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRSearchFriendViewController"];
     
     [self.navigationController pushViewController:vc animated:YES];
-    
 }
 
 #pragma mark UITableViewDataSource
@@ -157,7 +159,6 @@ static NSString * const cellIdentifier = @"ContactListCell";
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     if (indexPath.section == TableViewSectionZero) {
         BRContactListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         
@@ -182,7 +183,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
         
         id<IUserModel> contactListModel = [self.dataArray objectAtIndex:indexPath.row];
         cell.contactListModel = contactListModel;
-        
+        NSLog(@"%@", contactListModel);
         return cell;
     }
 }
