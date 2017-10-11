@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13240" systemVersion="16G29" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+    <entity name="BRConversation" representedClassName="BRConversation" syncable="YES" codeGenerationType="class">
+        <attribute name="groupIcon" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="lastMessageDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="unreadMessage" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="unreadMessageCount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="userInfo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BRUserInfo" inverseName="conversation" inverseEntity="BRUserInfo" syncable="YES"/>
+    </entity>
+    <entity name="BRFriendsInfo" representedClassName="BRFriendsInfo" syncable="YES" codeGenerationType="class">
+        <attribute name="avatar" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gender" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nickname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phone" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="updated" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="username" attributeType="String" syncable="YES"/>
+        <attribute name="whatsUp" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="userInfo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BRUserInfo" inverseName="friendsInfo" inverseEntity="BRUserInfo" syncable="YES"/>
+    </entity>
+    <entity name="BRUserInfo" representedClassName="BRUserInfo" syncable="YES" codeGenerationType="class">
+        <attribute name="avatar" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gender" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nickname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phone" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="updated" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="username" attributeType="String" syncable="YES"/>
+        <attribute name="whatsUp" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="conversation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BRConversation" inverseName="userInfo" inverseEntity="BRConversation" syncable="YES"/>
+        <relationship name="friendsInfo" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BRFriendsInfo" inverseName="userInfo" inverseEntity="BRFriendsInfo" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="BRConversation" positionX="-16470" positionY="-1798" width="146" height="133"/>
+        <element name="BRFriendsInfo" positionX="-16083" positionY="-1845" width="128" height="193"/>
+        <element name="BRUserInfo" positionX="-16272" positionY="-1845" width="128" height="210"/>
+    </elements>
+</model>

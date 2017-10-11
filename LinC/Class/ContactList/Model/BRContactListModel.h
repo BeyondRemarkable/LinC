@@ -30,4 +30,7 @@
 /** @brief 用户头像 */
 @property (strong, nonatomic) UIImage *avatarImage;
 
+/** 更新时间 */
+@property (nonatomic, copy) NSString *updated;
+@property (nonatomic, copy) NSString *email;
 @end

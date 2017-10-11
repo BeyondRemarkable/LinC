@@ -44,7 +44,9 @@
     [self setupNavigationBarItem];
     
     [self setupFriendInfo];
+    [self setFriend:self.isFriend];
 }
+
 
 - (void)setupFriendInfo {
     self.userNickName.text = self.contactListModel.nickname;
@@ -63,9 +65,7 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
 }
 
-#pragma mark - setter
-
-- (void)setIsFriend:(BOOL)isFriend {
+- (void)setFriend:(BOOL)isFriend {
     _isFriend = isFriend;
     if (isFriend) {
         [self.addFriendButton setHidden:YES];
@@ -111,7 +111,7 @@
 }
 
 /**
-    删除好友
+ 删除好友
  */
 - (IBAction)clickDeleteFriend:(id)sender {
     UIAlertController *actionSheet =[UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
@@ -136,7 +136,6 @@
     [actionSheet addAction:cancel];
     
     [self presentViewController:actionSheet animated:YES completion:nil];
-    
 
 }
 

@@ -64,6 +64,11 @@
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@", error.localizedDescription);
+        hud.mode = MBProgressHUDModeText;
+        
+        hud.label.text = @"Try again later.";
+        [hud hideAnimated:YES afterDelay:1.5];
+        [self performSelector:@selector(dismissVC) withObject:nil afterDelay:1.0];
     }];
 }
 
@@ -96,6 +101,7 @@
 
 - (void)dismissVC {
     [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 

@@ -197,7 +197,7 @@
     
 
     hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[BRClientManager sharedManager] registerWithEmail:self.emailTextField.text username:self.userNameTextField.text password:self.passwordTextField.text code:self.codeTextField.text success:^(NSString *username, NSString *password) {
+    [[BRClientManager sharedManager] registerWithEmail:email username:self.userNameTextField.text password:self.passwordTextField.text code:self.codeTextField.text success:^(NSString *username, NSString *password) {
         // 注册完成后执行登录
         [[BRClientManager sharedManager] loginWithUsername:username password:password success:^(NSString *username) {
             [hud hideAnimated:YES];

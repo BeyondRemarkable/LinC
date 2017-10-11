@@ -17,9 +17,16 @@
 #import <MJRefresh.h>
 #import "BRFileWithNewFriendsRequestData.h"
 #import "BRNewFriendTableViewController.h"
+#import "BRGroupListTableViewController.h"
+#import <MBProgressHUD.h>
+#import "BRCoreDataManager.h"
+#import "BRUserInfo+CoreDataClass.h"
+#import "BRFriendsInfo+CoreDataClass.h"
 
 @interface BRContactListViewController () <EMContactManagerDelegate, UITableViewDelegate, UITableViewDataSource>
-
+{
+    MBProgressHUD *hud;
+}
 @property (nonatomic, strong) NSArray *storedListArray;
 @property (nonatomic, strong) NSArray *storedIconArray;
 
@@ -43,11 +50,6 @@ typedef enum : NSInteger {
 // Tableview cell identifier
 static NSString * const cellIdentifier = @"ContactListCell";
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self tableViewDidTriggerHeaderRefresh];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -60,8 +62,25 @@ static NSString * const cellIdentifier = @"ContactListCell";
     //    //移除好友回调
     //    [[EMClient sharedClient].contactManager removeDelegate:self];
     
+     NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
+     NSArray *resultArr = [[BRCoreDataManager sharedInstance] fetchDataBy:username fromEntity:@"BRUserInfo"];
+    BRUserInfo *userInfo = (BRUserInfo *)[resultArr lastObject];
+    
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.tableView reloadData];
+    NSString *badgeCount = [BRFileWithNewFriendsRequestData countForNewFriendRequest];
+    // 是否需要显示tabbar bagge
+    if ([badgeCount integerValue] != 0) {
+        self.tabBarItem.badgeValue = badgeCount;
+    } else {
+        self.tabBarItem.badgeValue = nil;
+    }
+    [self.navigationController setNavigationBarHidden: NO];
+    [self tableViewDidTriggerHeaderRefresh];
+}
 
 /**
  *  Lazy load NSArray storedListArray
@@ -120,7 +139,6 @@ static NSString * const cellIdentifier = @"ContactListCell";
     BRSearchFriendViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRSearchFriendViewController"];
     
     [self.navigationController pushViewController:vc animated:YES];
-    
 }
 
 #pragma mark UITableViewDataSource
@@ -141,7 +159,6 @@ static NSString * const cellIdentifier = @"ContactListCell";
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     if (indexPath.section == TableViewSectionZero) {
         BRContactListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         
@@ -149,6 +166,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
         cell.nickName.font = [UIFont systemFontOfSize:17];
         cell.imageIcon.image = self.storedIconArray[indexPath.row];
         
+        // 有新好友请求
         if (indexPath.row == TableViewNewFriend) {
             NSUInteger friendRequestCount = [[BRFileWithNewFriendsRequestData countForNewFriendRequest] integerValue];
             if (friendRequestCount) {
@@ -158,7 +176,6 @@ static NSString * const cellIdentifier = @"ContactListCell";
                 cell.badgeLabel.hidden = YES;
             }
         }
-        
         return cell;
     } else {
         
@@ -166,7 +183,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
         
         id<IUserModel> contactListModel = [self.dataArray objectAtIndex:indexPath.row];
         cell.contactListModel = contactListModel;
-        
+        NSLog(@"%@", contactListModel);
         return cell;
     }
 }
@@ -188,18 +205,28 @@ static NSString * const cellIdentifier = @"ContactListCell";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    // New friend and group session
+    // 群聊天
     if (indexPath.section == TableViewSectionZero) {
+        if (indexPath.row == TableVIewGroup) {
+            BRGroupListTableViewController *vc = [[BRGroupListTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
         // 如果有好友请求，显示好友添加数量label
         if (indexPath.row == TableViewNewFriend) {
             BRContactListTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-
+            
             NSUInteger friendRequestCount = [[BRFileWithNewFriendsRequestData countForNewFriendRequest] integerValue];
             
             if (friendRequestCount) {
                 cell.badgeLabel.text = [NSString stringWithFormat:@"%lu",(unsigned long)friendRequestCount];
                 BRNewFriendTableViewController *vc = [[BRNewFriendTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
                 [self.navigationController pushViewController:vc animated:YES];
+            } else {
+                hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                hud.mode = MBProgressHUDModeText;
+                hud.label.text = @"No new friend.";
+                [hud hideAnimated:YES afterDelay:1.5];
+
             }
         }
         else if (indexPath.row == TableVIewGroup) {
@@ -263,10 +290,11 @@ static NSString * const cellIdentifier = @"ContactListCell";
         NSDictionary *dataDict = [NSDictionary dictionaryWithObjectsAndKeys:aUsername, @"userID", aMessage, @"message", nil];
         [BRFileWithNewFriendsRequestData savedToPlistWithData:dataDict];
     }
-    
-    cell.badgeLabel.text = [BRFileWithNewFriendsRequestData countForNewFriendRequest];
+    NSString *badgeCount = [BRFileWithNewFriendsRequestData countForNewFriendRequest];
+    cell.badgeLabel.text = badgeCount;
     cell.showBadge = YES;
     [self.tableView reloadData];
+    self.tabBarItem.badgeValue = badgeCount;
 }
 
 // 好友通过邀请时的回调， 通过服务器加载好友列表

@@ -10,6 +10,9 @@
 #import "BRHTTPSessionManager.h"
 #import "BRContactListModel.h"
 #import <SAMKeychain.h>
+#import <CoreData/CoreData.h>
+#import "BRCoreDataManager.h"
+#import "BRUserInfo+CoreDataClass.h"
 
 @implementation BRClientManager
 
@@ -41,6 +44,10 @@
         if ([dict[@"status"] isEqualToString:@"success"]) {
             NSString *usernameHX = dict[@"data"][@"user"][@"username"];
             NSString *encryptedPassword = dict[@"data"][@"user"][@"password"];
+            
+            //保存用户信息到数据库
+            BRCoreDataManager *manager = [BRCoreDataManager sharedInstance];
+            [manager insertUserInfoToCoreData:dict[@"data"][@"user"]];
             // 登录环信
             [[EMClient sharedClient] loginWithUsername:usernameHX password:encryptedPassword completion:^(NSString *aUsername, EMError *aError) {
                 // 登录环信成功
@@ -121,6 +128,14 @@
     }];
 }
 
+
+/**
+     从服务器获取用户信息
+
+ @param usernameList 用户ID的数组
+ @param successBlock successBlock userModelArray
+ @param failureBlock failureBlock error
+ */
 - (void)getUserInfoWithUsernames:(NSArray *)usernameList success:(void (^)(NSMutableArray *))successBlock failure:(void (^)(EMError *))failureBlock {
     // 如果传入数组为空
     if (usernameList.count == 0) {
@@ -137,22 +152,31 @@
     NSData *data = [NSJSONSerialization dataWithJSONObject:usernameList options:NSJSONWritingPrettyPrinted error:nil];
     NSString *jsonStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     NSDictionary *parameters = @{@"key":@"username",@"value":jsonStr};
-    
+
     NSMutableArray *userModelArray = [NSMutableArray array];
     [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dict = (NSDictionary *)responseObject;
+        
         if ([dict[@"status"] isEqualToString:@"success"]) {
             for (int i = 0; i < usernameList.count; i++) {
+                //给模型赋值
                 BRContactListModel *model = [[BRContactListModel alloc] initWithBuddy:dict[@"data"][@"users"][i][@"username"]];
                 model.username = dict[@"data"][@"users"][i][@"username"];
                 model.nickname = dict[@"data"][@"users"][i][@"nickname"];
+                model.updated = dict[@"data"][@"users"][i][@"updated_at"];
+                model.gender = dict[@"data"][@"users"][i][@"gender"];
+                model.location = dict[@"data"][@"users"][i][@"location"];
+                model.whatsUp = dict[@"data"][@"users"][i][@"signature"];
+                model.avatarImage = dict[@"data"][@"users"][i][@"avatar"];
                 if (model.nickname.length == 0) {
                     model.nickname = model.username;
                 }
-                model.avatarURLPath = dict[@"data"][@"users"][i][@""];
-                
                 [userModelArray addObject:model];
             }
+            
+            BRCoreDataManager *manager = [BRCoreDataManager sharedInstance];
+            [manager insertFriendsInfoToCoreData:userModelArray];
+
             successBlock(userModelArray);
         }
         else {

@@ -14,7 +14,7 @@
 //@property (nonatomic, strong) ContactsViewController *contactsVc;
 //@property (nonatomic, strong) ProfileViewController *profileVc;
 //
-///** 好友申请数组，包含的是BRUserModel数据 */
-//@property (nonatomic, strong) NSMutableArray *requestList;
+/** 好友申请数组，包含的是BRUserModel数据 */
+@property (nonatomic, strong) NSMutableArray *requestList;
 
 @end
