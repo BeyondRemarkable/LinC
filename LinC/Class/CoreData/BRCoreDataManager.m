@@ -89,7 +89,7 @@ static BRCoreDataStack *gCoreDataStack = nil;
         BOOL isContains = NO;
         BRFriendsInfo *friendsInfo = nil;
         for (BRFriendsInfo *friendsInfoModel in userInfo.friendsInfo) {
-            NSLog(@"%@", friendsInfoModel.username);
+            
             if (contactModel.username == friendsInfoModel.username) {
                 isContains = YES;
                 friendsInfo = friendsInfoModel;
@@ -131,6 +131,11 @@ static BRCoreDataStack *gCoreDataStack = nil;
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:context];
     NSPredicate *fetchPredicate= [NSPredicate predicateWithFormat:@"username == %@", userName];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"username" ascending:YES];
+    NSArray *sortDescriptors = @[sortDescriptor];
+    
+    [fetchRequest setSortDescriptors:sortDescriptors];
+    
     [fetchRequest setPredicate:fetchPredicate];
     [fetchRequest setEntity:entity];
     

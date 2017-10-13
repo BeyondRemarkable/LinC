@@ -106,15 +106,17 @@ typedef enum NSUInteger {
         [SAMKeychain deletePasswordForService:kLoginTokenKey account:username];
         //手动登出后， 设置自动登录为false
         [[EMClient sharedClient].options setIsAutoLogin:NO];
-        // 显示登录界面
-        UIStoryboard *sc = [UIStoryboard storyboardWithName:@"Account" bundle:[NSBundle mainBundle]];
-        BRLoginViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRLoginViewController"];
-        [[UIApplication sharedApplication].keyWindow setRootViewController:vc];
+        
     } failure:^(EMError *error) {
         hud.mode = MBProgressHUDModeText;
         hud.label.text = error.errorDescription;
         [hud hideAnimated:YES afterDelay:1.5];
     }];
+    // 显示登录界面
+    UIStoryboard *sc = [UIStoryboard storyboardWithName:@"Account" bundle:[NSBundle mainBundle]];
+    BRLoginViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRLoginViewController"];
+    [[UIApplication sharedApplication].keyWindow setRootViewController:vc];
+    
 }
 
 // 测试登出

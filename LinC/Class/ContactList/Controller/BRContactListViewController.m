@@ -56,16 +56,12 @@ static NSString * const cellIdentifier = @"ContactListCell";
     
     [self setUpTableView];
     [self setUpNavigationBarItem];
-    
+    [self tableViewDidTriggerHeaderRefresh];
+    [self loadFriendsInfoFromCoreData];
     //注册好友回调
     [[EMClient sharedClient].contactManager addDelegate:self delegateQueue:nil];
     //    //移除好友回调
     //    [[EMClient sharedClient].contactManager removeDelegate:self];
-    
-     NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
-     NSArray *resultArr = [[BRCoreDataManager sharedInstance] fetchDataBy:username fromEntity:@"BRUserInfo"];
-    BRUserInfo *userInfo = (BRUserInfo *)[resultArr lastObject];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -79,7 +75,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
         self.tabBarItem.badgeValue = nil;
     }
     [self.navigationController setNavigationBarHidden: NO];
-    [self tableViewDidTriggerHeaderRefresh];
+   
 }
 
 /**
@@ -129,6 +125,32 @@ static NSString * const cellIdentifier = @"ContactListCell";
     [btn setBackgroundImage:[UIImage imageNamed:@"add_new_friend_highlighted"] forState:UIControlStateHighlighted];
     [btn addTarget:self action:@selector(clickAddNewFriend) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+}
+
+
+/**
+      从core data加载已经保存的好友数据
+ */
+- (void)loadFriendsInfoFromCoreData {
+    NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
+    NSArray *resultArr = [[BRCoreDataManager sharedInstance] fetchDataBy:username fromEntity:@"BRUserInfo"];
+    BRUserInfo *userInfo = (BRUserInfo *)[resultArr lastObject];
+    
+    NSMutableArray *friendsModelArray = [NSMutableArray array];
+    for (BRFriendsInfo *friendsInfo in userInfo.friendsInfo) {
+        BRContactListModel *contactModel = [[BRContactListModel alloc] init];
+        contactModel.username = friendsInfo.username;
+        contactModel.nickname = friendsInfo.nickname;
+        //        contactModel.avatarImage = (UIImage *)friendsInfo.avatar;
+        if (friendsInfo.nickname.length == 0) {
+            contactModel.username = friendsInfo.nickname;
+        }
+        [friendsModelArray addObject:contactModel];
+    }
+    [friendsModelArray sortUsingComparator:^NSComparisonResult(BRContactListModel *left, BRContactListModel *right) {
+        return [left.username compare: right.username];
+    }];
+    self.dataArray = friendsModelArray;
 }
 
 #pragma mark - button action
@@ -183,7 +205,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
         
         id<IUserModel> contactListModel = [self.dataArray objectAtIndex:indexPath.row];
         cell.contactListModel = contactListModel;
-        NSLog(@"%@", contactListModel);
+
         return cell;
     }
 }

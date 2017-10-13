@@ -194,7 +194,7 @@ typedef enum NSUInteger {
 }
 
 // Set up location BRWhatsUpViewController
--(void) receiveTestNotification:(NSNotification*)notification
+- (void)receiveTestNotification:(NSNotification*)notification
 {
     if ([notification.name isEqualToString:@"location"])
     {
