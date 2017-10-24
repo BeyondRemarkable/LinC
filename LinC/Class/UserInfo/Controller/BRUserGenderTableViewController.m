@@ -7,9 +7,15 @@
 //
 
 #import "BRUserGenderTableViewController.h"
+#import "BRClientManager.h"
+#import <MBProgressHUD.h>
 
 @interface BRUserGenderTableViewController ()
-
+{
+    MBProgressHUD *hud;
+}
+@property (weak, nonatomic) IBOutlet UITableViewCell *maleCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *femaleCell;
 @end
 
 @implementation BRUserGenderTableViewController
@@ -25,29 +31,44 @@
         self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background"]];
     }
     
-    UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(saveBtn)];
+    if ([self.gender isEqualToString:@"Male"]) {
+        self.maleCell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }
+    else if ([self.gender isEqualToString:@"Female"]) {
+        self.femaleCell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }
+    
+    UIBarButtonItem *rightBtn = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Save", nil) style:UIBarButtonItemStylePlain target:self action:@selector(saveBtn)];
     self.navigationItem.rightBarButtonItem = rightBtn;
 }
 
 - (void)saveBtn {
-    if (_delegate && [_delegate respondsToSelector:@selector(genderDidChangeTo:)]) {
-        [_delegate genderDidChangeTo:self.gender];
-    }
-    [self.navigationController popViewControllerAnimated:YES];
+    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [[BRClientManager sharedManager] updateSelfInfoWithKeys:@[@"gender"] values:@[self.gender] success:^(NSString *message) {
+        [hud hideAnimated:YES];
+        if (_delegate && [_delegate respondsToSelector:@selector(genderDidChangeTo:)]) {
+            [_delegate genderDidChangeTo:self.gender];
+        }
+        [self.navigationController popViewControllerAnimated:YES];
+    } failure:^(EMError *error) {
+        hud.mode = MBProgressHUDModeText;
+        hud.label.text = error.errorDescription;
+        [hud hideAnimated:YES afterDelay:1.5];
+    }];
 }
 
 #pragma mark - Table view delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-   
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    cell.accessoryType = UITableViewCellAccessoryCheckmark;
-    self.gender = cell.textLabel.text;
-    
-}
-
--(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryNone;
+    if (indexPath.row == 0) {
+        self.maleCell.accessoryType = UITableViewCellAccessoryCheckmark;
+        self.femaleCell.accessoryType = UITableViewCellAccessoryNone;
+        self.gender = @"Male";
+    }
+    else if (indexPath.row == 1) {
+        self.femaleCell.accessoryType = UITableViewCellAccessoryCheckmark;
+        self.maleCell.accessoryType = UITableViewCellAccessoryNone;
+        self.gender = @"Female";
+    }
 }
 
 @end

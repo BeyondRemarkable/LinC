@@ -8,6 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol BRLocationListViewControllerDelegate <NSObject>
+@optional
+- (void)locationDidUpdateTo:(NSString *)newLocation;
+
+@end
+
 @interface BRLocationListViewController : UITableViewController
+
+@property (nonatomic, weak) id<BRLocationListViewControllerDelegate> delegate;
+
+- (instancetype)initWithSytle:(UITableViewStyle)style locationArray:(NSArray *)locationArray;
 
 @end

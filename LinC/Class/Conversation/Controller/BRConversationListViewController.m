@@ -31,7 +31,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+    [self tableViewDidTriggerHeaderRefresh];
     [self registerNotifications];
 }
 
@@ -45,7 +45,6 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     [self.tableView registerNib:[UINib nibWithNibName:@"BRConversationCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:[BRConversationCell cellIdentifierWithModel:nil]];
-    [self tableViewDidTriggerHeaderRefresh];
     [self setUpNavigationBarItem];
     
     self.navigationItem.title = @"LinC";

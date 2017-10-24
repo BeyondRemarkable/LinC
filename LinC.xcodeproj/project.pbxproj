@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		270BD1191F9835C000266E6A /* Location.plist in Resources */ = {isa = PBXBuildFile; fileRef = 270BD1181F9835C000266E6A /* Location.plist */; };
 		276E756A1F3E2B0200D5A917 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E75691F3E2B0200D5A917 /* AVFoundation.framework */; };
 		276E757F1F3E2F1E00D5A917 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E757E1F3E2F1E00D5A917 /* AudioToolbox.framework */; };
 		276E75901F3E390100D5A917 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E758F1F3E390100D5A917 /* UserNotifications.framework */; };
@@ -100,7 +101,6 @@
 		E90F7BC91F670DC400333382 /* BRMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B5B1F670DC300333382 /* BRMedia.m */; };
 		E90F7BCA1F670DC400333382 /* ProvincesAndCities.plist in Resources */ = {isa = PBXBuildFile; fileRef = E90F7B5C1F670DC300333382 /* ProvincesAndCities.plist */; };
 		E90F7BCB1F670DC400333382 /* BRMediaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B5F1F670DC300333382 /* BRMediaCell.m */; };
-		E90F7BCC1F670DC400333382 /* BRLocationCitiListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B631F670DC300333382 /* BRLocationCitiListTableViewController.m */; };
 		E90F7BCD1F670DC400333382 /* BRLocationListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B651F670DC300333382 /* BRLocationListViewController.m */; };
 		E90F7BCE1F670DC400333382 /* BRPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B671F670DC300333382 /* BRPasswordViewController.m */; };
 		E90F7BCF1F670DC400333382 /* BRQRCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B691F670DC300333382 /* BRQRCodeViewController.m */; };
@@ -139,6 +139,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		270BD1181F9835C000266E6A /* Location.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Location.plist; sourceTree = "<group>"; };
 		276E75691F3E2B0200D5A917 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		276E757E1F3E2F1E00D5A917 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		276E758F1F3E390100D5A917 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
@@ -326,8 +327,6 @@
 		E90F7B5C1F670DC300333382 /* ProvincesAndCities.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ProvincesAndCities.plist; sourceTree = "<group>"; };
 		E90F7B5E1F670DC300333382 /* BRMediaCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRMediaCell.h; sourceTree = "<group>"; };
 		E90F7B5F1F670DC300333382 /* BRMediaCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRMediaCell.m; sourceTree = "<group>"; };
-		E90F7B621F670DC300333382 /* BRLocationCitiListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRLocationCitiListTableViewController.h; sourceTree = "<group>"; };
-		E90F7B631F670DC300333382 /* BRLocationCitiListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRLocationCitiListTableViewController.m; sourceTree = "<group>"; };
 		E90F7B641F670DC300333382 /* BRLocationListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRLocationListViewController.h; sourceTree = "<group>"; };
 		E90F7B651F670DC300333382 /* BRLocationListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRLocationListViewController.m; sourceTree = "<group>"; };
 		E90F7B661F670DC300333382 /* BRPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRPasswordViewController.h; sourceTree = "<group>"; };
@@ -456,6 +455,7 @@
 				278CD94B1F549192008D6BD1 /* Assets.xcassets */,
 				27CA03C01F38F21600D0F132 /* Info.plist */,
 				27CA03B01F38F21600D0F132 /* main.m */,
+				270BD1181F9835C000266E6A /* Location.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -866,8 +866,6 @@
 		E90F7B611F670DC300333382 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				E90F7B621F670DC300333382 /* BRLocationCitiListTableViewController.h */,
-				E90F7B631F670DC300333382 /* BRLocationCitiListTableViewController.m */,
 				E90F7B641F670DC300333382 /* BRLocationListViewController.h */,
 				E90F7B651F670DC300333382 /* BRLocationListViewController.m */,
 				E90F7B661F670DC300333382 /* BRPasswordViewController.h */,
@@ -1029,6 +1027,7 @@
 				E90F7B881F670DC300333382 /* BRContactListTableViewCell.xib in Resources */,
 				E90F7BCA1F670DC400333382 /* ProvincesAndCities.plist in Resources */,
 				E90F7B8F1F670DC300333382 /* BRConversationCell.xib in Resources */,
+				270BD1191F9835C000266E6A /* Location.plist in Resources */,
 				278CD94C1F549192008D6BD1 /* Assets.xcassets in Resources */,
 				E90F7BD21F670DC400333382 /* BRUserInfo.storyboard in Resources */,
 			);
@@ -1160,7 +1159,6 @@
 				E90F7BB51F670DC400333382 /* wav.mm in Sources */,
 				E996231D1F794B5A00A90FD2 /* BRFileWithNewFriendsRequestData.m in Sources */,
 				E90F7BBB1F670DC400333382 /* BRChatToolbar.m in Sources */,
-				E90F7BCC1F670DC400333382 /* BRLocationCitiListTableViewController.m in Sources */,
 				E90F7B831F670DC300333382 /* BRFriendInfoTableViewController.m in Sources */,
 				E90F7B8A1F670DC300333382 /* BRDropDownViewController.m in Sources */,
 				27FC23F51F6C4C2C001148D7 /* BRClientManager.m in Sources */,

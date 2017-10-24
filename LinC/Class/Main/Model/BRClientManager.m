@@ -149,7 +149,9 @@
                 if (model.nickname.length == 0) {
                     model.nickname = model.username;
                 }
-                model.avatarURLPath = dict[@"data"][@"users"][i][@""];
+                model.gender = dict[@"data"][@"users"][i][@"gender"];
+                model.whatsUp = dict[@"data"][@"users"][i][@"signature"];
+                model.avatarURLPath = [kBaseURL stringByAppendingPathComponent:dict[@"data"][@"users"][i][@"avatar"]];
                 
                 [userModelArray addObject:model];
             }
@@ -176,7 +178,7 @@
         NSDictionary *dict = (NSDictionary *)responseObject;
         BRContactListModel *model = [[BRContactListModel alloc] initWithBuddy:dict[@"data"][@"user"][@"username"]];
         model.nickname = dict[@"data"][@"user"][@"nickname"];
-        model.avatarURLPath = dict[@"data"][@"user"][@""];
+        model.avatarURLPath = [kBaseURL stringByAppendingPathComponent:dict[@"data"][@"user"][@"avatar"]];
         model.gender = dict[@"data"][@"user"][@"gender"];
         model.location = dict[@"data"][@"user"][@"location"];
         model.whatsUp = dict[@"data"][@"user"][@"signature"];
@@ -192,22 +194,47 @@
         return;
     }
     
-    BRHTTPSessionManager *manager = [BRHTTPSessionManager manager];
     NSString *url = [kBaseURL stringByAppendingPathComponent:@"/api/v1/account/profile/save"];
-    NSDictionary *parameters = [[NSDictionary alloc] initWithObjects:valueArray forKeys:keyArray];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *username = [userDefaults objectForKey:kLoginUserNameKey];
     NSString *token = [SAMKeychain passwordForService:kLoginTokenKey account:username];
-    [manager.requestSerializer setValue:[@"Bearer " stringByAppendingString:token]  forHTTPHeaderField:@"Authorization"];
-    [manager PUT:url parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSDictionary *dict = (NSDictionary *)responseObject;
-        successBlock(dict[@"message"]);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        EMError *aError = [EMError errorWithDescription:error.localizedDescription code:EMErrorServerUnknownError];
-        failureBlock(aError);
-    }];
-    
-    
+    if (![keyArray containsObject:@"avatar"]) {
+        BRHTTPSessionManager *manager = [BRHTTPSessionManager manager];
+        NSDictionary *parameters = [[NSDictionary alloc] initWithObjects:valueArray forKeys:keyArray];
+        [manager.requestSerializer setValue:[@"Bearer " stringByAppendingString:token]  forHTTPHeaderField:@"Authorization"];
+        [manager PUT:url parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            NSDictionary *dict = (NSDictionary *)responseObject;
+            successBlock(dict[@"message"]);
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            EMError *aError = [EMError errorWithDescription:error.localizedDescription code:EMErrorServerUnknownError];
+            failureBlock(aError);
+        }];
+    }
+    else {
+        NSData *imageData = [valueArray firstObject];
+        BRHTTPSessionManager *manager = [BRHTTPSessionManager manager];
+        [manager.requestSerializer setValue:[@"Bearer " stringByAppendingString:token]  forHTTPHeaderField:@"Authorization"];
+        NSMutableURLRequest *request = [manager.requestSerializer multipartFormRequestWithMethod:@"PUT" URLString:url parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+            [formData appendPartWithFileData:imageData name:@"avatar" fileName:@"avatar.jpg" mimeType:@"image/jpeg"];
+        } error:nil];
+        NSURLSessionDataTask *uploadTask = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+            if (error == nil) {
+                NSDictionary *dict = (NSDictionary *)responseObject;
+                if ([dict[@"status"] isEqualToString:@"success"]) {
+                    successBlock(dict[@"message"]);
+                }
+                else {
+                    EMError *aError = [EMError errorWithDescription:dict[@"message"] code:EMErrorServerUnknownError];
+                    failureBlock(aError);
+                }
+            }
+            else {
+                EMError *aError = [EMError errorWithDescription:error.localizedDescription code:EMErrorServerUnknownError];
+                failureBlock(aError);
+            }
+        }];
+        [uploadTask resume];
+    }
 }
 
 @end

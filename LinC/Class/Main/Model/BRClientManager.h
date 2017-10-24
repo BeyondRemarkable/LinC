@@ -37,7 +37,7 @@
  */
 - (void)getUserInfoWithUsernames:(NSArray *)usernameList success:(void (^)(NSMutableArray *aList))successBlock failure:(void (^)(EMError *aError))failureBlock;
 
-/** 查询当前用户 */
+/** 异步查询当前用户信息 */
 - (void)getSelfInfoWithSuccess:(void (^)(BRContactListModel *model))successBlock failure:(void (^)(EMError *error))failureBlock;
 
 /** 更新当前用户信息 */
