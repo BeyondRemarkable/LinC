@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @protocol BRUserGenderTableViewControllerDelegate <NSObject>
-
+@optional
 - (void)genderDidChangeTo:(NSString *)newGender;
 
 @end

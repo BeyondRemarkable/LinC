@@ -54,6 +54,14 @@
     self.userGender.text = self.contactListModel.gender;
     self.userWhatsUp.text = self.contactListModel.whatsUp;
     self.userLocation.text = self.contactListModel.location;
+    
+    if (self.isFriend) {
+        [self.addFriendButton setHidden:YES];
+    }
+    else {
+        [self.chatButton setHidden:YES];
+        [self.deleteFriendButton setHidden:YES];
+    }
 }
 
 - (void)setupNavigationBarItem {
@@ -98,7 +106,13 @@
 
 #pragma mark - button actions
 - (void)clickMoreInfo {
-    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Report", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+    }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }]];
 }
 
 - (IBAction)clickAddFriend{

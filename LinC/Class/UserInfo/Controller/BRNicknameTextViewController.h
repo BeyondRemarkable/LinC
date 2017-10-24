@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @protocol BRNicknameTextViewControllerDelegate <NSObject>
-
+@optional
 - (void)nicknameDidChangeTo:(NSString *)newNickname;
 
 @end
