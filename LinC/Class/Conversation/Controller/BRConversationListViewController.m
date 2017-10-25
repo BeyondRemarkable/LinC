@@ -19,6 +19,7 @@
 #import "BRNavigationController.h"
 #import "BRClientManager.h"
 #import <SAMKeychain.h>
+#import "BRCoreDataManager.h"
 
 @interface BRConversationListViewController () <EMClientDelegate>
 
@@ -31,7 +32,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+    [self tableViewDidTriggerHeaderRefresh];
     [self registerNotifications];
 }
 
@@ -45,7 +46,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     [self.tableView registerNib:[UINib nibWithNibName:@"BRConversationCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:[BRConversationCell cellIdentifierWithModel:nil]];
-    [self tableViewDidTriggerHeaderRefresh];
+//    [self tableViewDidTriggerHeaderRefresh];
     [self setUpNavigationBarItem];
     
     self.navigationItem.title = @"LinC";
@@ -177,7 +178,10 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     BRConversationModel *model = [self.dataArray objectAtIndex:indexPath.row];
-    BRMessageViewController *viewController = [[BRMessageViewController alloc] initWithConversationChatter:model.conversation.conversationId conversationType:model.conversation.type];
+//    BRMessageViewController *viewController = [[BRMessageViewController alloc] initWithConversationChatter:model.conversation.conversationId conversationType:model.conversation.type];
+    
+     BRMessageViewController *viewController = [[BRMessageViewController alloc] initWithConversationChatter:@"zhe2" conversationType:0];
+    
     viewController.title = model.title;
     [self.navigationController pushViewController:viewController animated:YES];
 }
@@ -225,10 +229,24 @@
  */
 - (void)tableViewDidTriggerHeaderRefresh
 {
-    NSArray *conversations = [[EMClient sharedClient].chatManager getAllConversations];
-    NSArray* sorted = [conversations sortedArrayUsingComparator:
+    NSArray *emConversations = [[EMClient sharedClient].chatManager getAllConversations];
+    
+    NSArray *brConversations = [[BRCoreDataManager sharedInstance] fetchConversations];
+
+    NSMutableArray *conversationArray = [NSMutableArray array];
+    for (EMConversation *emConversation in emConversations) {
+        for (BRConversation *brConversation in brConversations) {
+            if ([brConversation.conversationId isEqualToString:emConversation.conversationId] && ([brConversation.from isEqualToString:emConversation.latestMessage.from] && [brConversation.to isEqualToString:emConversation.latestMessage.to])) {
+
+                [conversationArray addObject:emConversation];
+            }
+        }
+    }
+    
+    NSArray* sorted = [conversationArray sortedArrayUsingComparator:
                        ^(EMConversation *obj1, EMConversation* obj2){
                            EMMessage *message1 = [obj1 latestMessage];
+                           
                            EMMessage *message2 = [obj2 latestMessage];
                            if(message1.timestamp > message2.timestamp) {
                                return(NSComparisonResult)NSOrderedAscending;
@@ -237,10 +255,10 @@
                            }
                        }];
     
-    
-    
     [self.dataArray removeAllObjects];
+    
     for (EMConversation *converstion in sorted) {
+        
         BRConversationModel *model = [[BRConversationModel alloc] initWithConversation:converstion];
         
         if (model) {
@@ -348,6 +366,11 @@
         latestMessageTime = [formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:timeInterval]];
     }
     return latestMessageTime;
+}
+
+- (void)messagesDidReceive:(NSArray *)aMessages {
+//    [[BRCoreDataManager sharedInstance] insertUserConversationToCoreData:aMessages];
+    
 }
 
 @end

@@ -123,13 +123,13 @@ CGFloat const BRConversationCellPadding = 10;
         }
     }
     
-    if (_model.conversation.unreadMessagesCount == 0) {
-        _avatarView.showBadge = NO;
-    }
-    else{
-        _avatarView.showBadge = YES;
-        _avatarView.badge = _model.conversation.unreadMessagesCount;
-    }
+//    if (_model.conversation.unreadMessagesCount == 0) {
+//        _avatarView.showBadge = NO;
+//    }
+//    else{
+//        _avatarView.showBadge = YES;
+//        _avatarView.badge = _model.conversation.unreadMessagesCount;
+//    }
 }
 
 - (void)setTitleLabelFont:(UIFont *)titleLabelFont

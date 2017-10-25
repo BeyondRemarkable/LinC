@@ -21,6 +21,9 @@
 #import "BRMessageReadManager.h"
 #import <MBProgressHUD.h>
 #import <SDWebImage/UIImage+GIF.h>
+#import "BRCoreDataManager.h"
+#import "BRUserInfo+CoreDataClass.h"
+#import "BRConversation+CoreDataClass.h"
 
 #define KHintAdjustY    50
 
@@ -50,7 +53,7 @@ typedef enum : NSUInteger {
     
     dispatch_queue_t _messageQueue;
     BOOL _isRecording;
-    
+   
     MBProgressHUD *hud;
 }
 
@@ -1853,6 +1856,9 @@ typedef enum : NSUInteger {
 
 - (void)_sendMessage:(EMMessage *)message
 {
+    BRCoreDataManager *manager = [BRCoreDataManager sharedInstance];
+    [manager insertUserConversationToCoreData:message];
+    
     if (self.conversation.type == EMConversationTypeGroupChat){
         message.chatType = EMChatTypeGroupChat;
     }

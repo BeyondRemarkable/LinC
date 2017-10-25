@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "IConversationModel.h"
+#import "BRConversation+CoreDataClass.h"
 @class EMConversation;
 
 /** 会话对象模型 */
@@ -22,7 +23,10 @@
 @property (strong, nonatomic) NSString *avatarURLPath;
 /** @brief conversationId的头像 */
 @property (strong, nonatomic) UIImage *avatarImage;
-
+@property (strong, nonatomic) NSString *from;
+@property (strong, nonatomic) NSString *conversationID;
+@property (strong, nonatomic) NSString *to;
+@property (assign, nonatomic) int16_t chatType;
 
 /*!
  @method

@@ -133,11 +133,11 @@ static NSString * const cellIdentifier = @"ContactListCell";
  */
 - (void)loadFriendsInfoFromCoreData {
     NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
-    NSArray *resultArr = [[BRCoreDataManager sharedInstance] fetchDataBy:username fromEntity:@"BRUserInfo"];
-    BRUserInfo *userInfo = (BRUserInfo *)[resultArr lastObject];
+    BRUserInfo *userInfo = [[BRCoreDataManager sharedInstance] fetchUserInfoBy:username];
     
     NSMutableArray *friendsModelArray = [NSMutableArray array];
     for (BRFriendsInfo *friendsInfo in userInfo.friendsInfo) {
+        NSLog(@"%lu", userInfo.friendsInfo.count);
         BRContactListModel *contactModel = [[BRContactListModel alloc] init];
         contactModel.username = friendsInfo.username;
         contactModel.nickname = friendsInfo.nickname;
@@ -271,6 +271,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
 
 - (void)tableViewDidTriggerHeaderRefresh
 {
+    
     __weak typeof(self) weakself = self;
     [[EMClient sharedClient].contactManager getContactsFromServerWithCompletion:^(NSArray *aList, EMError *aError) {
         if (!aError) {
@@ -326,6 +327,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
 
 //删除好友时，双方都会收到的回调
 - (void)friendshipDidRemoveByUser:(NSString *)aUsername {
+    [[BRCoreDataManager sharedInstance] deleteFriendByID: [NSArray arrayWithObject:aUsername]];
     [self tableViewDidTriggerHeaderRefresh];
 }
 

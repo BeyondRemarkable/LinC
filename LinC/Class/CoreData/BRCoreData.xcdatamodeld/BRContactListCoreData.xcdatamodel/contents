@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13240" systemVersion="16G29" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
     <entity name="BRConversation" representedClassName="BRConversation" syncable="YES" codeGenerationType="class">
+        <attribute name="chatType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="conversationId" attributeType="String" syncable="YES"/>
+        <attribute name="direction" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="from" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="groupIcon" optional="YES" attributeType="Binary" syncable="YES"/>
-        <attribute name="lastMessageDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="isRead" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="isReadAcked" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="latestMessageTime" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="latestMessageTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="messageId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="status" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="unreadMessage" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="to" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="unreadMessageCount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="userInfo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BRUserInfo" inverseName="conversation" inverseEntity="BRUserInfo" syncable="YES"/>
     </entity>
@@ -30,12 +39,12 @@
         <attribute name="updated" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="username" attributeType="String" syncable="YES"/>
         <attribute name="whatsUp" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="conversation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BRConversation" inverseName="userInfo" inverseEntity="BRConversation" syncable="YES"/>
-        <relationship name="friendsInfo" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BRFriendsInfo" inverseName="userInfo" inverseEntity="BRFriendsInfo" syncable="YES"/>
+        <relationship name="conversation" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="BRConversation" inverseName="userInfo" inverseEntity="BRConversation" syncable="YES"/>
+        <relationship name="friendsInfo" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="BRFriendsInfo" inverseName="userInfo" inverseEntity="BRFriendsInfo" syncable="YES"/>
     </entity>
     <elements>
-        <element name="BRConversation" positionX="-16470" positionY="-1798" width="146" height="133"/>
-        <element name="BRFriendsInfo" positionX="-16083" positionY="-1845" width="128" height="193"/>
-        <element name="BRUserInfo" positionX="-16272" positionY="-1845" width="128" height="210"/>
+        <element name="BRConversation" positionX="-16614" positionY="-1930" width="146" height="268"/>
+        <element name="BRFriendsInfo" positionX="-16146" positionY="-1836" width="128" height="193"/>
+        <element name="BRUserInfo" positionX="-16389" positionY="-1899" width="128" height="208"/>
     </elements>
 </model>

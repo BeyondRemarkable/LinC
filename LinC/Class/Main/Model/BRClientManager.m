@@ -32,6 +32,7 @@
     BRHTTPSessionManager *manager = [BRHTTPSessionManager manager];
     NSString *url =  [kBaseURL stringByAppendingPathComponent:@"/api/v1/auth/login"];
     NSDictionary *parameters;
+    
     if ([username containsString:@"@"] && [username containsString:@"."]) {
         parameters = @{@"email":username, @"password":password};
     }
@@ -45,9 +46,6 @@
             NSString *usernameHX = dict[@"data"][@"user"][@"username"];
             NSString *encryptedPassword = dict[@"data"][@"user"][@"password"];
             
-            //保存用户信息到数据库
-            BRCoreDataManager *manager = [BRCoreDataManager sharedInstance];
-            [manager insertUserInfoToCoreData:dict[@"data"][@"user"]];
             // 登录环信
             [[EMClient sharedClient] loginWithUsername:usernameHX password:encryptedPassword completion:^(NSString *aUsername, EMError *aError) {
                 // 登录环信成功
@@ -61,6 +59,10 @@
                     
                     [SAMKeychain setPassword:password forService:kLoginPasswordKey account:username];
                     [SAMKeychain setPassword:dict[@"data"][@"token"] forService:kLoginTokenKey account:username];
+                    //保存用户信息到数据库
+                    BRCoreDataManager *manager = [BRCoreDataManager sharedInstance];
+                    [manager insertUserInfoToCoreData:dict[@"data"][@"user"]];
+                    
                     successBlock(dict[@"message"]);
                 }
                 // 登录环信失败
@@ -130,7 +132,7 @@
 
 
 /**
-     从服务器获取用户信息
+     从服务器获取好友信息
 
  @param usernameList 用户ID的数组
  @param successBlock successBlock userModelArray
@@ -175,7 +177,7 @@
             }
             
             BRCoreDataManager *manager = [BRCoreDataManager sharedInstance];
-            [manager insertFriendsInfoToCoreData:userModelArray];
+            [manager saveFriendsInfoToCoreData:userModelArray];
 
             successBlock(userModelArray);
         }
@@ -189,6 +191,13 @@
     }];
 }
 
+
+/**
+ 从服务器获取登录用户信息
+
+ @param successBlock successBlock 用户模型数据
+ @param failureBlock failureBlock error信息
+ */
 - (void)getSelfInfoWithSuccess:(void (^)(BRContactListModel *))successBlock failure:(void (^)(EMError *))failureBlock {
     BRHTTPSessionManager *manager = [BRHTTPSessionManager manager];
     NSString *url = [kBaseURL stringByAppendingPathComponent:@"/api/v1/account/profile/show"];
@@ -230,7 +239,6 @@
         EMError *aError = [EMError errorWithDescription:error.localizedDescription code:EMErrorServerUnknownError];
         failureBlock(aError);
     }];
-    
     
 }
 

@@ -11,6 +11,7 @@
 #import "BRContactListModel.h"
 #import "BRContactListTableViewCell.h"
 #import "BRClientManager.h"
+#import "BRCoreDataManager.h"
 
 @interface BRCreateChatViewController ()
 @property (nonatomic, strong) NSArray *friendList;
@@ -75,6 +76,10 @@
         // push聊天界面
         BRMessageViewController *vc = [[BRMessageViewController alloc] initWithConversationChatter:model.buddy conversationType:EMConversationTypeChat];
         vc.title = model.nickname;
+        
+        // 保存聊天title
+//        [[BRCoreDataManager sharedInstance] updateConversationTitle:model.nickname byUsername:model.username];
+        
         [self dismissViewControllerAnimated:YES completion:^{
             self.dismissCompletionBlock(vc);
         }];

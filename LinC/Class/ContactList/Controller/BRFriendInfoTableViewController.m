@@ -15,6 +15,7 @@
 #import <AFNetworking.h>
 #import <MBProgressHUD.h>
 #import <SAMKeychain.h>
+#import "BRCoreDataManager.h"
 
 @interface BRFriendInfoTableViewController ()
 {
@@ -126,8 +127,10 @@
                 [self performSelector:@selector(dismissVC) withObject:nil afterDelay:1.0];
             }
         }];
+        // 从core data中 删除好友数据
+        [[BRCoreDataManager sharedInstance] deleteFriendByID:[NSArray arrayWithObject:self.contactListModel.username]];
     }];
-    
+   
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         [actionSheet dismissViewControllerAnimated:YES completion:nil];
     }];
