@@ -166,10 +166,10 @@
                 model.username = dict[@"data"][@"users"][i][@"username"];
                 model.nickname = dict[@"data"][@"users"][i][@"nickname"];
                 model.updated = dict[@"data"][@"users"][i][@"updated_at"];
+                model.location = dict[@"data"][@"users"][i][@"location"];                
                 model.gender = dict[@"data"][@"users"][i][@"gender"];
-                model.location = dict[@"data"][@"users"][i][@"location"];
                 model.whatsUp = dict[@"data"][@"users"][i][@"signature"];
-                model.avatarImage = dict[@"data"][@"users"][i][@"avatar"];
+                model.avatarURLPath = [kBaseURL stringByAppendingPathComponent:dict[@"data"][@"users"][i][@"avatar"]];
                 if (model.nickname.length == 0) {
                     model.nickname = model.username;
                 }
@@ -209,7 +209,7 @@
         NSDictionary *dict = (NSDictionary *)responseObject;
         BRContactListModel *model = [[BRContactListModel alloc] initWithBuddy:dict[@"data"][@"user"][@"username"]];
         model.nickname = dict[@"data"][@"user"][@"nickname"];
-        model.avatarURLPath = dict[@"data"][@"user"][@""];
+        model.avatarURLPath = [kBaseURL stringByAppendingPathComponent:dict[@"data"][@"user"][@"avatar"]];
         model.gender = dict[@"data"][@"user"][@"gender"];
         model.location = dict[@"data"][@"user"][@"location"];
         model.whatsUp = dict[@"data"][@"user"][@"signature"];
@@ -225,9 +225,7 @@
         return;
     }
     
-    BRHTTPSessionManager *manager = [BRHTTPSessionManager manager];
     NSString *url = [kBaseURL stringByAppendingPathComponent:@"/api/v1/account/profile/save"];
-    NSDictionary *parameters = [[NSDictionary alloc] initWithObjects:valueArray forKeys:keyArray];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *username = [userDefaults objectForKey:kLoginUserNameKey];
     NSString *token = [SAMKeychain passwordForService:kLoginTokenKey account:username];

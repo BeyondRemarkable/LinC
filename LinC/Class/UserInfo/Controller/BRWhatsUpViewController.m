@@ -7,10 +7,15 @@
 //
 
 #import "BRWhatsUpViewController.h"
+#import "BRClientManager.h"
+#import <MBProgressHUD.h>
 
-#define MAX_LIMIT_NUMS 30
+#define MAX_LIMIT_NUMS 60
 
 @interface BRWhatsUpViewController () <UITextViewDelegate>
+{
+    MBProgressHUD *hud;
+}
 @property (weak, nonatomic) IBOutlet UILabel *countLabel;
 
 @property (weak, nonatomic) IBOutlet UITextView *whatsUpTextView;
@@ -35,10 +40,18 @@
 }
 
 - (void)saveBtn {
-    if (_delegate && [_delegate respondsToSelector:@selector(whatsUpDidChangeTo:)]) {
-        [_delegate whatsUpDidChangeTo:self.whatsUpTextView.text];
-    }
-    [self.navigationController popViewControllerAnimated:YES];
+    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [[BRClientManager sharedManager] updateSelfInfoWithKeys:@[@"signature"] values:@[self.whatsUpTextView.text] success:^(NSString *message) {
+        [hud hideAnimated:YES];
+        if (_delegate && [_delegate respondsToSelector:@selector(whatsUpDidChangeTo:)]) {
+            [_delegate whatsUpDidChangeTo:self.whatsUpTextView.text];
+        }
+        [self.navigationController popViewControllerAnimated:YES];
+    } failure:^(EMError *error) {
+        hud.mode = MBProgressHUDModeText;
+        hud.label.text = error.errorDescription;
+        [hud hideAnimated:YES afterDelay:1.5];
+    }];
 }
 
 // set up max length of text view

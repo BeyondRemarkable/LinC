@@ -6,20 +6,21 @@
 //  Copyright © 2017 BeyondRemarkable. All rights reserved.
 //
 
+#import "BRNavigationController.h"
 #import "BRUserInfoViewController.h"
 #import "BRUserImageViewController.h"
 #import "BRNicknameTextViewController.h"
 #import "BRUserGenderTableViewController.h"
 #import "BRLocationListViewController.h"
 #import "BRWhatsUpViewController.h"
-#import "BRLocationCitiListTableViewController.h"
 #import "BRWhatsUpViewController.h"
 #import "BRUserSettingTableViewController.h"
 #import "BRQRCodeViewController.h"
 #import "BRClientManager.h"
+#import <UIImageView+WebCache.h>
 
 
-@interface BRUserInfoViewController ()<UITableViewDelegate, UITableViewDataSource, BRUserGenderTableViewControllerDelegate, BRNicknameTextViewControllerDelegate, BRWhatsUpViewControllerDelegate>
+@interface BRUserInfoViewController ()<UITableViewDelegate, UITableViewDataSource, BRUserImageViewControllerDelegate, BRUserGenderTableViewControllerDelegate, BRNicknameTextViewControllerDelegate,BRLocationListViewControllerDelegate, BRWhatsUpViewControllerDelegate>
 
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageIcon;
@@ -68,8 +69,9 @@ typedef enum NSUInteger {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveTestNotification:) name:@"location" object:nil];
-    
+    [self.imageIcon setUserInteractionEnabled:YES];
+    [self.imageIcon addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageClicked)]];
+   
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     self.username.text = [userDefaults objectForKey:kLoginUserNameKey];
     
@@ -79,17 +81,20 @@ typedef enum NSUInteger {
         self.gender.text = model.gender;
         self.location.text = model.location;
         self.whatsup.text = model.whatsUp;
-        [self.tableView reloadData];
+        [self.imageIcon sd_setImageWithURL:[NSURL URLWithString:model.avatarURLPath] placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+            [self.tableView reloadData];
+        }];
     } failure:^(EMError *error) {
         NSLog(@"%@", error.errorDescription);
     }];
 }
 
-- (IBAction)imageBtnClicked:(UIButton *)sender {
+- (void)imageClicked {
     
     UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRUserInfo" bundle:[NSBundle mainBundle]];
     BRUserImageViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRUserImageViewController"];
-    vc.imageIcon.image = self.imageIcon.image;
+    vc.delegate = self;
+    vc.image = self.imageIcon.image;
     [self.navigationController pushViewController:vc animated:YES];
     
 }
@@ -117,12 +122,6 @@ typedef enum NSUInteger {
     
     // Section Zerro of table view
     if (indexPath.section == TableViewSectionZero ) {
-        // Image cell
-        if (indexPath.row == UserImageCell) {
-//            BRUserImageViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRUserImageViewController"];
-//            vc.imageIcon.image = self.imageIcon.image;
-//            [self.navigationController pushViewController:vc animated:YES];
-        }
         // User nick name text field
         if (indexPath.row == UserNicknameCell) {
             BRNicknameTextViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRNicknameTextViewController"];
@@ -135,6 +134,7 @@ typedef enum NSUInteger {
         if (indexPath.row == UserGenderCell) {
         
             BRUserGenderTableViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRUserGenderTableViewController"];
+            vc.gender = self.gender.text;
             vc.delegate = self;
             [self.navigationController pushViewController:vc animated:YES];
         }
@@ -151,10 +151,13 @@ typedef enum NSUInteger {
     if (indexPath.section == TableViewSectionOne) {
         // User's location list cell
         if (indexPath.row == UserLocationCell) {
+            NSString *filePath = [[NSBundle mainBundle] pathForResource:@"Location" ofType:@"plist"];
+            NSArray *locationArray = [NSArray arrayWithContentsOfFile:filePath];
+            BRLocationListViewController *vc = [[BRLocationListViewController alloc] initWithSytle:UITableViewStyleGrouped locationArray:locationArray];
+            vc.delegate = self;
+            BRNavigationController *navigationVc = [[BRNavigationController alloc] initWithRootViewController:vc];
             
-            BRLocationListViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRLocationListViewController"];
-            
-            [self.navigationController pushViewController:vc animated:YES];
+            [self presentViewController:navigationVc animated:YES completion:nil];
         }
         
         // What's up text view cell
@@ -178,7 +181,12 @@ typedef enum NSUInteger {
 
 #pragma mark delegate methods
 
-// Set up user gender from BRUserGenderViewCOntroller
+// Set up user avatar from BRUserImageViewController
+- (void)userDidUpdateAvatarTo:(UIImage *)newAvatar {
+    self.imageIcon.image = newAvatar;
+}
+
+// Set up user gender from BRUserGenderViewController
 - (void)genderDidChangeTo:(NSString *)newGender {
     self.gender.text = newGender;
 }
@@ -188,9 +196,9 @@ typedef enum NSUInteger {
     self.nickname.text = newNickname;
 }
 
-// Set up user nick name from
-- (void)whatsUpDidChangeTo:(NSString *)newWhatsUp {
-    self.whatsup.text = newWhatsUp;
+// Set up user location from BRLocationListViewController
+- (void)locationDidUpdateTo:(NSString *)newLocation {
+    self.location.text = newLocation;
 }
 
 // Set up location BRWhatsUpViewController

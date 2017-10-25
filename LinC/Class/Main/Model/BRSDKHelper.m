@@ -132,7 +132,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     }
     options.usingHttpsOnly = isHttpsOnly;
     
-    BOOL sandBox = [otherConfig objectForKey:@"easeSandBox"] && [[otherConfig objectForKey:@"easeSandBox"] boolValue];
+    BOOL sandBox = [otherConfig objectForKey:@"BRSandBox"] && [[otherConfig objectForKey:@"BRSandBox"] boolValue];
     if (!sandBox) {
         [[EMClient sharedClient] initializeSDKWithOptions:options];
     }

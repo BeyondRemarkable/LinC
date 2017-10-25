@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @protocol BRWhatsUpViewControllerDelegate <NSObject>
-
+@optional
 - (void)whatsUpDidChangeTo:(NSString *)newWhatsUp;
 
 @end

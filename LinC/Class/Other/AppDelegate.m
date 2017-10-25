@@ -38,10 +38,10 @@
         BRTabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:@"BRTabBarController"];
         
         self.window.rootViewController = vc;
+        // 检查是否token过期
+        [self updateAuthorization];
     } else {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Account" bundle:[NSBundle mainBundle]];
-        BRLoginViewController *loginVc = [storyboard instantiateInitialViewController];
-        self.window.rootViewController = loginVc;
+        [self showStoryboardWithName:@"Account" identifier:@"BRLoginViewController"];
     }
     [self setupOptions];
     
@@ -75,11 +75,33 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+#pragma mark - self-defined methods
 - (void)setupOptions {
     [[EMClient sharedClient] addDelegate:self delegateQueue:nil];
     [[EMClient sharedClient].options setIsAutoAcceptGroupInvitation:YES];
 }
 
+- (void)showStoryboardWithName:(NSString *)name identifier:(NSString *)identifier {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:name bundle:[NSBundle mainBundle]];
+    BRTabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:identifier];
+    self.window.rootViewController = vc;
+}
 
+- (void)updateAuthorization {
+    [[BRClientManager sharedManager] getSelfInfoWithSuccess:^(BRContactListModel *model) {
+        [self showStoryboardWithName:@"Main" identifier:@"BRTabBarController"];
+    } failure:^(EMError *error) {
+        if ([error.errorDescription containsString:@"(401)"]) {
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            NSString *username = [userDefaults objectForKey:kLoginUserNameKey];
+            NSString *password = [SAMKeychain passwordForService:kLoginPasswordKey account:username];
+            [[BRClientManager sharedManager] loginWithUsername:username password:password success:^(NSString *message) {
+                [self showStoryboardWithName:@"Main" identifier:@"BRTabBarController"];
+            } failure:^(EMError *error) {
+                NSLog(@"%@", error.errorDescription);
+            }];
+        }
+    }];
+}
 
 @end

@@ -8,9 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol BRUserImageViewControllerDelegate <NSObject>
+
+@optional
+- (void)userDidUpdateAvatarTo:(UIImage *)newAvatar;
+
+@end
+
 @interface BRUserImageViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet UIImageView *imageIcon;
-
+@property (nonatomic, strong) UIImage *image;
+@property (nonatomic, weak) id<BRUserImageViewControllerDelegate> delegate;
 
 @end
