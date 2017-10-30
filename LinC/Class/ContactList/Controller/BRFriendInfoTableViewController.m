@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *addFriendButton;
 @property (weak, nonatomic) IBOutlet UIButton *deleteFriendButton;
 @property (weak, nonatomic) IBOutlet UIButton *chatButton;
+@property (weak, nonatomic) IBOutlet UIImageView *userIcon;
 
 // User Info labels
 @property (weak, nonatomic) IBOutlet UILabel *userNickName;
@@ -55,7 +56,7 @@
     self.userGender.text = self.contactListModel.gender;
     self.userWhatsUp.text = self.contactListModel.whatsUp;
     self.userLocation.text = self.contactListModel.location;
-    
+    self.userIcon.image = self.contactListModel.avatarImage;
     if (self.isFriend) {
         [self.addFriendButton setHidden:YES];
     }
@@ -92,6 +93,8 @@
     self.userGender.text = contactListModel.gender;
     self.userWhatsUp.text = contactListModel.whatsUp;
     self.userLocation.text = contactListModel.location;
+    self.userIcon.image = contactListModel.avatarImage;
+
 }
 
 #pragma mark - UITableView data source

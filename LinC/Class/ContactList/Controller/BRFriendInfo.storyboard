@@ -315,6 +315,7 @@
                         <outlet property="deleteFriendButton" destination="LFR-7v-9gM" id="hPy-fY-er2"/>
                         <outlet property="userGender" destination="jSJ-kk-tCc" id="Vgh-jC-dyG"/>
                         <outlet property="userID" destination="U0U-MT-POy" id="taK-7S-gQt"/>
+                        <outlet property="userIcon" destination="dwO-cs-CEA" id="hP6-Y6-F4f"/>
                         <outlet property="userLocation" destination="orm-Ji-7cD" id="lya-nI-ytk"/>
                         <outlet property="userNickName" destination="7u9-u7-BjR" id="w6v-lf-oEW"/>
                         <outlet property="userWhatsUp" destination="T5I-ZY-rG4" id="Z0w-ZE-1Lo"/>

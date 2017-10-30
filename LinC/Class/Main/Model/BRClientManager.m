@@ -32,7 +32,6 @@
     BRHTTPSessionManager *manager = [BRHTTPSessionManager manager];
     NSString *url =  [kBaseURL stringByAppendingPathComponent:@"/api/v1/auth/login"];
     NSDictionary *parameters;
-    
     if ([username containsString:@"@"] && [username containsString:@"."]) {
         parameters = @{@"email":username, @"password":password};
     }
@@ -45,7 +44,7 @@
         if ([dict[@"status"] isEqualToString:@"success"]) {
             NSString *usernameHX = dict[@"data"][@"user"][@"username"];
             NSString *encryptedPassword = dict[@"data"][@"user"][@"password"];
-            
+
             // 登录环信
             [[EMClient sharedClient] loginWithUsername:usernameHX password:encryptedPassword completion:^(NSString *aUsername, EMError *aError) {
                 // 登录环信成功
@@ -59,11 +58,10 @@
                     
                     [SAMKeychain setPassword:password forService:kLoginPasswordKey account:username];
                     [SAMKeychain setPassword:dict[@"data"][@"token"] forService:kLoginTokenKey account:username];
-                    //保存用户信息到数据库
-                    BRCoreDataManager *manager = [BRCoreDataManager sharedInstance];
-                    [manager insertUserInfoToCoreData:dict[@"data"][@"user"]];
-                    
                     successBlock(dict[@"message"]);
+                    
+                    //保存登录用户信息到数据库
+                    [[BRCoreDataManager sharedInstance] insertUserInfoToCoreData:dict[@"data"][@"user"]];
                 }
                 // 登录环信失败
                 else {
@@ -118,12 +116,14 @@
     [manager POST:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dict = (NSDictionary *)responseObject;
         if ([dict[@"status"] isEqualToString:@"success"]) {
+            
             successBlock(dict[@"message"]);
         }
         else {
             EMError *error = [EMError errorWithDescription:dict[@"message"] code:EMErrorGeneral];
             failureBlock(error);
         }
+        
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         EMError *emError = [EMError errorWithDescription:error.localizedDescription code:EMErrorServerUnknownError];
         failureBlock(emError);
@@ -132,8 +132,7 @@
 
 
 /**
-     从服务器获取好友信息
-
+ 从服务器获取好友信息
  @param usernameList 用户ID的数组
  @param successBlock successBlock userModelArray
  @param failureBlock failureBlock error
@@ -154,7 +153,7 @@
     NSData *data = [NSJSONSerialization dataWithJSONObject:usernameList options:NSJSONWritingPrettyPrinted error:nil];
     NSString *jsonStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     NSDictionary *parameters = @{@"key":@"username",@"value":jsonStr};
-
+    
     NSMutableArray *userModelArray = [NSMutableArray array];
     [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dict = (NSDictionary *)responseObject;
@@ -166,19 +165,24 @@
                 model.username = dict[@"data"][@"users"][i][@"username"];
                 model.nickname = dict[@"data"][@"users"][i][@"nickname"];
                 model.updated = dict[@"data"][@"users"][i][@"updated_at"];
-                model.location = dict[@"data"][@"users"][i][@"location"];                
+                model.location = dict[@"data"][@"users"][i][@"location"];
                 model.gender = dict[@"data"][@"users"][i][@"gender"];
                 model.whatsUp = dict[@"data"][@"users"][i][@"signature"];
                 model.avatarURLPath = [kBaseURL stringByAppendingPathComponent:dict[@"data"][@"users"][i][@"avatar"]];
                 if (model.nickname.length == 0) {
                     model.nickname = model.username;
                 }
+                BOOL isImage = ([model.avatarURLPath.lowercaseString hasSuffix:@".jpg"] || [model.avatarURLPath.lowercaseString hasSuffix:@".png"]);
+                if (!isImage) {
+                    model.avatarImage = [UIImage imageNamed:@"user_default"];
+                } else {
+                    model.avatarImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:model.avatarURLPath]]];
+                }
                 [userModelArray addObject:model];
             }
+            // 保存好友信息到core data
+            [[BRCoreDataManager sharedInstance] saveFriendsInfoToCoreData:userModelArray];
             
-            BRCoreDataManager *manager = [BRCoreDataManager sharedInstance];
-            [manager saveFriendsInfoToCoreData:userModelArray];
-
             successBlock(userModelArray);
         }
         else {
@@ -229,15 +233,48 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *username = [userDefaults objectForKey:kLoginUserNameKey];
     NSString *token = [SAMKeychain passwordForService:kLoginTokenKey account:username];
-    [manager.requestSerializer setValue:[@"Bearer " stringByAppendingString:token]  forHTTPHeaderField:@"Authorization"];
-    [manager PUT:url parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSDictionary *dict = (NSDictionary *)responseObject;
-        successBlock(dict[@"message"]);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        EMError *aError = [EMError errorWithDescription:error.localizedDescription code:EMErrorServerUnknownError];
-        failureBlock(aError);
-    }];
-    
+    if (![keyArray containsObject:@"avatar"]) {
+        BRHTTPSessionManager *manager = [BRHTTPSessionManager manager];
+        NSDictionary *parameters = [[NSDictionary alloc] initWithObjects:valueArray forKeys:keyArray];
+        [manager.requestSerializer setValue:[@"Bearer " stringByAppendingString:token]  forHTTPHeaderField:@"Authorization"];
+        [manager PUT:url parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            NSDictionary *dict = (NSDictionary *)responseObject;
+            
+            // 更新登录用户信息到 core data
+            [[BRCoreDataManager sharedInstance] updateUserInfoWithKeys:(NSArray *)keyArray andValue: (NSArray *)valueArray];
+            
+            successBlock(dict[@"message"]);
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            EMError *aError = [EMError errorWithDescription:error.localizedDescription code:EMErrorServerUnknownError];
+            failureBlock(aError);
+        }];
+    }
+    else {
+        NSData *imageData = [valueArray firstObject];
+        BRHTTPSessionManager *manager = [BRHTTPSessionManager manager];
+        [manager.requestSerializer setValue:[@"Bearer " stringByAppendingString:token]  forHTTPHeaderField:@"Authorization"];
+        NSMutableURLRequest *request = [manager.requestSerializer multipartFormRequestWithMethod:@"PUT" URLString:url parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+            [formData appendPartWithFileData:imageData name:@"avatar" fileName:@"avatar.jpg" mimeType:@"image/jpeg"];
+        } error:nil];
+        NSURLSessionDataTask *uploadTask = [manager dataTaskWithRequest:request uploadProgress:nil downloadProgress:nil completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+            if (error == nil) {
+                NSDictionary *dict = (NSDictionary *)responseObject;
+                if ([dict[@"status"] isEqualToString:@"success"]) {
+                    successBlock(dict[@"message"]);
+                }
+                else {
+                    EMError *aError = [EMError errorWithDescription:dict[@"message"] code:EMErrorServerUnknownError];
+                    failureBlock(aError);
+                }
+            }
+            else {
+                EMError *aError = [EMError errorWithDescription:error.localizedDescription code:EMErrorServerUnknownError];
+                failureBlock(aError);
+            }
+        }];
+        [[BRCoreDataManager sharedInstance] updateUserInfoWithKeys:(NSArray *)keyArray andValue: (NSArray *)valueArray];
+        [uploadTask resume];
+    }
 }
 
 @end

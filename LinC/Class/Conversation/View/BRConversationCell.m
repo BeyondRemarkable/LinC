@@ -56,9 +56,7 @@ CGFloat const BRConversationCellPadding = 10;
 - (void)_setupSubview
 {
     self.accessibilityIdentifier = @"table_cell";
-    
     _avatarView.translatesAutoresizingMaskIntoConstraints = NO;
-    
     _timeLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _timeLabel.font = _timeLabelFont;
     _timeLabel.textColor = _timeLabelColor;
@@ -105,31 +103,16 @@ CGFloat const BRConversationCellPadding = 10;
 - (void)setModel:(id<IConversationModel>)model
 {
     _model = model;
+    self.titleLabel.text = _model.title;
+    self.avatarView.imageView.image = _model.avatarImage;
     
-    if ([_model.title length] > 0) {
-        self.titleLabel.text = _model.title;
+    if (_model.conversation.unreadMessagesCount == 0) {
+        _avatarView.showBadge = NO;
     }
     else{
-        self.titleLabel.text = _model.conversation.conversationId;
+        _avatarView.showBadge = YES;
+        _avatarView.badge = _model.conversation.unreadMessagesCount;
     }
-    
-    if (self.showAvatar) {
-        if ([_model.avatarURLPath length] > 0){
-            [self.avatarView.imageView sd_setImageWithURL:[NSURL URLWithString:_model.avatarURLPath] placeholderImage:_model.avatarImage];
-        } else {
-            if (_model.avatarImage) {
-                self.avatarView.image = _model.avatarImage;
-            }
-        }
-    }
-    
-//    if (_model.conversation.unreadMessagesCount == 0) {
-//        _avatarView.showBadge = NO;
-//    }
-//    else{
-//        _avatarView.showBadge = YES;
-//        _avatarView.badge = _model.conversation.unreadMessagesCount;
-//    }
 }
 
 - (void)setTitleLabelFont:(UIFont *)titleLabelFont

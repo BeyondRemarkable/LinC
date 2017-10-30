@@ -17,25 +17,27 @@
 + (BRCoreDataManager *)sharedInstance;
 - (NSManagedObjectContext *)managedObjectContext;
 - (__kindof NSManagedObject *)createNewDBObjectEntityname:(NSString *)entityName;
+/** 保存登录用户数据 */
+- (void)insertUserInfoToCoreData:(NSDictionary *)dataDict;
 /** 获取登录用户模型 */
 - (BRUserInfo *)fetchUserInfoBy:(NSString *)userName;
+/** 更新登录用户模型 */
+- (void)updateUserInfoWithKeys:(NSArray *)keyArray andValue: (NSArray *)valueArray;
 /** 保存好友数据到Core data */
 - (void)saveFriendsInfoToCoreData:(NSMutableArray*)dataArray;
-/** 插入新好友数据 */
-- (void)insertUserInfoToCoreData:(NSDictionary *)dataDict;
+/** 获取好友模型数据 */
+- (BRFriendsInfo *)fetchFriendInfoBy:(NSString *)friendID;
 /** 更新好友数据 */
 - (void)updateFriendsInfoCoreDataBy:(NSString *)userName withModel:(BRContactListModel *)contactModel;
 /** 删除好友模型数据 */
 - (void)deleteFriendByID:(NSArray *)userNameArray;
 /** 插入会话模型数据 */
-- (void)insertUserConversationToCoreData:(EMMessage *)message;
+- (void)insertConversationToCoreData:(EMMessage *)message;
 /** 删除会话模型数据 */
 - (void)deleteConversationByID:(NSArray *)conversationID;
 /** 获取会话模型数据 */
 - (NSMutableArray *)fetchConversations;
 
-
-- (void)updateConversationTitle:(NSString *)title byUsername:(NSString *)username;
-
+/** 保存到core data */
 - (BOOL)saveData;
 @end

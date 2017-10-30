@@ -1856,15 +1856,15 @@ typedef enum : NSUInteger {
 
 - (void)_sendMessage:(EMMessage *)message
 {
-    BRCoreDataManager *manager = [BRCoreDataManager sharedInstance];
-    [manager insertUserConversationToCoreData:message];
-    
     if (self.conversation.type == EMConversationTypeGroupChat){
         message.chatType = EMChatTypeGroupChat;
     }
     else if (self.conversation.type == EMConversationTypeChatRoom){
         message.chatType = EMChatTypeChatRoom;
     }
+    
+    BRCoreDataManager *manager = [BRCoreDataManager sharedInstance];
+    [manager insertConversationToCoreData:message];
     
     [self addMessageToDataSource:message
                         progress:nil];

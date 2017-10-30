@@ -20,6 +20,8 @@
 #import "BRClientManager.h"
 #import <SAMKeychain.h>
 #import "BRCoreDataManager.h"
+#import "BRFriendsInfo+CoreDataClass.h"
+#import "BRAvatarView.h"
 
 @interface BRConversationListViewController () <EMClientDelegate>
 
@@ -46,7 +48,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     [self.tableView registerNib:[UINib nibWithNibName:@"BRConversationCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:[BRConversationCell cellIdentifierWithModel:nil]];
-//    [self tableViewDidTriggerHeaderRefresh];
+
     [self setUpNavigationBarItem];
     
     self.navigationItem.title = @"LinC";
@@ -156,8 +158,8 @@
     }
     
     id<IConversationModel> model = [self.dataArray objectAtIndex:indexPath.row];
-    cell.model = model;
     
+    cell.model = model;
     
     cell.detailLabel.attributedText =  [[BREmotionEscape sharedInstance] attStringFromTextForChatting:[self _latestMessageTitleForConversationModel:model]textFont:cell.detailLabel.font];
     
@@ -178,9 +180,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     BRConversationModel *model = [self.dataArray objectAtIndex:indexPath.row];
-//    BRMessageViewController *viewController = [[BRMessageViewController alloc] initWithConversationChatter:model.conversation.conversationId conversationType:model.conversation.type];
-    
-     BRMessageViewController *viewController = [[BRMessageViewController alloc] initWithConversationChatter:@"zhe2" conversationType:0];
+    BRMessageViewController *viewController = [[BRMessageViewController alloc] initWithConversationChatter:model.conversation.conversationId conversationType:model.conversation.type];
     
     viewController.title = model.title;
     [self.navigationController pushViewController:viewController animated:YES];
@@ -202,51 +202,69 @@
 
 #pragma mark - data
 
--(void)refreshAndSortView
-{
-    if ([self.dataArray count] > 1) {
-        if ([[self.dataArray objectAtIndex:0] isKindOfClass:[BRConversationModel class]]) {
-            NSArray* sorted = [self.dataArray sortedArrayUsingComparator:
-                               ^(BRConversationModel *obj1, BRConversationModel* obj2){
-                                   EMMessage *message1 = [obj1.conversation latestMessage];
-                                   EMMessage *message2 = [obj2.conversation latestMessage];
-                                   if(message1.timestamp > message2.timestamp) {
-                                       return(NSComparisonResult)NSOrderedAscending;
-                                   }else {
-                                       return(NSComparisonResult)NSOrderedDescending;
-                                   }
-                               }];
-            [self.dataArray removeAllObjects];
-            [self.dataArray addObjectsFromArray:sorted];
-        }
-    }
-    [self.tableView reloadData];
-}
-
 /*!
  @method
  @brief 加载会话列表
  */
+//- (void)tableViewDidTriggerHeaderRefresh
+//{
+//
+//    NSArray *sorted =  [[EMClient sharedClient].chatManager getAllConversations];
+//
+//    NSArray *brConversationsArray = [[BRCoreDataManager sharedInstance] fetchConversations];
+//
+//    NSMutableArray *sorted = [NSMutableArray array];
+//    NSMutableArray *conversationArray = [NSMutableArray array];
+//    NSMutableArray *iconArray = [NSMutableArray array];
+//
+//    for (BRConversation *conversation in brConversationsArray) {
+//        EMConversation *emConversation = [[EMClient sharedClient].chatManager getConversation:conversation.conversationId type:conversation.chatType createIfNotExist:NO];
+//        BRFriendsInfo *friendInfo = [[BRCoreDataManager sharedInstance] fetchFriendInfoBy:conversation.conversationId];
+//        UIImage *image = [UIImage imageWithData:friendInfo.avatar];
+//        if (image) {
+//            [iconArray addObject: image];
+//        }
+//        if (emConversation) {
+//             [conversationArray addObject:emConversation];
+//        }
+//
+//    }
+//
+//    for (NSUInteger i = 0; i < conversationArray.count; i++) {
+//        EMConversation *conversation = [conversationArray objectAtIndex:i];
+//        BRConversationModel *model = [[BRConversationModel alloc] initWithConversation:conversation];
+//
+//        if (i < iconArray.count) {
+//            model.avatarImage =  [iconArray objectAtIndex:i];
+//        }
+//        if (model) {
+//            [sorted addObject:model];
+//        }
+//    }
+//
+//    [sorted sortedArrayUsingComparator:
+//    ^(BRConversationModel *obj1, BRConversationModel* obj2){
+//        EMMessage *message1 = [obj1.conversation latestMessage];
+//        EMMessage *message2 = [obj2.conversation latestMessage];
+//        if(message1.timestamp > message2.timestamp) {
+//            return(NSComparisonResult)NSOrderedAscending;
+//        }else {
+//            return(NSComparisonResult)NSOrderedDescending;
+//        }
+//    }];
+//    [self.dataArray removeAllObjects];
+//    self.dataArray = [sorted copy];
+//
+//    [self.tableView reloadData];
+//    [self tableViewDidFinishRefresh:BRRefreshTableViewWidgetHeader reload:NO];
+//}
+
 - (void)tableViewDidTriggerHeaderRefresh
 {
-    NSArray *emConversations = [[EMClient sharedClient].chatManager getAllConversations];
-    
-    NSArray *brConversations = [[BRCoreDataManager sharedInstance] fetchConversations];
-
-    NSMutableArray *conversationArray = [NSMutableArray array];
-    for (EMConversation *emConversation in emConversations) {
-        for (BRConversation *brConversation in brConversations) {
-            if ([brConversation.conversationId isEqualToString:emConversation.conversationId] && ([brConversation.from isEqualToString:emConversation.latestMessage.from] && [brConversation.to isEqualToString:emConversation.latestMessage.to])) {
-
-                [conversationArray addObject:emConversation];
-            }
-        }
-    }
-    
-    NSArray* sorted = [conversationArray sortedArrayUsingComparator:
+    NSArray *conversations = [[EMClient sharedClient].chatManager getAllConversations];
+    NSArray* sorted = [conversations sortedArrayUsingComparator:
                        ^(EMConversation *obj1, EMConversation* obj2){
                            EMMessage *message1 = [obj1 latestMessage];
-                           
                            EMMessage *message2 = [obj2 latestMessage];
                            if(message1.timestamp > message2.timestamp) {
                                return(NSComparisonResult)NSOrderedAscending;
@@ -255,10 +273,10 @@
                            }
                        }];
     
-    [self.dataArray removeAllObjects];
     
+    
+    [self.dataArray removeAllObjects];
     for (EMConversation *converstion in sorted) {
-        
         BRConversationModel *model = [[BRConversationModel alloc] initWithConversation:converstion];
         
         if (model) {
@@ -369,8 +387,7 @@
 }
 
 - (void)messagesDidReceive:(NSArray *)aMessages {
-//    [[BRCoreDataManager sharedInstance] insertUserConversationToCoreData:aMessages];
-    
+//    [[BRCoreDataManager sharedInstance] insertConversationToCoreData: aMessages];
 }
 
 @end

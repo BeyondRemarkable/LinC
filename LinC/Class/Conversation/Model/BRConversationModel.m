@@ -9,8 +9,8 @@
 #import "BRConversationModel.h"
 #import <Hyphenate/EMConversation.h>
 #import "BRUserInfo+CoreDataClass.h"
-#import "BRConversation+CoreDataClass.h"
 #import "BRCoreDataManager.h"
+#import "BRFriendsInfo+CoreDataClass.h"
 @implementation BRConversationModel
 
 - (instancetype)initWithConversation:(EMConversation *)conversation
@@ -18,25 +18,47 @@
     self = [super init];
     if (self) {
         _conversation = conversation;
-        _title = _conversation.conversationId;
-        NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
-        BRUserInfo *userInfo = [[BRCoreDataManager sharedInstance] fetchUserInfoBy:username];
-        
-        for (BRConversation *brconversation in userInfo.conversation) {
-            if ([brconversation.conversationId isEqualToString:conversation.conversationId]) {
-                self.from = brconversation.from;
-            }
-        }
-        
         if (_conversation.type == EMConversationTypeChat) {
-            _avatarImage = [UIImage imageNamed:@"user_default"];
+            [self setupConversationTypeChat:conversation];
         }
-        else{
+        else if(_conversation.type == EMConversationTypeGroupChat){
+            [self setupConversationGroupChat:_conversation];
+        }
+    }
+    return self;
+}
+
+
+/**
+ 从core data 给单聊会话模型赋值（头像和标题）
+
+ @param conversation conversation 单聊会话模型
+ */
+- (void)setupConversationTypeChat: (EMConversation *)conversation {
+    
+    BRFriendsInfo *friendInfo = [[BRCoreDataManager sharedInstance] fetchFriendInfoBy:conversation.conversationId];
+    if (friendInfo.nickname) {
+        _title = friendInfo.nickname;
+    } else {
+        _title = _conversation.conversationId;
+    }
+    _avatarImage = [UIImage imageWithData:friendInfo.avatar];
+    
+}
+
+/**
+ 从core data 给群聊会话模型赋值（头像和标题）
+ 
+ @param conversation conversation 群聊会话模型
+ */
+- (void)setupConversationGroupChat:(EMConversation *)conversation {
+    NSArray *groupArray = [[EMClient sharedClient].groupManager getJoinedGroups];
+    for (EMGroup *group in groupArray) {
+        if ([group.groupId isEqualToString:conversation.conversationId]) {
+            _title = group.subject;
             _avatarImage = [UIImage imageNamed:@"group_default"];
         }
     }
-    
-    return self;
 }
 
 @end

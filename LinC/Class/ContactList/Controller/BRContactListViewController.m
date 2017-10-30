@@ -53,11 +53,11 @@ static NSString * const cellIdentifier = @"ContactListCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    [self loadFriendsInfoFromCoreData];
     [self setUpTableView];
     [self setUpNavigationBarItem];
     [self tableViewDidTriggerHeaderRefresh];
-    [self loadFriendsInfoFromCoreData];
+    
     //注册好友回调
     [[EMClient sharedClient].contactManager addDelegate:self delegateQueue:nil];
     //    //移除好友回调
@@ -137,14 +137,14 @@ static NSString * const cellIdentifier = @"ContactListCell";
     
     NSMutableArray *friendsModelArray = [NSMutableArray array];
     for (BRFriendsInfo *friendsInfo in userInfo.friendsInfo) {
-        NSLog(@"%lu", userInfo.friendsInfo.count);
+        
         BRContactListModel *contactModel = [[BRContactListModel alloc] init];
         contactModel.username = friendsInfo.username;
         contactModel.nickname = friendsInfo.nickname;
-        //        contactModel.avatarImage = (UIImage *)friendsInfo.avatar;
-        if (friendsInfo.nickname.length == 0) {
-            contactModel.username = friendsInfo.nickname;
-        }
+        contactModel.avatarImage = [UIImage imageWithData:friendsInfo.avatar];
+        contactModel.whatsUp = friendsInfo.whatsUp;
+        contactModel.gender = friendsInfo.gender;
+       
         [friendsModelArray addObject:contactModel];
     }
     [friendsModelArray sortUsingComparator:^NSComparisonResult(BRContactListModel *left, BRContactListModel *right) {
@@ -224,6 +224,10 @@ static NSString * const cellIdentifier = @"ContactListCell";
     return 20;
 }
 
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    return 60;
+//}
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -252,7 +256,6 @@ static NSString * const cellIdentifier = @"ContactListCell";
             }
         }
         else if (indexPath.row == TableVIewGroup) {
-            
         }
     }
     // User contact list cell
@@ -271,9 +274,10 @@ static NSString * const cellIdentifier = @"ContactListCell";
 
 - (void)tableViewDidTriggerHeaderRefresh
 {
-    
     __weak typeof(self) weakself = self;
+    
     [[EMClient sharedClient].contactManager getContactsFromServerWithCompletion:^(NSArray *aList, EMError *aError) {
+  
         if (!aError) {
             NSMutableArray *contactsSource = [NSMutableArray array];
             

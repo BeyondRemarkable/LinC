@@ -98,10 +98,11 @@ typedef enum NSUInteger {
 // 登出
 - (void)logoutBtn {
     hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [hud showAnimated:YES];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *username = [userDefaults objectForKey:kLoginUserNameKey];
     [[BRClientManager sharedManager] logoutIfSuccess:^(NSString *message) {
-        [hud hideAnimated:YES];
+
         // 删除保存的token
         [SAMKeychain deletePasswordForService:kLoginTokenKey account:username];
         //手动登出后， 设置自动登录为false
@@ -112,49 +113,20 @@ typedef enum NSUInteger {
         hud.label.text = error.errorDescription;
         [hud hideAnimated:YES afterDelay:1.5];
     }];
-    // 显示登录界面
-    UIStoryboard *sc = [UIStoryboard storyboardWithName:@"Account" bundle:[NSBundle mainBundle]];
-    BRLoginViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRLoginViewController"];
-    [[UIApplication sharedApplication].keyWindow setRootViewController:vc];
-    
+
+    [[EMClient sharedClient] logout:YES completion:^(EMError *aError) {
+        if (aError) {
+            hud.mode = MBProgressHUDModeText;
+            hud.label.text = @"Try again later.";
+            [hud hideAnimated:YES afterDelay:1.5];
+        } else {
+        // 显示登录界面
+        [hud hideAnimated:YES];
+        UIStoryboard *sc = [UIStoryboard storyboardWithName:@"Account" bundle:[NSBundle mainBundle]];
+        BRLoginViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRLoginViewController"];
+        [[UIApplication sharedApplication].keyWindow setRootViewController:vc];
+        }
+    }];
 }
-
-// 测试登出
-//- (void)logoutBtn {
-//    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-//    // 登出
-//    BRHTTPSessionManager *manager = [BRHTTPSessionManager manager];
-//    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-//    NSString *accountName = [userDefaults objectForKey:kLoginUserNameKey];
-//    NSString *token = [SAMKeychain passwordForService:kLoginTokenKey account:accountName];
-//    
-//    [manager.requestSerializer setValue:[@"Bearer " stringByAppendingString:token]  forHTTPHeaderField:@"Authorization"];
-//    NSString *url =  [kBaseURL stringByAppendingPathComponent:@"/api/v1/account/logout"];
-//    [manager POST:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//        NSDictionary *dict = (NSDictionary *)responseObject;
-//        if (true/*[dict[@"status"] isEqualToString:@"success"]*/) {
-//            [hud hideAnimated:YES];
-//            // 删除保存的token
-//            [SAMKeychain deletePasswordForService:kLoginTokenKey account:accountName];
-//            //手动登出后， 设置自动登录为false
-//            [[EMClient sharedClient].options setIsAutoLogin:NO];
-//            // 显示登录界面
-//            UIStoryboard *sc = [UIStoryboard storyboardWithName:@"Account" bundle:[NSBundle mainBundle]];
-//            BRLoginViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRLoginViewController"];
-//            [[UIApplication sharedApplication].keyWindow setRootViewController:vc];
-//        }
-//        else {
-//            hud.mode = MBProgressHUDModeText;
-//            hud.label.text = dict[@"message"];
-//            [hud hideAnimated:YES afterDelay:1.5];
-//        }
-//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//        [hud hideAnimated:YES];
-//        NSLog(@"%@", error.localizedDescription);
-//    }];
-//    
-//    
-//}
-
 
 @end

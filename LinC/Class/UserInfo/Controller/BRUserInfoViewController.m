@@ -18,6 +18,8 @@
 #import "BRQRCodeViewController.h"
 #import "BRClientManager.h"
 #import <UIImageView+WebCache.h>
+#import "BRCoreDataManager.h"
+#import "BRUserInfo+CoreDataClass.h"
 
 
 @interface BRUserInfoViewController ()<UITableViewDelegate, UITableViewDataSource, BRUserImageViewControllerDelegate, BRUserGenderTableViewControllerDelegate, BRNicknameTextViewControllerDelegate,BRLocationListViewControllerDelegate, BRWhatsUpViewControllerDelegate>
@@ -72,21 +74,16 @@ typedef enum NSUInteger {
     [self.imageIcon setUserInteractionEnabled:YES];
     [self.imageIcon addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageClicked)]];
    
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    self.username.text = [userDefaults objectForKey:kLoginUserNameKey];
-    
-    [[BRClientManager sharedManager] getSelfInfoWithSuccess:^(BRContactListModel *model) {
-        self.username.text = model.username;
-        self.nickname.text = model.nickname;
-        self.gender.text = model.gender;
-        self.location.text = model.location;
-        self.whatsup.text = model.whatsUp;
-        [self.imageIcon sd_setImageWithURL:[NSURL URLWithString:model.avatarURLPath] placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-            [self.tableView reloadData];
-        }];
-    } failure:^(EMError *error) {
-        NSLog(@"%@", error.errorDescription);
-    }];
+    // 从Core data获取登录用户
+    NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
+    BRUserInfo *userInfo = [[BRCoreDataManager sharedInstance] fetchUserInfoBy:username];
+    self.imageIcon.image = [UIImage imageWithData:userInfo.avatar];
+    self.username.text = userInfo.username;
+    self.nickname.text = userInfo.nickname;
+    self.gender.text = userInfo.gender;
+    self.location.text = userInfo.location;
+    self.whatsup.text = userInfo.whatsUp;
+
 }
 
 - (void)imageClicked {
@@ -199,6 +196,11 @@ typedef enum NSUInteger {
 // Set up user location from BRLocationListViewController
 - (void)locationDidUpdateTo:(NSString *)newLocation {
     self.location.text = newLocation;
+}
+
+// Set up user nick name from BRWhatsUpViewController
+- (void)whatsUpDidChangeTo:(NSString *)newWhatsUp {
+    self.whatsup.text = newWhatsUp;
 }
 
 // Set up location BRWhatsUpViewController

@@ -48,7 +48,7 @@ static BRCoreDataStack *gCoreDataStack = nil;
 
 
 /**
- 检查登录用户环信ID是否已经存在，不存在保存登录用户信息到数据库中
+     保存登录用户信息
  
  @param dataDict dataDict 登录用户环信模型
  */
@@ -63,7 +63,13 @@ static BRCoreDataStack *gCoreDataStack = nil;
             userInfo.nickname = dataDict[@"nickname"];
             userInfo.gender = dataDict[@"gender"];
             userInfo.location = dataDict[@"location"];
-            //            userInfo.avatar = dataDict[@"nickname"];
+            if (dataDict[@"avatar"]) {
+                userInfo.avatar = [NSData dataWithContentsOfURL: [NSURL URLWithString:[kBaseURL stringByAppendingString:dataDict[@"avatar"]]]];
+            } else {
+                userInfo.avatar = UIImagePNGRepresentation([UIImage imageNamed:@"user_default"]);
+            }
+            
+            userInfo.whatsUp = dataDict[@"signature"];
             userInfo.updated = dataDict[@"updated_at"];
             [self saveData];
         }
@@ -72,7 +78,69 @@ static BRCoreDataStack *gCoreDataStack = nil;
 
 
 /**
- 检查需要插入的数据如果不存在，插入数据，并保存
+ 更新登录用户信息
+
+ @param keyArray keyArray 需要更新信息的key
+ @param valueArray valueArray 需要更新的value
+ */
+- (void)updateUserInfoWithKeys:(NSArray *)keyArray andValue: (NSArray *)valueArray {
+    NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
+    BRUserInfo *userInfo = [self fetchUserInfoBy:username];
+    NSString *key = [keyArray lastObject];
+
+    if ([key isEqualToString:@"avatar"]) {
+        userInfo.avatar = [NSData dataWithData: [valueArray lastObject]];
+    } else {
+        NSString *value = [valueArray firstObject];
+        if ([key isEqualToString: @"username"]) {
+            userInfo.username = value;
+        } else if ([key isEqualToString: @"nickname"]) {
+            userInfo.nickname = value;
+        } else if ([key isEqualToString: @"gender"]) {
+            userInfo.gender = value;
+        } else if ([key isEqualToString: @"location"]) {
+            userInfo.location = value;
+        } else if ([key isEqualToString: @"signature"]) {
+            userInfo.whatsUp = value;
+        }
+    }
+    if ([key isEqualToString: @"updated"]) {
+        userInfo.updated = [valueArray firstObject];
+    }
+    [self saveData];
+}
+
+/**
+ 获取登录用户模型
+ 
+ @param userName userName 用户环信ID
+ @return return BRUserInfo 返回登录用户模型
+ */
+- (BRUserInfo *)fetchUserInfoBy:(NSString *)userName {
+    
+    NSManagedObjectContext *context = [self managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName: @"BRUserInfo" inManagedObjectContext:context];
+    NSPredicate *fetchPredicate= [NSPredicate predicateWithFormat:@"username = %@", userName];
+    
+    [fetchRequest setPredicate:fetchPredicate];
+    [fetchRequest setEntity:entity];
+    
+    NSError *error;
+    if (entity) {
+        NSArray *fetchedObjects = [context executeFetchRequest: fetchRequest error:&error];
+        
+        if (fetchedObjects.count != 0) {
+            return [fetchedObjects lastObject];
+        } else {
+            return nil;
+        }
+    }
+    return nil;
+}
+
+/**
+ 检查好友列表 如何数据不存在，插入数据，并保存
  如果数据存在，检查是否需要更新
  
  @param dataArray dataArray 登录用户的好友模型数据
@@ -133,7 +201,7 @@ static BRCoreDataStack *gCoreDataStack = nil;
     friendsInfo.nickname = contactModel.nickname;
     friendsInfo.gender = contactModel.gender;
     friendsInfo.location = contactModel.location;
-    //            friendsInfo.avatar = (NSData *)contactModel.avatar;
+    friendsInfo.avatar = UIImagePNGRepresentation(contactModel.avatarImage);
     friendsInfo.whatsUp = contactModel.whatsUp;
     friendsInfo.updated = contactModel.updated;
     [userInfo addFriendsInfoObject:friendsInfo];
@@ -141,47 +209,27 @@ static BRCoreDataStack *gCoreDataStack = nil;
 }
 
 /**
- 获取登录用户模型
+ 删除好友模型数据
  
- @param userName userName 用户环信ID
- @return return BRUserInfo 返回登录用户模型
+ @param userNameArray userName 需要删掉的好友ID数组
  */
-- (BRUserInfo *)fetchUserInfoBy:(NSString *)userName {
-    
-    NSManagedObjectContext *context = [self managedObjectContext];
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName: @"BRUserInfo" inManagedObjectContext:context];
-    NSPredicate *fetchPredicate= [NSPredicate predicateWithFormat:@"username = %@", userName];
-//    NSSortDescriptor *sortUserNameDescriptor = [[NSSortDescriptor alloc] initWithKey:@"username" ascending:YES];
-//    NSArray *sortDescriptors = @[sortUserNameDescriptor];
-//
-//    [fetchRequest setSortDescriptors:sortDescriptors];
-    
-    [fetchRequest setPredicate:fetchPredicate];
-    [fetchRequest setEntity:entity];
-    
-    NSError *error;
-    if (entity) {
-        NSArray *fetchedObjects = [context executeFetchRequest: fetchRequest error:&error];
-        NSLog(@"%lu", (unsigned long)fetchedObjects.count);
+- (void)deleteFriendByID:(NSArray *)userNameArray {
+    NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
+    BRUserInfo *userInfo = [self fetchUserInfoBy:username];
+    NSMutableSet *friendInfoSet = [NSMutableSet set];
+    for (BRFriendsInfo *friendInfo in userInfo.friendsInfo) {
         
-        BRUserInfo *userInfo = (BRUserInfo *)[fetchedObjects lastObject];
-        for (BRFriendsInfo *fr in userInfo.friendsInfo) {
-            NSLog(@"%@", fr.username);
-        }
-        
-        
-        if (fetchedObjects.count != 0) {
-            return [fetchedObjects lastObject];
-        } else {
-            return nil;
+        if ([userNameArray containsObject:friendInfo.username]) {
+            [friendInfoSet addObject:friendInfo];
+            [self deleteConversationByID:userNameArray];
         }
     }
-    return nil;
+    [userInfo removeFriendsInfo:friendInfoSet];
+    [self saveData];
 }
 
 /**
-     更新登录用户的好友信息数据库
+     更新登录用户的好友信息
  
  @param userName userName 环信ID
  @param contactModel 环信模型数据
@@ -189,7 +237,7 @@ static BRCoreDataStack *gCoreDataStack = nil;
 - (void)updateFriendsInfoCoreDataBy:(NSString *)userName withModel:(BRContactListModel *)contactModel {
     NSManagedObjectContext *context = [self managedObjectContext];
     NSPredicate *predicate = [NSPredicate
-                              predicateWithFormat:@"username == %@", userName];
+                              predicateWithFormat:@"username = %@", userName];
     
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     [request setEntity:[NSEntityDescription entityForName:@"BRUserInfo" inManagedObjectContext:context]];
@@ -203,15 +251,48 @@ static BRCoreDataStack *gCoreDataStack = nil;
         resultModel.nickname = contactModel.nickname;
         resultModel.gender = contactModel.gender;
         resultModel.location = contactModel.location;
-        //        resultModel.avatar = (NSData *)contactModel.avatarImage;
+        resultModel.avatar = UIImagePNGRepresentation(contactModel.avatarImage);
         resultModel.whatsUp = contactModel.whatsUp;
         resultModel.updated = contactModel.updated;
-
     }
     [self saveData];
 }
 
-- (void)insertUserConversationToCoreData:(EMMessage *)message {
+
+/**
+ 获取好友模型数据
+
+ @param friendID 好友ID
+ @return return value 好友模型数据
+ */
+- (BRFriendsInfo *)fetchFriendInfoBy:(NSString *)friendID {
+    NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
+    NSManagedObjectContext *context = [self managedObjectContext];
+    NSPredicate *predicate = [NSPredicate
+                              predicateWithFormat:@"username = %@", username];
+    
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:[NSEntityDescription entityForName:@"BRUserInfo" inManagedObjectContext:context]];
+    [request setPredicate:predicate];
+    
+    NSError *error = nil;
+    NSArray *result = [context executeFetchRequest:request error:&error];
+    BRUserInfo *userInfo = (BRUserInfo *)[result lastObject];
+    for (BRFriendsInfo *friendInfo in userInfo.friendsInfo) {
+        if ([friendInfo.username isEqualToString:friendID]) {
+            return friendInfo;
+        }
+    }
+    return nil;
+}
+
+
+/**
+     插入新会话列表
+
+ @param message message 会话的消息数据
+ */
+- (void)insertConversationToCoreData:(EMMessage *)message {
     NSManagedObjectContext *context = [self managedObjectContext];
     NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
     BRUserInfo *userInfo = [self fetchUserInfoBy:username];
@@ -227,14 +308,13 @@ static BRCoreDataStack *gCoreDataStack = nil;
         if (!isContains) {
             BRConversation *conversation =  [NSEntityDescription insertNewObjectForEntityForName:@"BRConversation" inManagedObjectContext:context];
             conversation.conversationId = message.conversationId;
-            conversation.chatType = message.chatType;
-            conversation.latestMessageTitle = [NSString stringWithFormat:@"%@", message.body];
-            conversation.latestMessageTime = message.timestamp;
-            conversation.from = message.from;
-            conversation.to = message.to;
-            conversation.direction = message.direction;
-            conversation.isRead = message.isRead;
-            conversation.status = message.status;
+//            conversation.chatType = message.chatType;
+//            conversation.latestMessageTitle = [NSString stringWithFormat:@"%@", message.body];
+//            conversation.latestMessageTime = message.timestamp;
+//            conversation.from = message.from;
+//            conversation.to = message.to;
+//            conversation.direction = message.direction;
+//            conversation.status = message.status;
             
             [userInfo addConversationObject:conversation];
             [self saveData];
@@ -243,34 +323,18 @@ static BRCoreDataStack *gCoreDataStack = nil;
             for (BRConversation *conversation in userInfo.conversation) {
                 if ([conversation.conversationId isEqualToString:message.conversationId]) {
                     conversation.conversationId = message.conversationId;
-                    conversation.chatType = message.chatType;
-                    conversation.latestMessageTitle = [NSString stringWithFormat:@"%@", message.body];
-                    conversation.latestMessageTime = message.timestamp;
-                    conversation.from = message.from;
-                    conversation.to = message.to;
-                    conversation.direction = message.direction;
-                    conversation.isRead = message.isRead;
-                    conversation.status = message.status;
+//                    conversation.chatType = message.chatType;
+//                    conversation.latestMessageTitle = [NSString stringWithFormat:@"%@", message.body];
+//                    conversation.latestMessageTime = message.timestamp;
+//                    conversation.from = message.from;
+//                    conversation.to = message.to;
+//                    conversation.direction = message.direction;
+//                    conversation.status = message.status;
                     [self saveData];
                 }
             }
         }
     
-}
-
-// 创建聊天时， 保存聊天对话框的title
-- (void)updateConversationTitle:(NSString *)title byUsername:(NSString *)userID {
-//    NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
-//    NSArray *result = [self fetchDataBy:username fromEntity:@"BRUserInfo"];
-//    BRUserInfo *userInfo = (BRUserInfo *)[result lastObject];
-//    for (BRConversation *conversation in userInfo.conversation) {
-//        for (BRFriendsInfo *friendInfo in conversation.userInfo.friendsInfo) {
-//            if ([friendInfo.username isEqualToString:userID]) {
-//                conversation.title = title;
-//            }
-//        }
-//    }
-//    [self saveData];
 }
 
 /**
@@ -294,46 +358,19 @@ static BRCoreDataStack *gCoreDataStack = nil;
   
 }
 
-
 /**
-     删除好友
+ 获取所有会话模型数据
 
- @param userNameArray userName 需要删掉的好友ID数组
+ @return return value 会话模型数组
  */
-- (void)deleteFriendByID:(NSArray *)userNameArray {
-    NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
-    BRUserInfo *userInfo = [self fetchUserInfoBy:username];
-    NSMutableSet *friendInfoSet = [NSMutableSet set];
-    for (BRFriendsInfo *friendInfo in userInfo.friendsInfo) {
-        
-        if ([userNameArray containsObject:friendInfo.username]) {
-            [friendInfoSet addObject:friendInfo];
-            [self deleteConversationByID:userNameArray];
-        }
-    }
-    [userInfo removeFriendsInfo:friendInfoSet];
-    [self saveData];
-}
-
-
 - (NSMutableArray *)fetchConversations {
     NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
-    NSManagedObjectContext *context = [self managedObjectContext];
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    [request setEntity:[NSEntityDescription entityForName:@"BRUserInfo" inManagedObjectContext:context]];
-    NSPredicate *predicate = [NSPredicate
-                              predicateWithFormat:@"username == %@", username];
+    BRUserInfo *userInfo = [self fetchUserInfoBy:username];
     
-    [request setPredicate:predicate];
-    NSError *error = nil;
-    NSArray *result = [context executeFetchRequest:request error:&error];
-    BRUserInfo *userInfo = [result lastObject];
     NSMutableArray *conversationArray = [NSMutableArray array];
-   
+    
     for (BRConversation *conversation in userInfo.conversation) {
-        if ([conversation.from isEqualToString:username] || [conversation.to isEqualToString:username]) {
-            [conversationArray addObject:conversation];
-        }
+        [conversationArray addObject:conversation];
     }
     return conversationArray;
     
