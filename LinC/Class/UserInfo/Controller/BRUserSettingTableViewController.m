@@ -11,6 +11,7 @@
 #import "BRPasswordViewController.h"
 #import "BRHTTPSessionManager.h"
 #import "BRClientManager.h"
+#import "BRAboutViewController.h"
 #import <MBProgressHUD.h>
 #import <SAMKeychain.h>
 
@@ -24,14 +25,14 @@
 @implementation BRUserSettingTableViewController
 
 typedef enum : NSInteger {
-    TableViewSectionZerro = 0,
+    TableViewSectionZero = 0,
     TableViewSectionOne,
     TableViewSectionTwo,
 } TableViewSession;
 
 typedef enum NSUInteger {
     
-    // Section zerro
+    // Section zero
     SettingGeneral = 0,
     SettingPassword,
     
@@ -47,6 +48,7 @@ typedef enum NSUInteger {
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.title = @"Settings";
 }
 
 
@@ -67,15 +69,27 @@ typedef enum NSUInteger {
     
     UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRUserInfo" bundle:[NSBundle mainBundle]];
     
-    if (indexPath.section == TableViewSectionZerro) {
-        if (indexPath.row == SettingPassword) {
+    if (indexPath.section == TableViewSectionZero) {
+        if (indexPath.row == SettingGeneral) {
+            
+        }
+        else if (indexPath.row == SettingPassword) {
             
             BRPasswordViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRPasswordViewController"];
             [self.navigationController pushViewController:vc animated:YES];
         }
     }
-    
-    if (indexPath.section == TableViewSectionTwo) {
+    else if(indexPath.section == TableViewSectionOne) {
+        if (indexPath.row == SettingHelpFeedBack) {
+            
+        }
+        else if (indexPath.row == SettingAboutUs) {
+            BRAboutViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRAboutViewController"];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+        
+    }
+    else if (indexPath.section == TableViewSectionTwo) {
         if (indexPath.row == SettingLogout) {
             
             UIAlertController *actionSheet =[UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
@@ -116,43 +130,5 @@ typedef enum NSUInteger {
         [hud hideAnimated:YES afterDelay:1.5];
     }];
 }
-
-// 测试登出
-//- (void)logoutBtn {
-//    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-//    // 登出
-//    BRHTTPSessionManager *manager = [BRHTTPSessionManager manager];
-//    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-//    NSString *accountName = [userDefaults objectForKey:kLoginUserNameKey];
-//    NSString *token = [SAMKeychain passwordForService:kLoginTokenKey account:accountName];
-//    
-//    [manager.requestSerializer setValue:[@"Bearer " stringByAppendingString:token]  forHTTPHeaderField:@"Authorization"];
-//    NSString *url =  [kBaseURL stringByAppendingPathComponent:@"/api/v1/account/logout"];
-//    [manager POST:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//        NSDictionary *dict = (NSDictionary *)responseObject;
-//        if (true/*[dict[@"status"] isEqualToString:@"success"]*/) {
-//            [hud hideAnimated:YES];
-//            // 删除保存的token
-//            [SAMKeychain deletePasswordForService:kLoginTokenKey account:accountName];
-//            //手动登出后， 设置自动登录为false
-//            [[EMClient sharedClient].options setIsAutoLogin:NO];
-//            // 显示登录界面
-//            UIStoryboard *sc = [UIStoryboard storyboardWithName:@"Account" bundle:[NSBundle mainBundle]];
-//            BRLoginViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRLoginViewController"];
-//            [[UIApplication sharedApplication].keyWindow setRootViewController:vc];
-//        }
-//        else {
-//            hud.mode = MBProgressHUDModeText;
-//            hud.label.text = dict[@"message"];
-//            [hud hideAnimated:YES afterDelay:1.5];
-//        }
-//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//        [hud hideAnimated:YES];
-//        NSLog(@"%@", error.localizedDescription);
-//    }];
-//    
-//    
-//}
-
 
 @end
