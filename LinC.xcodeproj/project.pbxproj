@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		270BD1191F9835C000266E6A /* Location.plist in Resources */ = {isa = PBXBuildFile; fileRef = 270BD1181F9835C000266E6A /* Location.plist */; };
+		270BD11C1FA27B2700266E6A /* BRAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 270BD11B1FA27B2700266E6A /* BRAboutViewController.m */; };
 		276E756A1F3E2B0200D5A917 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E75691F3E2B0200D5A917 /* AVFoundation.framework */; };
 		276E757F1F3E2F1E00D5A917 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E757E1F3E2F1E00D5A917 /* AudioToolbox.framework */; };
 		276E75901F3E390100D5A917 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E758F1F3E390100D5A917 /* UserNotifications.framework */; };
@@ -145,6 +146,8 @@
 
 /* Begin PBXFileReference section */
 		270BD1181F9835C000266E6A /* Location.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Location.plist; sourceTree = "<group>"; };
+		270BD11A1FA27B2700266E6A /* BRAboutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRAboutViewController.h; sourceTree = "<group>"; };
+		270BD11B1FA27B2700266E6A /* BRAboutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BRAboutViewController.m; sourceTree = "<group>"; };
 		276E75691F3E2B0200D5A917 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		276E757E1F3E2F1E00D5A917 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		276E758F1F3E390100D5A917 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
@@ -904,6 +907,8 @@
 				E90F7B741F670DC300333382 /* BRUserSettingTableViewController.m */,
 				E90F7B751F670DC300333382 /* BRWhatsUpViewController.h */,
 				E90F7B761F670DC300333382 /* BRWhatsUpViewController.m */,
+				270BD11A1FA27B2700266E6A /* BRAboutViewController.h */,
+				270BD11B1FA27B2700266E6A /* BRAboutViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1139,7 +1144,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-LinC/Pods-LinC-frameworks.sh",
-				"${PODS_ROOT}/Hyphenate/ios_IM_Hyphenate_sdk_3.3.4r1/HyphenateFullSDK/Hyphenate.framework",
+				"${PODS_ROOT}/Hyphenate/ios_IM_Hyphenate_sdk_3.3.5/HyphenateFullSDK/Hyphenate.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -1196,6 +1201,7 @@
 				E90F7BA41F670DC300333382 /* BRCDDeviceManager+ProximitySensor.m in Sources */,
 				E90F7BB41F670DC400333382 /* BRVoiceConverter.mm in Sources */,
 				E96C7B6A1F87E0B400C0DC7E /* BRCoreDataManager.m in Sources */,
+				270BD11C1FA27B2700266E6A /* BRAboutViewController.m in Sources */,
 				E90F7BBD1F670DC400333382 /* BRFaceView.m in Sources */,
 				E90F7BA61F670DC300333382 /* BRLocationViewController.m in Sources */,
 				E90F7BD61F670DC400333382 /* BRWhatsUpViewController.m in Sources */,
