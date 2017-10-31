@@ -7,10 +7,16 @@
 //
 
 #import "BRPasswordViewController.h"
+#import "BRClientManager.h"
+#import <MBProgressHUD.h>
 
 @interface BRPasswordViewController ()
-
-
+{
+    MBProgressHUD *hud;
+}
+@property (weak, nonatomic) IBOutlet UITextField *oldPasswordTextField;
+@property (weak, nonatomic) IBOutlet UITextField *updatePasswordTextField;
+@property (weak, nonatomic) IBOutlet UITextField *confirmPasswordTextField;
 
 @end
 
@@ -26,13 +32,22 @@
 
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (void)saveBtn {
-    
+    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    if (![self.updatePasswordTextField.text isEqualToString:self.confirmPasswordTextField.text]) {
+        hud.mode = MBProgressHUDModeText;
+        hud.label.text = NSLocalizedString(@"Password does not match", nil);
+        [hud hideAnimated:YES afterDelay:1.5];
+        return;
+    }
+    [[BRClientManager sharedManager] updatePasswordWithCurrentPassword:self.oldPasswordTextField.text newPassword:self.updatePasswordTextField.text success:^(NSString *message) {
+        [hud hideAnimated:YES];
+        [self.navigationController popViewControllerAnimated:YES];
+    } failure:^(EMError *error) {
+        hud.mode = MBProgressHUDModeText;
+        hud.label.text = error.errorDescription;
+        [hud hideAnimated:YES afterDelay:1.5];
+    }];
 }
 
 #pragma UITableViewDelegate

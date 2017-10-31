@@ -70,7 +70,7 @@
     hud = [MBProgressHUD showHUDAddedTo:picker.view animated:YES];
     // 获取选择的图片
     UIImage *image = info[UIImagePickerControllerOriginalImage];
-    NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
+    NSData *imageData = UIImageJPEGRepresentation(image, 0.1);
     [[BRClientManager sharedManager] updateSelfInfoWithKeys:@[@"avatar"] values:@[imageData] success:^(NSString *message) {
         [hud hideAnimated:YES];
         [self.imageView setImage:image];

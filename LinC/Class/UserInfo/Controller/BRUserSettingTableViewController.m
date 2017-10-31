@@ -11,6 +11,7 @@
 #import "BRPasswordViewController.h"
 #import "BRHTTPSessionManager.h"
 #import "BRClientManager.h"
+#import "BRAboutViewController.h"
 #import <MBProgressHUD.h>
 #import <SAMKeychain.h>
 
@@ -24,14 +25,14 @@
 @implementation BRUserSettingTableViewController
 
 typedef enum : NSInteger {
-    TableViewSectionZerro = 0,
+    TableViewSectionZero = 0,
     TableViewSectionOne,
     TableViewSectionTwo,
 } TableViewSession;
 
 typedef enum NSUInteger {
     
-    // Section zerro
+    // Section zero
     SettingGeneral = 0,
     SettingPassword,
     
@@ -47,6 +48,7 @@ typedef enum NSUInteger {
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.title = @"Settings";
 }
 
 
@@ -67,15 +69,27 @@ typedef enum NSUInteger {
     
     UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRUserInfo" bundle:[NSBundle mainBundle]];
     
-    if (indexPath.section == TableViewSectionZerro) {
-        if (indexPath.row == SettingPassword) {
+    if (indexPath.section == TableViewSectionZero) {
+        if (indexPath.row == SettingGeneral) {
+            
+        }
+        else if (indexPath.row == SettingPassword) {
             
             BRPasswordViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRPasswordViewController"];
             [self.navigationController pushViewController:vc animated:YES];
         }
     }
-    
-    if (indexPath.section == TableViewSectionTwo) {
+    else if(indexPath.section == TableViewSectionOne) {
+        if (indexPath.row == SettingHelpFeedBack) {
+            
+        }
+        else if (indexPath.row == SettingAboutUs) {
+            BRAboutViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRAboutViewController"];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+        
+    }
+    else if (indexPath.section == TableViewSectionTwo) {
         if (indexPath.row == SettingLogout) {
             
             UIAlertController *actionSheet =[UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];

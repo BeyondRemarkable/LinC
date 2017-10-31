@@ -273,8 +273,6 @@
                            }
                        }];
     
-    
-    
     [self.dataArray removeAllObjects];
     for (EMConversation *converstion in sorted) {
         BRConversationModel *model = [[BRConversationModel alloc] initWithConversation:converstion];

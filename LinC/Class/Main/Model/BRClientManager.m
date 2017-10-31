@@ -277,4 +277,33 @@
     }
 }
 
+- (void)updatePasswordWithCurrentPassword:(NSString *)currentPassword newPassword:(NSString *)newPassword success:(void (^)(NSString *))successBlock failure:(void (^)(EMError *))failureBlock {
+    NSString *url = [kBaseURL stringByAppendingPathComponent:@"/api/v1/password/update"];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *username = [userDefaults objectForKey:kLoginUserNameKey];
+    NSString *token = [SAMKeychain passwordForService:kLoginTokenKey account:username];
+    NSDictionary *parameters = @{
+                                 @"user_id":username,
+                                 @"token":token,
+                                 @"password":newPassword,
+                                 @"old_password":currentPassword
+                                 };
+    BRHTTPSessionManager *manager = [BRHTTPSessionManager manager];
+    [manager.requestSerializer setValue:[@"Bearer " stringByAppendingString:token]  forHTTPHeaderField:@"Authorization"];
+    
+    [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *dict = (NSDictionary *)responseObject;
+        if ([dict[@"status"] isEqualToString:@"success"]) {
+            successBlock(dict[@"message"]);
+        }
+        else {
+            EMError *aError = [EMError errorWithDescription:dict[@"message"] code:EMErrorGeneral];
+            failureBlock(aError);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        EMError *aError = [EMError errorWithDescription:error.localizedDescription code:EMErrorServerUnknownError];
+        failureBlock(aError);
+    }];
+}
+
 @end
