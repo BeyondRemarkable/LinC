@@ -359,6 +359,7 @@
 		E96C7B661F87E09A00C0DC7E /* BRCoreDataStack.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BRCoreDataStack.m; sourceTree = "<group>"; };
 		E96C7B681F87E0B400C0DC7E /* BRCoreDataManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRCoreDataManager.h; sourceTree = "<group>"; };
 		E96C7B691F87E0B400C0DC7E /* BRCoreDataManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BRCoreDataManager.m; sourceTree = "<group>"; };
+		E97276061FA7D5BE001D4206 /* LinC.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LinC.entitlements; sourceTree = "<group>"; };
 		E996231B1F794B5A00A90FD2 /* BRFileWithNewFriendsRequestData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRFileWithNewFriendsRequestData.h; sourceTree = "<group>"; };
 		E996231C1F794B5A00A90FD2 /* BRFileWithNewFriendsRequestData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRFileWithNewFriendsRequestData.m; sourceTree = "<group>"; };
 		E9C5F3F31F75A8F90073A86E /* BRFriendRequestTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRFriendRequestTableViewController.h; sourceTree = "<group>"; };
@@ -455,6 +456,7 @@
 		27CA03AE1F38F21600D0F132 /* LinC */ = {
 			isa = PBXGroup;
 			children = (
+				E97276061FA7D5BE001D4206 /* LinC.entitlements */,
 				E90F7AA41F670DC300333382 /* Class */,
 				27CA03AF1F38F21600D0F132 /* Supporting Files */,
 			);
@@ -1010,8 +1012,13 @@
 				TargetAttributes = {
 					27CA03AB1F38F21600D0F132 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = E259J6P932;
+						DevelopmentTeam = AEKJ6LE54T;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					27CA03C41F38F21600D0F132 = {
 						CreatedOnToolsVersion = 8.3.3;
@@ -1384,7 +1391,9 @@
 			baseConfigurationReference = 7C9BD64024967E79CE634497 /* Pods-LinC.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = E259J6P932;
+				CODE_SIGN_ENTITLEMENTS = LinC/LinC.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = AEKJ6LE54T;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/LinC/Class/Other/LinC.pch";
 				INFOPLIST_FILE = LinC/Info.plist;
@@ -1394,7 +1403,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/LinC/Class/Other",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.BeyondRemarkable.LinC;
+				PRODUCT_BUNDLE_IDENTIFIER = com.BeyondRemarkable.LinC.dev.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -1404,7 +1413,9 @@
 			baseConfigurationReference = 94F6AAD2F8CDC6DB43F6386A /* Pods-LinC.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = E259J6P932;
+				CODE_SIGN_ENTITLEMENTS = LinC/LinC.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = AEKJ6LE54T;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/LinC/Class/Other/LinC.pch";
 				INFOPLIST_FILE = LinC/Info.plist;
@@ -1414,7 +1425,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/LinC/Class/Other",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.BeyondRemarkable.LinC;
+				PRODUCT_BUNDLE_IDENTIFIER = com.BeyondRemarkable.LinC.dev.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

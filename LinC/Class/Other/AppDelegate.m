@@ -25,7 +25,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     NSString *appkey = @"1153170608178531#linc-dev";
-    NSString *apnsCertName = @"";
+    NSString *apnsCertName = @"BeyondRemarkableLinc";
     [[BRSDKHelper shareHelper] hyphenateApplication:application
                       didFinishLaunchingWithOptions:launchOptions
                                              appkey:appkey
@@ -47,9 +47,84 @@
     
     //初始化数据库
     [[BRCoreDataManager sharedInstance] managedObjectContext];
-    return YES;
+    
+    EMPushOptions *emoptions = [[EMClient sharedClient] pushOptions];
+    
+    //设置有消息过来时的显示方式:1.显示收到一条消息2.显示具体消息内容.
+    
+    //自己可以测试下
+    
+    emoptions.displayStyle = EMPushDisplayStyleMessageSummary;
+    
+    [[EMClient sharedClient] updatePushOptionsToServer];
+
+/**
+ 
+ 注册APNS离线推送iOS8注册APNS
+ 
+ */
+
+if([application respondsToSelector:@selector(registerForRemoteNotifications)]) {
+    
+    [application registerForRemoteNotifications];
+    
+    UIUserNotificationType notificationTypes = UIUserNotificationTypeBadge| UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
+    
+    UIUserNotificationSettings* settings = [UIUserNotificationSettings settingsForTypes: notificationTypes categories:nil];
+    
+    [application registerUserNotificationSettings:settings];
+    
 }
 
+    
+else{
+    
+    UIRemoteNotificationType notificationTypes =UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert;
+    
+    [[UIApplication sharedApplication]registerForRemoteNotificationTypes:notificationTypes];
+    
+}
+
+//添加监听在线推送消息
+
+[[EMClient sharedClient].chatManager addDelegate: self delegateQueue:nil];
+
+return YES;
+
+}
+
+//监听环信在线推送消息
+
+- (void)messagesDidReceive:(NSArray*)aMessages{
+    
+    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:[NSString  stringWithFormat:@"%@",aMessages] delegate: nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
+    
+    [alertView show];
+    
+    //aMessages是一个对象,包含了发过来的所有信息,怎么提取想要的信息我会在后面贴出来.
+    
+}
+
+//将得到的deviceToken传给SDK
+
+- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken{
+    NSLog(@"deviceToken--%@", deviceToken );
+    [[EMClient sharedClient] bindDeviceToken:deviceToken];
+    
+}
+
+//注册deviceToken失败
+
+- (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error{
+    
+    NSLog(@"deviceToken--error -- %@",error);
+    
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    NSLog(@"%@", userInfo);
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     

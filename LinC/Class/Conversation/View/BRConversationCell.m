@@ -80,9 +80,10 @@ CGFloat const BRConversationCellPadding = 10;
 
 - (void)setShowAvatar:(BOOL)showAvatar
 {
+    self.avatarView.hidden = !showAvatar;
     if (_showAvatar != showAvatar) {
         _showAvatar = showAvatar;
-        self.avatarView.hidden = !showAvatar;
+        
         if (_showAvatar) {
             [self removeConstraints:@[self.titleLabelLeftConstraint, self.detailLabelLeftConstraint]];
             
@@ -104,6 +105,7 @@ CGFloat const BRConversationCellPadding = 10;
 {
     _model = model;
     self.titleLabel.text = _model.title;
+    
     self.avatarView.imageView.image = _model.avatarImage;
     
     if (_model.conversation.unreadMessagesCount == 0) {

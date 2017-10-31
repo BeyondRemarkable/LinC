@@ -72,8 +72,7 @@
    
 //    self.imageIcon.image = [UIImage imageWithContentsOfFile:contactListModel.avatarURLPath];
     [self.imageIcon sd_setImageWithURL:[NSURL URLWithString:contactListModel.avatarURLPath] placeholderImage:[UIImage imageNamed:@"placeholder"]];
-    self.imageIcon.layer.cornerRadius = self.imageIcon.frame.size.width / 2;
-    self.imageIcon.clipsToBounds = YES;
+
     if (contactListModel.nickname == nil) {
         self.nickName.text = contactListModel.username;
     } else {

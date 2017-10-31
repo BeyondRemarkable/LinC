@@ -158,9 +158,8 @@
     }
     
     id<IConversationModel> model = [self.dataArray objectAtIndex:indexPath.row];
-    
     cell.model = model;
-    
+    cell.showAvatar = YES;
     cell.detailLabel.attributedText =  [[BREmotionEscape sharedInstance] attStringFromTextForChatting:[self _latestMessageTitleForConversationModel:model]textFont:cell.detailLabel.font];
     
     cell.timeLabel.text = [self _latestMessageTimeForConversationModel:model];
