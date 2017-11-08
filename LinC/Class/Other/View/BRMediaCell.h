@@ -14,7 +14,7 @@
 
 @optional
 - (void)mediaCell:(BRMediaCell *)cell didClickBackButton:(UIButton *)button;
-
+- (void)mediaCell:(BRMediaCell *)cell didTapImage:(UIImage *)image;
 @end
 
 @interface BRMediaCell : UICollectionViewCell

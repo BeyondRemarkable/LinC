@@ -681,11 +681,6 @@
         self.moreButton.selected = NO;
         [self.moreButton setImage:[UIImage imageNamed:@"chatbar_more_highlighted"] forState:UIControlStateHighlighted];
         
-        self.recordButton.selected = NO;
-        [self.recordButton setImage:[UIImage imageNamed:@"chatbar_record_highlighted"] forState:UIControlStateHighlighted];
-        self.moreButton.selected = NO;
-        [self.moreButton setImage:[UIImage imageNamed:@"chatbar_more_highlighted"] forState:UIControlStateHighlighted];
-        
         [self _willShowBottomView:self.faceView];
         [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             self.recordButton.hidden = button.selected;
@@ -708,7 +703,10 @@
         
         [button setImage:[UIImage imageNamed:@"chatbar_keyboard_highlighted"] forState:UIControlStateHighlighted];
         
-        
+        self.recordButton.selected = NO;
+        [self.recordButton setImage:[UIImage imageNamed:@"chatbar_record_highlighted"] forState:UIControlStateHighlighted];
+        self.emojiButton.selected = NO;
+        [self.emojiButton setImage:[UIImage imageNamed:@"chatbar_emoji_highlighted"] forState:UIControlStateHighlighted];
         
         [self _willShowBottomView:self.moreView];
         [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
