@@ -205,7 +205,8 @@
 - (UIView *)faceView
 {
     if (_faceView == nil) {
-        _faceView = [[BRFaceView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_toolbarView.frame), self.frame.size.width, 180)];
+        CGFloat diff = SCREEN_HEIGHT - CGRectGetMaxY(self.frame);
+        _faceView = [[BRFaceView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_toolbarView.frame) + diff, self.frame.size.width, 180)];
         [(BRFaceView *)_faceView setDelegate:self];
         _faceView.backgroundColor = [UIColor colorWithRed:240 / 255.0 green:242 / 255.0 blue:247 / 255.0 alpha:1.0];
         _faceView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
@@ -217,7 +218,8 @@
 - (UIView *)moreView
 {
     if (_moreView == nil) {
-        _moreView = [[BRChatBarMoreView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_toolbarView.frame), self.frame.size.width, 220) type:self.chatBarType];
+        CGFloat diff = SCREEN_HEIGHT - CGRectGetMaxY(self.frame);
+        _moreView = [[BRChatBarMoreView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_toolbarView.frame) + diff, self.frame.size.width, 220) type:self.chatBarType];
         _moreView.backgroundColor = [UIColor colorWithRed:240 / 255.0 green:242 / 255.0 blue:247 / 255.0 alpha:1.0];
         _moreView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     }
@@ -352,14 +354,16 @@
     else{
         CGFloat changeHeight = toHeight - _previousTextViewContentHeight;
         
-        CGRect rect = self.frame;
-        rect.size.height += changeHeight;
-        rect.origin.y -= changeHeight;
-        self.frame = rect;
+        [UIView animateWithDuration:0.25 animations:^{
+            CGRect rect = self.frame;
+            rect.size.height += changeHeight;
+            rect.origin.y -= changeHeight;
+            self.frame = rect;
+        }];
         
-        rect = self.toolbarView.frame;
-        rect.size.height += changeHeight;
-        self.toolbarView.frame = rect;
+//        rect = self.toolbarView.frame;
+//        rect.size.height += changeHeight;
+//        self.toolbarView.frame = rect;
         
         if (self.version < 7.0) {
             [self.inputTextView setContentOffset:CGPointMake(0.0f, (self.inputTextView.contentSize.height - self.inputTextView.frame.size.height) / 2) animated:YES];
@@ -379,7 +383,7 @@
  @brief 调整toolBar的高度
  @param bottomHeight 底部菜单的高度
  */
-- (void)_willShowBottomHeight:(CGFloat)bottomHeight
+- (void)_willShowToolBarToBottomHeight:(CGFloat)bottomHeight
 {
     CGRect fromFrame = self.frame;
     CGFloat toHeight = self.toolbarView.frame.size.height + bottomHeight;
@@ -397,7 +401,9 @@
         self.isShowButtomView = YES;
     }
     
-    self.frame = toFrame;
+    [UIView animateWithDuration:0.3 animations:^{
+        self.frame = toFrame;
+    }];
     
     if (_delegate && [_delegate respondsToSelector:@selector(chatToolbarDidChangeFrameToHeight:)]) {
         [_delegate chatToolbarDidChangeFrameToHeight:toHeight];
@@ -411,21 +417,33 @@
  */
 - (void)_willShowBottomView:(UIView *)bottomView
 {
-    if (![self.activityButtomView isEqual:bottomView]) {
-        CGFloat bottomHeight = bottomView ? bottomView.frame.size.height : 0;
-        [self _willShowBottomHeight:bottomHeight];
-        
-        if (bottomView) {
-            CGRect rect = bottomView.frame;
-            rect.origin.y = CGRectGetMaxY(self.toolbarView.frame);
-            bottomView.frame = rect;
-            [self addSubview:bottomView];
-        }
-        
-        if (self.activityButtomView) {
-            [self.activityButtomView removeFromSuperview];
+    UIView *activityButtomView = self.activityButtomView;
+    if (![activityButtomView isEqual:bottomView]) {
+        if (activityButtomView) {
+            // 计算activityBottomView的新frame
+            CGRect frame = self.activityButtomView.frame;
+            frame.origin.y = CGRectGetMaxY(self.frame) + frame.size.height;
+            // 隐藏activityBottomView
+            [UIView animateWithDuration:0.25 animations:^{
+                activityButtomView.frame = frame;
+            } completion:^(BOOL finished) {
+                [activityButtomView removeFromSuperview];
+            }];
         }
         self.activityButtomView = bottomView;
+        
+        CGFloat bottomHeight = bottomView ? bottomView.frame.size.height : 0;
+        [self _willShowToolBarToBottomHeight:bottomHeight];
+        // 让选择的界面从下面往上出现
+        if (bottomView) {
+            [self addSubview:bottomView];
+            CGRect rect = bottomView.frame;
+            rect.origin.y = self.frame.size.height - bottomHeight;
+            [UIView animateWithDuration:0.25 animations:^{
+                bottomView.frame = rect;
+            }];
+        }
+        
     }
 }
 
@@ -433,7 +451,7 @@
 {
     if (beginFrame.origin.y == [[UIScreen mainScreen] bounds].size.height)
     {
-        [self _willShowBottomHeight:toFrame.size.height];
+        [self _willShowToolBarToBottomHeight:toFrame.size.height];
         if (self.activityButtomView) {
             [self.activityButtomView removeFromSuperview];
         }
@@ -441,10 +459,10 @@
     }
     else if (toFrame.origin.y == [[UIScreen mainScreen] bounds].size.height)
     {
-        [self _willShowBottomHeight:0];
+        [self _willShowToolBarToBottomHeight:0];
     }
     else{
-        [self _willShowBottomHeight:toFrame.size.height];
+        [self _willShowToolBarToBottomHeight:toFrame.size.height];
     }
 }
 
