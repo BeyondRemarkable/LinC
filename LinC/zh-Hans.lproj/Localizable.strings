@@ -1,0 +1,75 @@
+/* 
+  Localizable.strings
+  LinC
+
+  Created by Yingwei Fan on 11/10/17.
+  Copyright © 2017 BeyondRemarkable. All rights reserved.
+*/
+
+// Basic setting
+"Cancel" = "取消";
+"Done" = "完成";
+"ok" = "好";
+"OK" = "好";
+"delete" = "删除";
+"copy" = "复制";
+"prompt" = "提示";
+"Save" = "保存";
+"NSDateCategory.text1" = "秒";
+"NSDateCategory.text2" = "分";
+"NSDateCategory.text3" = "时";
+"NSDateCategory.text4" = "日";
+"NSDateCategory.text5" = "";
+"message.simulatorNotSupportCamera" = "模拟器不具备相机功能";
+
+// Account
+"Password does not match" = "密码和确认密码不符";
+"Password not strong message" = "密码不够安全";
+
+// Chat
+"Location" = "位置";
+"Camera" = "相机";
+"Album" = "相册";
+"Voice" = "语音通话";
+"Video" = "视频通话";
+"message.toolBar.record.touch" = "按下说话";
+"message.toolBar.record.send" = "松开发送";
+"message.toolBar.record.upCancel" = "上滑取消";
+"message.toolBar.record.loosenCancel" = "松开取消";
+"message.downloadingAudio" = "正在下载语音...";
+"message.downloadingVideo" = "正在下载视频...";
+"message.smallerImage" = "图片太大，请重新选择";
+"message.startRecordFail" = "开始录音失败";
+"message.thumImageFail" = "thumbnail for failure";
+"message.voiceFail" = "语音失败";
+"message.videoFail" = "视频失败";
+"send" = "发送";
+"hasRead" = "已读";
+"receiveCmd" = "收到cmd消息";
+"group.atAll" = "所有人";
+
+// Network
+"Not Reachable" = "无法连接";
+"Reachable via WWAN" = "通过WWAN可连接";
+
+// Conversation
+"message.image1" = "[图片]";
+"message.voice1" = "[语音通话]";
+"message.location1" = "[位置]";
+"message.vodeo1" = "[视频通话]";
+"message.file1" = "[文件]";
+
+// Location
+"location.messageType" = "位置消息";
+"location.ongoing" = "定位中...";
+
+// Audio
+"error.notFound" = "文件路径不存在";
+"error.initPlayerFail" = "初始化AVAudioPlayer失败";
+"error.initPlayFail" = "播放失败";
+
+// Image
+"Save Image" = "保存图片";
+"Scan QR code" = "扫描二维码";
+"Save Photo" = "拍照片";
+"Choose from Album" = "从相册获取";
