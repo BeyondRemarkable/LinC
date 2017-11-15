@@ -107,6 +107,7 @@ CGFloat const BRConversationCellPadding = 10;
     _model = model;
     self.showAvatar = YES;
     self.titleLabel.text = _model.title;
+    self.avatarView.imageView.image = [UIImage imageNamed:@"placeholder"];
     
     self.avatarView.imageView.image = _model.avatarImage;
     self.avatarView.imageView.backgroundColor = [UIColor whiteColor];
