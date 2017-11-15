@@ -57,6 +57,7 @@ CGFloat const BRConversationCellPadding = 10;
 {
     self.accessibilityIdentifier = @"table_cell";
     _avatarView.translatesAutoresizingMaskIntoConstraints = NO;
+    _avatarView.backgroundColor = [UIColor redColor];
     _timeLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _timeLabel.font = _timeLabelFont;
     _timeLabel.textColor = _timeLabelColor;
@@ -81,6 +82,7 @@ CGFloat const BRConversationCellPadding = 10;
 - (void)setShowAvatar:(BOOL)showAvatar
 {
     self.avatarView.hidden = !showAvatar;
+
     if (_showAvatar != showAvatar) {
         _showAvatar = showAvatar;
         
@@ -107,7 +109,7 @@ CGFloat const BRConversationCellPadding = 10;
     self.titleLabel.text = _model.title;
     
     self.avatarView.imageView.image = _model.avatarImage;
-    
+    self.avatarView.imageView.backgroundColor = [UIColor whiteColor];
     if (_model.conversation.unreadMessagesCount == 0) {
         _avatarView.showBadge = NO;
     }

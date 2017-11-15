@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BRContactListModel.h"
 
 @interface BRFriendRequestTableViewController : UITableViewController
 
 @property (nonatomic, copy) NSString *searchID;
 @property (nonatomic, copy) NSString *message;
+@property (nonatomic, strong) BRContactListModel *model;
 
 @end

@@ -67,6 +67,7 @@
     BRFriendRequestTableViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRFriendRequestTableViewController"];
     vc.searchID = [dict objectForKey:@"userID"];
     vc.message = [dict objectForKey:@"message"];
+    
     [self.navigationController pushViewController:vc animated:YES];
 }
 

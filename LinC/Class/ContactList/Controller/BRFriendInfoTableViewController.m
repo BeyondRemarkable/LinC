@@ -43,7 +43,7 @@
     
     [self.navigationController setNavigationBarHidden: NO];
     
-    [self setupNavigationBarItem];
+    //[self setupNavigationBarItem];
     
     [self setupFriendInfo];
     [self setFriend:self.isFriend];
@@ -66,14 +66,16 @@
     }
 }
 
-- (void)setupNavigationBarItem {
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [btn setFrame:CGRectMake(0, 0, 35, 35)];
-    [btn setBackgroundImage:[UIImage imageNamed:@"more_info"] forState:UIControlStateNormal];
-    [btn setBackgroundImage:[UIImage imageNamed:@"more_info_highlighted"] forState:UIControlStateHighlighted];
-    [btn addTarget:self action:@selector(clickMoreInfo) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
-}
+//以后需要在实现的功能------------------
+//- (void)setupNavigationBarItem {
+//    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [btn setFrame:CGRectMake(0, 0, 35, 35)];
+//    [btn setBackgroundImage:[UIImage imageNamed:@"more_info"] forState:UIControlStateNormal];
+//    [btn setBackgroundImage:[UIImage imageNamed:@"more_info_highlighted"] forState:UIControlStateHighlighted];
+//    [btn addTarget:self action:@selector(clickMoreInfo) forControlEvents:UIControlEventTouchUpInside];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+//}
+//------------------------------------
 
 - (void)setFriend:(BOOL)isFriend {
     _isFriend = isFriend;

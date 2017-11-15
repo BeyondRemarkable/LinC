@@ -18,7 +18,7 @@
 - (NSManagedObjectContext *)managedObjectContext;
 - (__kindof NSManagedObject *)createNewDBObjectEntityname:(NSString *)entityName;
 /** 保存登录用户数据 */
-- (void)insertUserInfoToCoreData:(NSDictionary *)dataDict;
+- (void)insertUserInfoToCoreData:(BRContactListModel *)userModel;
 /** 获取登录用户模型 */
 - (BRUserInfo *)fetchUserInfoBy:(NSString *)userName;
 /** 更新登录用户模型 */

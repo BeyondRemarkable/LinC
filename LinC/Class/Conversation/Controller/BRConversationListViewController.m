@@ -35,20 +35,21 @@
 {
     [super viewWillAppear:animated];
     [self tableViewDidTriggerHeaderRefresh];
-    [self registerNotifications];
+//    [self registerNotifications];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self unregisterNotifications];
+//    [self unregisterNotifications];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     [self.tableView registerNib:[UINib nibWithNibName:@"BRConversationCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:[BRConversationCell cellIdentifierWithModel:nil]];
-
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkRefreshMessage) name:UIApplicationDidBecomeActiveNotification object:nil];
+    [self registerNotifications];
     [self setUpNavigationBarItem];
     
     self.navigationItem.title = @"LinC";
@@ -58,6 +59,16 @@
 //- (void)setUpNavigationBar {
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@""] style:UIBarButtonItemStylePlain target:self action: @selector(dropdownMenu)];
 //}
+
+
+- (void)checkRefreshMessage {
+    BOOL hasMessage = [[NSUserDefaults standardUserDefaults] boolForKey:@"receivedMessage"];
+    if (hasMessage) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
+    }
+}
 
 - (void)setUpNavigationBarItem {
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -182,6 +193,7 @@
     BRMessageViewController *viewController = [[BRMessageViewController alloc] initWithConversationChatter:model.conversation.conversationId conversationType:model.conversation.type];
     
     viewController.title = model.title;
+    
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
@@ -205,59 +217,6 @@
  @method
  @brief 加载会话列表
  */
-//- (void)tableViewDidTriggerHeaderRefresh
-//{
-//
-//    NSArray *sorted =  [[EMClient sharedClient].chatManager getAllConversations];
-//
-//    NSArray *brConversationsArray = [[BRCoreDataManager sharedInstance] fetchConversations];
-//
-//    NSMutableArray *sorted = [NSMutableArray array];
-//    NSMutableArray *conversationArray = [NSMutableArray array];
-//    NSMutableArray *iconArray = [NSMutableArray array];
-//
-//    for (BRConversation *conversation in brConversationsArray) {
-//        EMConversation *emConversation = [[EMClient sharedClient].chatManager getConversation:conversation.conversationId type:conversation.chatType createIfNotExist:NO];
-//        BRFriendsInfo *friendInfo = [[BRCoreDataManager sharedInstance] fetchFriendInfoBy:conversation.conversationId];
-//        UIImage *image = [UIImage imageWithData:friendInfo.avatar];
-//        if (image) {
-//            [iconArray addObject: image];
-//        }
-//        if (emConversation) {
-//             [conversationArray addObject:emConversation];
-//        }
-//
-//    }
-//
-//    for (NSUInteger i = 0; i < conversationArray.count; i++) {
-//        EMConversation *conversation = [conversationArray objectAtIndex:i];
-//        BRConversationModel *model = [[BRConversationModel alloc] initWithConversation:conversation];
-//
-//        if (i < iconArray.count) {
-//            model.avatarImage =  [iconArray objectAtIndex:i];
-//        }
-//        if (model) {
-//            [sorted addObject:model];
-//        }
-//    }
-//
-//    [sorted sortedArrayUsingComparator:
-//    ^(BRConversationModel *obj1, BRConversationModel* obj2){
-//        EMMessage *message1 = [obj1.conversation latestMessage];
-//        EMMessage *message2 = [obj2.conversation latestMessage];
-//        if(message1.timestamp > message2.timestamp) {
-//            return(NSComparisonResult)NSOrderedAscending;
-//        }else {
-//            return(NSComparisonResult)NSOrderedDescending;
-//        }
-//    }];
-//    [self.dataArray removeAllObjects];
-//    self.dataArray = [sorted copy];
-//
-//    [self.tableView reloadData];
-//    [self tableViewDidFinishRefresh:BRRefreshTableViewWidgetHeader reload:NO];
-//}
-
 - (void)tableViewDidTriggerHeaderRefresh
 {
     NSArray *conversations = [[EMClient sharedClient].chatManager getAllConversations];
@@ -271,8 +230,6 @@
                                return(NSComparisonResult)NSOrderedDescending;
                            }
                        }];
-    
-    
     
     [self.dataArray removeAllObjects];
     for (EMConversation *converstion in sorted) {
@@ -337,7 +294,7 @@
         EMMessageBody *messageBody = lastMessage.body;
         switch (messageBody.type) {
             case EMMessageBodyTypeImage:{
-                latestMessageTitle = NSLocalizedString(@"message.image1", @"[image]");
+                latestMessageTitle = NSLocalizedString(@"Image Received.", @"[image]");
             } break;
             case EMMessageBodyTypeText:{
                 NSString *didReceiveText = [BRConvertToCommonEmoticonsHelper
@@ -345,16 +302,16 @@
                 latestMessageTitle = didReceiveText;
             } break;
             case EMMessageBodyTypeVoice:{
-                latestMessageTitle = NSLocalizedString(@"message.voice1", @"[voice]");
+                latestMessageTitle = NSLocalizedString(@"Voice message", @"[voice]");
             } break;
             case EMMessageBodyTypeLocation: {
-                latestMessageTitle = NSLocalizedString(@"message.location1", @"[location]");
+                latestMessageTitle = NSLocalizedString(@"Shared location.", @"[location]");
             } break;
             case EMMessageBodyTypeVideo: {
-                latestMessageTitle = NSLocalizedString(@"message.video1", @"[video]");
+                latestMessageTitle = NSLocalizedString(@"Shared video", @"[video]");
             } break;
             case EMMessageBodyTypeFile: {
-                latestMessageTitle = NSLocalizedString(@"message.file1", @"[file]");
+                latestMessageTitle = NSLocalizedString(@"Shared file", @"[file]");
             } break;
             default: {
             } break;
@@ -386,7 +343,9 @@
 }
 
 - (void)messagesDidReceive:(NSArray *)aMessages {
-//    [[BRCoreDataManager sharedInstance] insertConversationToCoreData: aMessages];
+    if (self.tabBarController.selectedIndex != 0) {
+        self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%lu", (unsigned long)aMessages.count];
+    }
 }
 
 @end

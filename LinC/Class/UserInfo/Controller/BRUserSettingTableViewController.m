@@ -11,10 +11,12 @@
 #import "BRPasswordViewController.h"
 #import "BRHTTPSessionManager.h"
 #import "BRClientManager.h"
+#import "BRAboutViewController.h"
 #import <MBProgressHUD.h>
 #import <SAMKeychain.h>
+#import <MessageUI/MFMailComposeViewController.h>
 
-@interface BRUserSettingTableViewController ()
+@interface BRUserSettingTableViewController () <MFMailComposeViewControllerDelegate>
 {
     MBProgressHUD *hud;
 }
@@ -24,14 +26,14 @@
 @implementation BRUserSettingTableViewController
 
 typedef enum : NSInteger {
-    TableViewSectionZerro = 0,
+    TableViewSectionZero = 0,
     TableViewSectionOne,
     TableViewSectionTwo,
 } TableViewSession;
 
 typedef enum NSUInteger {
     
-    // Section zerro
+    // Section zero
     SettingGeneral = 0,
     SettingPassword,
     
@@ -47,6 +49,7 @@ typedef enum NSUInteger {
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.title = @"Settings";
 }
 
 
@@ -67,15 +70,43 @@ typedef enum NSUInteger {
     
     UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRUserInfo" bundle:[NSBundle mainBundle]];
     
-    if (indexPath.section == TableViewSectionZerro) {
-        if (indexPath.row == SettingPassword) {
+    if (indexPath.section == TableViewSectionZero) {
+        if (indexPath.row == SettingGeneral) {
+           
+        }
+        else if (indexPath.row == SettingPassword) {
             
             BRPasswordViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRPasswordViewController"];
             [self.navigationController pushViewController:vc animated:YES];
         }
     }
-    
-    if (indexPath.section == TableViewSectionTwo) {
+    else if(indexPath.section == TableViewSectionOne) {
+        if (indexPath.row == SettingHelpFeedBack) {
+            if ([MFMailComposeViewController canSendMail])
+            {
+                MFMailComposeViewController *mail = [[MFMailComposeViewController alloc] init];
+                mail.mailComposeDelegate = self;
+                [mail setSubject:@"Feedback"];
+                [mail setMessageBody:@"Thank you for your feedback!" isHTML:NO];
+                [mail setToRecipients:@[@"testingEmail@example.com"]];
+                [self presentViewController:mail animated:YES completion:NULL];
+                
+            }
+            else
+            {
+                hud.mode = MBProgressHUDModeText;
+                hud.label.text = @"Please login your mail account.";
+                [hud hideAnimated:YES afterDelay:1.5];
+                NSLog(@"This device cannot send email");
+            }
+        }
+        else if (indexPath.row == SettingAboutUs) {
+            BRAboutViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRAboutViewController"];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+        
+    }
+    else if (indexPath.section == TableViewSectionTwo) {
         if (indexPath.row == SettingLogout) {
             
             UIAlertController *actionSheet =[UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
@@ -127,6 +158,29 @@ typedef enum NSUInteger {
         [[UIApplication sharedApplication].keyWindow setRootViewController:vc];
         }
     }];
+}
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+    switch (result) {
+        case MFMailComposeResultSent:
+            NSLog(@"You sent the email.");
+            break;
+        case MFMailComposeResultSaved:
+            NSLog(@"You saved a draft of this email");
+            break;
+        case MFMailComposeResultCancelled:
+            NSLog(@"You cancelled sending this email.");
+            break;
+        case MFMailComposeResultFailed:
+            NSLog(@"Mail failed:  An error occurred when trying to compose this email");
+            break;
+        default:
+            NSLog(@"An error occurred when trying to compose this email");
+            break;
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 @end

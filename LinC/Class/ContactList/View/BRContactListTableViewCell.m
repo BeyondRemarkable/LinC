@@ -68,10 +68,15 @@
 -(void)setContactListModel:(BRContactListModel *)contactListModel
 {
     _contactListModel = contactListModel;
+    
+//    if (contactListModel.avatarImage) {
+        self.imageIcon.image = contactListModel.avatarImage;
+//    }
+    
     //self.imageIcon.image = [UIImage imageNamed:@"placeholder"];
    
 //    self.imageIcon.image = [UIImage imageWithContentsOfFile:contactListModel.avatarURLPath];
-    [self.imageIcon sd_setImageWithURL:[NSURL URLWithString:contactListModel.avatarURLPath] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+//    [self.imageIcon sd_setImageWithURL:[NSURL URLWithString:contactListModel.avatarURLPath] placeholderImage:[UIImage imageNamed:@"placeholder"]];
 
     if (contactListModel.nickname == nil) {
         self.nickName.text = contactListModel.username;

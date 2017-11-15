@@ -140,7 +140,7 @@ typedef enum : NSUInteger {
     [[BRBaseMessageCell appearance] setRecvMessageVoiceAnimationImages:@[[UIImage imageNamed:@"chat_receiver_audio_playing_full"],[UIImage imageNamed:@"chat_receiver_audio_playing_0"], [UIImage imageNamed:@"chat_receiver_audio_playing_1"], [UIImage imageNamed:@"chat_receiver_audio_playing_2"], [UIImage imageNamed:@"chat_receiver_audio_playing_3"]]];
     
     [[BRBaseMessageCell appearance] setAvatarSize:40.f];
-    [[BRBaseMessageCell appearance] setAvatarCornerRadius:20.f];
+    //[[BRBaseMessageCell appearance] setAvatarCornerRadius:20.f];
     
     [[BRChatBarMoreView appearance] setMoreViewBackgroundColor:[UIColor colorWithRed:240 / 255.0 green:242 / 255.0 blue:247 / 255.0 alpha:1.0]];
     

@@ -9,6 +9,7 @@
 #import "BRRequestMessageTableViewController.h"
 #import "BRClientManager.h"
 #import <MBProgressHUD.h>
+#import "BRSDKHelper.h"
 
 @interface BRRequestMessageTableViewController ()
 {
@@ -43,19 +44,50 @@
  */
 - (void)sendBtn {
     [self.view endEditing:YES];
-
-    EMError *error = [[EMClient sharedClient].contactManager addContact:self.userID message: self.userMessage.text];
     hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.mode = MBProgressHUDModeText;
-        if (error) {
-            hud.label.text = error.errorDescription;
-            
-        } else {
-            hud.label.text = @"Send Successfully";
-        }
     
-    [self performSelector:@selector(dismissVC) withObject:nil afterDelay:1.0];
-    [hud hideAnimated:YES afterDelay:1.5];
+    EMMessage *message = [BRSDKHelper sendTextMessage:self.userMessage.text
+                                                   to:self.userID
+                                          messageType:EMChatTypeChat
+                                           messageExt: @{@"em_apns_ext":@{@"extern":kBRFriendRequestExtKey}}];
+    
+    [[EMClient sharedClient].chatManager sendMessage:message progress:nil completion:^(EMMessage *aMessage, EMError *aError) {
+        if (!aError) {
+            hud.mode = MBProgressHUDModeText;
+            hud.label.text = aError.errorDescription;
+        }
+        else {
+            hud.label.text = @"Send Successfully";
+            [self performSelector:@selector(dismissVC) withObject:nil afterDelay:1.0];
+        }
+        [hud hideAnimated:YES afterDelay:1.5];
+    }];
+    
+    
+    
+//    [[EMClient sharedClient].contactManager addContact:self.userID message:self.userMessage.text completion:^(NSString *aUsername, EMError *aError) {
+//        if (aError) {
+//            hud.mode = MBProgressHUDModeText;
+//            hud.label.text = aError.errorDescription;
+//        } else {
+//            hud.label.text = @"Send Successfully";
+//            [self performSelector:@selector(dismissVC) withObject:nil afterDelay:1.0];
+//        }
+//        [hud hideAnimated:YES afterDelay:1.5];
+//    }];
+    
+//    EMError *error = [[EMClient sharedClient].contactManager addContact:self.userID message: self.userMessage.text];
+//    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//        hud.mode = MBProgressHUDModeText;
+//        if (error) {
+//            hud.label.text = error.errorDescription;
+//
+//        } else {
+//            hud.label.text = @"Send Successfully";
+//        }
+//
+//    [self performSelector:@selector(dismissVC) withObject:nil afterDelay:1.0];
+//    [hud hideAnimated:YES afterDelay:1.5];
 }
 
 - (void)dismissVC {

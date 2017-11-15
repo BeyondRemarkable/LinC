@@ -5,11 +5,12 @@
 //  Created by zhe wu on 9/27/17.
 //  Copyright © 2017 BeyondRemarkable. All rights reserved.
 //
-
+#import <Foundation/Foundation.h>
 #import "BRGroupListTableViewController.h"
 #import "BRGroupMemberTableViewCell.h"
 #import "BRMessageViewController.h"
 #import <Hyphenate/Hyphenate.h>
+
 
 @interface BRGroupListTableViewController ()<UITableViewDataSource, UITableViewDelegate, EMGroupManagerDelegate>
 
@@ -21,8 +22,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    EMError *error = nil;
-    self.groupArray = [[EMClient sharedClient].groupManager getJoinedGroupsFromServerWithPage:-1 pageSize:500 error: &error];
+
+//    self.groupArray = [[EMClient sharedClient].groupManager getJoinedGroupsFromServerWithPage:i pageSize:500 error: &error];
+
+    self.groupArray = [[EMClient sharedClient].groupManager getJoinedGroups];
     
      [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([BRGroupMemberTableViewCell class]) bundle:nil] forCellReuseIdentifier:@"groupCell"];
 }
@@ -40,8 +43,9 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     BRGroupMemberTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"groupCell" forIndexPath:indexPath];
-    cell.grounName.text = [NSString stringWithFormat:@"%@", self.groupArray[indexPath.row]];
-   
+//    cell.grounName.text = [NSString stringWithFormat:@"%@", self.groupArray[indexPath.row]];
+    EMGroup *group = (EMGroup *)self.groupArray[indexPath.row];
+    cell.grounName.text = group.subject;
     return cell;
 }
 
@@ -60,7 +64,6 @@
         BRMessageViewController *vc = [[BRMessageViewController alloc] initWithConversationChatter:group.groupId conversationType:EMConversationTypeGroupChat];
         [self.navigationController pushViewController:vc animated:YES];
     }
-    
 }
 
 @end
