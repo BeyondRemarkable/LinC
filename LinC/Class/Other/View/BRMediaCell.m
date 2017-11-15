@@ -43,12 +43,13 @@
 - (UIImageView *)imageView {
     if (_imageView == nil) {
         _imageView = [[UIImageView alloc] initWithFrame:self.bounds];
+        _imageView.contentMode = UIViewContentModeScaleAspectFit;
         // 添加菊花
         _activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
-        _activityIndicator.center = _videoView.center;
+        _activityIndicator.center = _imageView.center;
         _activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
         [_imageView addSubview:_activityIndicator];
-        [self addSubview:_imageView];
+        [self.contentView addSubview:_imageView];
     }
     return _imageView;
 }
@@ -56,7 +57,7 @@
 - (UIView *)videoView {
     if (_videoView == nil) {
         _videoView = [[UIView alloc] initWithFrame:self.bounds];
-        [self addSubview:_videoView];
+        [self.contentView addSubview:_videoView];
         
         // 添加菊花
         _activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
@@ -130,9 +131,17 @@
 #pragma mark - touch methods
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    UITouch *touch = [touches anyObject];
-    if (touch.view == self.videoView) {
+    if (_imageView) {
+        [self tapImage];
+    }
+    else if (_videoView) {
         [self tapVideo];
+    }
+}
+
+- (void)tapImage {
+    if (_delegate && [_delegate respondsToSelector:@selector(mediaCell:didTapImage:)]) {
+        [_delegate mediaCell:self didTapImage:self.image];
     }
 }
 
@@ -302,12 +311,24 @@
     _media = media;
     if (media.type == BRMediaImage) {
         self.image = media.image;
+        if (_videoView) {
+            [_videoView removeFromSuperview];
+            _videoView = nil;
+        }
     }
     else if (media.type == BRMediaWebImage) {
         self.imageURL = media.imageURL;
+        if (_videoView) {
+            [_videoView removeFromSuperview];
+            _videoView = nil;
+        }
     }
     else if (media.type == BRMediaVideo) {
         self.videoURL = media.videoURL;
+        if (_imageView) {
+            [_imageView removeFromSuperview];
+            _imageView = nil;
+        }
     }
 }
 

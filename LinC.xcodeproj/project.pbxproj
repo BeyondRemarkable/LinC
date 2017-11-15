@@ -1283,6 +1283,28 @@
         };
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+        2744C4631FB68B2A007C5095 /* LaunchScreen.storyboard */ = {
+            isa = PBXVariantGroup;
+            children = (
+                2744C4641FB68B2A007C5095 /* Base */,
+                2744C4661FB68B4B007C5095 /* en */,
+                2744C4671FB68B55007C5095 /* zh-Hans */,
+            );
+            name = LaunchScreen.storyboard;
+            sourceTree = "<group>";
+        };
+        2744C46A1FB68B83007C5095 /* Localizable.strings */ = {
+            isa = PBXVariantGroup;
+            children = (
+                2744C4691FB68B83007C5095 /* en */,
+                2744C46B1FB68B8B007C5095 /* zh-Hans */,
+            );
+            name = Localizable.strings;
+            sourceTree = "<group>";
+        };
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
         27CA03D71F38F21600D0F132 /* Debug */ = {
             isa = XCBuildConfiguration;

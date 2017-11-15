@@ -37,7 +37,7 @@ static NSString * const reuseIdentifier = @"BRMediaCell";
     self.collectionView.contentMode = UIViewContentModeCenter;
     
     // Register cell classes
-    [self.collectionView registerNib:[UINib nibWithNibName:@"BRMediaCell" bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:reuseIdentifier];
+    [self.collectionView registerClass:[BRMediaCell class] forCellWithReuseIdentifier:reuseIdentifier];
 }
 
 - (BOOL)prefersStatusBarHidden {
@@ -67,6 +67,10 @@ static NSString * const reuseIdentifier = @"BRMediaCell";
 
 #pragma mark - BRMediaCell delegate
 - (void)mediaCell:(BRMediaCell *)cell didClickBackButton:(UIButton *)button {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)mediaCell:(BRMediaCell *)cell didTapImage:(UIImage *)image {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

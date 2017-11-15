@@ -13,5 +13,69 @@
             stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LinC/Class/Message/Controller/BRMessageViewController.m"
+            timestampString = "531866385.824522"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1278"
+            endingLineNumber = "1278"
+            landmarkName = "-chatToolbarDidChangeFrameToHeight:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[BRMessageViewController chatToolbarDidChangeFrameToHeight:]"
+                  moduleName = "LinC"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Mike/Documents/GitHub/LinC/LinC/Class/Message/Controller/BRMessageViewController.m"
+                  timestampString = "531791055.869323"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1278"
+                  endingLineNumber = "1278"
+                  offsetFromSymbolStart = "46">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__61-[BRMessageViewController chatToolbarDidChangeFrameToHeight:]_block_invoke"
+                  moduleName = "LinC"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Mike/Documents/GitHub/LinC/LinC/Class/Message/Controller/BRMessageViewController.m"
+                  timestampString = "531791055.871069"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1278"
+                  endingLineNumber = "1278"
+                  offsetFromSymbolStart = "15">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LinC/Class/Message/View/BRChatToolbar.m"
+            timestampString = "531866385.824982"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "341"
+            endingLineNumber = "341"
+            landmarkName = "-_willShowInputTextViewToHeight:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

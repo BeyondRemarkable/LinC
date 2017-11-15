@@ -116,7 +116,7 @@ static BRMessageReadManager *detailInstance = nil;
     }
     
     UIViewController *rootController = [self.keyWindow rootViewController];
-    [rootController presentViewController:self.photoNavigationController animated:YES completion:nil];
+    [rootController presentViewController:self.mediaBrowser animated:YES completion:nil];
 }
 
 - (BOOL)prepareMessageAudioModel:(BRMessageModel *)messageModel
