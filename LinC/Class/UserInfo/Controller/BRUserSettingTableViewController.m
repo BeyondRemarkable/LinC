@@ -14,8 +14,9 @@
 #import "BRAboutViewController.h"
 #import <MBProgressHUD.h>
 #import <SAMKeychain.h>
+#import <MessageUI/MFMailComposeViewController.h>
 
-@interface BRUserSettingTableViewController ()
+@interface BRUserSettingTableViewController () <MFMailComposeViewControllerDelegate>
 {
     MBProgressHUD *hud;
 }
@@ -71,7 +72,7 @@ typedef enum NSUInteger {
     
     if (indexPath.section == TableViewSectionZero) {
         if (indexPath.row == SettingGeneral) {
-            
+           
         }
         else if (indexPath.row == SettingPassword) {
             
@@ -81,7 +82,23 @@ typedef enum NSUInteger {
     }
     else if(indexPath.section == TableViewSectionOne) {
         if (indexPath.row == SettingHelpFeedBack) {
-            
+            if ([MFMailComposeViewController canSendMail])
+            {
+                MFMailComposeViewController *mail = [[MFMailComposeViewController alloc] init];
+                mail.mailComposeDelegate = self;
+                [mail setSubject:@"Feedback"];
+                [mail setMessageBody:@"Thank you for your feedback!" isHTML:NO];
+                [mail setToRecipients:@[@"testingEmail@example.com"]];
+                [self presentViewController:mail animated:YES completion:NULL];
+                
+            }
+            else
+            {
+                hud.mode = MBProgressHUDModeText;
+                hud.label.text = @"Please login your mail account.";
+                [hud hideAnimated:YES afterDelay:1.5];
+                NSLog(@"This device cannot send email");
+            }
         }
         else if (indexPath.row == SettingAboutUs) {
             BRAboutViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRAboutViewController"];
@@ -141,6 +158,29 @@ typedef enum NSUInteger {
         [[UIApplication sharedApplication].keyWindow setRootViewController:vc];
         }
     }];
+}
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+    switch (result) {
+        case MFMailComposeResultSent:
+            NSLog(@"You sent the email.");
+            break;
+        case MFMailComposeResultSaved:
+            NSLog(@"You saved a draft of this email");
+            break;
+        case MFMailComposeResultCancelled:
+            NSLog(@"You cancelled sending this email.");
+            break;
+        case MFMailComposeResultFailed:
+            NSLog(@"Mail failed:  An error occurred when trying to compose this email");
+            break;
+        default:
+            NSLog(@"An error occurred when trying to compose this email");
+            break;
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 @end

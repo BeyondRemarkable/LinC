@@ -50,32 +50,28 @@ static BRCoreDataStack *gCoreDataStack = nil;
 /**
      保存登录用户信息
  
- @param dataDict dataDict 登录用户环信模型
+ @param userModel  登录用户信息模型
  */
-- (void)insertUserInfoToCoreData:(NSDictionary *)dataDict {
+- (void)insertUserInfoToCoreData:(BRContactListModel *)userModel {
     NSManagedObjectContext *context = [self managedObjectContext];
     NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
-    if ([dataDict isKindOfClass:[NSDictionary class]]) {
+    if ([userModel isKindOfClass:[BRContactListModel class]]) {
         if (![self fetchUserInfoBy:username]) {
             // 登录用户不存在， 保存新用户
             BRUserInfo *userInfo = [NSEntityDescription insertNewObjectForEntityForName:@"BRUserInfo" inManagedObjectContext:context];
-            userInfo.username = dataDict[@"username"];
-            userInfo.nickname = dataDict[@"nickname"];
-            userInfo.gender = dataDict[@"gender"];
-            userInfo.location = dataDict[@"location"];
-            if (dataDict[@"avatar"]) {
-                userInfo.avatar = [NSData dataWithContentsOfURL: [NSURL URLWithString:[kBaseURL stringByAppendingString:dataDict[@"avatar"]]]];
-            } else {
-                userInfo.avatar = UIImagePNGRepresentation([UIImage imageNamed:@"user_default"]);
+            userInfo.username = userModel.username;
+            userInfo.nickname = userModel.nickname;
+            userInfo.gender = userModel.gender;
+            userInfo.location = userModel.location;
+            userInfo.avatar = UIImagePNGRepresentation(userModel.avatarImage);
+            userInfo.whatsUp = userModel.whatsUp;
+            userInfo.updated = userModel.updated;
+            if (![self saveData]) {
+                NSAssert(YES, @"数据库保存失败！！！");
             }
-            
-            userInfo.whatsUp = dataDict[@"signature"];
-            userInfo.updated = dataDict[@"updated_at"];
-            [self saveData];
         }
     }
 }
-
 
 /**
  更新登录用户信息
@@ -133,7 +129,11 @@ static BRCoreDataStack *gCoreDataStack = nil;
         if (fetchedObjects.count != 0) {
             return [fetchedObjects lastObject];
         } else {
-            return nil;
+            [[BRClientManager sharedManager] getSelfInfoWithSuccess:^(BRContactListModel *model) {
+                [self insertUserInfoToCoreData:nil];
+            } failure:^(EMError *error) {
+                NSLog(@"%@", error);
+            }];
         }
     }
     return nil;
@@ -267,17 +267,9 @@ static BRCoreDataStack *gCoreDataStack = nil;
  */
 - (BRFriendsInfo *)fetchFriendInfoBy:(NSString *)friendID {
     NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
-    NSManagedObjectContext *context = [self managedObjectContext];
-    NSPredicate *predicate = [NSPredicate
-                              predicateWithFormat:@"username = %@", username];
     
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    [request setEntity:[NSEntityDescription entityForName:@"BRUserInfo" inManagedObjectContext:context]];
-    [request setPredicate:predicate];
+    BRUserInfo *userInfo = [self fetchUserInfoBy:username];
     
-    NSError *error = nil;
-    NSArray *result = [context executeFetchRequest:request error:&error];
-    BRUserInfo *userInfo = (BRUserInfo *)[result lastObject];
     for (BRFriendsInfo *friendInfo in userInfo.friendsInfo) {
         if ([friendInfo.username isEqualToString:friendID]) {
             return friendInfo;
@@ -383,7 +375,11 @@ static BRCoreDataStack *gCoreDataStack = nil;
 - (BOOL)saveData{
     BOOL res = YES;
     if ([[gCoreDataStack managedObjectContext] hasChanges]) {
-        res = [[gCoreDataStack managedObjectContext] save:nil];
+        NSError *error = nil;
+        res = [[gCoreDataStack managedObjectContext] save: &error];
+        if (!res) {
+            NSLog(@"error--数据库保存失败--%@", error.localizedDescription);
+        }
     }
     return res;
 }

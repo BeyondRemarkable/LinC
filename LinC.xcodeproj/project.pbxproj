@@ -115,6 +115,7 @@
 		E90F7BD61F670DC400333382 /* BRWhatsUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B761F670DC300333382 /* BRWhatsUpViewController.m */; };
 		E90F7BD91F67368200333382 /* UIView+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7BD81F67368200333382 /* UIView+Animation.m */; };
 		E95FA8CB1F7065C50023BB1C /* BRRequestMessageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E95FA8CA1F7065C50023BB1C /* BRRequestMessageTableViewController.m */; };
+		E964F38B1FB0F4AD007C8F5E /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E964F38A1FB0F4AD007C8F5E /* MessageUI.framework */; };
 		E96C7B671F87E09A00C0DC7E /* BRCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = E96C7B661F87E09A00C0DC7E /* BRCoreDataStack.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		E96C7B6A1F87E0B400C0DC7E /* BRCoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E96C7B691F87E0B400C0DC7E /* BRCoreDataManager.m */; };
 		E996231D1F794B5A00A90FD2 /* BRFileWithNewFriendsRequestData.m in Sources */ = {isa = PBXBuildFile; fileRef = E996231C1F794B5A00A90FD2 /* BRFileWithNewFriendsRequestData.m */; };
@@ -357,14 +358,15 @@
 		E90F7BD81F67368200333382 /* UIView+Animation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Animation.m"; sourceTree = "<group>"; };
 		E95FA8C91F7065C50023BB1C /* BRRequestMessageTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRRequestMessageTableViewController.h; sourceTree = "<group>"; };
 		E95FA8CA1F7065C50023BB1C /* BRRequestMessageTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRRequestMessageTableViewController.m; sourceTree = "<group>"; };
+		E964F38A1FB0F4AD007C8F5E /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		E96C7B541F85C8B100C0DC7E /* BRContactListCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BRContactListCoreData.xcdatamodel; sourceTree = "<group>"; };
 		E96C7B651F87E09A00C0DC7E /* BRCoreDataStack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRCoreDataStack.h; sourceTree = "<group>"; };
 		E96C7B661F87E09A00C0DC7E /* BRCoreDataStack.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BRCoreDataStack.m; sourceTree = "<group>"; };
 		E96C7B681F87E0B400C0DC7E /* BRCoreDataManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRCoreDataManager.h; sourceTree = "<group>"; };
 		E96C7B691F87E0B400C0DC7E /* BRCoreDataManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BRCoreDataManager.m; sourceTree = "<group>"; };
-		E97276061FA7D5BE001D4206 /* LinC.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LinC.entitlements; sourceTree = "<group>"; };
 		E996231B1F794B5A00A90FD2 /* BRFileWithNewFriendsRequestData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRFileWithNewFriendsRequestData.h; sourceTree = "<group>"; };
 		E996231C1F794B5A00A90FD2 /* BRFileWithNewFriendsRequestData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRFileWithNewFriendsRequestData.m; sourceTree = "<group>"; };
+		E9B3675D1FA926B600F46274 /* LinC.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LinC.entitlements; sourceTree = "<group>"; };
 		E9C5F3F31F75A8F90073A86E /* BRFriendRequestTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRFriendRequestTableViewController.h; sourceTree = "<group>"; };
 		E9C5F3F41F75A8F90073A86E /* BRFriendRequestTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRFriendRequestTableViewController.m; sourceTree = "<group>"; };
 		E9C5F3F61F75AE6D0073A86E /* BRNewFriendTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRNewFriendTableViewController.h; sourceTree = "<group>"; };
@@ -385,6 +387,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E964F38B1FB0F4AD007C8F5E /* MessageUI.framework in Frameworks */,
 				276E75971F3E5AA600D5A917 /* AVKit.framework in Frameworks */,
 				E90F7BC71F670DC400333382 /* libopencore-amrnb.a in Frameworks */,
 				276E75901F3E390100D5A917 /* UserNotifications.framework in Frameworks */,
@@ -415,6 +418,7 @@
 		033AEEBC32B9AADB107BA3AD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E964F38A1FB0F4AD007C8F5E /* MessageUI.framework */,
 				276E75961F3E5AA600D5A917 /* AVKit.framework */,
 				276E75941F3E5A6100D5A917 /* MediaPlayer.framework */,
 				276E758F1F3E390100D5A917 /* UserNotifications.framework */,
@@ -459,7 +463,7 @@
 		27CA03AE1F38F21600D0F132 /* LinC */ = {
 			isa = PBXGroup;
 			children = (
-				E97276061FA7D5BE001D4206 /* LinC.entitlements */,
+				E9B3675D1FA926B600F46274 /* LinC.entitlements */,
 				E90F7AA41F670DC300333382 /* Class */,
 				27CA03AF1F38F21600D0F132 /* Supporting Files */,
 			);
@@ -1018,7 +1022,7 @@
 					27CA03AB1F38F21600D0F132 = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = AEKJ6LE54T;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -1398,7 +1402,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = LinC/LinC.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Yingwei Fan (3LYJJC4KNY)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Yingwei Fan (3LYJJC4KNY)";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = AEKJ6LE54T;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/LinC/Class/Other/LinC.pch";
@@ -1409,8 +1415,10 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/LinC/Class/Other",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.BeyondRemarkable.LinC.dev.test;
+				PRODUCT_BUNDLE_IDENTIFIER = com.BeyondRemarkable.LinC.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "5fd676bd-5c94-4dfe-9a5b-c602d26f0875";
+				PROVISIONING_PROFILE_SPECIFIER = pushNotification;
 			};
 			name = Debug;
 		};
@@ -1420,7 +1428,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = LinC/LinC.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = AEKJ6LE54T;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/LinC/Class/Other/LinC.pch";
@@ -1431,8 +1441,10 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/LinC/Class/Other",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.BeyondRemarkable.LinC.dev.test;
+				PRODUCT_BUNDLE_IDENTIFIER = com.BeyondRemarkable.LinC.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "5fd676bd-5c94-4dfe-9a5b-c602d26f0875";
+				PROVISIONING_PROFILE_SPECIFIER = pushNotification;
 			};
 			name = Release;
 		};

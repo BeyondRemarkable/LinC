@@ -8,6 +8,10 @@
 
 #import "BRBaseMessageCell.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "BRCoreDataManager.h"
+#import "BRFriendsInfo+CoreDataClass.h"
+#import "BRUserInfo+CoreDataClass.h"
+
 
 @interface BRBaseMessageCell ()
 
@@ -34,7 +38,7 @@
     // UIAppearance Proxy Defaults
     BRBaseMessageCell *cell = [self appearance];
     cell.avatarSize = 30;
-    cell.avatarCornerRadius = 0;
+    //cell.avatarCornerRadius = 0;
     
     cell.messageNameColor = [UIColor grayColor];
     cell.messageNameFont = [UIFont systemFontOfSize:10];
@@ -246,14 +250,14 @@
 {
     [super setModel:model];
     
-    if (model.avatarURLPath) {
-        [self.avatarView sd_setImageWithURL:[NSURL URLWithString:model.avatarURLPath] placeholderImage:model.avatarImage];
-    } else {
-        self.avatarView.image = model.avatarImage;
-    }
     _nameLabel.text = model.nickname;
     
     if (self.model.isSender) {
+        
+        BRUserInfo *userInfo = [[BRCoreDataManager sharedInstance] fetchUserInfoBy:model.message.from];
+        self.model.avatarImage = [UIImage imageWithData:userInfo.avatar];
+        self.avatarView.image = [UIImage imageWithData:userInfo.avatar];
+        self.nameLabel.text = userInfo.nickname;
         _hasRead.hidden = YES;
         switch (self.model.messageStatus) {
             case EMMessageStatusDelivering:
@@ -282,6 +286,14 @@
                 break;
             default:
                 break;
+        }
+    } else {
+        BRFriendsInfo *friendInfo = [[BRCoreDataManager sharedInstance] fetchFriendInfoBy:model.message.from];
+        if (!friendInfo) {
+            self.avatarView.image = [UIImage imageNamed:@"user_default"];
+        } else {
+            self.avatarView.image = [UIImage imageWithData:friendInfo.avatar];
+            self.nameLabel.text = friendInfo.nickname;
         }
     }
 }
@@ -318,13 +330,13 @@
     }
 }
 
-- (void)setAvatarCornerRadius:(CGFloat)avatarCornerRadius
-{
-    _avatarCornerRadius = avatarCornerRadius;
-    if (self.avatarView){
-        self.avatarView.layer.cornerRadius = avatarCornerRadius;
-    }
-}
+//- (void)setAvatarCornerRadius:(CGFloat)avatarCornerRadius
+//{
+//    _avatarCornerRadius = avatarCornerRadius;
+//    if (self.avatarView){
+//        self.avatarView.layer.cornerRadius = avatarCornerRadius;
+//    }
+//}
 
 - (void)setMessageNameIsHidden:(BOOL)messageNameIsHidden
 {

@@ -58,10 +58,32 @@
                     
                     [SAMKeychain setPassword:password forService:kLoginPasswordKey account:username];
                     [SAMKeychain setPassword:dict[@"data"][@"token"] forService:kLoginTokenKey account:username];
-                    successBlock(dict[@"message"]);
                     
-                    //保存登录用户信息到数据库
-                    [[BRCoreDataManager sharedInstance] insertUserInfoToCoreData:dict[@"data"][@"user"]];
+                    //保存登录用户信息到core data
+                    __block BRContactListModel *model = [[BRContactListModel alloc] initWithBuddy:dict[@"data"][@"user"][@"username"]];
+                    model.nickname = dict[@"data"][@"user"][@"nickname"];
+                    model.avatarURLPath = [kBaseURL stringByAppendingPathComponent:dict[@"data"][@"user"][@"avatar"]];
+                    model.gender = dict[@"data"][@"user"][@"gender"];
+                    model.location = dict[@"data"][@"user"][@"location"];
+                    model.whatsUp = dict[@"data"][@"user"][@"signature"];
+                    BOOL isImage = ([model.avatarURLPath.lowercaseString hasSuffix:@".jpg"] || [model.avatarURLPath.lowercaseString hasSuffix:@".png"]);
+                    if (!isImage) {
+                        model.avatarImage = [UIImage imageNamed:@"user_default"];
+                        [[BRCoreDataManager sharedInstance] insertUserInfoToCoreData: model];
+                        successBlock(dict[@"data"][@"user"]);
+                    } else {
+                        //子线程下载图片
+                        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                            UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:model.avatarURLPath]]];
+                            //主线程刷新
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                model.avatarImage = image;
+                                [[BRCoreDataManager sharedInstance] insertUserInfoToCoreData: model];
+                                successBlock(dict[@"data"][@"user"]);
+                            });
+                            
+                        });
+                    }
                 }
                 // 登录环信失败
                 else {
@@ -76,11 +98,11 @@
             failureBlock(error);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
+        EMError *emError = (EMError *)error;
         NSLog(@"%@", error.localizedDescription);
+        failureBlock(emError);
     }];
 }
-
 
 - (void)registerWithEmail:(NSString *)email username:(NSString *)username password:(NSString *)password code:(NSString *)code success:(void (^)(NSString *, NSString *))successBlock failure:(void (^)(EMError *))failureBlock {
     BRHTTPSessionManager *manager = [BRHTTPSessionManager manager];
@@ -137,7 +159,7 @@
  @param successBlock successBlock userModelArray
  @param failureBlock failureBlock error
  */
-- (void)getUserInfoWithUsernames:(NSArray *)usernameList success:(void (^)(NSMutableArray *))successBlock failure:(void (^)(EMError *))failureBlock {
+- (void)getUserInfoWithUsernames:(NSArray *)usernameList andSaveFlag:(BOOL) saveFlag success:(void (^)(NSMutableArray *))successBlock failure:(void (^)(EMError *))failureBlock {
     // 如果传入数组为空
     if (usernameList.count == 0) {
         return;
@@ -159,9 +181,10 @@
         NSDictionary *dict = (NSDictionary *)responseObject;
         
         if ([dict[@"status"] isEqualToString:@"success"]) {
+            dispatch_group_t group = dispatch_group_create();
             for (int i = 0; i < usernameList.count; i++) {
                 //给模型赋值
-                BRContactListModel *model = [[BRContactListModel alloc] initWithBuddy:dict[@"data"][@"users"][i][@"username"]];
+                __block BRContactListModel *model = [[BRContactListModel alloc] initWithBuddy:dict[@"data"][@"users"][i][@"username"]];
                 model.username = dict[@"data"][@"users"][i][@"username"];
                 model.nickname = dict[@"data"][@"users"][i][@"nickname"];
                 model.updated = dict[@"data"][@"users"][i][@"updated_at"];
@@ -176,14 +199,19 @@
                 if (!isImage) {
                     model.avatarImage = [UIImage imageNamed:@"user_default"];
                 } else {
-                    model.avatarImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:model.avatarURLPath]]];
+                    dispatch_group_async(group, dispatch_get_global_queue(0, 0), ^{
+                        model.avatarImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:model.avatarURLPath]]];
+                    });
                 }
+                
                 [userModelArray addObject:model];
             }
-            // 保存好友信息到core data
-            [[BRCoreDataManager sharedInstance] saveFriendsInfoToCoreData:userModelArray];
-            
-            successBlock(userModelArray);
+            dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+                if (saveFlag) {
+                    [[BRCoreDataManager sharedInstance] saveFriendsInfoToCoreData:userModelArray];
+                }
+                successBlock(userModelArray);
+            });
         }
         else {
             EMError *error = [EMError errorWithDescription:dict[@"message"] code:EMErrorGeneral];
@@ -194,7 +222,6 @@
         failureBlock(aError);
     }];
 }
-
 
 /**
  从服务器获取登录用户信息
@@ -211,13 +238,30 @@
     [manager.requestSerializer setValue:[@"Bearer " stringByAppendingString:token]  forHTTPHeaderField:@"Authorization"];
     [manager GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dict = (NSDictionary *)responseObject;
-        BRContactListModel *model = [[BRContactListModel alloc] initWithBuddy:dict[@"data"][@"user"][@"username"]];
+        __block BRContactListModel *model = [[BRContactListModel alloc] initWithBuddy:dict[@"data"][@"user"][@"username"]];
         model.nickname = dict[@"data"][@"user"][@"nickname"];
         model.avatarURLPath = [kBaseURL stringByAppendingPathComponent:dict[@"data"][@"user"][@"avatar"]];
         model.gender = dict[@"data"][@"user"][@"gender"];
         model.location = dict[@"data"][@"user"][@"location"];
         model.whatsUp = dict[@"data"][@"user"][@"signature"];
-        successBlock(model);
+        BOOL isImage = ([model.avatarURLPath.lowercaseString hasSuffix:@".jpg"] || [model.avatarURLPath.lowercaseString hasSuffix:@".png"]);
+        if (!isImage) {
+            model.avatarImage = [UIImage imageNamed:@"user_default"];
+            [[BRCoreDataManager sharedInstance] insertUserInfoToCoreData: model];
+            successBlock(model);
+        } else {
+            //子线程下载图片
+            dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:model.avatarURLPath]]];
+                //主线程刷新
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    model.avatarImage = image;
+                    [[BRCoreDataManager sharedInstance] insertUserInfoToCoreData: model];
+                    successBlock(model);
+                });
+                
+            });
+        }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         EMError *aError = [EMError errorWithDescription:error.localizedDescription code:EMErrorServerUnknownError];
         failureBlock(aError);
@@ -240,16 +284,12 @@
         [manager PUT:url parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             NSDictionary *dict = (NSDictionary *)responseObject;
             
-            // 更新登录用户信息到 core data
-            [[BRCoreDataManager sharedInstance] updateUserInfoWithKeys:(NSArray *)keyArray andValue: (NSArray *)valueArray];
-            
             successBlock(dict[@"message"]);
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             EMError *aError = [EMError errorWithDescription:error.localizedDescription code:EMErrorServerUnknownError];
             failureBlock(aError);
         }];
-    }
-    else {
+    } else {
         NSData *imageData = [valueArray firstObject];
         BRHTTPSessionManager *manager = [BRHTTPSessionManager manager];
         [manager.requestSerializer setValue:[@"Bearer " stringByAppendingString:token]  forHTTPHeaderField:@"Authorization"];
@@ -272,9 +312,11 @@
                 failureBlock(aError);
             }
         }];
-        [[BRCoreDataManager sharedInstance] updateUserInfoWithKeys:(NSArray *)keyArray andValue: (NSArray *)valueArray];
+       
         [uploadTask resume];
     }
+    // 更新登录用户信息到 core data
+    [[BRCoreDataManager sharedInstance] updateUserInfoWithKeys:(NSArray *)keyArray andValue: (NSArray *)valueArray];
 }
 
 - (void)updatePasswordWithCurrentPassword:(NSString *)currentPassword newPassword:(NSString *)newPassword success:(void (^)(NSString *))successBlock failure:(void (^)(EMError *))failureBlock {

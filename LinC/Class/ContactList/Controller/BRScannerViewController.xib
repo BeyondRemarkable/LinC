@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -20,28 +20,29 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Djk-gf-Fsg">
-                    <rect key="frame" x="162.5" y="597" width="50" height="50"/>
+                    <rect key="frame" x="163" y="597" width="50" height="50"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="cxT-3l-Sbt"/>
                         <constraint firstAttribute="width" constant="50" id="eOp-Ku-pZX"/>
                     </constraints>
-                    <state key="normal" title="Cancel">
+                    <state key="normal" title="Cancel" image="close">
                         <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
+                    <state key="highlighted" image="close_highlighted"/>
                     <connections>
                         <action selector="cancalButton:" destination="-1" eventType="touchUpInside" id="fOk-Ed-VKx"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nsw-bk-udi">
-                    <rect key="frame" x="242.5" y="602" width="40" height="40"/>
+                    <rect key="frame" x="243" y="601.5" width="40" height="40"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="40" id="Nzm-uH-LKh"/>
                         <constraint firstAttribute="height" constant="40" id="bTg-uX-MhY"/>
                     </constraints>
-                    <state key="normal" title="Flash">
+                    <state key="normal" title="Flash" image="flashlight_off">
                         <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
-                    <state key="selected" image="flash-off"/>
+                    <state key="selected" image="flashlight_on"/>
                     <connections>
                         <action selector="flashlightSwitch:" destination="-1" eventType="touchUpInside" id="Q6h-PJ-Sf8"/>
                     </connections>
@@ -58,11 +59,9 @@
         </view>
     </objects>
     <resources>
-        <image name="flash-off" width="64" height="64"/>
+        <image name="close" width="263" height="263"/>
+        <image name="close_highlighted" width="263" height="263"/>
+        <image name="flashlight_off" width="543" height="543"/>
+        <image name="flashlight_on" width="543" height="543"/>
     </resources>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
-    </simulatedMetricsContainer>
 </document>

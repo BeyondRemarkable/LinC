@@ -59,7 +59,7 @@
     }
     
     hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[BRClientManager sharedManager] getUserInfoWithUsernames:[NSArray arrayWithObject:self.friendIDTextField.text] success:^(NSMutableArray *aList) {
+    [[BRClientManager sharedManager] getUserInfoWithUsernames:[NSArray arrayWithObject:self.friendIDTextField.text] andSaveFlag:NO success:^(NSMutableArray *aList) {
         [hud hideAnimated:YES];
         
         BRContactListModel *model = [aList firstObject];

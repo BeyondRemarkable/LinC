@@ -40,13 +40,18 @@
     
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.view.backgroundColor = [UIColor blackColor];
+    [self.navigationController setNavigationBarHidden: YES];
+    [self scannerView];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.view.backgroundColor = [UIColor blackColor];
-    [self.navigationController setNavigationBarHidden: YES];
-    [self scannerView];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -109,7 +114,9 @@
 - (void)searchFriendWithUserID:(NSString *)searchID {
     NSArray *userIDArr = [NSArray arrayWithObject:searchID];
     hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[BRClientManager sharedManager] getUserInfoWithUsernames:userIDArr success:^(NSMutableArray *aList) {
+    
+    [[BRClientManager sharedManager] getUserInfoWithUsernames:userIDArr andSaveFlag:NO
+    success:^(NSMutableArray *aList) {
         [hud hideAnimated:YES];
         
         BRContactListModel *model = [aList firstObject];

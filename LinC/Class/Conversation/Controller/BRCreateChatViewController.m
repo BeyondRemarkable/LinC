@@ -12,6 +12,7 @@
 #import "BRContactListTableViewCell.h"
 #import "BRClientManager.h"
 #import "BRCoreDataManager.h"
+#import "BRFriendsInfo+CoreDataClass.h"
 
 @interface BRCreateChatViewController ()
 @property (nonatomic, strong) NSArray *friendList;
@@ -57,12 +58,38 @@
 #pragma mark - private methods
 - (void)setupFriendList {
     NSArray *buddyList = [[EMClient sharedClient].contactManager getContacts];
-    [[BRClientManager sharedManager] getUserInfoWithUsernames:buddyList success:^(NSMutableArray *aList) {
-        self.friendList = [NSArray arrayWithArray:aList];
-        [self.tableView reloadData];
-    } failure:^(EMError *aError) {
-        NSLog(@"%@", aError.errorDescription);
-    }];
+    NSMutableArray *resultArr = [NSMutableArray array];
+    for (NSString *userID in buddyList) {
+         BRFriendsInfo *friendInfo = [[BRCoreDataManager sharedInstance] fetchFriendInfoBy:userID];
+        if (friendInfo) {
+
+            BRContactListModel *contactModel = [[BRContactListModel alloc] initWithBuddy:friendInfo.username];
+            contactModel.username = friendInfo.username;
+            contactModel.nickname = friendInfo.nickname;
+            contactModel.avatarImage = [UIImage imageWithData:friendInfo.avatar];
+            contactModel.gender = friendInfo.gender;
+            contactModel.location = friendInfo.location;
+            contactModel.whatsUp = friendInfo.whatsUp;
+            contactModel.email = friendInfo.email;
+            [resultArr addObject:contactModel];
+        }
+    }
+//    [[BRClientManager sharedManager] getUserInfoWithUsernames:buddyList andSaveFlag:NO success:^(NSMutableArray *aList) {
+//                self.friendList = [NSArray arrayWithArray:aList];
+//                [self.tableView reloadData];
+//            } failure:^(EMError *aError) {
+//                 NSLog(@"%@", aError.errorDescription);
+//            }];
+    self.friendList = resultArr;
+    [self.tableView reloadData];
+//    
+//    
+//    [[BRClientManager sharedManager] getUserInfoWithUsernames:buddyList andSaveFlag:NO success:^(NSMutableArray *aList) {
+//        self.friendList = [NSArray arrayWithArray:aList];
+//        [self.tableView reloadData];
+//    } failure:^(EMError *aError) {
+//         NSLog(@"%@", aError.errorDescription);
+//    }];
 }
 
 - (void)createChat {

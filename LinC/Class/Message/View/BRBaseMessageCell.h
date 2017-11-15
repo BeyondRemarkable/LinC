@@ -29,7 +29,7 @@ extern NSString *const BRMessageCellIdentifierSendFile;
 /*
  *  头像圆角
  */
-@property (nonatomic) CGFloat avatarCornerRadius UI_APPEARANCE_SELECTOR; //default 0;
+//@property (nonatomic) CGFloat avatarCornerRadius UI_APPEARANCE_SELECTOR; //default 0;
 
 /*
  *  昵称显示字体

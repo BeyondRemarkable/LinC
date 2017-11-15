@@ -23,7 +23,8 @@
 #define kSDKConfigEnableConsoleLogger @"SDKConfigEnableConsoleLogger"
 /** @brief 使用的SDK是否为Lite版本(即不包含实时音视频功能) */
 #define kBRSDKConfigIsUseLite @"isUselibHyphenateClientSDKLite"
-
+/** @brief 用来判断是否是好友请求 */
+#define kBRFriendRequestExtKey @"kBRFriendRequestExtKey"
 @interface BRSDKHelper : NSObject <EMClientDelegate>
 
 /** @brief 当前是否有imagePickerViewController弹出 */

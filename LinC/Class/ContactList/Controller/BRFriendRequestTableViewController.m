@@ -12,6 +12,8 @@
 #import "BRFileWithNewFriendsRequestData.h"
 #import <MBProgressHUD.h>
 #import <SAMKeychain.h>
+#import "BRClientManager.h"
+
 
 @interface BRFriendRequestTableViewController ()
 {
@@ -24,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *userWhatUp;
 @property (weak, nonatomic) IBOutlet UILabel *userLocation;
 @property (weak, nonatomic) IBOutlet UILabel *messageLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *userIcon;
 
 @end
 
@@ -31,72 +34,32 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.label.text = @"Loading...";
     
     self.messageLabel.text = self.message;
     self.userID.text = self.searchID;
-    [self loadDataFromServer];
+    
+    [[BRClientManager sharedManager] getUserInfoWithUsernames:[NSArray arrayWithObject:self.searchID] andSaveFlag:NO success:^(NSMutableArray *aList) {
+        BRContactListModel *friendInfo = (BRContactListModel *)[aList firstObject];
+        self.userIcon.image = friendInfo.avatarImage;
+        self.userGender.text = friendInfo.gender;
+        self.userWhatUp.text = friendInfo.whatsUp;
+        if (!self.model.nickname) {
+            self.userNickName.text = self.searchID;
+        } else {
+            self.userNickName.text = friendInfo.nickname;
+        }
+        [hud hideAnimated:YES];
+    } failure:^(EMError *eError) {
+        NSLog(@"%@", eError);
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-
-/**
-    从服务器获取好友JSON信息
- */
-- (void)loadDataFromServer {
-    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    
-    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-    NSString *savedUserName = [userDefault objectForKey:kLoginUserNameKey];
-    NSString *token = [SAMKeychain passwordForService:kLoginTokenKey account: savedUserName];
-    BRHTTPSessionManager *manager = [BRHTTPSessionManager manager];
-    [manager.requestSerializer setValue:[@"Bearer " stringByAppendingString:token]  forHTTPHeaderField:@"Authorization"];
-    
-    NSString *url =  [kBaseURL stringByAppendingPathComponent:@"/api/v1/users/find"];
-    NSDictionary *parameters = @{@"key":@"username", @"value":self.searchID};
-    
-    [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
-        [self setUpUserInfoFrom: responseObject];
-        
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"%@", error.localizedDescription);
-        hud.mode = MBProgressHUDModeText;
-        
-        hud.label.text = @"Try again later.";
-        [hud hideAnimated:YES afterDelay:1.5];
-        [self performSelector:@selector(dismissVC) withObject:nil afterDelay:1.0];
-    }];
-}
-
-// 把从服务器获得的JSON数据赋值到各个label上
-- (void)setUpUserInfoFrom:(id)responseObject {
-    if ([responseObject isKindOfClass:[NSDictionary class]]) {
-        NSDictionary *dict = (NSDictionary *)responseObject;
-        NSLog(@"dict--%@", dict);
-        
-        // 成功获取好友信息， 并赋值到label上
-        if ([dict[@"status"]  isEqual: @"success"]) {
-
-            NSArray *userArray = [dict[@"data"][@"users"] lastObject];
-          
-            NSDictionary *userDict = (NSDictionary *)userArray;
-            self.userID.text = userDict[@"username"];
-            [hud hideAnimated:YES];
-        } else {
-            // 获取失败， 显示失败信息 并返回
-//            hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            hud.mode = MBProgressHUDModeText;
-            
-            hud.label.text = dict[@"message"];
-            [hud hideAnimated:YES afterDelay:1.5];
-            [self performSelector:@selector(dismissVC) withObject:nil afterDelay:1.0];
-        }
-    }
-    
 }
 
 - (void)dismissVC {

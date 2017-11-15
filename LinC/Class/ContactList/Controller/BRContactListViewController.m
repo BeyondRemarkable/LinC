@@ -141,7 +141,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
         BRContactListModel *contactModel = [[BRContactListModel alloc] init];
         contactModel.username = friendsInfo.username;
         contactModel.nickname = friendsInfo.nickname;
-        contactModel.avatarImage = [UIImage imageWithData:friendsInfo.avatar];
+        contactModel.avatarImage = [UIImage imageWithData: friendsInfo.avatar];
         contactModel.whatsUp = friendsInfo.whatsUp;
         contactModel.gender = friendsInfo.gender;
        
@@ -291,7 +291,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
                 }
             }
             
-            [[BRClientManager sharedManager] getUserInfoWithUsernames:contactsSource success:^(NSMutableArray *aList) {
+            [[BRClientManager sharedManager] getUserInfoWithUsernames:contactsSource andSaveFlag:YES success:^(NSMutableArray *aList) {
                 [weakself.dataArray removeAllObjects];
                 [weakself.dataArray addObjectsFromArray:aList];
                 [weakself.tableView reloadData];

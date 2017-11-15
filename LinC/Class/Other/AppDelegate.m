@@ -14,9 +14,10 @@
 #import "BRClientManager.h"
 #import <SAMKeychain.h>
 #import "BRCoreDataManager.h"
+#import "BRFriendsInfo+CoreDataClass.h"
+#import "BRFileWithNewFriendsRequestData.h"
 
-
-@interface AppDelegate () <EMClientDelegate>
+@interface AppDelegate () <EMClientDelegate, EMChatManagerDelegate>
 
 @end
 
@@ -50,19 +51,9 @@
     
     EMPushOptions *emoptions = [[EMClient sharedClient] pushOptions];
     
-    //设置有消息过来时的显示方式:1.显示收到一条消息2.显示具体消息内容.
-    
-    //自己可以测试下
-    
     emoptions.displayStyle = EMPushDisplayStyleMessageSummary;
     
     [[EMClient sharedClient] updatePushOptionsToServer];
-
-/**
- 
- 注册APNS离线推送iOS8注册APNS
- 
- */
 
 if([application respondsToSelector:@selector(registerForRemoteNotifications)]) {
     
@@ -76,60 +67,128 @@ if([application respondsToSelector:@selector(registerForRemoteNotifications)]) {
     
 }
 
-    
-else{
-    
-    UIRemoteNotificationType notificationTypes =UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert;
-    
-    [[UIApplication sharedApplication]registerForRemoteNotificationTypes:notificationTypes];
-    
-}
+    //添加监听在线推送消息
+    [[EMClient sharedClient].chatManager addDelegate: self delegateQueue:nil];
 
-//添加监听在线推送消息
-
-[[EMClient sharedClient].chatManager addDelegate: self delegateQueue:nil];
-
-return YES;
-
+    return YES;
 }
 
 //监听环信在线推送消息
+-(void)didReceiveMessages:(NSArray *)aMessages{
+    
+    //判断是不是后台，如果是后台就发推送
+    if (aMessages.count == 0) {
+        return ;
+    }
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    [userDefault setBool:YES forKey:@"receivedMessage"];
+    for (EMMessage *message in aMessages) {
+        UIApplicationState state =[[UIApplication sharedApplication] applicationState];
+        switch (state) {
+                //前台运行
+            case UIApplicationStateActive:
+                [self showPushNotificationMessage:message];
+                break;
+                //待激活状态
+            case UIApplicationStateInactive:
+                break;
+                //后台状态
+            case UIApplicationStateBackground:
+                [self showPushNotificationMessage:message];
+                break;
+            default:
+                break;
+        }
+    }
+}
 
-- (void)messagesDidReceive:(NSArray*)aMessages{
+-(void)showPushNotificationMessage:(EMMessage *)message{
+    NSString *friendReqFlag = [message.ext valueForKeyPath:@"em_apns_ext.extern"];
+    if (friendReqFlag && [kBRFriendRequestExtKey isEqualToString:friendReqFlag]) {
+        NSDictionary *friendDict = [NSDictionary dictionaryWithObjectsAndKeys:((EMTextMessageBody *)message.body).text, @"message", message.from ,@"userID" ,nil];
+        [BRFileWithNewFriendsRequestData savedToPlistWithData:friendDict];
+        UILocalNotification *notification = [[UILocalNotification alloc] init];
+        BRFriendsInfo *friendInfo = [[BRCoreDataManager sharedInstance] fetchFriendInfoBy:message.from];
+        if (friendInfo.nickname) {
+            notification.alertTitle = friendInfo.nickname;
+        } else {
+            notification.alertTitle = friendInfo.username;
+        }
+        notification.fireDate = [NSDate date];
+        notification.alertAction = NSLocalizedString(@"open", @"Open");
+        notification.alertBody = @"Friend request";
+        notification.timeZone = [NSTimeZone defaultTimeZone];
+        [UIApplication sharedApplication].applicationIconBadgeNumber +=1;
+        
+        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+        return;
+    }
     
-    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:[NSString  stringWithFormat:@"%@",aMessages] delegate: nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
     
-    [alertView show];
+    EMPushOptions *options = [[EMClient sharedClient] pushOptions];
     
-    //aMessages是一个对象,包含了发过来的所有信息,怎么提取想要的信息我会在后面贴出来.
+    if (options.displayStyle == EMPushDisplayStyleMessageSummary) {
+        
+        EMMessageBody *messageBody = message.body;
+        NSString *messageStr = nil;
+        switch (messageBody.type) {
+                
+            case EMMessageBodyTypeText:
+                messageStr = ((EMTextMessageBody *)messageBody).text;
+                break;
+            case EMMessageBodyTypeImage:
+                messageStr = NSLocalizedString(@"Image Received.", @"Image");
+                break;
+            case EMMessageBodyTypeLocation:
+                messageStr = NSLocalizedString(@"Shared location.", @"Location");
+                break;
+            case EMMessageBodyTypeVoice:
+                messageStr = NSLocalizedString(@"Voice message", @"Voice");
+                break;
+            case EMMessageBodyTypeVideo:
+                messageStr = NSLocalizedString(@"Shared video", @"Video");
+                break;
+            default:
+                break;
+        }
+        
+        UILocalNotification *notification = [[UILocalNotification alloc] init];
+        BRFriendsInfo *friendInfo = [[BRCoreDataManager sharedInstance] fetchFriendInfoBy:message.from];
+        if (friendInfo.nickname) {
+            notification.alertTitle = friendInfo.nickname;
+        } else {
+            notification.alertTitle = friendInfo.username;
+        }
+        notification.fireDate = [NSDate date];
+        notification.alertAction = NSLocalizedString(@"open", @"Open");
+        notification.alertBody = messageStr;
+        notification.timeZone = [NSTimeZone defaultTimeZone];
+        [UIApplication sharedApplication].applicationIconBadgeNumber +=1;
+        
+        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+    }
+}
+
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
     
+    if (application.applicationState == UIApplicationStateActive) return;
+    
+    if (application.applicationState == UIApplicationStateInactive) {
+        // 当应用在后台收到本地通知时执行的跳转代码
+        [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+        [[UIApplication sharedApplication] cancelLocalNotification:notification];
+    }
 }
 
 //将得到的deviceToken传给SDK
-
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken{
-    NSLog(@"deviceToken--%@", deviceToken );
     [[EMClient sharedClient] bindDeviceToken:deviceToken];
-    
 }
 
 //注册deviceToken失败
-
-- (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error{
-    
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error{
     NSLog(@"deviceToken--error -- %@",error);
-    
 }
-
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
-{
-    NSLog(@"%@", userInfo);
-}
-
-- (void)applicationWillResignActive:(UIApplication *)application {
-    
-}
-
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     [[EMClient sharedClient] applicationDidEnterBackground:application];
