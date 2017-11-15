@@ -36,7 +36,6 @@ CGFloat const BRConversationCellPadding = 10;
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super initWithCoder:aDecoder]) {
-        _showAvatar = YES;
         [self _setupSubview];
     }
     return self;
@@ -87,18 +86,18 @@ CGFloat const BRConversationCellPadding = 10;
         _showAvatar = showAvatar;
         
         if (_showAvatar) {
-            [self removeConstraints:@[self.titleLabelLeftConstraint, self.detailLabelLeftConstraint]];
+//            [self removeConstraints:@[self.titleLabelLeftConstraint, self.detailLabelLeftConstraint]];
             
             self.titleLabelLeftConstraint = [NSLayoutConstraint constraintWithItem:self.titleLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.avatarView attribute:NSLayoutAttributeRight multiplier:1.0 constant:BRConversationCellPadding];
             self.detailLabelLeftConstraint = [NSLayoutConstraint constraintWithItem:self.detailLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.avatarView attribute:NSLayoutAttributeRight multiplier:1.0 constant:BRConversationCellPadding];
-            [self addConstraints:@[self.titleLabelLeftConstraint, self.detailLabelLeftConstraint]];
+//            [self addConstraints:@[self.titleLabelLeftConstraint, self.detailLabelLeftConstraint]];
         }
         else{
-            [self removeConstraints:@[self.titleLabelLeftConstraint, self.detailLabelLeftConstraint]];
+//            [self removeConstraints:@[self.titleLabelLeftConstraint, self.detailLabelLeftConstraint]];
             
             self.titleLabelLeftConstraint = [NSLayoutConstraint constraintWithItem:self.titleLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeLeft multiplier:1.0 constant:BRConversationCellPadding];
             self.detailLabelLeftConstraint = [NSLayoutConstraint constraintWithItem:self.detailLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeLeft multiplier:1.0 constant:BRConversationCellPadding];
-            [self addConstraints:@[self.titleLabelLeftConstraint, self.detailLabelLeftConstraint]];
+//            [self addConstraints:@[self.titleLabelLeftConstraint, self.detailLabelLeftConstraint]];
         }
     }
 }
@@ -106,6 +105,7 @@ CGFloat const BRConversationCellPadding = 10;
 - (void)setModel:(id<IConversationModel>)model
 {
     _model = model;
+    self.showAvatar = YES;
     self.titleLabel.text = _model.title;
     
     self.avatarView.imageView.image = _model.avatarImage;

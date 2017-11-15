@@ -799,7 +799,8 @@ typedef enum : NSUInteger {
                     [hud hideAnimated:YES afterDelay:1.5];
                 }
             }];
-        }else{
+        }
+        else {
             hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             //get the message thumbnail
             [[EMClient sharedClient].chatManager downloadMessageThumbnail:model.message progress:nil completion:^(EMMessage *message, EMError *error) {
@@ -2004,7 +2005,7 @@ typedef enum : NSUInteger {
     [self _sendMessage:message];
 }
 
-#pragma mark - notifycation
+#pragma mark - notification
 - (void)didBecomeActive
 {
     self.messageTimeIntervalTag = -1;

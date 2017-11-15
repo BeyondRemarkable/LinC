@@ -325,13 +325,11 @@
     NSString *username = [userDefaults objectForKey:kLoginUserNameKey];
     NSString *token = [SAMKeychain passwordForService:kLoginTokenKey account:username];
     NSDictionary *parameters = @{
-                                 @"user_id":username,
                                  @"token":token,
                                  @"password":newPassword,
                                  @"old_password":currentPassword
                                  };
     BRHTTPSessionManager *manager = [BRHTTPSessionManager manager];
-    [manager.requestSerializer setValue:[@"Bearer " stringByAppendingString:token]  forHTTPHeaderField:@"Authorization"];
     
     [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dict = (NSDictionary *)responseObject;

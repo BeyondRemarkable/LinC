@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		270BD1191F9835C000266E6A /* Location.plist in Resources */ = {isa = PBXBuildFile; fileRef = 270BD1181F9835C000266E6A /* Location.plist */; };
 		270BD11C1FA27B2700266E6A /* BRAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 270BD11B1FA27B2700266E6A /* BRAboutViewController.m */; };
+		2744C4651FB68B2B007C5095 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2744C4631FB68B2A007C5095 /* LaunchScreen.storyboard */; };
+		2744C4681FB68B83007C5095 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2744C46A1FB68B83007C5095 /* Localizable.strings */; };
 		276E756A1F3E2B0200D5A917 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E75691F3E2B0200D5A917 /* AVFoundation.framework */; };
 		276E757F1F3E2F1E00D5A917 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E757E1F3E2F1E00D5A917 /* AudioToolbox.framework */; };
 		276E75901F3E390100D5A917 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E758F1F3E390100D5A917 /* UserNotifications.framework */; };
@@ -53,7 +55,6 @@
 		E90F7B961F670DC300333382 /* BRNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AE71F670DC300333382 /* BRNavigationController.m */; };
 		E90F7B971F670DC300333382 /* BRRefreshTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AE91F670DC300333382 /* BRRefreshTableViewController.m */; };
 		E90F7B981F670DC300333382 /* BRTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AEB1F670DC300333382 /* BRTabBarController.m */; };
-		E90F7B991F670DC300333382 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E90F7AEE1F670DC300333382 /* LaunchScreen.storyboard */; };
 		E90F7B9B1F670DC300333382 /* BRBubbleView+File.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AF31F670DC300333382 /* BRBubbleView+File.m */; };
 		E90F7B9C1F670DC300333382 /* BRBubbleView+Gif.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AF51F670DC300333382 /* BRBubbleView+Gif.m */; };
 		E90F7B9D1F670DC300333382 /* BRBubbleView+Image.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AF71F670DC300333382 /* BRBubbleView+Image.m */; };
@@ -149,6 +150,11 @@
 		270BD1181F9835C000266E6A /* Location.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Location.plist; sourceTree = "<group>"; };
 		270BD11A1FA27B2700266E6A /* BRAboutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRAboutViewController.h; sourceTree = "<group>"; };
 		270BD11B1FA27B2700266E6A /* BRAboutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BRAboutViewController.m; sourceTree = "<group>"; };
+		2744C4641FB68B2A007C5095 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		2744C4661FB68B4B007C5095 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		2744C4671FB68B55007C5095 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		2744C4691FB68B83007C5095 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		2744C46B1FB68B8B007C5095 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		276E75691F3E2B0200D5A917 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		276E757E1F3E2F1E00D5A917 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		276E758F1F3E390100D5A917 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
@@ -231,7 +237,6 @@
 		E90F7AE91F670DC300333382 /* BRRefreshTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRRefreshTableViewController.m; sourceTree = "<group>"; };
 		E90F7AEA1F670DC300333382 /* BRTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRTabBarController.h; sourceTree = "<group>"; };
 		E90F7AEB1F670DC300333382 /* BRTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRTabBarController.m; sourceTree = "<group>"; };
-		E90F7AEE1F670DC300333382 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E90F7AF21F670DC300333382 /* BRBubbleView+File.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BRBubbleView+File.h"; sourceTree = "<group>"; };
 		E90F7AF31F670DC300333382 /* BRBubbleView+File.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BRBubbleView+File.m"; sourceTree = "<group>"; };
 		E90F7AF41F670DC300333382 /* BRBubbleView+Gif.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BRBubbleView+Gif.h"; sourceTree = "<group>"; };
@@ -465,6 +470,7 @@
 			children = (
 				E9B3675D1FA926B600F46274 /* LinC.entitlements */,
 				E90F7AA41F670DC300333382 /* Class */,
+				2744C4631FB68B2A007C5095 /* LaunchScreen.storyboard */,
 				27CA03AF1F38F21600D0F132 /* Supporting Files */,
 			);
 			path = LinC;
@@ -478,6 +484,7 @@
 				27CA03C01F38F21600D0F132 /* Info.plist */,
 				27CA03B01F38F21600D0F132 /* main.m */,
 				270BD1181F9835C000266E6A /* Location.plist */,
+				2744C46A1FB68B83007C5095 /* Localizable.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -701,7 +708,6 @@
 		E90F7AED1F670DC300333382 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E90F7AEE1F670DC300333382 /* LaunchScreen.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1048,8 +1054,8 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 27CA03A31F38F21600D0F132;
 			productRefGroup = 27CA03AD1F38F21600D0F132 /* Products */;
@@ -1068,13 +1074,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E90F7B991F670DC300333382 /* LaunchScreen.storyboard in Resources */,
+				2744C4681FB68B83007C5095 /* Localizable.strings in Resources */,
 				E90F7B791F670DC300333382 /* Account.storyboard in Resources */,
 				E90F7BC61F670DC400333382 /* BRMediaBrowserViewController.xib in Resources */,
 				E90F7BBA1F670DC400333382 /* BRChatBarMoreViewCell.xib in Resources */,
 				E90F7B821F670DC300333382 /* BRFriendInfo.storyboard in Resources */,
 				E90F7B8B1F670DC300333382 /* BRDropDownViewController.xib in Resources */,
 				27FC23F81F7025D6001148D7 /* Main.storyboard in Resources */,
+				2744C4651FB68B2B007C5095 /* LaunchScreen.storyboard in Resources */,
 				E9F29BB21F7EE59E0061252D /* BRGroupMemberTableViewCell.xib in Resources */,
 				E90F7B851F670DC300333382 /* BRScannerViewController.xib in Resources */,
 				E9C5F3FD1F75B2940073A86E /* BRNewFriendTableViewCell.xib in Resources */,
@@ -1293,11 +1300,34 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		2744C4631FB68B2A007C5095 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2744C4641FB68B2A007C5095 /* Base */,
+				2744C4661FB68B4B007C5095 /* en */,
+				2744C4671FB68B55007C5095 /* zh-Hans */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		2744C46A1FB68B83007C5095 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2744C4691FB68B83007C5095 /* en */,
+				2744C46B1FB68B8B007C5095 /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		27CA03D71F38F21600D0F132 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1352,6 +1382,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
