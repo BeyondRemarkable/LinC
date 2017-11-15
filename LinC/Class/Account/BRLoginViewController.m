@@ -85,7 +85,8 @@
         [[UIApplication sharedApplication].keyWindow setRootViewController:vc];
     } failure:^(EMError *error) {
         hud.mode = MBProgressHUDModeText;
-        hud.label.text = @"Please try again later";
+        hud.label.text = error.description;
+        hud.label.numberOfLines = 0;
         [hud hideAnimated:YES afterDelay:1.5];
         
         [self.passwordTextField becomeFirstResponder];

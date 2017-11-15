@@ -112,12 +112,11 @@
         return;
     }
     hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    
     BRHTTPSessionManager *manager = [BRHTTPSessionManager manager];
     NSString *url =  [kBaseURL stringByAppendingPathComponent:@"/api/v1/auth/register/verify/"];
     NSDictionary *parameters = @{@"email":email};
+    
     [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [hud hideAnimated:YES];
         
         NSDictionary *dict = (NSDictionary *)responseObject;
         if ([dict[@"status"] isEqualToString:@"success"]) {
@@ -129,6 +128,7 @@
             [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
                 [self.view layoutIfNeeded];
             } completion:^(BOOL finished) {
+                [hud hideAnimated:YES];
                 [self.userNameTextField becomeFirstResponder];
             }];
             
@@ -136,13 +136,16 @@
             self.emailTextField.text = @"";
         }
         else if ([dict[@"status"] isEqualToString:@"error"]) {
-            hud.mode = MBProgressHUDModeText;
-            hud.label.text = dict[@"message"];
-            [hud hideAnimated:YES afterDelay:1.5];
+                hud.mode = MBProgressHUDModeText;
+                hud.label.text = dict[@"message"];
+                hud.label.numberOfLines = 0;
+                [hud hideAnimated:YES afterDelay:1.5];
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [hud hideAnimated:YES];
-        NSLog(@"%@", error.localizedDescription);
+            hud.mode = MBProgressHUDModeText;
+            hud.label.text = [NSString stringWithFormat:@"%@", error];
+            [hud hideAnimated:YES afterDelay:2];
+            NSLog(@"%@", error.localizedDescription);
     }];
 }
 
@@ -207,12 +210,14 @@
         } failure:^(EMError *error) {
             hud.mode = MBProgressHUDModeText;
             hud.label.text = error.errorDescription;
+            hud.label.numberOfLines = 0;
             [hud hideAnimated:YES afterDelay:1.5];
         }];
         
     } failure:^(EMError *error) {
         hud.mode = MBProgressHUDModeText;
         hud.label.text = error.errorDescription;
+        hud.label.numberOfLines = 0;
         [hud hideAnimated:YES afterDelay:1.5];
     }];
     
