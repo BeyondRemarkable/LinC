@@ -117,10 +117,9 @@
     NSString *url =  [kBaseURL stringByAppendingPathComponent:@"/api/v1/auth/register/verify/"];
     NSDictionary *parameters = @{@"email":email};
     [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [hud hideAnimated:YES];
-        
         NSDictionary *dict = (NSDictionary *)responseObject;
         if ([dict[@"status"] isEqualToString:@"success"]) {
+            [hud hideAnimated:YES];
             self.registerViewLeftConstraint.constant = 0;
             self.registerViewRightConstraint.constant = 0;
             

@@ -11,6 +11,8 @@
 		270BD11C1FA27B2700266E6A /* BRAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 270BD11B1FA27B2700266E6A /* BRAboutViewController.m */; };
 		2744C4651FB68B2B007C5095 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2744C4631FB68B2A007C5095 /* LaunchScreen.storyboard */; };
 		2744C4681FB68B83007C5095 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2744C46A1FB68B83007C5095 /* Localizable.strings */; };
+		2744C46E1FBB959C007C5095 /* BRGeneralSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2744C46D1FBB959C007C5095 /* BRGeneralSettingViewController.m */; };
+		2744C4711FBB96E2007C5095 /* BRBlackListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2744C4701FBB96E2007C5095 /* BRBlackListViewController.m */; };
 		276E756A1F3E2B0200D5A917 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E75691F3E2B0200D5A917 /* AVFoundation.framework */; };
 		276E757F1F3E2F1E00D5A917 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E757E1F3E2F1E00D5A917 /* AudioToolbox.framework */; };
 		276E75901F3E390100D5A917 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E758F1F3E390100D5A917 /* UserNotifications.framework */; };
@@ -154,6 +156,10 @@
 		2744C4671FB68B55007C5095 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		2744C4691FB68B83007C5095 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2744C46B1FB68B8B007C5095 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		2744C46C1FBB959C007C5095 /* BRGeneralSettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRGeneralSettingViewController.h; sourceTree = "<group>"; };
+		2744C46D1FBB959C007C5095 /* BRGeneralSettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BRGeneralSettingViewController.m; sourceTree = "<group>"; };
+		2744C46F1FBB96E2007C5095 /* BRBlackListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRBlackListViewController.h; sourceTree = "<group>"; };
+		2744C4701FBB96E2007C5095 /* BRBlackListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BRBlackListViewController.m; sourceTree = "<group>"; };
 		276E75691F3E2B0200D5A917 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		276E757E1F3E2F1E00D5A917 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		276E758F1F3E390100D5A917 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
@@ -913,6 +919,10 @@
 				E90F7B761F670DC300333382 /* BRWhatsUpViewController.m */,
 				270BD11A1FA27B2700266E6A /* BRAboutViewController.h */,
 				270BD11B1FA27B2700266E6A /* BRAboutViewController.m */,
+				2744C46C1FBB959C007C5095 /* BRGeneralSettingViewController.h */,
+				2744C46D1FBB959C007C5095 /* BRGeneralSettingViewController.m */,
+				2744C46F1FBB96E2007C5095 /* BRBlackListViewController.h */,
+				2744C4701FBB96E2007C5095 /* BRBlackListViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1169,6 +1179,7 @@
 				27FC23F11F6C4A9F001148D7 /* BRHTTPSessionManager.m in Sources */,
 				27CA03B11F38F21600D0F132 /* main.m in Sources */,
 				E90F7B7A1F670DC300333382 /* BRAccountNavigationController.m in Sources */,
+				2744C4711FBB96E2007C5095 /* BRBlackListViewController.m in Sources */,
 				E90F7BAD1F670DC300333382 /* BRConvertToCommonEmoticonsHelper.m in Sources */,
 				E90F7B871F670DC300333382 /* BRContactListTableViewCell.m in Sources */,
 				E90F7B7E1F670DC300333382 /* BRUserInfoSetUpTableViewController.m in Sources */,
@@ -1176,6 +1187,7 @@
 				E90F7BAB1F670DC300333382 /* BRCDDeviceManagerBase.m in Sources */,
 				E90F7BAE1F670DC400333382 /* BREmoji.m in Sources */,
 				E95FA8CB1F7065C50023BB1C /* BRRequestMessageTableViewController.m in Sources */,
+				2744C46E1FBB959C007C5095 /* BRGeneralSettingViewController.m in Sources */,
 				E90F7B811F670DC300333382 /* BRContactListViewController.m in Sources */,
 				E90F7BC41F670DC400333382 /* Common.m in Sources */,
 				E90F7BAF1F670DC400333382 /* BREmojiEmoticons.m in Sources */,

@@ -12,6 +12,7 @@
 #import "BRHTTPSessionManager.h"
 #import "BRClientManager.h"
 #import "BRAboutViewController.h"
+#import "BRGeneralSettingViewController.h"
 #import <MBProgressHUD.h>
 #import <SAMKeychain.h>
 
@@ -71,7 +72,8 @@ typedef enum NSUInteger {
     
     if (indexPath.section == TableViewSectionZero) {
         if (indexPath.row == SettingGeneral) {
-            
+            BRGeneralSettingViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRGeneralSettingViewController"];
+            [self.navigationController pushViewController:vc animated:YES];
         }
         else if (indexPath.row == SettingPassword) {
             
