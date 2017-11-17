@@ -59,15 +59,29 @@
     [[EMClient sharedClient].contactManager addDelegate:self delegateQueue:dispatch_get_main_queue()];
 //
 //    // 获取未读消息数，设置badge
-    NSInteger unreadNum = 0;
-    NSArray *chatList = [[EMClient sharedClient].chatManager getAllConversations];
-    for (EMConversation *chat in chatList) {
-        unreadNum += chat.unreadMessagesCount;
-    }
-    if (unreadNum) {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        NSArray *conversations = [[EMClient sharedClient].chatManager getAllConversations];
         
+        NSInteger totalUnreadCount = 0;
+        for (EMConversation *conversation in conversations) {
+            totalUnreadCount += conversation.unreadMessagesCount;
+        }
+        if (totalUnreadCount) {
+            self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%lu", totalUnreadCount];
+        }
+    });
+    
+    
+//    NSInteger unreadNum = 0;
+//    NSArray *chatList = [[EMClient sharedClient].chatManager getAllConversations];
+//    for (EMConversation *chat in chatList) {
+//        unreadNum += chat.unreadMessagesCount;
+//    }
+//    if (unreadNum) {
+//
 //        [[self.tabBar.items objectAtIndex:0] setBadgeValue:[NSString stringWithFormat:@"%ld", (long)unreadNum]];
-    }
+//    }
+    
 }
 
 #pragma mark - private methods
@@ -140,10 +154,5 @@
 //    badgeNum ++;
 //    [contactItem setBadgeValue:[NSString stringWithFormat:@"%ld", badgeNum]];
 //}
-- (void)messagesDidReceive:(NSArray *)aMessages {
-
-    //    [[BRCoreDataManager sharedInstance] insertConversationToCoreData: aMessages];
-}
-
 
 @end

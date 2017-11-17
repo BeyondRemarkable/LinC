@@ -42,8 +42,12 @@
     } else {
         _title = _conversation.conversationId;
     }
-    _avatarImage = [UIImage imageWithData:friendInfo.avatar];
     
+    if (!friendInfo.avatar) {
+        _avatarImage = [UIImage imageNamed:@"user_default"];
+    } else {
+       _avatarImage = [UIImage imageWithData:friendInfo.avatar];
+    }
 }
 
 /**

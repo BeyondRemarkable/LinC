@@ -35,7 +35,17 @@
 {
     [super viewWillAppear:animated];
     [self tableViewDidTriggerHeaderRefresh];
-//    [self registerNotifications];
+    //    [self registerNotifications];
+    NSArray *conversations = [[EMClient sharedClient].chatManager getAllConversations];
+    NSInteger totalUnreadCount = 0;
+    for (EMConversation *conversation in conversations) {
+        totalUnreadCount += conversation.unreadMessagesCount;
+    }
+    if (!totalUnreadCount) {
+        self.tabBarItem.badgeValue = nil;
+    } else {
+        self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%lu", totalUnreadCount];
+    }
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -343,9 +353,14 @@
 }
 
 - (void)messagesDidReceive:(NSArray *)aMessages {
-    if (self.tabBarController.selectedIndex != 0) {
-        self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%lu", (unsigned long)aMessages.count];
-    }
+
+        NSArray *conversations = [[EMClient sharedClient].chatManager getAllConversations];
+        NSInteger totalUnreadCount = 0;
+        for (EMConversation *conversation in conversations) {
+            totalUnreadCount += conversation.unreadMessagesCount;
+        }
+        self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%lu", totalUnreadCount];
+
 }
 
 @end

@@ -85,7 +85,7 @@
         [[UIApplication sharedApplication].keyWindow setRootViewController:vc];
     } failure:^(EMError *error) {
         hud.mode = MBProgressHUDModeText;
-        hud.label.text = error.description;
+        hud.label.text = error.errorDescription;
         hud.label.numberOfLines = 0;
         [hud hideAnimated:YES afterDelay:1.5];
         

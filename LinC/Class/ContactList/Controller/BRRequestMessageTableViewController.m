@@ -52,8 +52,8 @@
                                            messageExt: @{@"em_apns_ext":@{@"extern":kBRFriendRequestExtKey}}];
     
     [[EMClient sharedClient].chatManager sendMessage:message progress:nil completion:^(EMMessage *aMessage, EMError *aError) {
-        if (!aError) {
-            hud.mode = MBProgressHUDModeText;
+        hud.mode = MBProgressHUDModeText;
+        if (aError) {
             hud.label.text = aError.errorDescription;
         }
         else {
@@ -62,7 +62,6 @@
         }
         [hud hideAnimated:YES afterDelay:1.5];
     }];
-    
     
     
 //    [[EMClient sharedClient].contactManager addContact:self.userID message:self.userMessage.text completion:^(NSString *aUsername, EMError *aError) {

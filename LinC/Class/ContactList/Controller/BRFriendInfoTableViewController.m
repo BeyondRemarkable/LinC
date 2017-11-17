@@ -138,16 +138,19 @@
     
     UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Confirm Delete" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         [[EMClient sharedClient].contactManager deleteContact:self.contactListModel.username isDeleteConversation:YES completion:^(NSString *aUsername, EMError *aError) {
+            hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.mode = MBProgressHUDModeText;
             if (!aError) {
-                hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                hud.mode = MBProgressHUDModeText;
                 hud.label.text = @"Successful delete";
                 [hud hideAnimated:YES afterDelay:1.5];
                 [self performSelector:@selector(dismissVC) withObject:nil afterDelay:1.0];
+                // 从core data中 删除好友数据
+                [[BRCoreDataManager sharedInstance] deleteFriendByID:[NSArray arrayWithObject:self.contactListModel.username]];
+            } else {
+                hud.label.text = aError.description;
             }
         }];
-        // 从core data中 删除好友数据
-        [[BRCoreDataManager sharedInstance] deleteFriendByID:[NSArray arrayWithObject:self.contactListModel.username]];
+      
     }];
    
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
