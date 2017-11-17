@@ -53,11 +53,11 @@
                     [[EMClient sharedClient].options setIsAutoLogin:YES];
                     // 存储用户名密码
                     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-                    [userDefaults setObject:username forKey:kLoginUserNameKey];
+                    [userDefaults setObject:usernameHX forKey:kLoginUserNameKey];
                     [userDefaults synchronize];
                     
-                    [SAMKeychain setPassword:password forService:kLoginPasswordKey account:username];
-                    [SAMKeychain setPassword:dict[@"data"][@"token"] forService:kLoginTokenKey account:username];
+                    [SAMKeychain setPassword:encryptedPassword forService:kLoginPasswordKey account:usernameHX];
+                    [SAMKeychain setPassword:dict[@"data"][@"token"] forService:kLoginTokenKey account:usernameHX];
                     
                     //保存登录用户信息到core data
                     __block BRContactListModel *model = [[BRContactListModel alloc] initWithBuddy:dict[@"data"][@"user"][@"username"]];
