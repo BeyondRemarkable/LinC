@@ -56,7 +56,7 @@
                     [userDefaults setObject:usernameHX forKey:kLoginUserNameKey];
                     [userDefaults synchronize];
                     
-                    [SAMKeychain setPassword:encryptedPassword forService:kLoginPasswordKey account:usernameHX];
+                    [SAMKeychain setPassword:password forService:kLoginPasswordKey account:usernameHX];
                     [SAMKeychain setPassword:dict[@"data"][@"token"] forService:kLoginTokenKey account:usernameHX];
                     
                     //保存登录用户信息到core data
