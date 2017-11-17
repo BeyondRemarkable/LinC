@@ -12,6 +12,7 @@
 #import "BRHTTPSessionManager.h"
 #import "BRClientManager.h"
 #import "BRAboutViewController.h"
+#import "BRGeneralSettingViewController.h"
 #import <MBProgressHUD.h>
 #import <SAMKeychain.h>
 #import <MessageUI/MFMailComposeViewController.h>

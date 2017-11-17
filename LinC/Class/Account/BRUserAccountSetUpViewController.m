@@ -120,6 +120,7 @@
         
         NSDictionary *dict = (NSDictionary *)responseObject;
         if ([dict[@"status"] isEqualToString:@"success"]) {
+            [hud hideAnimated:YES];
             self.registerViewLeftConstraint.constant = 0;
             self.registerViewRightConstraint.constant = 0;
             
