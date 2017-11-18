@@ -20,8 +20,6 @@ static BRMessageReadManager *detailInstance = nil;
 @property (strong, nonatomic) UIWindow *keyWindow;
 
 @property (strong, nonatomic) NSMutableArray *medias;
-@property (strong, nonatomic) UINavigationController *photoNavigationController;
-@property (nonatomic, strong) BRMediaBrowserViewController *mediaBrowser;
 
 @end
 
@@ -60,26 +58,6 @@ static BRMessageReadManager *detailInstance = nil;
     return _medias;
 }
 
-- (BRMediaBrowserViewController *)mediaBrowser {
-    if (_mediaBrowser == nil) {
-        _mediaBrowser = [[BRMediaBrowserViewController alloc] initWithMediaArray:self.medias];
-    }
-    return _mediaBrowser;
-}
-
-- (UINavigationController *)photoNavigationController
-{
-    if (_photoNavigationController == nil) {
-        _photoNavigationController = [[UINavigationController alloc] initWithRootViewController:self.mediaBrowser];
-        _photoNavigationController = [[UINavigationController alloc] init];
-        _photoNavigationController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    }
-    
-    [self.mediaBrowser.collectionView reloadData];
-    return _photoNavigationController;
-}
-
-
 #pragma mark - private
 
 
@@ -115,8 +93,11 @@ static BRMessageReadManager *detailInstance = nil;
         self.medias = mediaArray;
     }
     
+    BRMediaBrowserViewController *mediaBrowserVc = [[BRMediaBrowserViewController alloc] initWithMediaArray:self.medias];
+    UINavigationController *naviVc = [[UINavigationController alloc] initWithRootViewController:mediaBrowserVc];
+    [naviVc setNavigationBarHidden:YES];
     UIViewController *rootController = [self.keyWindow rootViewController];
-    [rootController presentViewController:self.mediaBrowser animated:YES completion:nil];
+    [rootController presentViewController:naviVc animated:YES completion:nil];
 }
 
 - (BOOL)prepareMessageAudioModel:(BRMessageModel *)messageModel

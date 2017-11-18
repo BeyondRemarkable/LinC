@@ -1127,8 +1127,6 @@ typedef enum : NSUInteger {
     NSString *mediaType = info[UIImagePickerControllerMediaType];
     if ([mediaType isEqualToString:(NSString *)kUTTypeMovie]) {
         NSURL *videoURL = info[UIImagePickerControllerMediaURL];
-        // video url:
-        // file:///private/var/mobile/Applications/B3CDD0B2-2F19-432B-9CFA-158700F4DE8F/tmp/capture-T0x16e39100.tmp.9R8weF/capturedvideo.mp4
         // we will convert it to mp4 format
         NSURL *mp4 = [self _convert2Mp4:videoURL];
         NSFileManager *fileman = [NSFileManager defaultManager];

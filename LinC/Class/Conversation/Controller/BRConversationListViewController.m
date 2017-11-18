@@ -304,7 +304,7 @@
         EMMessageBody *messageBody = lastMessage.body;
         switch (messageBody.type) {
             case EMMessageBodyTypeImage:{
-                latestMessageTitle = NSLocalizedString(@"Image Received.", @"[image]");
+                latestMessageTitle = NSLocalizedString(@"Image Received", @"[image]");
             } break;
             case EMMessageBodyTypeText:{
                 NSString *didReceiveText = [BRConvertToCommonEmoticonsHelper
@@ -354,13 +354,14 @@
 
 - (void)messagesDidReceive:(NSArray *)aMessages {
 
-        NSArray *conversations = [[EMClient sharedClient].chatManager getAllConversations];
-        NSInteger totalUnreadCount = 0;
-        for (EMConversation *conversation in conversations) {
-            totalUnreadCount += conversation.unreadMessagesCount;
-        }
-        self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%lu", totalUnreadCount];
-
+    NSArray *conversations = [[EMClient sharedClient].chatManager getAllConversations];
+    NSInteger totalUnreadCount = 0;
+    for (EMConversation *conversation in conversations) {
+        totalUnreadCount += conversation.unreadMessagesCount;
+    }
+    self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%lu", totalUnreadCount];
+    
+    [self tableViewDidTriggerHeaderRefresh];
 }
 
 @end
