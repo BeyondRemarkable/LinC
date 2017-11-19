@@ -74,22 +74,10 @@
             [resultArr addObject:contactModel];
         }
     }
-//    [[BRClientManager sharedManager] getUserInfoWithUsernames:buddyList andSaveFlag:NO success:^(NSMutableArray *aList) {
-//                self.friendList = [NSArray arrayWithArray:aList];
-//                [self.tableView reloadData];
-//            } failure:^(EMError *aError) {
-//                 NSLog(@"%@", aError.errorDescription);
-//            }];
+    
     self.friendList = resultArr;
     [self.tableView reloadData];
-//    
-//    
-//    [[BRClientManager sharedManager] getUserInfoWithUsernames:buddyList andSaveFlag:NO success:^(NSMutableArray *aList) {
-//        self.friendList = [NSArray arrayWithArray:aList];
-//        [self.tableView reloadData];
-//    } failure:^(EMError *aError) {
-//         NSLog(@"%@", aError.errorDescription);
-//    }];
+    
 }
 
 - (void)createChat {

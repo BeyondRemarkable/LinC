@@ -71,17 +71,6 @@
         }
     });
     
-    
-//    NSInteger unreadNum = 0;
-//    NSArray *chatList = [[EMClient sharedClient].chatManager getAllConversations];
-//    for (EMConversation *chat in chatList) {
-//        unreadNum += chat.unreadMessagesCount;
-//    }
-//    if (unreadNum) {
-//
-//        [[self.tabBar.items objectAtIndex:0] setBadgeValue:[NSString stringWithFormat:@"%ld", (long)unreadNum]];
-//    }
-    
 }
 
 #pragma mark - private methods

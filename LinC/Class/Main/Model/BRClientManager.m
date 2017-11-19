@@ -162,6 +162,7 @@
 - (void)getUserInfoWithUsernames:(NSArray *)usernameList andSaveFlag:(BOOL) saveFlag success:(void (^)(NSMutableArray *))successBlock failure:(void (^)(EMError *))failureBlock {
     // 如果传入数组为空
     if (usernameList.count == 0) {
+        successBlock(nil);
         return;
     }
     

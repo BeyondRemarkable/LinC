@@ -35,7 +35,7 @@
 {
     [super viewWillAppear:animated];
     [self tableViewDidTriggerHeaderRefresh];
-    //    [self registerNotifications];
+    
     NSArray *conversations = [[EMClient sharedClient].chatManager getAllConversations];
     NSInteger totalUnreadCount = 0;
     for (EMConversation *conversation in conversations) {
@@ -43,15 +43,11 @@
     }
     if (!totalUnreadCount) {
         self.tabBarItem.badgeValue = nil;
+        [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     } else {
         self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%lu", totalUnreadCount];
+        [UIApplication sharedApplication].applicationIconBadgeNumber = totalUnreadCount;
     }
-}
-
--(void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-//    [self unregisterNotifications];
 }
 
 - (void)viewDidLoad {
@@ -65,11 +61,6 @@
     self.navigationItem.title = @"LinC";
     [[EMClient sharedClient] addDelegate:self delegateQueue:dispatch_get_main_queue()];
 }
-
-//- (void)setUpNavigationBar {
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@""] style:UIBarButtonItemStylePlain target:self action: @selector(dropdownMenu)];
-//}
-
 
 - (void)checkRefreshMessage {
     BOOL hasMessage = [[NSUserDefaults standardUserDefaults] boolForKey:@"receivedMessage"];
@@ -104,8 +95,11 @@
 - (void)scanQRCodeBtnTapped:(UIButton *)sender {
     [self.dropDownVC.view removeFromSuperview];
     self.dropDownVC = nil;
+    
     BRScannerViewController *vc = [[BRScannerViewController alloc] initWithNibName:@"BRScannerViewController" bundle:nil];
-    [self presentViewController:vc animated:YES completion:nil];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    nav.toolbarHidden = YES;
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 - (void)clickAddDropdownMenu {
