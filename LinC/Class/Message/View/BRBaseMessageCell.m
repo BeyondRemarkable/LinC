@@ -245,19 +245,29 @@
 }
 
 #pragma mark - setter
-
 - (void)setModel:(id<IMessageModel>)model
 {
     [super setModel:model];
     
     _nameLabel.text = model.nickname;
+    NSString *nicknameInModel = model.nickname;
+    UIImage *avatarImageInModel = model.avatarImage;
     
     if (self.model.isSender) {
         
-        BRUserInfo *userInfo = [[BRCoreDataManager sharedInstance] fetchUserInfoBy:model.message.from];
-        self.model.avatarImage = [UIImage imageWithData:userInfo.avatar];
-        self.avatarView.image = [UIImage imageWithData:userInfo.avatar];
-        self.nameLabel.text = userInfo.nickname;
+        if(!nicknameInModel || !avatarImageInModel) {
+            BRUserInfo *userInfo = [[BRCoreDataManager sharedInstance] fetchUserInfoBy:model.message.from];
+            model.avatarImage = [UIImage imageWithData:userInfo.avatar];
+            if (!model.avatarImage) {
+                model.avatarImage = [UIImage imageNamed:@"user_default"];
+            }
+            model.nickname = userInfo.nickname.length > 0 ? userInfo.nickname : @""; // don't want nil value
+        }
+        
+        self.model.avatarImage = model.avatarImage;
+        self.avatarView.image = model.avatarImage;
+        self.nameLabel.text = model.nickname;
+        
         _hasRead.hidden = YES;
         switch (self.model.messageStatus) {
             case EMMessageStatusDelivering:
@@ -272,7 +282,7 @@
                 _statusButton.hidden = YES;
                 [_activity stopAnimating];
                 if (self.model.isMessageRead) {
-//                    _hasRead.hidden = NO;
+                    //                    _hasRead.hidden = NO;
                 }
             }
                 break;
@@ -288,13 +298,19 @@
                 break;
         }
     } else {
-        BRFriendsInfo *friendInfo = [[BRCoreDataManager sharedInstance] fetchFriendInfoBy:model.message.from];
-        if (!friendInfo) {
-            self.avatarView.image = [UIImage imageNamed:@"user_default"];
-        } else {
-            self.avatarView.image = [UIImage imageWithData:friendInfo.avatar];
-            self.nameLabel.text = friendInfo.nickname;
+        if(!nicknameInModel || !avatarImageInModel) {
+            BRFriendsInfo *friendInfo = [[BRCoreDataManager sharedInstance] fetchFriendInfoBy:model.message.from];
+            if (!friendInfo) {
+                model.avatarImage = [UIImage imageNamed:@"user_default"];
+                model.nickname = @""; // don't want nil value
+            } else {
+                model.avatarImage = [UIImage imageWithData:friendInfo.avatar];
+                model.nickname = friendInfo.nickname;
+            }
         }
+        
+        self.avatarView.image = model.avatarImage;
+        self.nameLabel.text = model.nickname;
     }
 }
 

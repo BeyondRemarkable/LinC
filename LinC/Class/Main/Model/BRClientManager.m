@@ -13,6 +13,7 @@
 #import <CoreData/CoreData.h>
 #import "BRCoreDataManager.h"
 #import "BRUserInfo+CoreDataClass.h"
+#import "BRLoginViewController.h"
 
 @implementation BRClientManager
 
@@ -54,11 +55,9 @@
                     // 存储用户名密码
                     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
                     [userDefaults setObject:usernameHX forKey:kLoginUserNameKey];
-                    [userDefaults synchronize];
-                    
                     [SAMKeychain setPassword:password forService:kLoginPasswordKey account:usernameHX];
                     [SAMKeychain setPassword:dict[@"data"][@"token"] forService:kLoginTokenKey account:usernameHX];
-                    
+                     [userDefaults synchronize];
                     //保存登录用户信息到core data
                     __block BRContactListModel *model = [[BRContactListModel alloc] initWithBuddy:dict[@"data"][@"user"][@"username"]];
                     model.nickname = dict[@"data"][@"user"][@"nickname"];
@@ -171,6 +170,11 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *username = [userDefaults objectForKey:kLoginUserNameKey];
     NSString *token = [SAMKeychain passwordForService:kLoginTokenKey account:username];
+    if (!token) {
+        EMError *error = [EMError errorWithDescription:@"tokenInvaild(401)" code:EMErrorInvalidToken];
+        failureBlock(error);
+        return;
+    }
     [manager.requestSerializer setValue:[@"Bearer " stringByAppendingString:token]  forHTTPHeaderField:@"Authorization"];
     
     NSData *data = [NSJSONSerialization dataWithJSONObject:usernameList options:NSJSONWritingPrettyPrinted error:nil];
@@ -236,6 +240,11 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *username = [userDefaults objectForKey:kLoginUserNameKey];
     NSString *token = [SAMKeychain passwordForService:kLoginTokenKey account:username];
+    if (!token) {
+        EMError *error = [EMError errorWithDescription:@"(401)" code:EMErrorInvalidToken];
+        failureBlock(error);
+        return;
+    }
     [manager.requestSerializer setValue:[@"Bearer " stringByAppendingString:token]  forHTTPHeaderField:@"Authorization"];
     [manager GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dict = (NSDictionary *)responseObject;
@@ -278,6 +287,11 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *username = [userDefaults objectForKey:kLoginUserNameKey];
     NSString *token = [SAMKeychain passwordForService:kLoginTokenKey account:username];
+    if (!token) {
+        EMError *error = [EMError errorWithDescription:@"(401)" code:EMErrorInvalidToken];
+        failureBlock(error);
+        return;
+    }
     if (![keyArray containsObject:@"avatar"]) {
         BRHTTPSessionManager *manager = [BRHTTPSessionManager manager];
         NSDictionary *parameters = [[NSDictionary alloc] initWithObjects:valueArray forKeys:keyArray];
@@ -325,6 +339,11 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *username = [userDefaults objectForKey:kLoginUserNameKey];
     NSString *token = [SAMKeychain passwordForService:kLoginTokenKey account:username];
+    if (!token) {
+        EMError *error = [EMError errorWithDescription:@"(401)" code:EMErrorInvalidToken];
+        failureBlock(error);
+        return;
+    }
     NSDictionary *parameters = @{
                                  @"token":token,
                                  @"password":newPassword,
