@@ -171,6 +171,12 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *username = [userDefaults objectForKey:kLoginUserNameKey];
     NSString *token = [SAMKeychain passwordForService:kLoginTokenKey account:username];
+    
+    if (!token) {
+        EMError *error = [EMError errorWithDescription:@"tokenInvalid(401)" code:EMErrorInvalidToken];
+        failureBlock(error);
+        return;
+    }
     [manager.requestSerializer setValue:[@"Bearer " stringByAppendingString:token]  forHTTPHeaderField:@"Authorization"];
     
     NSData *data = [NSJSONSerialization dataWithJSONObject:usernameList options:NSJSONWritingPrettyPrinted error:nil];
@@ -236,6 +242,12 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *username = [userDefaults objectForKey:kLoginUserNameKey];
     NSString *token = [SAMKeychain passwordForService:kLoginTokenKey account:username];
+    
+    if (!token) {
+        EMError *error = [EMError errorWithDescription:@"tokenInvalid(401)" code:EMErrorInvalidToken];
+        failureBlock(error);
+        return;
+    }
     [manager.requestSerializer setValue:[@"Bearer " stringByAppendingString:token]  forHTTPHeaderField:@"Authorization"];
     [manager GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dict = (NSDictionary *)responseObject;
@@ -278,6 +290,11 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *username = [userDefaults objectForKey:kLoginUserNameKey];
     NSString *token = [SAMKeychain passwordForService:kLoginTokenKey account:username];
+    if (!token) {
+        EMError *error = [EMError errorWithDescription:@"tokenInvalid(401)" code:EMErrorInvalidToken];
+        failureBlock(error);
+        return;
+    }
     if (![keyArray containsObject:@"avatar"]) {
         BRHTTPSessionManager *manager = [BRHTTPSessionManager manager];
         NSDictionary *parameters = [[NSDictionary alloc] initWithObjects:valueArray forKeys:keyArray];
@@ -325,6 +342,11 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *username = [userDefaults objectForKey:kLoginUserNameKey];
     NSString *token = [SAMKeychain passwordForService:kLoginTokenKey account:username];
+    if (!token) {
+        EMError *error = [EMError errorWithDescription:@"tokenInvalid(401)" code:EMErrorInvalidToken];
+        failureBlock(error);
+        return;
+    }
     NSDictionary *parameters = @{
                                  @"token":token,
                                  @"password":newPassword,
