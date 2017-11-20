@@ -174,6 +174,7 @@
         NSDictionary *parameters = @{@"email":email};
         [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             hud.mode = MBProgressHUDModeCustomView;
+            hud.label.text = @"Sent successfully";
             [hud hideAnimated:YES afterDelay:1.5];
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             [hud hideAnimated:YES];
