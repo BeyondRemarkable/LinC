@@ -101,7 +101,7 @@ typedef enum : NSUInteger {
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideImagePicker) name:@"hideImagePicker" object:nil];
-    
+    self.navigationController.navigationBar.hidden = NO;
     //Initialization
     CGFloat chatbarHeight = [BRChatToolbar defaultHeight];
     BRChatToolbarType barType = self.conversation.type == EMConversationTypeChat ? BRChatToolbarTypeChat : BRChatToolbarTypeGroup;
