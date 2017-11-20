@@ -179,7 +179,7 @@ static BRLocationViewController *defaultLocation = nil;
     }
     
     hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.label.text = NSLocalizedString(@"location.ongoning", @"locating...");
+    hud.label.text = NSLocalizedString(@"location.ongoing", @"locating...");
 }
 
 /*!
