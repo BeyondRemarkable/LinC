@@ -1555,6 +1555,9 @@ typedef enum : NSUInteger {
 
 - (void)moreViewAudioCallAction:(BRChatBarMoreView *)moreView
 {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Prompt", nil) message:NSLocalizedString(@"The function is in the process of development", nil) preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleDefault handler:nil]];
+    [self presentViewController:alertController animated:YES completion:nil];
     // Hide the keyboard
     [self.chatToolbar endEditing:YES];
     
@@ -1563,6 +1566,9 @@ typedef enum : NSUInteger {
 
 - (void)moreViewVideoCallAction:(BRChatBarMoreView *)moreView
 {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Prompt", nil) message:NSLocalizedString(@"The function is in the process of development", nil) preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleDefault handler:nil]];
+    [self presentViewController:alertController animated:YES completion:nil];
     // Hide the keyboard
     [self.chatToolbar endEditing:YES];
     
