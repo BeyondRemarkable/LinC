@@ -74,3 +74,5 @@
 "Save Photo" = "拍照片";
 "Choose from Album" = "从相册获取";
 "Image Received" = "[图片]";
+"message.downloadingImage" = "正在加载图片";
+

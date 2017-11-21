@@ -772,7 +772,7 @@ typedef enum : NSUInteger {
             }
             
             hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            hud.label.text = NSLocalizedString(@"message.downloadingImage", @"downloading a image...");
+            hud.label.text = NSLocalizedString(@"message.downloadingImage", @"downloading an image...");
             [[EMClient sharedClient].chatManager downloadMessageAttachment:model.message progress:nil completion:^(EMMessage *message, EMError *error) {
                 if (!error) {
                     [hud hideAnimated:YES];
@@ -1054,19 +1054,27 @@ typedef enum : NSUInteger {
                     sendCell = [[BRCustomMessageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier model:model];
                     sendCell.selectionStyle = UITableViewCellSelectionStyleNone;
                 }
-                
+                dispatch_group_t group = dispatch_group_create();
+
                 if (_dataSource && [_dataSource respondsToSelector:@selector(emotionURLFormessageViewController:messageModel:)]) {
                     BREmotion *emotion = [_dataSource emotionURLFormessageViewController:self messageModel:model];
                     if (emotion) {
                         NSString *retinaPath = [[NSBundle mainBundle] pathForResource:[emotion.emotionOriginal stringByAppendingString:@"@2x"] ofType:@"gif"];
                         
-                        NSData *data = [NSData dataWithContentsOfFile:retinaPath];
-                        model.image = [UIImage sd_animatedGIFWithData:data];
-                        model.fileURLPath = emotion.emotionOriginalURL;
+                        dispatch_group_async(group, dispatch_get_global_queue(0, 0), ^{
+                        
+                            NSData *data = [NSData dataWithContentsOfFile:retinaPath];
+                            model.image = [UIImage sd_animatedGIFWithData:data];
+                            model.fileURLPath = emotion.emotionOriginalURL;
+                        });
+                        
                     }
                 }
-                sendCell.model = model;
-                sendCell.delegate = self;
+                
+                dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+                    sendCell.model = model;
+                    sendCell.delegate = self;
+                });
                 return sendCell;
             }
         }
@@ -1779,7 +1787,7 @@ typedef enum : NSUInteger {
         }
         else{
             model = [[BRMessageModel alloc] initWithMessage:message];
-            model.avatarImage = [UIImage imageNamed:@"user_default"];
+//            model.avatarImage = [UIImage imageNamed:@"user_default"];
             model.failImageName = @"imageDownloadFail";
         }
         

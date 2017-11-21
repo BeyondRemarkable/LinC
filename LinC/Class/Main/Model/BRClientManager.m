@@ -13,6 +13,7 @@
 #import <CoreData/CoreData.h>
 #import "BRCoreDataManager.h"
 #import "BRUserInfo+CoreDataClass.h"
+#import "BRLoginViewController.h"
 
 @implementation BRClientManager
 
@@ -54,11 +55,9 @@
                     // 存储用户名密码
                     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
                     [userDefaults setObject:usernameHX forKey:kLoginUserNameKey];
-                    [userDefaults synchronize];
-                    
                     [SAMKeychain setPassword:password forService:kLoginPasswordKey account:usernameHX];
                     [SAMKeychain setPassword:dict[@"data"][@"token"] forService:kLoginTokenKey account:usernameHX];
-                    
+                     [userDefaults synchronize];
                     //保存登录用户信息到core data
                     __block BRContactListModel *model = [[BRContactListModel alloc] initWithBuddy:dict[@"data"][@"user"][@"username"]];
                     model.nickname = dict[@"data"][@"user"][@"nickname"];
