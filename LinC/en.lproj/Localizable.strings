@@ -74,3 +74,5 @@
 "Take Photo" = "Take Photo";
 "Choose from Album" = "Choose from Album";
 "Image Received" = "[image]";
+"message.downloadingImage" = "downloading an image...";
+

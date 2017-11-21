@@ -90,7 +90,7 @@ typedef enum NSUInteger {
                 mail.mailComposeDelegate = self;
                 [mail setSubject:@"Feedback"];
                 [mail setMessageBody:@"Thank you for your feedback!" isHTML:NO];
-                [mail setToRecipients:@[@"testingEmail@example.com"]];
+                [mail setToRecipients:@[@"info@beyondremarkable.com"]];
                 [self presentViewController:mail animated:YES completion:NULL];
                 
             }
