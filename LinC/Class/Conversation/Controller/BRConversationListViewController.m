@@ -35,7 +35,7 @@
 {
     [super viewWillAppear:animated];
     [self tableViewDidTriggerHeaderRefresh];
-    
+    self.navigationController.navigationBar.hidden = NO;
     NSArray *conversations = [[EMClient sharedClient].chatManager getAllConversations];
     NSInteger totalUnreadCount = 0;
     for (EMConversation *conversation in conversations) {
@@ -353,7 +353,7 @@
     for (EMConversation *conversation in conversations) {
         totalUnreadCount += conversation.unreadMessagesCount;
     }
-    self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%lu", totalUnreadCount];
+    self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%lu", (long)totalUnreadCount];
     
     [self tableViewDidTriggerHeaderRefresh];
 }

@@ -26,7 +26,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     NSString *appkey = @"1153170608178531#linc-dev";
-    NSString *apnsCertName = @"Certificates";
+    NSString *apnsCertName = @"pushCertificates";
     [[BRSDKHelper shareHelper] hyphenateApplication:application
                       didFinishLaunchingWithOptions:launchOptions
                                              appkey:appkey

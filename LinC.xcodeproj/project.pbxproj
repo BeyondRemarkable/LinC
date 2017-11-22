@@ -368,6 +368,7 @@
 		E90F7B761F670DC300333382 /* BRWhatsUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRWhatsUpViewController.m; sourceTree = "<group>"; };
 		E90F7BD71F67368200333382 /* UIView+Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Animation.h"; sourceTree = "<group>"; };
 		E90F7BD81F67368200333382 /* UIView+Animation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Animation.m"; sourceTree = "<group>"; };
+		E93D04D71FC4D966003EB109 /* LinC.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LinC.entitlements; sourceTree = "<group>"; };
 		E95FA8C91F7065C50023BB1C /* BRRequestMessageTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRRequestMessageTableViewController.h; sourceTree = "<group>"; };
 		E95FA8CA1F7065C50023BB1C /* BRRequestMessageTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRRequestMessageTableViewController.m; sourceTree = "<group>"; };
 		E964F38A1FB0F4AD007C8F5E /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -378,7 +379,6 @@
 		E96C7B691F87E0B400C0DC7E /* BRCoreDataManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BRCoreDataManager.m; sourceTree = "<group>"; };
 		E996231B1F794B5A00A90FD2 /* BRFileWithNewFriendsRequestData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRFileWithNewFriendsRequestData.h; sourceTree = "<group>"; };
 		E996231C1F794B5A00A90FD2 /* BRFileWithNewFriendsRequestData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRFileWithNewFriendsRequestData.m; sourceTree = "<group>"; };
-		E9B3675D1FA926B600F46274 /* LinC.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LinC.entitlements; sourceTree = "<group>"; };
 		E9C5F3F31F75A8F90073A86E /* BRFriendRequestTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRFriendRequestTableViewController.h; sourceTree = "<group>"; };
 		E9C5F3F41F75A8F90073A86E /* BRFriendRequestTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRFriendRequestTableViewController.m; sourceTree = "<group>"; };
 		E9C5F3F61F75AE6D0073A86E /* BRNewFriendTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRNewFriendTableViewController.h; sourceTree = "<group>"; };
@@ -475,7 +475,7 @@
 		27CA03AE1F38F21600D0F132 /* LinC */ = {
 			isa = PBXGroup;
 			children = (
-				E9B3675D1FA926B600F46274 /* LinC.entitlements */,
+				E93D04D71FC4D966003EB109 /* LinC.entitlements */,
 				E90F7AA41F670DC300333382 /* Class */,
 				2744C4631FB68B2A007C5095 /* LaunchScreen.storyboard */,
 				27CA03AF1F38F21600D0F132 /* Supporting Files */,
@@ -1473,6 +1473,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = LinC/LinC.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AEKJ6LE54T;
