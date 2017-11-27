@@ -232,7 +232,8 @@ if([application respondsToSelector:@selector(registerForRemoteNotifications)]) {
             [[BRClientManager sharedManager] loginWithUsername:username password:password success:^(NSString *message) {
                 [self showStoryboardWithName:@"Main" identifier:@"BRTabBarController"];
             } failure:^(EMError *error) {
-                NSLog(@"%@", error.errorDescription);
+                NSLog(@"error.errorDescription--%@", error.errorDescription);
+               [self showStoryboardWithName:@"Account" identifier:@"BRLoginViewController"];
             }];
         }
     }];

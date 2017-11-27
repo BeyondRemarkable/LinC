@@ -277,7 +277,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
     __weak typeof(self) weakself = self;
     
     [[EMClient sharedClient].contactManager getContactsFromServerWithCompletion:^(NSArray *aList, EMError *aError) {
-  
+        
         if (!aError) {
             NSMutableArray *contactsSource = [NSMutableArray array];
             
@@ -298,6 +298,10 @@ static NSString * const cellIdentifier = @"ContactListCell";
                 [weakself tableViewDidFinishRefresh:BRRefreshTableViewWidgetHeader reload:NO];
             } failure:^(EMError *aError) {
                 NSLog(@"%@", aError.errorDescription);
+                hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                hud.mode = MBProgressHUDModeText;
+                hud.label.text = aError.description;
+                [hud hideAnimated:YES afterDelay:1.5];
             }];
         }
     }];

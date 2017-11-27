@@ -45,7 +45,7 @@
         self.tabBarItem.badgeValue = nil;
         [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     } else {
-        self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%lu", totalUnreadCount];
+        self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%lu", (long)totalUnreadCount];
         [UIApplication sharedApplication].applicationIconBadgeNumber = totalUnreadCount;
     }
 }

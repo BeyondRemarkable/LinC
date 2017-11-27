@@ -46,6 +46,7 @@
         self.userIcon.image = friendInfo.avatarImage;
         self.userGender.text = friendInfo.gender;
         self.userWhatUp.text = friendInfo.whatsUp;
+        self.userLocation.text = friendInfo.location;
         if (!self.model.nickname) {
             self.userNickName.text = self.searchID;
         } else {
@@ -53,7 +54,10 @@
         }
         [hud hideAnimated:YES];
     } failure:^(EMError *eError) {
+        hud.label.text = @"Try again later.";
+        [hud hideAnimated:YES afterDelay:1.5];
         NSLog(@"%@", eError);
+        
     }];
 }
 

@@ -29,6 +29,7 @@
 
 // 正式登录
 - (void)loginWithUsername:(NSString *)username password:(NSString *)password success:(void (^)(NSString *))successBlock failure:(void (^)(EMError *))failureBlock {
+   
     // 用我们服务器做登录
     BRHTTPSessionManager *manager = [BRHTTPSessionManager manager];
     NSString *url =  [kBaseURL stringByAppendingPathComponent:@"/api/v1/auth/login"];
@@ -124,6 +125,8 @@
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@", error.localizedDescription);
+        EMError *anError = [EMError errorWithDescription:error.localizedDescription code:EMErrorGeneral];
+        failureBlock(anError);
     }];
 }
 
@@ -146,8 +149,8 @@
         }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        EMError *emError = [EMError errorWithDescription:error.localizedDescription code:EMErrorServerUnknownError];
-        failureBlock(emError);
+        EMError *anError = [EMError errorWithDescription:error.localizedDescription code:EMErrorServerUnknownError];
+        failureBlock(anError);
     }];
 }
 
@@ -170,7 +173,7 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *username = [userDefaults objectForKey:kLoginUserNameKey];
     NSString *token = [SAMKeychain passwordForService:kLoginTokenKey account:username];
-    
+
     if (!token) {
         EMError *error = [EMError errorWithDescription:@"tokenInvalid(401)" code:EMErrorInvalidToken];
         failureBlock(error);
@@ -236,6 +239,7 @@
  @param failureBlock failureBlock error信息
  */
 - (void)getSelfInfoWithSuccess:(void (^)(BRContactListModel *))successBlock failure:(void (^)(EMError *))failureBlock {
+  
     BRHTTPSessionManager *manager = [BRHTTPSessionManager manager];
     NSString *url = [kBaseURL stringByAppendingPathComponent:@"/api/v1/account/profile/show"];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];

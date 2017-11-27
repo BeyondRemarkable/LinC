@@ -16,7 +16,7 @@
     [newSet addObject:@"text/html"];
     
     manager.responseSerializer.acceptableContentTypes = newSet;
-    
+    manager.requestSerializer.timeoutInterval = 30;
     return manager;
 }
 
