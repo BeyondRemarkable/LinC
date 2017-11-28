@@ -13,6 +13,7 @@
 		2744C4681FB68B83007C5095 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2744C46A1FB68B83007C5095 /* Localizable.strings */; };
 		2744C4741FC377FC007C5095 /* BRBlackListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2744C4721FC377FC007C5095 /* BRBlackListViewController.m */; };
 		2744C4771FC37A1E007C5095 /* BRGeneralSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2744C4761FC37A1E007C5095 /* BRGeneralSettingViewController.m */; };
+		27617B7D1FCDF0EC004A245D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 27617B7F1FCDF0EC004A245D /* InfoPlist.strings */; };
 		276E756A1F3E2B0200D5A917 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E75691F3E2B0200D5A917 /* AVFoundation.framework */; };
 		276E757F1F3E2F1E00D5A917 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E757E1F3E2F1E00D5A917 /* AudioToolbox.framework */; };
 		276E75901F3E390100D5A917 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E758F1F3E390100D5A917 /* UserNotifications.framework */; };
@@ -161,6 +162,8 @@
 		2744C4731FC377FC007C5095 /* BRBlackListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRBlackListViewController.h; sourceTree = "<group>"; };
 		2744C4751FC37A1E007C5095 /* BRGeneralSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRGeneralSettingViewController.h; sourceTree = "<group>"; };
 		2744C4761FC37A1E007C5095 /* BRGeneralSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRGeneralSettingViewController.m; sourceTree = "<group>"; };
+		27617B7E1FCDF0EC004A245D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		27617B801FCDF0F1004A245D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		276E75691F3E2B0200D5A917 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		276E757E1F3E2F1E00D5A917 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		276E758F1F3E390100D5A917 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
@@ -492,6 +495,7 @@
 				27CA03B01F38F21600D0F132 /* main.m */,
 				270BD1181F9835C000266E6A /* Location.plist */,
 				2744C46A1FB68B83007C5095 /* Localizable.strings */,
+				27617B7F1FCDF0EC004A245D /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -849,18 +853,18 @@
 		E90F7B4C1F670DC300333382 /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				E90F7B591F670DC300333382 /* Model */,
+				E90F7B5D1F670DC300333382 /* View */,
+				E90F7B511F670DC300333382 /* Controller */,
 				E90F7B4D1F670DC300333382 /* AppDelegate.h */,
 				E90F7B4E1F670DC300333382 /* AppDelegate.m */,
 				E90F7B4F1F670DC300333382 /* Common.h */,
 				E90F7B501F670DC300333382 /* Common.m */,
-				E90F7B511F670DC300333382 /* Controller */,
 				E90F7B551F670DC300333382 /* DemoErrorCode.h */,
 				E90F7B561F670DC300333382 /* libopencore-amrnb.a */,
 				E90F7B571F670DC300333382 /* libopencore-amrwb.a */,
 				E90F7B581F670DC300333382 /* LinC.pch */,
-				E90F7B591F670DC300333382 /* Model */,
 				E90F7B5C1F670DC300333382 /* ProvincesAndCities.plist */,
-				E90F7B5D1F670DC300333382 /* View */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -1094,6 +1098,7 @@
 				E90F7B821F670DC300333382 /* BRFriendInfo.storyboard in Resources */,
 				E90F7B8B1F670DC300333382 /* BRDropDownViewController.xib in Resources */,
 				27FC23F81F7025D6001148D7 /* Main.storyboard in Resources */,
+				27617B7D1FCDF0EC004A245D /* InfoPlist.strings in Resources */,
 				2744C4651FB68B2B007C5095 /* LaunchScreen.storyboard in Resources */,
 				E9F29BB21F7EE59E0061252D /* BRGroupMemberTableViewCell.xib in Resources */,
 				E90F7B851F670DC300333382 /* BRScannerViewController.xib in Resources */,
@@ -1335,6 +1340,15 @@
 			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
+		27617B7F1FCDF0EC004A245D /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				27617B7E1FCDF0EC004A245D /* zh-Hans */,
+				27617B801FCDF0F1004A245D /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -1448,7 +1462,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = LinC/LinC.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Yingwei Fan (3LYJJC4KNY)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Yingwei Fan (3LYJJC4KNY)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AEKJ6LE54T;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
