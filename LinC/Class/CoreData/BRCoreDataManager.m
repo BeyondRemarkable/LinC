@@ -12,7 +12,7 @@
 #import "BRFriendsInfo+CoreDataClass.h"
 #import "BRConversation+CoreDataClass.h"
 #import "BRConversationModel.h"
-#import "BRTabBarController.h"
+
 
 static BRCoreDataStack *gCoreDataStack = nil;
 
@@ -128,17 +128,6 @@ static BRCoreDataStack *gCoreDataStack = nil;
         
         if (fetchedObjects.count != 0) {
             return [fetchedObjects lastObject];
-        } else {
-            [[BRClientManager sharedManager] getSelfInfoWithSuccess:^(BRContactListModel *model) {
-                [self insertUserInfoToCoreData:model];
-            } failure:^(EMError *error) {
-                
-                UIWindow *window = [[UIApplication sharedApplication].windows lastObject];
-                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-                BRTabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:@"BRTabBarController"];
-                window.rootViewController = vc;
-                
-            }];
         }
     }
     return nil;
