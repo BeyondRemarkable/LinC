@@ -35,10 +35,7 @@
     
     if ([EMClient sharedClient].options.isAutoLogin) {
         // 之前登录过，可以显示主界面
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-        BRTabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:@"BRTabBarController"];
-        
-        self.window.rootViewController = vc;
+        [self showStoryboardWithName:@"Main" identifier:@"BRTabBarController"];
         // 检查是否token过期
         [self updateAuthorization];
     } else {
@@ -55,17 +52,17 @@
     
     [[EMClient sharedClient] updatePushOptionsToServer];
 
-if([application respondsToSelector:@selector(registerForRemoteNotifications)]) {
-    
-    [application registerForRemoteNotifications];
-    
-    UIUserNotificationType notificationTypes = UIUserNotificationTypeBadge| UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
-    
-    UIUserNotificationSettings* settings = [UIUserNotificationSettings settingsForTypes: notificationTypes categories:nil];
-    
-    [application registerUserNotificationSettings:settings];
-    
-}
+    if([application respondsToSelector:@selector(registerForRemoteNotifications)]) {
+        
+        [application registerForRemoteNotifications];
+        
+        UIUserNotificationType notificationTypes = UIUserNotificationTypeBadge| UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
+        
+        UIUserNotificationSettings* settings = [UIUserNotificationSettings settingsForTypes: notificationTypes categories:nil];
+        
+        [application registerUserNotificationSettings:settings];
+        
+    }
 
     //添加监听在线推送消息
     [[EMClient sharedClient].chatManager addDelegate: self delegateQueue:nil];
@@ -223,14 +220,14 @@ if([application respondsToSelector:@selector(registerForRemoteNotifications)]) {
 
 - (void)updateAuthorization {
     [[BRClientManager sharedManager] getSelfInfoWithSuccess:^(BRContactListModel *model) {
-        [self showStoryboardWithName:@"Main" identifier:@"BRTabBarController"];
+        
     } failure:^(EMError *error) {
         if ([error.errorDescription containsString:@"(401)"]) {
             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
             NSString *username = [userDefaults objectForKey:kLoginUserNameKey];
             NSString *password = [SAMKeychain passwordForService:kLoginPasswordKey account:username];
             [[BRClientManager sharedManager] loginWithUsername:username password:password success:^(NSString *message) {
-                [self showStoryboardWithName:@"Main" identifier:@"BRTabBarController"];
+                
             } failure:^(EMError *error) {
                 NSLog(@"%@", error.errorDescription);
             }];
