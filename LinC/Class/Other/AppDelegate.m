@@ -230,8 +230,11 @@
                 [self showStoryboardWithName:@"Main" identifier:@"BRTabBarController"];
             } failure:^(EMError *error) {
                 NSLog(@"error.errorDescription--%@", error.errorDescription);
+                
                [self showStoryboardWithName:@"Account" identifier:@"BRLoginViewController"];
             }];
+        } else {
+            [self showStoryboardWithName:@"Account" identifier:@"BRLoginViewController"];
         }
     }];
 }

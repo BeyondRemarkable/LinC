@@ -87,7 +87,8 @@
                 }
                 // 登录环信失败
                 else {
-                    failureBlock(aError);
+                    EMError *error = [EMError errorWithDescription:@"Login fail." code:EMErrorGeneral];
+                    failureBlock(error);
                 }
             }];
             
@@ -98,9 +99,9 @@
             failureBlock(error);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        EMError *emError = (EMError *)error;
-        NSLog(@"%@", error.localizedDescription);
-        failureBlock(emError);
+        EMError *anError = [EMError errorWithDescription:error.localizedDescription code:EMErrorGeneral];
+        NSLog(@"error.localizedDescription--%@", error.localizedDescription);
+        failureBlock(anError);
     }];
 }
 
@@ -279,7 +280,8 @@
             });
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        EMError *aError = [EMError errorWithDescription:error.localizedDescription code:EMErrorServerUnknownError];
+        
+        EMError *aError = [EMError errorWithDescription:error.localizedDescription code:(EMErrorCode)error.code];
         failureBlock(aError);
     }];
 }

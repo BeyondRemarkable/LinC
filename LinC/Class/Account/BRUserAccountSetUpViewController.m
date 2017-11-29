@@ -144,7 +144,7 @@
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             hud.mode = MBProgressHUDModeText;
-            hud.label.text = [NSString stringWithFormat:@"%@", error];
+            hud.label.text = [NSString stringWithFormat:@"%@", error.localizedDescription];
             [hud hideAnimated:YES afterDelay:2];
             NSLog(@"%@", error.localizedDescription);
     }];
