@@ -12,9 +12,9 @@
 
 + (instancetype)manager {
     BRHTTPSessionManager *manager = [super manager];
+    
     NSMutableSet *newSet = [NSMutableSet setWithSet:manager.responseSerializer.acceptableContentTypes];
     [newSet addObject:@"text/html"];
-    
     manager.responseSerializer.acceptableContentTypes = newSet;
     manager.requestSerializer.timeoutInterval = 30;
     return manager;
