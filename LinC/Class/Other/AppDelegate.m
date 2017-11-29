@@ -35,7 +35,7 @@
     
     if ([EMClient sharedClient].options.isAutoLogin) {
         // 之前登录过，可以显示主界面
-        [self showStoryboardWithName:@"Main" identifier:@"BRTabBarController"];
+        //[self showStoryboardWithName:@"Main" identifier:@"BRTabBarController"];
         // 检查是否token过期
         [self updateAuthorization];
     } else {
@@ -220,16 +220,17 @@
 
 - (void)updateAuthorization {
     [[BRClientManager sharedManager] getSelfInfoWithSuccess:^(BRContactListModel *model) {
-        
+        [self showStoryboardWithName:@"Main" identifier:@"BRTabBarController"];
     } failure:^(EMError *error) {
         if ([error.errorDescription containsString:@"(401)"]) {
             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
             NSString *username = [userDefaults objectForKey:kLoginUserNameKey];
             NSString *password = [SAMKeychain passwordForService:kLoginPasswordKey account:username];
             [[BRClientManager sharedManager] loginWithUsername:username password:password success:^(NSString *message) {
-                
+                [self showStoryboardWithName:@"Main" identifier:@"BRTabBarController"];
             } failure:^(EMError *error) {
                 NSLog(@"%@", error.errorDescription);
+                [self showStoryboardWithName:@"Account" identifier:@"BRLoginViewController"];
             }];
         }
     }];
