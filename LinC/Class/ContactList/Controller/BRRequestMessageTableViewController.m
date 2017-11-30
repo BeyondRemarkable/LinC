@@ -46,6 +46,7 @@
     [self.view endEditing:YES];
     hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
+    // 构建需要发送的message
     EMMessage *message = [BRSDKHelper sendTextMessage:self.userMessage.text
                                                    to:self.userID
                                           messageType:EMChatTypeChat
@@ -58,7 +59,7 @@
         }
         else {
             hud.label.text = @"Send Successfully";
-            [self performSelector:@selector(dismissVC) withObject:nil afterDelay:1.0];
+            [self performSelector:@selector(dismissVC) withObject:nil afterDelay:1.5];
         }
         [hud hideAnimated:YES afterDelay:1.5];
     }];
@@ -94,7 +95,7 @@
 }
 
 - (void)cancelBtn {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissVC];
 }
 
 @end
