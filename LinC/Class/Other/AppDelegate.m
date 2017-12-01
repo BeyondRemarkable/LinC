@@ -183,7 +183,6 @@
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
     
-    NSLog(@"mynotification--%@", notification.alertAction);
     if (application.applicationState == UIApplicationStateActive) return;
     
     if (application.applicationState == UIApplicationStateInactive) {
