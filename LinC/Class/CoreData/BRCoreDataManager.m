@@ -203,22 +203,32 @@ static BRCoreDataStack *gCoreDataStack = nil;
 }
 
 /**
- 删除好友模型数据
+ 删除好友模型数据, 如果传入nil，则删除全部好友
  
  @param userNameArray userName 需要删掉的好友ID数组
  */
 - (void)deleteFriendByID:(NSArray *)userNameArray {
+    
     NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
     BRUserInfo *userInfo = [self fetchUserInfoBy:username];
-    NSMutableSet *friendInfoSet = [NSMutableSet set];
-    for (BRFriendsInfo *friendInfo in userInfo.friendsInfo) {
-        
-        if ([userNameArray containsObject:friendInfo.username]) {
-            [friendInfoSet addObject:friendInfo];
-            [self deleteConversationByID:userNameArray];
+    
+    if (userNameArray.count == 0) {
+        NSMutableSet *deleteSet = [NSMutableSet set];
+        for (BRFriendsInfo *friendInfo in userInfo.friendsInfo) {
+            [deleteSet addObject:friendInfo];
         }
+        [userInfo removeFriendsInfo:deleteSet];
+    } else {
+        NSMutableSet *friendInfoSet = [NSMutableSet set];
+        for (BRFriendsInfo *friendInfo in userInfo.friendsInfo) {
+            
+            if ([userNameArray containsObject:friendInfo.username]) {
+                [friendInfoSet addObject:friendInfo];
+                [self deleteConversationByID:userNameArray];
+            }
+        }
+        [userInfo removeFriendsInfo:friendInfoSet];
     }
-    [userInfo removeFriendsInfo:friendInfoSet];
     [self saveData];
 }
 

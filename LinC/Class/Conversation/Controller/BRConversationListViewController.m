@@ -133,7 +133,6 @@
             self.dropDownVC = nil;
             self.navigationItem.rightBarButtonItem.enabled = YES;
         }];
-        
     }
 }
 
@@ -268,19 +267,19 @@
 
 #pragma mark - registerNotifications
 -(void)registerNotifications{
-    [self unregisterNotifications];
+//    [self unregisterNotifications];
     [[EMClient sharedClient].chatManager addDelegate:self delegateQueue:dispatch_get_main_queue()];
     [[EMClient sharedClient].groupManager addDelegate:self delegateQueue:dispatch_get_main_queue()];
 }
 
--(void)unregisterNotifications{
-    [[EMClient sharedClient].chatManager removeDelegate:self];
-    [[EMClient sharedClient].groupManager removeDelegate:self];
-}
+//-(void)unregisterNotifications{
+//    [[EMClient sharedClient].chatManager removeDelegate:self];
+//    [[EMClient sharedClient].groupManager removeDelegate:self];
+//}
 
-- (void)dealloc{
-    [self unregisterNotifications];
-}
+//- (void)dealloc{
+//    [self unregisterNotifications];
+//}
 
 #pragma mark - private
 
@@ -354,8 +353,9 @@
         totalUnreadCount += conversation.unreadMessagesCount;
     }
     self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%lu", (long)totalUnreadCount];
-    
+
     [self tableViewDidTriggerHeaderRefresh];
 }
+
 
 @end

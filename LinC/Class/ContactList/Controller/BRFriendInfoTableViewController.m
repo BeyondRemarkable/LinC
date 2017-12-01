@@ -145,7 +145,11 @@
                 [hud hideAnimated:YES afterDelay:1.5];
                 [self performSelector:@selector(dismissVC) withObject:nil afterDelay:1.0];
                 // 从core data中 删除好友数据
-                [[BRCoreDataManager sharedInstance] deleteFriendByID:[NSArray arrayWithObject:self.contactListModel.username]];
+                NSArray *deleteArr = [NSArray arrayWithObject:self.contactListModel.username];
+                if (deleteArr.count != 0) {
+                    [[BRCoreDataManager sharedInstance] deleteFriendByID: deleteArr];
+                }
+                
             } else {
                 hud.label.text = aError.description;
             }

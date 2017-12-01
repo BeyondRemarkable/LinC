@@ -60,8 +60,9 @@ static NSString * const cellIdentifier = @"ContactListCell";
     
     //注册好友回调
     [[EMClient sharedClient].contactManager addDelegate:self delegateQueue:nil];
-    //    //移除好友回调
-    //    [[EMClient sharedClient].contactManager removeDelegate:self];
+    
+    //通知 刷新tabbar
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkFriendRequest) name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -76,6 +77,12 @@ static NSString * const cellIdentifier = @"ContactListCell";
     }
     [self.navigationController setNavigationBarHidden: NO];
    
+}
+
+- (void)checkFriendRequest {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
 }
 
 /**
@@ -279,6 +286,14 @@ static NSString * const cellIdentifier = @"ContactListCell";
     [[EMClient sharedClient].contactManager getContactsFromServerWithCompletion:^(NSArray *aList, EMError *aError) {
         
         if (!aError) {
+            
+            // 服务器返回好友列表为空 但是本地好友列表不为空，删除全部好友
+            if (aList.count == 0 && self.dataArray.count != 0 ) {
+                [[BRCoreDataManager sharedInstance] deleteFriendByID:nil];
+                [self.dataArray removeAllObjects];
+                [self.tableView reloadData];
+                return ;
+            }
             NSMutableArray *contactsSource = [NSMutableArray array];
             
             // remove the contact that is currently in the black list
@@ -335,6 +350,9 @@ static NSString * const cellIdentifier = @"ContactListCell";
 
 //删除好友时，双方都会收到的回调
 - (void)friendshipDidRemoveByUser:(NSString *)aUsername {
+    if (aUsername.length == 0 || [aUsername isKindOfClass:[NSNull class]]) {
+        return;
+    }
     [[BRCoreDataManager sharedInstance] deleteFriendByID: [NSArray arrayWithObject:aUsername]];
     [self tableViewDidTriggerHeaderRefresh];
 }

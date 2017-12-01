@@ -25,8 +25,25 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    NSDictionary *friendRequest = [launchOptions valueForKey: UIApplicationLaunchOptionsRemoteNotificationKey];
+    if (friendRequest) {
+        NSString *findRequestFlat = [friendRequest valueForKey:@"e"];
+        if (findRequestFlat && [findRequestFlat isEqualToString: kBRFriendRequestExtKey]) {
+            NSString *messageBody = [friendRequest valueForKeyPath:@"aps.alert.body"];
+            
+            if (!messageBody) {
+                messageBody = [messageBody componentsSeparatedByString:@":"][1];
+                
+                NSString *messageFrom = [friendRequest valueForKey:@"f"];
+                NSDictionary *friendDict = [NSDictionary dictionaryWithObjectsAndKeys:messageBody, @"message", messageFrom ,@"userID" ,nil];
+                [BRFileWithNewFriendsRequestData savedToPlistWithData:friendDict];
+            }
+            
+        }
+    }
     NSString *appkey = @"1153170608178531#linc-dev";
     NSString *apnsCertName = @"pushCertificates";
+//    NSString *apnsCertName = @"developCertificates";
     [[BRSDKHelper shareHelper] hyphenateApplication:application
                       didFinishLaunchingWithOptions:launchOptions
                                              appkey:appkey
@@ -100,24 +117,22 @@
 }
 
 -(void)showPushNotificationMessage:(EMMessage *)message{
+    
     NSString *friendReqFlag = [message.ext valueForKeyPath:@"em_apns_ext.extern"];
     if (friendReqFlag && [kBRFriendRequestExtKey isEqualToString:friendReqFlag]) {
         NSDictionary *friendDict = [NSDictionary dictionaryWithObjectsAndKeys:((EMTextMessageBody *)message.body).text, @"message", message.from ,@"userID" ,nil];
         [BRFileWithNewFriendsRequestData savedToPlistWithData:friendDict];
         UILocalNotification *notification = [[UILocalNotification alloc] init];
-        BRFriendsInfo *friendInfo = [[BRCoreDataManager sharedInstance] fetchFriendInfoBy:message.from];
-        if (friendInfo.nickname) {
-            notification.alertTitle = friendInfo.nickname;
-        } else {
-            notification.alertTitle = friendInfo.username;
-        }
+       
+        notification.alertTitle = [@"Friend request from:" stringByAppendingString: message.from];
         notification.fireDate = [NSDate date];
         notification.alertAction = NSLocalizedString(@"open", @"Open");
-        notification.alertBody = @"Friend request";
+        notification.alertBody = [friendDict valueForKey:@"message"];
         notification.timeZone = [NSTimeZone defaultTimeZone];
         [UIApplication sharedApplication].applicationIconBadgeNumber +=1;
         
         [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kBRFriendRequestExtKey object:message];
         return;
     }
     
@@ -168,6 +183,7 @@
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
     
+    NSLog(@"mynotification--%@", notification.alertAction);
     if (application.applicationState == UIApplicationStateActive) return;
     
     if (application.applicationState == UIApplicationStateInactive) {
@@ -175,6 +191,10 @@
         [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
         [[UIApplication sharedApplication] cancelLocalNotification:notification];
     }
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    
 }
 
 //将得到的deviceToken传给SDK
