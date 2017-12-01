@@ -15,6 +15,7 @@
 #import <AFNetworking.h>
 #import <MBProgressHUD.h>
 #import <SAMKeychain.h>
+#import <SDWebImage/UIImageView+WebCache.h>
 #import "BRCoreDataManager.h"
 
 @interface BRFriendInfoTableViewController ()
@@ -46,24 +47,14 @@
     //[self setupNavigationBarItem];
     
     [self setupFriendInfo];
-    [self setFriend:self.isFriend];
 }
 
 
 - (void)setupFriendInfo {
-    self.userNickName.text = self.contactListModel.nickname;
-    self.userID.text = self.contactListModel.username;
-    self.userGender.text = self.contactListModel.gender;
-    self.userWhatsUp.text = self.contactListModel.whatsUp;
-    self.userLocation.text = self.contactListModel.location;
-    self.userIcon.image = self.contactListModel.avatarImage;
-    if (self.isFriend) {
-        [self.addFriendButton setHidden:YES];
+    if (self.contactListModel) {
+        [self setContactListModel:self.contactListModel];
     }
-    else {
-        [self.chatButton setHidden:YES];
-        [self.deleteFriendButton setHidden:YES];
-    }
+    [self setIsFriend:self.isFriend];
 }
 
 //以后需要在实现的功能------------------
@@ -77,7 +68,7 @@
 //}
 //------------------------------------
 
-- (void)setFriend:(BOOL)isFriend {
+- (void)setIsFriend:(BOOL)isFriend {
     _isFriend = isFriend;
     if (isFriend) {
         [self.addFriendButton setHidden:YES];
@@ -95,8 +86,13 @@
     self.userGender.text = contactListModel.gender;
     self.userWhatsUp.text = contactListModel.whatsUp;
     self.userLocation.text = contactListModel.location;
-    self.userIcon.image = contactListModel.avatarImage;
-
+    if (contactListModel.avatarImage)
+        self.userIcon.image = contactListModel.avatarImage;
+    else {
+        NSURL *avatarURL = [NSURL URLWithString:contactListModel.avatarURLPath];
+        [self.userIcon sd_setImageWithURL:avatarURL placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    }
+    
 }
 
 #pragma mark - UITableView data source
