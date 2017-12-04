@@ -152,7 +152,7 @@
     //input textview
     _inputTextView = [[BRTextView alloc] initWithFrame:CGRectMake(self.horizontalPadding * 2 + btnW, self.verticalPadding, self.frame.size.width - self.horizontalPadding * 5 - btnW * 3, self.frame.size.height - self.verticalPadding * 2)];
     _inputTextView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    _inputTextView.scrollEnabled = YES;
+//    _inputTextView.scrollEnabled = NO;
     _inputTextView.returnKeyType = UIReturnKeySend;
     _inputTextView.enablesReturnKeyAutomatically = YES; // UITextView内部判断send按钮是否可以用
     _inputTextView.delegate = self;
@@ -345,6 +345,10 @@
     }
     if (toHeight > self.inputViewMaxHeight) {
         toHeight = self.inputViewMaxHeight;
+        self.inputTextView.scrollEnabled = YES;
+    }
+    else {
+        self.inputTextView.scrollEnabled = NO;
     }
     
     if (toHeight == _previousTextViewContentHeight)
@@ -354,11 +358,15 @@
     else{
         CGFloat changeHeight = toHeight - _previousTextViewContentHeight;
         
+        CGRect toolbarRect = self.frame;
+        toolbarRect.size.height += changeHeight;
+        toolbarRect.origin.y -= changeHeight;
+        
+        CGRect textViewRect = self.inputTextView.frame;
+        textViewRect.size.height += changeHeight;
         [UIView animateWithDuration:0.25 animations:^{
-            CGRect rect = self.frame;
-            rect.size.height += changeHeight;
-            rect.origin.y -= changeHeight;
-            self.frame = rect;
+            self.frame = toolbarRect;
+            self.inputTextView.frame = textViewRect;
         }];
         
 //        rect = self.toolbarView.frame;
