@@ -256,7 +256,8 @@
     if (self.model.isSender) {
         
         if(!nicknameInModel || !avatarImageInModel) {
-            BRUserInfo *userInfo = [[BRCoreDataManager sharedInstance] fetchUserInfoBy:model.message.from];
+            BRUserInfo *userInfo = [[BRCoreDataManager sharedInstance] userInfoDic];
+
             model.avatarImage = [UIImage imageWithData:userInfo.avatar];
             if (!model.avatarImage) {
                 model.avatarImage = [UIImage imageNamed:@"user_default"];

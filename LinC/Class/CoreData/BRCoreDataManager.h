@@ -14,6 +14,9 @@
 @class BRConversationModel;
 @interface BRCoreDataManager : NSObject
 
+@property (nonatomic, strong) BRUserInfo *userInfoDic;
+
+
 + (BRCoreDataManager *)sharedInstance;
 - (NSManagedObjectContext *)managedObjectContext;
 - (__kindof NSManagedObject *)createNewDBObjectEntityname:(NSString *)entityName;

@@ -13,9 +13,89 @@
     </dependencies>
     <scenes>
         <!--Search Friend View Controller-->
+        <scene sceneID="1z2-hT-6cV">
+            <objects>
+                <tableViewController storyboardIdentifier="BRSearchFriendViewController" id="Bnc-xH-bHu" customClass="BRSearchFriendViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Dap-10-mMw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <sections>
+                            <tableViewSection id="EyV-79-bGj">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="FA9-UH-HqB">
+                                        <rect key="frame" x="0.0" y="35" width="375" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FA9-UH-HqB" id="ihT-O4-0rj">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search Friend ID" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cXd-nh-ime">
+                                                    <rect key="frame" x="15" y="0.0" width="345" height="49.5"/>
+                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="search" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="cXd-nh-ime" secondAttribute="bottom" id="6GF-NB-XR2"/>
+                                                <constraint firstAttribute="trailing" secondItem="cXd-nh-ime" secondAttribute="trailing" constant="15" id="8jG-OV-uQo"/>
+                                                <constraint firstItem="cXd-nh-ime" firstAttribute="leading" secondItem="ihT-O4-0rj" secondAttribute="leading" constant="15" id="BPR-Ec-PZ9"/>
+                                                <constraint firstItem="cXd-nh-ime" firstAttribute="top" secondItem="ihT-O4-0rj" secondAttribute="top" id="Ua0-ES-hFz"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="" id="zEP-yN-byw">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="qFp-fB-RiX">
+                                        <rect key="frame" x="0.0" y="121" width="375" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qFp-fB-RiX" id="NRZ-kf-X77">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iwP-7h-eye">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
+                                                    <inset key="contentEdgeInsets" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                    <inset key="titleEdgeInsets" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                    <state key="normal" title="Scan friend's QR code" image="scan_qrcode">
+                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="scanQRCodeBtn" destination="Bnc-xH-bHu" eventType="touchUpInside" id="0Bo-Uc-yUF"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="iwP-7h-eye" firstAttribute="leading" secondItem="NRZ-kf-X77" secondAttribute="leading" id="P41-qM-qgt"/>
+                                                <constraint firstAttribute="trailing" secondItem="iwP-7h-eye" secondAttribute="trailing" id="RLS-Fm-eHs"/>
+                                                <constraint firstItem="iwP-7h-eye" firstAttribute="top" secondItem="NRZ-kf-X77" secondAttribute="top" id="ka8-jG-zNd"/>
+                                                <constraint firstAttribute="bottom" secondItem="iwP-7h-eye" secondAttribute="bottom" id="zEs-IS-gcR"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="Bnc-xH-bHu" id="Zqa-QX-6ba"/>
+                            <outlet property="delegate" destination="Bnc-xH-bHu" id="YLc-PC-3fy"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="friendIDTextField" destination="cXd-nh-ime" id="jZl-6N-hJb"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bw3-po-oOa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1417" y="5"/>
+        </scene>
+        <!--View Controller-->
         <scene sceneID="F1X-lW-IcN">
             <objects>
-                <viewController storyboardIdentifier="BRSearchFriendViewController" id="4io-rp-CKB" customClass="BRSearchFriendViewController" sceneMemberID="viewController">
+                <viewController id="4io-rp-CKB" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gEh-f8-X85"/>
                         <viewControllerLayoutGuide type="bottom" id="F7B-Fh-wsw"/>
@@ -86,7 +166,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tFO-Lr-iIy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-668" y="4"/>
+            <point key="canvasLocation" x="-759" y="5"/>
         </scene>
         <!--Friend Info Table View Controller-->
         <scene sceneID="ndZ-w0-4UN">
@@ -325,7 +405,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iyC-FU-PFy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2.3999999999999999" y="6.746626686656672"/>
+            <point key="canvasLocation" x="-129" y="5"/>
         </scene>
         <!--Request Message Table View Controller-->
         <scene sceneID="32V-oM-iIx">
@@ -375,7 +455,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U3d-Ee-qnV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1447" y="5"/>
+            <point key="canvasLocation" x="1225" y="5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="YNB-Vv-hBo">
@@ -393,7 +473,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SJS-Qn-Pe2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="765.60000000000002" y="4.9475262368815596"/>
+            <point key="canvasLocation" x="542" y="5"/>
         </scene>
         <!--Friend Request Table View Controller-->
         <scene sceneID="WrO-Vd-zfI">
@@ -644,7 +724,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="llB-h7-x9S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2166" y="7"/>
+            <point key="canvasLocation" x="1926" y="5"/>
         </scene>
     </scenes>
     <resources>

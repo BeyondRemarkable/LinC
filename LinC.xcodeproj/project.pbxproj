@@ -1568,7 +1568,7 @@
 				27CA03D81F38F21600D0F132 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		27CA03D91F38F21600D0F132 /* Build configuration list for PBXNativeTarget "LinC" */ = {
 			isa = XCConfigurationList;
@@ -1577,7 +1577,7 @@
 				27CA03DB1F38F21600D0F132 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		27CA03DC1F38F21600D0F132 /* Build configuration list for PBXNativeTarget "LinCTests" */ = {
 			isa = XCConfigurationList;
@@ -1586,7 +1586,7 @@
 				27CA03DE1F38F21600D0F132 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		27CA03DF1F38F21600D0F132 /* Build configuration list for PBXNativeTarget "LinCUITests" */ = {
 			isa = XCConfigurationList;
@@ -1595,7 +1595,7 @@
 				27CA03E11F38F21600D0F132 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 

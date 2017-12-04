@@ -75,4 +75,5 @@
 "Choose from Album" = "Choose from Album";
 "Image Received" = "[image]";
 "message.downloadingImage" = "downloading an image...";
-
+"saveFail" = "Try again later.";
+"saveSuccess" = "Image saved.";

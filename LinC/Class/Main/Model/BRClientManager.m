@@ -66,6 +66,7 @@
                     model.gender = dict[@"data"][@"user"][@"gender"];
                     model.location = dict[@"data"][@"user"][@"location"];
                     model.whatsUp = dict[@"data"][@"user"][@"signature"];
+                    model.updated = dict[@"data"][@"user"][@"updated_at"];
                     BOOL isImage = ([model.avatarURLPath.lowercaseString hasSuffix:@".jpg"] || [model.avatarURLPath.lowercaseString hasSuffix:@".png"]);
                     if (!isImage) {
                         model.avatarImage = [UIImage imageNamed:@"user_default"];
@@ -78,6 +79,7 @@
                             //主线程刷新
                             dispatch_async(dispatch_get_main_queue(), ^{
                                 model.avatarImage = image;
+                                
                                 [[BRCoreDataManager sharedInstance] insertUserInfoToCoreData: model];
                                 successBlock(dict[@"data"][@"user"]);
                             });
@@ -261,6 +263,7 @@
         model.gender = dict[@"data"][@"user"][@"gender"];
         model.location = dict[@"data"][@"user"][@"location"];
         model.whatsUp = dict[@"data"][@"user"][@"signature"];
+        model.updated = dict[@"data"][@"user"][@"updated_at"];
         BOOL isImage = ([model.avatarURLPath.lowercaseString hasSuffix:@".jpg"] || [model.avatarURLPath.lowercaseString hasSuffix:@".png"]);
         if (!isImage) {
             model.avatarImage = [UIImage imageNamed:@"user_default"];

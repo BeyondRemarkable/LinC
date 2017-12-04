@@ -8,9 +8,12 @@
 
 #import "BRQRCodeViewController.h"
 #import <CoreImage/CoreImage.h>
-
+#import <MBProgressHUD.h>
 
 @interface BRQRCodeViewController ()
+{
+    MBProgressHUD *hud;
+}
 @property (nonatomic, weak) IBOutlet UIImageView *imageView;
 @end
 
@@ -70,7 +73,7 @@
 - (void)moreAction {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Save Image", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
+        [self saveBtnClick];
     }]];
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Scan QR Code", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
@@ -99,6 +102,26 @@
     UIGraphicsEndImageContext();
     
     return resized;
+}
+
+- (void)saveBtnClick {
+    UIImageWriteToSavedPhotosAlbum(self.imageView.image, self, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
+}
+
+- (void)image: (UIImage *) image didFinishSavingWithError: (NSError *) error contextInfo: (void *) contextInfo
+{
+    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeText;
+    
+    if(error != NULL){
+       
+        hud.label.text = NSLocalizedString(@"saveFail", @"Try again later.");
+        [hud hideAnimated:YES afterDelay:1.5];
+    }else{ 
+        hud.label.text = NSLocalizedString(@"saveSuccess", @"Image saved.");
+        [hud hideAnimated:YES afterDelay:1.5];
+    }
+
 }
 
 @end

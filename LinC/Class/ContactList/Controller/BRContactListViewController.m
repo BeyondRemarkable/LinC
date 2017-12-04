@@ -139,9 +139,8 @@ static NSString * const cellIdentifier = @"ContactListCell";
       从core data加载已经保存的好友数据
  */
 - (void)loadFriendsInfoFromCoreData {
-    NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
-    BRUserInfo *userInfo = [[BRCoreDataManager sharedInstance] fetchUserInfoBy:username];
-    
+
+    BRUserInfo *userInfo = [[BRCoreDataManager sharedInstance] userInfoDic];
     NSMutableArray *friendsModelArray = [NSMutableArray array];
     for (BRFriendsInfo *friendsInfo in userInfo.friendsInfo) {
         
@@ -292,7 +291,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
                 [[BRCoreDataManager sharedInstance] deleteFriendByID:nil];
                 [self.dataArray removeAllObjects];
                 [self.tableView reloadData];
-                return ;
+                return;
             }
             NSMutableArray *contactsSource = [NSMutableArray array];
             

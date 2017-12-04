@@ -13,7 +13,6 @@
 #import "BRConversation+CoreDataClass.h"
 #import "BRConversationModel.h"
 
-
 static BRCoreDataStack *gCoreDataStack = nil;
 
 @implementation BRCoreDataManager
@@ -27,6 +26,7 @@ static BRCoreDataStack *gCoreDataStack = nil;
     });
     return  sharedMGRInstance;
 }
+
 
 - (NSManagedObjectContext *)managedObjectContext {
     static NSManagedObjectContext *moc = nil;
@@ -46,6 +46,16 @@ static BRCoreDataStack *gCoreDataStack = nil;
     return [NSEntityDescription insertNewObjectForEntityForName:entityName inManagedObjectContext: [gCoreDataStack managedObjectContext]];
 }
 
+- (BRUserInfo *)userInfoDic {
+    static BRUserInfo *userInfoDic = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
+        userInfoDic = [self fetchUserInfoBy: username];
+    });
+    return userInfoDic;
+}
+
 
 /**
      保存登录用户信息
@@ -54,9 +64,9 @@ static BRCoreDataStack *gCoreDataStack = nil;
  */
 - (void)insertUserInfoToCoreData:(BRContactListModel *)userModel {
     NSManagedObjectContext *context = [self managedObjectContext];
-    NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
+
     if ([userModel isKindOfClass:[BRContactListModel class]]) {
-        if (![self fetchUserInfoBy:username]) {
+        if (!self.userInfoDic) {
             // 登录用户不存在， 保存新用户
             BRUserInfo *userInfo = [NSEntityDescription insertNewObjectForEntityForName:@"BRUserInfo" inManagedObjectContext:context];
             userInfo.username = userModel.username;
@@ -69,6 +79,21 @@ static BRCoreDataStack *gCoreDataStack = nil;
             if (![self saveData]) {
                 NSAssert(YES, @"数据库保存失败！！！");
             }
+        } else {
+            if (![userModel.updated isEqualToString:self.userInfoDic.updated]) {
+                BRUserInfo *userInfo = self.userInfoDic;
+                userInfo.username = userModel.username;
+                userInfo.nickname = userModel.nickname;
+                userInfo.gender = userModel.gender;
+                userInfo.location = userModel.location;
+                userInfo.avatar = UIImagePNGRepresentation(userModel.avatarImage);
+                userInfo.whatsUp = userModel.whatsUp;
+                userInfo.updated = userModel.updated;
+                self.userInfoDic = userInfo;
+                if (![self saveData]) {
+                    NSAssert(YES, @"数据库保存失败！！！");
+                }
+            }
         }
     }
 }
@@ -80,8 +105,8 @@ static BRCoreDataStack *gCoreDataStack = nil;
  @param valueArray valueArray 需要更新的value
  */
 - (void)updateUserInfoWithKeys:(NSArray *)keyArray andValue: (NSArray *)valueArray {
-    NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
-    BRUserInfo *userInfo = [self fetchUserInfoBy:username];
+
+    BRUserInfo *userInfo = self.userInfoDic;
     NSString *key = [keyArray lastObject];
 
     if ([key isEqualToString:@"avatar"]) {
@@ -141,9 +166,8 @@ static BRCoreDataStack *gCoreDataStack = nil;
  */
 - (void)saveFriendsInfoToCoreData:(NSMutableArray*)dataArray
 {
-    NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
-    BRUserInfo *userInfo = [self fetchUserInfoBy:username];
-    
+
+    BRUserInfo *userInfo = self.userInfoDic;
     NSMutableArray *friendsArray = [NSMutableArray array];
     // 判断好友是否已经已经保存在数据库
     for (BRContactListModel *contactModel in dataArray) {
@@ -270,9 +294,8 @@ static BRCoreDataStack *gCoreDataStack = nil;
  @return return value 好友模型数据
  */
 - (BRFriendsInfo *)fetchFriendInfoBy:(NSString *)friendID {
-    NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
-    
-    BRUserInfo *userInfo = [self fetchUserInfoBy:username];
+
+    BRUserInfo *userInfo = self.userInfoDic;
     
     for (BRFriendsInfo *friendInfo in userInfo.friendsInfo) {
         if ([friendInfo.username isEqualToString:friendID]) {
@@ -290,8 +313,8 @@ static BRCoreDataStack *gCoreDataStack = nil;
  */
 - (void)insertConversationToCoreData:(EMMessage *)message {
     NSManagedObjectContext *context = [self managedObjectContext];
-    NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
-    BRUserInfo *userInfo = [self fetchUserInfoBy:username];
+
+    BRUserInfo *userInfo = self.userInfoDic;
     
     BOOL isContains = NO;
     for (BRConversation *conversation in userInfo.conversation) {
@@ -339,9 +362,8 @@ static BRCoreDataStack *gCoreDataStack = nil;
  @param conversationIDArray 需要删除的会话ID数组
  */
 - (void)deleteConversationByID:(NSArray *)conversationIDArray {
-
-    NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
-    BRUserInfo *userInfo = [self fetchUserInfoBy:username];
+    
+    BRUserInfo *userInfo = self.userInfoDic;
     NSMutableSet *conversationSet = [NSMutableSet set];
     for (BRConversation *conversation in userInfo.conversation) {
         
@@ -360,9 +382,8 @@ static BRCoreDataStack *gCoreDataStack = nil;
  @return return value 会话模型数组
  */
 - (NSMutableArray *)fetchConversations {
-    NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
-    BRUserInfo *userInfo = [self fetchUserInfoBy:username];
-    
+
+    BRUserInfo *userInfo = self.userInfoDic;
     NSMutableArray *conversationArray = [NSMutableArray array];
     
     for (BRConversation *conversation in userInfo.conversation) {

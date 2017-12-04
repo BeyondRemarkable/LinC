@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BRSearchFriendViewController : UIViewController
+@interface BRSearchFriendViewController : UITableViewController
 
 @end
