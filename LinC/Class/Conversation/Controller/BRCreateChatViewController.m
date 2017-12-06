@@ -13,6 +13,7 @@
 #import "BRClientManager.h"
 #import "BRCoreDataManager.h"
 #import "BRFriendsInfo+CoreDataClass.h"
+#import <MBProgressHUD.h>
 
 @interface BRCreateChatViewController ()
 @property (nonatomic, strong) NSArray *friendList;
@@ -20,6 +21,9 @@
 @end
 
 @implementation BRCreateChatViewController
+{
+    MBProgressHUD *hud;
+}
 
 - (NSMutableArray *)selectedList {
     if (_selectedList == nil) {
@@ -120,6 +124,10 @@
                 }];
             }
             else {
+                hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                hud.mode = MBProgressHUDModeText;
+                hud.label.text = aError.errorDescription;
+                [hud hideAnimated:YES afterDelay:1.5];
                 NSLog(@"创建失败 -- %@", aError.errorDescription);
             }
         }];

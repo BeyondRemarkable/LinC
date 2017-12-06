@@ -317,6 +317,8 @@ static NSString * const cellIdentifier = @"ContactListCell";
                 hud.label.text = aError.description;
                 [hud hideAnimated:YES afterDelay:1.5];
             }];
+        } else {
+            NSLog(@"%@", aError.errorDescription);
         }
     }];
 }
