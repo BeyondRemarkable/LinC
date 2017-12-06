@@ -10,11 +10,13 @@
 #import "BRGroupMemberTableViewCell.h"
 #import "BRMessageViewController.h"
 #import <Hyphenate/Hyphenate.h>
-
+#import <MBProgressHUD.h>
 
 @interface BRGroupListTableViewController ()<UITableViewDataSource, UITableViewDelegate, EMGroupManagerDelegate>
-
-@property (nonatomic, strong) NSArray *groupArray;
+{
+    MBProgressHUD *hud;
+}
+@property (nonatomic, strong) NSMutableArray *groupArray;
 
 @end
 
@@ -22,17 +24,42 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-//    self.groupArray = [[EMClient sharedClient].groupManager getJoinedGroupsFromServerWithPage:i pageSize:500 error: &error];
-
+    
+    //    self.groupArray = [[EMClient sharedClient].groupManager getJoinedGroupsFromServerWithPage:i pageSize:500 error: &error];
+    
     self.groupArray = [[EMClient sharedClient].groupManager getJoinedGroups];
     
-     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([BRGroupMemberTableViewCell class]) bundle:nil] forCellReuseIdentifier:@"groupCell"];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    
+    [self setUpNavigationBarItem];
+    
+    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([BRGroupMemberTableViewCell class]) bundle:nil] forCellReuseIdentifier:@"groupCell"];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+// Set up navigation bar items
+- (void)setUpNavigationBarItem {
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn setFrame:CGRectMake(0, 0, 35, 35)];
+    [btn setBackgroundImage:[UIImage imageNamed:@"add_new_friend"] forState:UIControlStateNormal];
+    [btn setBackgroundImage:[UIImage imageNamed:@"add_new_friend_highlighted"] forState:UIControlStateHighlighted];
+    [btn addTarget:self action:@selector(clickGroupSetting) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+}
+
+- (void)clickGroupSetting {
+    [self.tableView setEditing:!self.tableView.editing animated:YES];
+    if (self.tableView.editing){
+//        self.navigationItem.rightBarButtonItem.image =
+    }
+    else{
+//        self.navigationItem.rightBarButtonItem.image =
+    }
 }
 
 #pragma mark - Table view data source
@@ -65,5 +92,60 @@
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        EMGroup *deleteGroup = self.groupArray[indexPath.row];
+        NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
+        if ([username isEqualToString: deleteGroup.owner]) {
+            UIAlertController *actionSheet =[UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+            
+            UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Destory group" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                [self.groupArray removeObjectAtIndex:indexPath.row];
+                [[EMClient sharedClient].groupManager destroyGroup:deleteGroup.groupId finishCompletion:^(EMError *aError) {
+                    if (!aError) {
+                        self.groupArray = [[[EMClient sharedClient].groupManager getJoinedGroups] copy];
+                        [self.tableView reloadData];
+                    } else {
+                        hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                        hud.mode = MBProgressHUDModeText;
+                        hud.label.text = aError.errorDescription;
+                        [hud hideAnimated:YES afterDelay:1.5];
+                    }
+                }];
+            }];
+            
+            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                [actionSheet dismissViewControllerAnimated:YES completion:nil];
+                self.tableView.editing = NO;
+            }];
+            
+            [actionSheet addAction:delete];
+            [actionSheet addAction:cancel];
+            
+            [self presentViewController:actionSheet animated:YES completion:nil];
+        } else {
+            [self.groupArray removeObjectAtIndex:indexPath.row];
+            [[EMClient sharedClient].groupManager leaveGroup:deleteGroup.groupId completion:^(EMError *aError) {
+                if (!aError) {
+                    self.groupArray = [[[EMClient sharedClient].groupManager getJoinedGroups] copy];
+                    [self.tableView reloadData];
+                } else {
+                    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                    hud.mode = MBProgressHUDModeText;
+                    hud.label.text = aError.errorDescription;
+                    [hud hideAnimated:YES afterDelay:1.5];
+                }
+            }];
+        }
+    }
+}
+
+
 
 @end
