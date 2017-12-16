@@ -47,7 +47,7 @@
     hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     // 构建需要发送的message
-    EMMessage *message = [BRSDKHelper sendTextMessage:self.userMessage.text
+    EMMessage *message = [BRSDKHelper getTextMessage:self.userMessage.text
                                                    to:self.userID
                                           messageType:EMChatTypeChat
                                            messageExt: @{@"em_apns_ext":@{@"extern":kBRFriendRequestExtKey}}];

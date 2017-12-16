@@ -151,7 +151,7 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
 
 #pragma mark - send message
 
-+ (EMMessage *)sendTextMessage:(NSString *)text
++ (EMMessage *)getTextMessage:(NSString *)text
                             to:(NSString *)toUser
                    messageType:(EMChatType)messageType
                     messageExt:(NSDictionary *)messageExt
@@ -166,7 +166,7 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
     return message;
 }
 
-+ (EMMessage *)sendCmdMessage:(NSString *)action
++ (EMMessage *)getCmdMessage:(NSString *)action
                            to:(NSString *)to
                   messageType:(EMChatType)messageType
                    messageExt:(NSDictionary *)messageExt
@@ -183,7 +183,7 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
     return message;
 }
 
-+ (EMMessage *)sendLocationMessageWithLatitude:(double)latitude
++ (EMMessage *)getLocationMessageWithLatitude:(double)latitude
                                      longitude:(double)longitude
                                        address:(NSString *)address
                                             to:(NSString *)to
@@ -198,7 +198,7 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
     return message;
 }
 
-+ (EMMessage *)sendImageMessageWithImageData:(NSData *)imageData
++ (EMMessage *)getImageMessageWithImageData:(NSData *)imageData
                                           to:(NSString *)to
                                  messageType:(EMChatType)messageType
                                   messageExt:(NSDictionary *)messageExt
@@ -211,17 +211,17 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
     return message;
 }
 
-+ (EMMessage *)sendImageMessageWithImage:(UIImage *)image
++ (EMMessage *)getImageMessageWithImage:(UIImage *)image
                                       to:(NSString *)to
                              messageType:(EMChatType)messageType
                               messageExt:(NSDictionary *)messageExt
 {
     NSData *data = UIImageJPEGRepresentation(image, 1);
     
-    return [self sendImageMessageWithImageData:data to:to messageType:messageType messageExt:messageExt];
+    return [self getImageMessageWithImageData:data to:to messageType:messageType messageExt:messageExt];
 }
 
-+ (EMMessage *)sendVoiceMessageWithLocalPath:(NSString *)localPath
++ (EMMessage *)getVoiceMessageWithLocalPath:(NSString *)localPath
                                     duration:(NSInteger)duration
                                           to:(NSString *)to
                                  messageType:(EMChatType)messageType
@@ -236,7 +236,7 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
     return message;
 }
 
-+ (EMMessage *)sendVideoMessageWithURL:(NSURL *)url
++ (EMMessage *)getVideoMessageWithURL:(NSURL *)url
                                     to:(NSString *)to
                            messageType:(EMChatType)messageType
                             messageExt:(NSDictionary *)messageExt
