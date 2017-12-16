@@ -75,7 +75,7 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo;
  @param messageExt  消息的扩展属性
  @result 返回构建完成的消息
  */
-+ (EMMessage *)sendTextMessage:(NSString *)text
++ (EMMessage *)getTextMessage:(NSString *)text
                             to:(NSString *)to
                    messageType:(EMChatType)messageType
                     messageExt:(NSDictionary *)messageExt;
@@ -91,7 +91,7 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo;
  @param params   透传消息命令参数，只是为了兼容老版本，应该使用EMMessage的扩展属性来代替
  @result 返回构建完成的消息
  */
-+ (EMMessage *)sendCmdMessage:(NSString *)action
++ (EMMessage *)getCmdMessage:(NSString *)action
                            to:(NSString *)to
                   messageType:(EMChatType)messageType
                    messageExt:(NSDictionary *)messageExt
@@ -109,7 +109,7 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo;
  @param messageExt  消息的扩展属性
  @result 返回构建完成的消息
  */
-+ (EMMessage *)sendLocationMessageWithLatitude:(double)latitude
++ (EMMessage *)getLocationMessageWithLatitude:(double)latitude
                                      longitude:(double)longitude
                                        address:(NSString *)address
                                             to:(NSString *)to
@@ -126,7 +126,7 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo;
  @param messageExt  消息的扩展属性
  @result 返回构建完成的消息
  */
-+ (EMMessage *)sendImageMessageWithImageData:(NSData *)imageData
++ (EMMessage *)getImageMessageWithImageData:(NSData *)imageData
                                           to:(NSString *)to
                                  messageType:(EMChatType)messageType
                                   messageExt:(NSDictionary *)messageExt;
@@ -141,7 +141,7 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo;
  @param messageExt  消息的扩展属性
  @result 返回构建完成的消息
  */
-+ (EMMessage *)sendImageMessageWithImage:(UIImage *)image
++ (EMMessage *)getImageMessageWithImage:(UIImage *)image
                                       to:(NSString *)to
                              messageType:(EMChatType)messageType
                               messageExt:(NSDictionary *)messageExt;
@@ -157,7 +157,7 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo;
  @param messageExt  消息的扩展属性
  @result 返回构建完成的消息
  */
-+ (EMMessage *)sendVoiceMessageWithLocalPath:(NSString *)localPath
++ (EMMessage *)getVoiceMessageWithLocalPath:(NSString *)localPath
                                     duration:(NSInteger)duration
                                           to:(NSString *)to
                                  messageType:(EMChatType)messageType
@@ -173,7 +173,7 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo;
  @param messageExt  消息的扩展属性
  @result 返回构建完成的消息
  */
-+ (EMMessage *)sendVideoMessageWithURL:(NSURL *)url
++ (EMMessage *)getVideoMessageWithURL:(NSURL *)url
                                     to:(NSString *)to
                            messageType:(EMChatType)messageType
                             messageExt:(NSDictionary *)messageExt;

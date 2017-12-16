@@ -442,6 +442,7 @@
         
         CGFloat bottomHeight = bottomView ? bottomView.frame.size.height : 0;
         [self _willShowToolBarToBottomHeight:bottomHeight];
+        
         // 让选择的界面从下面往上出现
         if (bottomView) {
             [self addSubview:bottomView];
@@ -459,7 +460,7 @@
 {
     if (beginFrame.origin.y == [[UIScreen mainScreen] bounds].size.height)
     {
-        [self _willShowToolBarToBottomHeight:toFrame.size.height];
+        [self _willShowToolBarToBottomHeight:toFrame.size.height - iPhoneX_BOTTOM_HEIGHT];
         if (self.activityButtomView) {
             [self.activityButtomView removeFromSuperview];
         }
@@ -470,7 +471,7 @@
         [self _willShowToolBarToBottomHeight:0];
     }
     else{
-        [self _willShowToolBarToBottomHeight:toFrame.size.height];
+        [self _willShowToolBarToBottomHeight:toFrame.size.height - iPhoneX_BOTTOM_HEIGHT];
     }
 }
 
@@ -686,10 +687,8 @@
         [self.inputTextView becomeFirstResponder];
     }
     
-    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        self.recordButton.hidden = !button.selected;
-        self.inputTextView.hidden = button.selected;
-    } completion:nil];
+    self.recordButton.hidden = !button.selected;
+    self.inputTextView.hidden = button.selected;
 }
 
 - (void)faceButtonAction:(id)sender
@@ -702,19 +701,17 @@
         
         [button setImage:[UIImage imageNamed:@"chatbar_keyboard_highlighted"] forState:UIControlStateHighlighted];
         
-        self.recordButton.selected = NO;
-        [self.recordButton setImage:[UIImage imageNamed:@"chatbar_record_highlighted"] forState:UIControlStateHighlighted];
+        self.styleButton.selected = NO;
+        [self.styleButton setImage:[UIImage imageNamed:@"chatbar_record_highlighted"] forState:UIControlStateHighlighted];
         self.moreButton.selected = NO;
         [self.moreButton setImage:[UIImage imageNamed:@"chatbar_more_highlighted"] forState:UIControlStateHighlighted];
         
         [self _willShowBottomView:self.faceView];
-        [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            self.recordButton.hidden = button.selected;
-            self.inputTextView.hidden = !button.selected;
-        } completion:^(BOOL finished) {
-            
-        }];
+        
+        self.recordButton.hidden = button.selected;
+        self.inputTextView.hidden = !button.selected;
     } else {
+        [self _willShowBottomView:nil];
         [self.inputTextView becomeFirstResponder];
     }
 }
@@ -729,19 +726,19 @@
         
         [button setImage:[UIImage imageNamed:@"chatbar_keyboard_highlighted"] forState:UIControlStateHighlighted];
         
-        self.recordButton.selected = NO;
-        [self.recordButton setImage:[UIImage imageNamed:@"chatbar_record_highlighted"] forState:UIControlStateHighlighted];
+        self.styleButton.selected = NO;
+        [self.styleButton setImage:[UIImage imageNamed:@"chatbar_record_highlighted"] forState:UIControlStateHighlighted];
         self.emojiButton.selected = NO;
         [self.emojiButton setImage:[UIImage imageNamed:@"chatbar_emoji_highlighted"] forState:UIControlStateHighlighted];
         
         [self _willShowBottomView:self.moreView];
-        [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            self.recordButton.hidden = button.selected;
-            self.inputTextView.hidden = !button.selected;
-        } completion:nil];
+        
+        self.recordButton.hidden = button.selected;
+        self.inputTextView.hidden = !button.selected;
     }
     else
     {
+        [self _willShowBottomView:nil];
         [self.inputTextView becomeFirstResponder];
     }
 }
