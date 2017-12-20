@@ -55,6 +55,8 @@ typedef enum : NSUInteger {
     
     dispatch_queue_t _messageQueue;
     BOOL _isRecording;
+    
+    BOOL _isLoadingMessages;
    
     MBProgressHUD *hud;
 }
@@ -85,7 +87,7 @@ typedef enum : NSUInteger {
     if (self) {
         _conversation = [[EMClient sharedClient].chatManager getConversation:conversationChatter type:conversationType createIfNotExist:YES];
         
-        _messageCountOfPage = 10;
+        _messageCountOfPage = 20;
         _timeCellHeight = 30;
         _deleteConversationIfNull = YES;
         _scrollToBottomWhenAppear = YES;
@@ -1009,9 +1011,19 @@ typedef enum : NSUInteger {
         });
     };
     
+    _isLoadingMessages = YES;
     [self.conversation loadMessagesStartFromId:messageId count:(int)count searchDirection:EMMessageSearchDirectionUp completion:^(NSArray *aMessages, EMError *aError) {
-        if (!aError && [aMessages count]) {
-            refresh(aMessages);
+        if (!aError) {
+            if (aMessages.count) {
+                refresh(aMessages);
+                _isLoadingMessages = NO;
+            }
+            else {
+                _isLoadingMessages = YES;
+            }
+        }
+        else {
+            _isLoadingMessages = NO;
         }
     }];
 }
@@ -1181,6 +1193,23 @@ typedef enum : NSUInteger {
 #pragma mark - UIScrollviewDelegate
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [self.chatToolbar endEditing:YES];
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    if (_isLoadingMessages) {
+        return;
+    }
+    if (scrollView.contentOffset.y < 5) {
+        EMMessage *firstMessage = [self.messsagesSource firstObject];
+        if (firstMessage) {
+            [self _loadMessagesBefore:firstMessage.messageId count:self.messageCountOfPage append:YES];
+            [self tableViewDidFinishRefresh:BRRefreshTableViewWidgetHeader reload:YES];
+        }
+    }
+}
+
+- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
+    NSLog(@"TO TOP");
 }
 
 #pragma mark - UIImagePickerControllerDelegate
