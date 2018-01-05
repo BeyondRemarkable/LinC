@@ -143,7 +143,7 @@
     [manager POST:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dict = (NSDictionary *)responseObject;
         if ([dict[@"status"] isEqualToString:@"success"]) {
-            
+            [BRCoreDataManager sharedInstance].userInfoDic = nil;
             successBlock(dict[@"message"]);
         }
         else {

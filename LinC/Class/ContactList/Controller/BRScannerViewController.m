@@ -11,6 +11,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "BRClientManager.h"
 #import <MBProgressHUD.h>
+#import "BRGroupChatSettingTableViewController.h"
 
 @interface BRScannerViewController () <AVCaptureMetadataOutputObjectsDelegate>
 {
@@ -96,11 +97,18 @@
     if (metadataObjects.count > 0) {
        
         AVMetadataMachineReadableCodeObject * metadataObject = [metadataObjects objectAtIndex : 0];
-    
-        [self searchFriendWithUserID:(NSString *)metadataObject.stringValue];
+        
+        // 判断二维码是否是群聊二维码
+        if ([metadataObject.stringValue hasSuffix:@"group"]) {
+            NSString *groupID = [[metadataObject.stringValue componentsSeparatedByString:@"group"] firstObject];
+            [self searchGroupByGroupID: groupID];
+        } else {
+            [self searchFriendWithUserID:(NSString *)metadataObject.stringValue];
+        }
         
         [session stopRunning];
         [self.scanlayer removeFromSuperlayer];
+        
     }
 }
 
@@ -114,7 +122,6 @@
 - (void)searchFriendWithUserID:(NSString *)searchID {
     NSArray *userIDArr = [NSArray arrayWithObject:searchID];
     hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    
     [[BRClientManager sharedManager] getUserInfoWithUsernames:userIDArr andSaveFlag:NO
     success:^(NSMutableArray *aList) {
         [hud hideAnimated:YES];
@@ -138,7 +145,29 @@
         hud.mode = MBProgressHUDModeText;
         hud.label.text = aError.errorDescription;
         [hud hideAnimated:YES afterDelay:1.5];
+        dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5/*延迟执行时间*/ * NSEC_PER_SEC));
+        
+        dispatch_after(delayTime, dispatch_get_main_queue(), ^{
+            [self cancalButton:nil];
+        });
     }];
+}
+
+/**
+ 群聊二维码，跳转到群设置页面
+
+ @param groupID 群ID
+ */
+- (void)searchGroupByGroupID:(NSString *)groupID {
+    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRFriendInfo" bundle:[NSBundle mainBundle]];
+    BRGroupChatSettingTableViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRGroupChatSettingTableViewController"];
+    vc.doesJoinGroup = YES;
+    vc.groupID = groupID;
+    [hud hideAnimated:YES];
+    
+    [self.navigationController pushViewController:vc animated:YES];
+    
 }
 
 /**

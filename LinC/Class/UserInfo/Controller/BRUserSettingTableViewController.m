@@ -92,7 +92,6 @@ typedef enum NSUInteger {
                 [mail setMessageBody:@"Thank you for your feedback!" isHTML:NO];
                 [mail setToRecipients:@[@"info@beyondremarkable.com"]];
                 [self presentViewController:mail animated:YES completion:NULL];
-                
             }
             else
             {

@@ -24,6 +24,8 @@
 #import "BRCoreDataManager.h"
 #import "BRUserInfo+CoreDataClass.h"
 #import "BRConversation+CoreDataClass.h"
+#import "BRGroupChatSettingTableViewController.h"
+
 
 #define KHintAdjustY    50
 
@@ -91,6 +93,7 @@ typedef enum : NSUInteger {
         [_conversation markAllMessagesAsRead:nil];
     }
     
+    
     return self;
 }
 
@@ -146,6 +149,34 @@ typedef enum : NSUInteger {
     
     [self tableViewDidTriggerHeaderRefresh];
     [self setupEmotion];
+    [self setUpNavigationBarItem];
+}
+
+// 群聊时的 navigation bar items
+- (void)setUpNavigationBarItem {
+    if (self.conversation.type == EMConversationTypeGroupChat) {
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [btn setFrame:CGRectMake(0, 0, 35, 35)];
+        [btn setBackgroundImage:[UIImage imageNamed:@"more_info"] forState:UIControlStateNormal];
+        [btn setBackgroundImage:[UIImage imageNamed:@"more_info_highlighted"] forState:UIControlStateHighlighted];
+        [btn addTarget:self action:@selector(settingClick) forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+    }
+    
+}
+
+
+/**
+ 群聊的群设置
+ */
+- (void)settingClick {
+    UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRFriendInfo" bundle:[NSBundle mainBundle]];
+    if (self.conversation.type == EMConversationTypeGroupChat) {
+        // 群设置
+        BRGroupChatSettingTableViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRGroupChatSettingTableViewController"];
+        vc.groupID = self.conversation.conversationId;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 /*!

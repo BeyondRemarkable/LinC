@@ -75,7 +75,7 @@ typedef enum NSUInteger {
     [self.imageIcon addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageClicked)]];
    
     // 从Core data获取登录用户
-    BRUserInfo *userInfo = [[BRCoreDataManager sharedInstance] userInfoDic];
+    BRUserInfo *userInfo = [[BRCoreDataManager sharedInstance] getUserInfo];
 
     self.imageIcon.image = [UIImage imageWithData:userInfo.avatar];
     self.username.text = userInfo.username;

@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BRContactListModel.h"
 
 @interface BRGroupMemberTableViewCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UIImageView *grounIcon;
-@property (weak, nonatomic) IBOutlet UILabel *grounName;
+
+@property (strong, nonatomic) BRContactListModel *model;
+@property (weak, nonatomic) IBOutlet UIImageView *grounpIcon;
+@property (weak, nonatomic) IBOutlet UILabel *grounpName;
+@property (weak, nonatomic) IBOutlet UIImageView *groupPropertyIcon;
 
 @end

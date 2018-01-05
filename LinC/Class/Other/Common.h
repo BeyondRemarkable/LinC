@@ -16,6 +16,10 @@
 #define SCREEN_WIDTH    ([[UIScreen mainScreen] bounds].size.width)
 #define SCREEN_HEIGHT   ([[UIScreen mainScreen] bounds].size.height)
 
+#define newFirendRequestFile @"newfirendRequestData.plist"
+#define newGroupRequestFile @"newGroupRequestData.plist"
+
+
 extern NSString *const GroupNameChangeNotificationName;
 // 定义系统偏好的键值
 extern NSString *const kLoginUserNameKey;

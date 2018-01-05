@@ -8,7 +8,7 @@
 
 #import "BRNewFriendTableViewController.h"
 #import "BRNewFriendTableViewCell.h"
-#import "BRFileWithNewFriendsRequestData.h"
+#import "BRFileWithNewRequestData.h"
 #import "BRFriendRequestTableViewController.h"
 
 @interface BRNewFriendTableViewController ()
@@ -26,7 +26,7 @@
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([BRNewFriendTableViewCell class]) bundle:nil] forCellReuseIdentifier:@"newFriendCell"];
     
     // 读取需要好友请求JSON数据， 更新tableview
-    self.dataArray = [BRFileWithNewFriendsRequestData getAllNewFriendRequestData];
+    self.dataArray = [BRFileWithNewRequestData getAllNewRequestDataFromFile:newFirendRequestFile];
     NSLog(@"self.dataArray--%@", self.dataArray);
     [self.tableView reloadData];
 }

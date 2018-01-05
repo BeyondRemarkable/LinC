@@ -15,6 +15,9 @@
 #import "BRFriendRequestTableViewController.h"
 #import <SAMKeychain.h>
 #import "BRClientManager.h"
+#import "BRGroupChatSettingTableViewController.h"
+
+#define GroupIDLength 14
 
 @interface BRSearchFriendViewController () <UITextFieldDelegate>
 {
@@ -57,7 +60,14 @@
         [hud hideAnimated:YES afterDelay:1.5];
         return;
     }
-    
+    if (self.friendIDTextField.text.length == GroupIDLength) {
+        [self searchGroupID];
+    } else {
+        [self searchFriendID];
+    }
+}
+
+- (void)searchFriendID {
     hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [[BRClientManager sharedManager] getUserInfoWithUsernames:[NSArray arrayWithObject:self.friendIDTextField.text] andSaveFlag:NO success:^(NSMutableArray *aList) {
         [hud hideAnimated:YES];
@@ -81,6 +91,16 @@
         hud.label.text = aError.errorDescription;
         [hud hideAnimated:YES afterDelay:1.5];
     }];
+}
+
+- (void)searchGroupID {
+    UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRFriendInfo" bundle:[NSBundle mainBundle]];
+    BRGroupChatSettingTableViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRGroupChatSettingTableViewController"];
+    vc.doesJoinGroup = YES;
+    vc.groupID = self.friendIDTextField.text;
+    [hud hideAnimated:YES];
+    
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (IBAction)scanQRCodeBtn {

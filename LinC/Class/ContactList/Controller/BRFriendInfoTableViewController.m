@@ -11,7 +11,6 @@
 #import "BRHTTPSessionManager.h"
 #import "BRRequestMessageTableViewController.h"
 #import "BRMessageViewController.h"
-#import <Hyphenate/Hyphenate.h>
 #import <AFNetworking.h>
 #import <MBProgressHUD.h>
 #import <SAMKeychain.h>
@@ -33,6 +32,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *userGender;
 @property (weak, nonatomic) IBOutlet UILabel *userWhatsUp;
 @property (weak, nonatomic) IBOutlet UILabel *userLocation;
+@property (weak, nonatomic) IBOutlet UIButton *removeFromGroup;
 
 
 @end
@@ -47,6 +47,15 @@
     //[self setupNavigationBarItem];
     
     [self setupFriendInfo];
+    // 群主有权限删除群成员
+    if ([[EMClient sharedClient].currentUsername isEqualToString: self.group.owner] && !self.isSelf) {
+        [self.removeFromGroup setHidden:NO];
+    } 
+    if (self.isSelf) {
+        [self.addFriendButton setHidden:YES];
+        [self.chatButton setHidden:YES];
+        [self.deleteFriendButton setHidden:YES];
+    }
 }
 
 
@@ -121,7 +130,7 @@
     UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRFriendInfo" bundle:[NSBundle mainBundle]];
     
     BRRequestMessageTableViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRRequestMessageTableViewController"];
-    vc.userID = self.userID.text;
+    vc.searchID = self.userID.text;
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
     [self presentViewController:nav animated:YES completion:nil];
 }
@@ -138,16 +147,15 @@
             hud.mode = MBProgressHUDModeText;
             if (!aError) {
                 hud.label.text = @"Successful delete";
-                [hud hideAnimated:YES afterDelay:1.5];
-                [self performSelector:@selector(dismissVC) withObject:nil afterDelay:1.0];
                 // 从core data中 删除好友数据
                 NSArray *deleteArr = [NSArray arrayWithObject:self.contactListModel.username];
                 if (deleteArr.count != 0) {
                     [[BRCoreDataManager sharedInstance] deleteFriendByID: deleteArr];
                 }
-                
+                [self performSelector:@selector(dismissVC) withObject:nil afterDelay:1.0];
             } else {
-                hud.label.text = aError.description;
+                [hud hideAnimated:YES afterDelay:1.5];
+                hud.label.text = aError.errorDescription;
             }
         }];
       
@@ -164,10 +172,44 @@
 
 }
 
+
+/**
+    群主从群中删除群成员
+ */
+- (IBAction)clickRemoveGroup {
+    UIAlertController *actionSheet =[UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Confirm Remove" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [[EMClient sharedClient].groupManager removeMembers:[NSArray arrayWithObject:self.contactListModel.username] fromGroup:self.group.groupId completion:^(EMGroup *aGroup, EMError *aError) {
+            if (!aError) {
+                hud.label.text = @"Successful delete";
+                [self performSelector:@selector(popVC) withObject:nil afterDelay:1.0];
+            } else {
+                hud.label.text = aError.errorDescription;
+                [hud hideAnimated:YES afterDelay:1.5];
+            }
+        }];
+    }];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        [actionSheet dismissViewControllerAnimated:YES completion:nil];
+    }];
+    
+    [actionSheet addAction:delete];
+    [actionSheet addAction:cancel];
+    
+    [self presentViewController:actionSheet animated:YES completion:nil];
+}
+
+
 - (void)dismissVC {
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
+- (void)popVC {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 - (IBAction)clickChat:(id)sender {
     BRMessageViewController *vc = [[BRMessageViewController alloc] initWithConversationChatter:self.contactListModel.username conversationType:EMConversationTypeChat];
