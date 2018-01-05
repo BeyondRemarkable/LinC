@@ -108,6 +108,12 @@ static NSString * const cellIdentifier = @"groupCell";
                 hud.label.text = error.description;
                 [hud hideAnimated:YES afterDelay:1.5];
             }];
+        } else {
+            hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.mode = MBProgressHUDModeText;
+            hud.label.text = aError.errorDescription;
+            hud.label.numberOfLines = 0;
+            [self performSelector:@selector(dismissVie) withObject:nil afterDelay:1.5];
         }
     }];
     
@@ -237,11 +243,6 @@ static NSString * const cellIdentifier = @"groupCell";
     [vcArray removeObjectsInArray:deleteArr];
     [vcArray addObject:vc];
     [self.navigationController setViewControllers:vcArray animated:YES];
-    
-    
-    
-    
-    //[self.navigationController pushViewController:vc animated:YES];
 }
 
 /**
@@ -301,6 +302,11 @@ static NSString * const cellIdentifier = @"groupCell";
     [actionSheet addAction:cancel];
     
     [self presentViewController:actionSheet animated:YES completion:nil];
+}
+
+- (void)dismissVie {
+    [self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Table view data source
