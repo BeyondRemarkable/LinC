@@ -24,6 +24,8 @@
 #import "BRCoreDataManager.h"
 #import "BRUserInfo+CoreDataClass.h"
 #import "BRConversation+CoreDataClass.h"
+#import "BRGroupChatSettingTableViewController.h"
+
 
 #define KHintAdjustY    50
 
@@ -95,6 +97,7 @@ typedef enum : NSUInteger {
         
         [_conversation markAllMessagesAsRead:nil];
     }
+    
     
     return self;
 }

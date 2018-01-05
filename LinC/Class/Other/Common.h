@@ -17,6 +17,10 @@
 #define SCREEN_HEIGHT   ([[UIScreen mainScreen] bounds].size.height)
 #define iPhoneX_BOTTOM_HEIGHT  ([UIScreen mainScreen].bounds.size.height==812?34:0)
 
+#define newFirendRequestFile @"newfirendRequestData.plist"
+#define newGroupRequestFile @"newGroupRequestData.plist"
+
+
 extern NSString *const GroupNameChangeNotificationName;
 // 定义系统偏好的键值
 extern NSString *const kLoginUserNameKey;

@@ -9,7 +9,7 @@
 #import "BRFriendRequestTableViewController.h"
 #import "BRHTTPSessionManager.h"
 #import "BRClientManager.h"
-#import "BRFileWithNewFriendsRequestData.h"
+#import "BRFileWithNewRequestData.h"
 #import <MBProgressHUD.h>
 #import <SAMKeychain.h>
 #import "BRClientManager.h"
@@ -38,7 +38,12 @@
     hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.label.text = @"Loading...";
     
-    self.messageLabel.text = self.message;
+    if (self.doesJoinGroup) {
+        self.messageLabel.text = self.requestDic[@"message"];
+    } else {
+        self.messageLabel.text = self.message;
+    }
+    
     self.userID.text = self.searchID;
     
     [[BRClientManager sharedManager] getUserInfoWithUsernames:[NSArray arrayWithObject:self.searchID] andSaveFlag:NO success:^(NSMutableArray *aList) {
@@ -84,21 +89,40 @@
 }
 
 /**
-    同意好友请求, 并删除好友请求数据
+    同意群申请或者好友申请
  */
 - (IBAction)agreeBtn {
-    [BRFileWithNewFriendsRequestData deleteNewFriendRequest:self.searchID];
-    [[EMClient sharedClient].contactManager acceptInvitationForUsername:self.searchID];
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    if (self.doesJoinGroup) {
+        // 同意群申请
+        [BRFileWithNewRequestData deleteRequestFromFile:newGroupRequestFile byID:self.searchID];
+        [[EMClient sharedClient].groupManager approveJoinGroupRequest: self.requestDic[@"groupID"] sender: self.requestDic[@"userID"] completion:^(EMGroup *aGroup, EMError *aError) {
+            NSLog(@"%@", aGroup.memberList);
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
+    } else {
+        // 同意好友申请
+        [BRFileWithNewRequestData deleteRequestFromFile:newFirendRequestFile byID:self.searchID];
+        [[EMClient sharedClient].contactManager acceptInvitationForUsername:self.searchID];
+        [[EMClient sharedClient].contactManager approveFriendRequestFromUser:self.searchID completion:^(NSString *aUsername, EMError *aError) {
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        }];
+    }
 }
 
 
 /**
-    拒绝添加好友，并删除好友请求数据
+    拒绝群申请或者好友申请
  */
 - (IBAction)refuseBtn {
-    [BRFileWithNewFriendsRequestData deleteNewFriendRequest:self.searchID];
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    if (self.doesJoinGroup) {
+        // 拒绝群申请
+        [BRFileWithNewRequestData deleteRequestFromFile:newGroupRequestFile byID:self.searchID];
+         [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        // 拒绝好友申请
+        [BRFileWithNewRequestData deleteRequestFromFile:newFirendRequestFile byID:self.searchID];
+         [self.navigationController popToRootViewControllerAnimated:YES];
+    }
 }
 
 

@@ -7,7 +7,10 @@
 //
 
 #import "BRGroupMemberTableViewCell.h"
+@interface BRGroupMemberTableViewCell()
 
+
+@end
 @implementation BRGroupMemberTableViewCell
 
 - (void)awakeFromNib {
@@ -19,6 +22,16 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void)setModel:(BRContactListModel *)model {
+    _model = model;
+    self.grounpIcon.image = model.avatarImage;
+    if (model.nickname.length != 0) {
+        self.grounpName.text = model.nickname;
+    } else {
+        self.grounpName.text = model.username;
+    }
 }
 
 @end

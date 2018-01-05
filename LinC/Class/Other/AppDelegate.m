@@ -15,7 +15,7 @@
 #import <SAMKeychain.h>
 #import "BRCoreDataManager.h"
 #import "BRFriendsInfo+CoreDataClass.h"
-#import "BRFileWithNewFriendsRequestData.h"
+#import "BRFileWithNewRequestData.h"
 
 @interface AppDelegate () <EMClientDelegate, EMChatManagerDelegate>
 
@@ -25,25 +25,36 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    NSDictionary *friendRequest = [launchOptions valueForKey: UIApplicationLaunchOptionsRemoteNotificationKey];
-    if (friendRequest) {
-        NSString *findRequestFlat = [friendRequest valueForKey:@"e"];
+    NSDictionary *requestData = [launchOptions valueForKey: UIApplicationLaunchOptionsRemoteNotificationKey];
+    NSLog(@"requestData--%@", requestData);
+    if (requestData) {
+        NSString *findRequestFlat = [requestData valueForKey:@"e"];
         if (findRequestFlat && [findRequestFlat isEqualToString: kBRFriendRequestExtKey]) {
-            NSString *messageBody = [friendRequest valueForKeyPath:@"aps.alert.body"];
-            
+            // 收到好友请求
+            NSString *messageBody = [requestData valueForKeyPath:@"aps.alert.body"];
             if (!messageBody) {
                 messageBody = [messageBody componentsSeparatedByString:@":"][1];
                 
-                NSString *messageFrom = [friendRequest valueForKey:@"f"];
-                NSDictionary *friendDict = [NSDictionary dictionaryWithObjectsAndKeys:messageBody, @"message", messageFrom ,@"userID" ,nil];
-                [BRFileWithNewFriendsRequestData savedToPlistWithData:friendDict];
+                NSString *messageFrom = [requestData valueForKey:@"f"];
+                NSDictionary *friendDict = [NSDictionary dictionaryWithObjectsAndKeys:messageBody, @"message", messageFrom, @"userID", nil];
+                
+                [BRFileWithNewRequestData savedToFileName:newFirendRequestFile withData:friendDict];
             }
-            
+        } else if (findRequestFlat && [findRequestFlat hasPrefix:kBRGroupRequestExtKey]) {
+            // 群请求
+            NSString *messageBody = [requestData valueForKeyPath:@"aps.alert.body"];
+            if (!messageBody) {
+                messageBody = [messageBody componentsSeparatedByString:@":"][1];
+                NSString *messageFrom = [requestData valueForKey:@"f"];
+                NSString *groupID = [findRequestFlat componentsSeparatedByString:@":"][1];
+                NSDictionary *groupMesDict = [NSDictionary dictionaryWithObjectsAndKeys:messageBody, @"message", messageFrom, @"userID", groupID, @"groupID", nil];
+                [BRFileWithNewRequestData savedToFileName:newGroupRequestFile withData:groupMesDict];
+            }
         }
     }
     NSString *appkey = @"1153170608178531#linc-dev";
-    NSString *apnsCertName = @"pushCertificates";
-//    NSString *apnsCertName = @"developCertificates";
+//    NSString *apnsCertName = @"pushCertificates";
+    NSString *apnsCertName = @"developCertificates";
     [[BRSDKHelper shareHelper] hyphenateApplication:application
                       didFinishLaunchingWithOptions:launchOptions
                                              appkey:appkey
@@ -87,6 +98,11 @@
     return YES;
 }
 
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(nonnull NSDictionary *)userInfo fetchCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHandler {
+    NSLog(@"userInfo--%@", userInfo);
+}
+
 //监听环信在线推送消息
 -(void)didReceiveMessages:(NSArray *)aMessages{
     
@@ -118,29 +134,44 @@
 
 -(void)showPushNotificationMessage:(EMMessage *)message{
     
-    NSString *friendReqFlag = [message.ext valueForKeyPath:@"em_apns_ext.extern"];
-    if (friendReqFlag && [kBRFriendRequestExtKey isEqualToString:friendReqFlag]) {
-        NSDictionary *friendDict = [NSDictionary dictionaryWithObjectsAndKeys:((EMTextMessageBody *)message.body).text, @"message", message.from ,@"userID" ,nil];
-        [BRFileWithNewFriendsRequestData savedToPlistWithData:friendDict];
-        UILocalNotification *notification = [[UILocalNotification alloc] init];
-       
-        notification.alertTitle = [@"Friend request from:" stringByAppendingString: message.from];
-        notification.fireDate = [NSDate date];
-        notification.alertAction = NSLocalizedString(@"open", @"Open");
-        notification.alertBody = [friendDict valueForKey:@"message"];
-        notification.timeZone = [NSTimeZone defaultTimeZone];
-        [UIApplication sharedApplication].applicationIconBadgeNumber +=1;
-        
-        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-        [[NSNotificationCenter defaultCenter] postNotificationName:kBRFriendRequestExtKey object:message];
-        return;
+    NSString *reqFlag = [message.ext valueForKeyPath:@"em_apns_ext.extern"];
+    if (reqFlag) {
+        // 好友请求
+        if ([kBRFriendRequestExtKey isEqualToString:reqFlag]) {
+            NSDictionary *friendDict = [NSDictionary dictionaryWithObjectsAndKeys:((EMTextMessageBody *)message.body).text, @"message", message.from, @"userID" ,nil];
+            [BRFileWithNewRequestData savedToFileName:newFirendRequestFile withData:friendDict];
+            UILocalNotification *notification = [[UILocalNotification alloc] init];
+            
+            notification.alertTitle = [@"Friend request from:" stringByAppendingString: message.from];
+            notification.fireDate = [NSDate date];
+            notification.alertAction = NSLocalizedString(@"open", @"Open");
+            notification.alertBody = [friendDict valueForKey:@"message"];
+            notification.timeZone = [NSTimeZone defaultTimeZone];
+            [UIApplication sharedApplication].applicationIconBadgeNumber +=1;
+            
+            [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kBRFriendRequestExtKey object:message];
+            return;
+        } else if ([reqFlag hasPrefix: kBRGroupRequestExtKey]) {
+            // 群请求
+            NSString *groupID = [reqFlag componentsSeparatedByString:@":"][1];
+            NSDictionary *groupRequestDict = [NSDictionary dictionaryWithObjectsAndKeys:((EMTextMessageBody *)message.body).text, @"message", message.from, @"userID", groupID, @"groupID", nil];
+            [BRFileWithNewRequestData savedToFileName:newGroupRequestFile withData:groupRequestDict];
+            UILocalNotification *notification = [[UILocalNotification alloc] init];
+            
+            notification.alertTitle = [@"Group request from:" stringByAppendingString: message.from];
+            notification.fireDate = [NSDate date];
+            notification.alertAction = NSLocalizedString(@"open", @"Open");
+            notification.alertBody = [groupRequestDict valueForKey:@"message"];
+            notification.timeZone = [NSTimeZone defaultTimeZone];
+            [UIApplication sharedApplication].applicationIconBadgeNumber +=1;
+            
+            [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kBRGroupRequestExtKey object:message];
+            return;
+        }
     }
-    
-    
-    EMPushOptions *options = [[EMClient sharedClient] pushOptions];
-    
-    if (options.displayStyle == EMPushDisplayStyleMessageSummary) {
-        
+
         EMMessageBody *messageBody = message.body;
         NSString *messageStr = nil;
         switch (messageBody.type) {
@@ -178,7 +209,7 @@
         [UIApplication sharedApplication].applicationIconBadgeNumber +=1;
         
         [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-    }
+
 }
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
@@ -190,10 +221,6 @@
         [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
         [[UIApplication sharedApplication] cancelLocalNotification:notification];
     }
-}
-
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-    
 }
 
 //将得到的deviceToken传给SDK

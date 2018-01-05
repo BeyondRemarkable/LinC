@@ -15,7 +15,7 @@
 #import "BRMessageViewController.h"
 #import "BRClientManager.h"
 #import <MJRefresh.h>
-#import "BRFileWithNewFriendsRequestData.h"
+#import "BRFileWithNewRequestData.h"
 #import "BRNewFriendTableViewController.h"
 #import "BRGroupListTableViewController.h"
 #import <MBProgressHUD.h>
@@ -68,10 +68,12 @@ static NSString * const cellIdentifier = @"ContactListCell";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.tableView reloadData];
-    NSString *badgeCount = [BRFileWithNewFriendsRequestData countForNewFriendRequest];
+    NSString *friendsBadgeCount = [BRFileWithNewRequestData countForNewRequestFromFile:newFirendRequestFile];
+    NSString *groupBadgeCount = [BRFileWithNewRequestData countForNewRequestFromFile:newGroupRequestFile];
+    NSInteger badgeCount = [friendsBadgeCount integerValue] + [groupBadgeCount integerValue];
     // 是否需要显示tabbar bagge
-    if ([badgeCount integerValue] != 0) {
-        self.tabBarItem.badgeValue = badgeCount;
+    if (badgeCount != 0) {
+        self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%ld", (long)badgeCount];
     } else {
         self.tabBarItem.badgeValue = nil;
     }
@@ -140,7 +142,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
  */
 - (void)loadFriendsInfoFromCoreData {
 
-    BRUserInfo *userInfo = [[BRCoreDataManager sharedInstance] userInfoDic];
+    BRUserInfo *userInfo = [[BRCoreDataManager sharedInstance] getUserInfo];
     NSMutableArray *friendsModelArray = [NSMutableArray array];
     for (BRFriendsInfo *friendsInfo in userInfo.friendsInfo) {
         
@@ -196,10 +198,20 @@ static NSString * const cellIdentifier = @"ContactListCell";
         
         // 有新好友请求
         if (indexPath.row == TableViewNewFriend) {
-            NSUInteger friendRequestCount = [[BRFileWithNewFriendsRequestData countForNewFriendRequest] integerValue];
+            NSUInteger friendRequestCount = [[BRFileWithNewRequestData countForNewRequestFromFile:newFirendRequestFile] integerValue];
             if (friendRequestCount) {
                 cell.badgeLabel.hidden = NO;
                 cell.badgeLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)friendRequestCount];
+            } else {
+                cell.badgeLabel.hidden = YES;
+            }
+        }
+        // 有新群请求
+        if (indexPath.row == TableVIewGroup) {
+            NSUInteger groupRequestCount = [[BRFileWithNewRequestData countForNewRequestFromFile:newGroupRequestFile] integerValue];
+            if (groupRequestCount) {
+                cell.badgeLabel.hidden = NO;
+                cell.badgeLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)groupRequestCount];
             } else {
                 cell.badgeLabel.hidden = YES;
             }
@@ -247,7 +259,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
         if (indexPath.row == TableViewNewFriend) {
             BRContactListTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
             
-            NSUInteger friendRequestCount = [[BRFileWithNewFriendsRequestData countForNewFriendRequest] integerValue];
+            NSUInteger friendRequestCount = [[BRFileWithNewRequestData countForNewRequestFromFile:newFirendRequestFile] integerValue];
             
             if (friendRequestCount) {
                 cell.badgeLabel.text = [NSString stringWithFormat:@"%lu",(unsigned long)friendRequestCount];
@@ -319,6 +331,8 @@ static NSString * const cellIdentifier = @"ContactListCell";
             }];
         } else {
             NSLog(@"%@", aError.errorDescription);
+            hud.label.text = aError.errorDescription;
+            [hud hideAnimated:YES afterDelay:1.5];
         }
     }];
 }
@@ -335,9 +349,10 @@ static NSString * const cellIdentifier = @"ContactListCell";
     // 收到有效的邀请
     if ((aUsername || aMessage) ) {
         NSDictionary *dataDict = [NSDictionary dictionaryWithObjectsAndKeys:aUsername, @"userID", aMessage, @"message", nil];
-        [BRFileWithNewFriendsRequestData savedToPlistWithData:dataDict];
+        [BRFileWithNewRequestData savedToFileName:newFirendRequestFile withData:dataDict];
+        
     }
-    NSString *badgeCount = [BRFileWithNewFriendsRequestData countForNewFriendRequest];
+    NSString *badgeCount = [BRFileWithNewRequestData countForNewRequestFromFile:newFirendRequestFile];
     cell.badgeLabel.text = badgeCount;
     cell.showBadge = YES;
     [self.tableView reloadData];

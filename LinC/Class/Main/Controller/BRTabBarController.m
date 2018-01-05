@@ -12,7 +12,7 @@
 #import "BRContactListViewController.h"
 #import "BRUserInfoViewController.h"
 #import "BRSDKHelper.h"
-#import "BRFileWithNewFriendsRequestData.h"
+#import "BRFileWithNewRequestData.h"
 
 
 @interface BRTabBarController () <EMChatManagerDelegate, EMContactManagerDelegate>
@@ -60,10 +60,12 @@
     [[EMClient sharedClient].contactManager addDelegate:self delegateQueue:dispatch_get_main_queue()];
 //
 //    // 获取未读消息数，设置badge
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedNewFriendRequest:)
                                                      name:kBRFriendRequestExtKey object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedNewFriendRequest:)
+                                                     name:kBRGroupRequestExtKey object:nil];
         NSArray *conversations = [[EMClient sharedClient].chatManager getAllConversations];
         
         NSInteger totalUnreadCount = 0;
@@ -80,16 +82,20 @@
     [super viewDidAppear:animated];
     BRContactListViewController *contactListVC = [((UINavigationController *)self.viewControllers[1]).viewControllers firstObject];
     
-    NSString *badgeCount = [BRFileWithNewFriendsRequestData countForNewFriendRequest];
-    contactListVC.tabBarItem.badgeValue = [badgeCount integerValue] != 0 ? badgeCount : nil;
+    NSString *friendsBadgeCount = [BRFileWithNewRequestData countForNewRequestFromFile:newFirendRequestFile];
+    NSString *groupBadgeCount = [BRFileWithNewRequestData countForNewRequestFromFile:newGroupRequestFile];
+    NSInteger badgeCount = [friendsBadgeCount integerValue] + [groupBadgeCount integerValue];
+    contactListVC.tabBarItem.badgeValue = badgeCount != 0 ? [NSString stringWithFormat: @"%ld", (long)badgeCount] : nil;
 }
 
 - (void)receivedNewFriendRequest:(NSNotification *)notification
 {
     BRContactListViewController *contactListVC = [((UINavigationController *)self.viewControllers[1]).viewControllers firstObject];
     
-    NSString *badgeCount = [BRFileWithNewFriendsRequestData countForNewFriendRequest];
-    contactListVC.tabBarItem.badgeValue = [badgeCount integerValue] != 0 ? badgeCount : nil;
+    NSString *friendsBadgeCount = [BRFileWithNewRequestData countForNewRequestFromFile:newFirendRequestFile];
+    NSString *groupBadgeCount = [BRFileWithNewRequestData countForNewRequestFromFile:newGroupRequestFile];
+    NSInteger badgeCount = [friendsBadgeCount integerValue] + [groupBadgeCount integerValue];
+    contactListVC.tabBarItem.badgeValue = badgeCount != 0 ? [NSString stringWithFormat: @"%ld", (long)badgeCount] : nil;
     [contactListVC.tableView reloadData];
 }
 

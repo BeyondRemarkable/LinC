@@ -6,10 +6,9 @@
 //  Copyright © 2017 BeyondRemarkable. All rights reserved.
 //
 
-#import "BRFileWithNewFriendsRequestData.h"
+#import "BRFileWithNewRequestData.h"
 
-@implementation BRFileWithNewFriendsRequestData
-
+@implementation BRFileWithNewRequestData
 
 
 /**
@@ -17,15 +16,15 @@
  
  @return document path
  */
-+ (NSString *)getPath {
++ (NSString *)getPathWithFileName:(NSString *)file {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"newfirendRequestData.plist"];
+    NSString *path = [documentsDirectory stringByAppendingPathComponent: file];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
     // Create new file if not exist
     if (![fileManager fileExistsAtPath: path]) {
-        path = [documentsDirectory stringByAppendingPathComponent: [NSString stringWithFormat:@"newfirendRequestData.plist"]];
+        path = [documentsDirectory stringByAppendingPathComponent: file];
     }
     NSLog(@"path=%@", path);
     return path;
@@ -37,27 +36,25 @@
 
  @param dictData dictData
  */
-+ (void)savedToPlistWithData:(NSDictionary *)dictData
++ (void)savedToFileName:(NSString *)fileName withData:(NSDictionary *)dictData
 {
-    NSString *path = [self getPath];
-    NSLog(@"path=%@", path);
+    NSString *path = [self getPathWithFileName:fileName];
+    NSLog(@"path==%@", path);
     // Write data to file
-    NSMutableArray *newfriendData = [[NSMutableArray alloc] initWithContentsOfFile: path];
-    if (newfriendData.count == 0) {
-        newfriendData = [NSMutableArray array];
-        [newfriendData addObject:dictData];
-        [newfriendData writeToFile:path atomically:YES];
+    NSMutableArray *newRequestData = [[NSMutableArray alloc] initWithContentsOfFile: path];
+    if (newRequestData.count == 0) {
+        newRequestData = [NSMutableArray array];
+        [newRequestData addObject:dictData];
+        [newRequestData writeToFile:path atomically:YES];
         
     } else {
-        
-        for (NSDictionary *dict in newfriendData) {
+        for (NSDictionary *dict in newRequestData) {
             if (![[dict allValues] containsObject:dictData[@"userID"]]) {
-                [newfriendData addObject:dictData];
-                [newfriendData writeToFile:path atomically:YES];
+                [newRequestData addObject:dictData];
+                [newRequestData writeToFile:path atomically:YES];
             }
         }
     }
-    
 }
 
 /**
@@ -65,11 +62,11 @@
  
  @return NSString newfriendData.count
  */
-+ (NSString *)countForNewFriendRequest {
-    NSString *path = [self getPath];
++ (NSString *)countForNewRequestFromFile:(NSString *)fileName {
+    NSString *path = [self getPathWithFileName:fileName];
     NSMutableArray *newfriendData = [[NSMutableArray alloc] initWithContentsOfFile: path];
     
-        return [NSString stringWithFormat:@"%lu", (unsigned long)newfriendData.count];
+    return [NSString stringWithFormat:@"%lu", (unsigned long)newfriendData.count];
 }
 
 
@@ -78,31 +75,31 @@
 
  @return NSMutableArray newfriendData
  */
-+ (NSMutableArray *)getAllNewFriendRequestData {
-    NSString *path = [self getPath];
-    NSMutableArray *newfriendData = [[NSMutableArray alloc] initWithContentsOfFile: path];
++ (NSMutableArray *)getAllNewRequestDataFromFile:(NSString *)fileName {
+    NSString *path = [self getPathWithFileName:fileName];
+    NSMutableArray *newRequestData = [[NSMutableArray alloc] initWithContentsOfFile: path];
     
-    if (!newfriendData) {
-        newfriendData = [NSMutableArray array];
+    if (!newRequestData) {
+        newRequestData = [NSMutableArray array];
     }
-    return newfriendData;
+    return newRequestData;
 }
 
 
 /**
     当点击接受或者拒绝按钮时，从好友请求数据中删除当前请求
 
- @param userID userID
+ @param deleteID deleteID
  @return ture 删除成功， false 删除失败
  */
-+ (BOOL)deleteNewFriendRequest:(NSString *)userID {
-    NSString *path = [self getPath];
++ (BOOL)deleteRequestFromFile:(NSString *)fileName byID:(NSString *)deleteID {
+    NSString *path = [self getPathWithFileName:fileName];
     NSMutableArray *newfriendData = [[NSMutableArray alloc] initWithContentsOfFile: path];
     
     if (newfriendData) {
         for (int i = 0; i < newfriendData.count; i++) {
             NSDictionary *dict = [newfriendData objectAtIndex:i];
-            if ([[dict allValues] containsObject:userID]) {
+            if ([[dict allValues] containsObject:deleteID]) {
                 [newfriendData removeObjectAtIndex:i];
                 [newfriendData writeToFile:path atomically:YES];
                 return true;
@@ -111,5 +108,7 @@
     }
     return false;
 }
+
+
 
 @end

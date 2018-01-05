@@ -14,6 +14,7 @@
 #import "BRConversationModel.h"
 
 static BRCoreDataStack *gCoreDataStack = nil;
+BRUserInfo *userInfoDic = nil;
 
 @implementation BRCoreDataManager
 
@@ -46,16 +47,17 @@ static BRCoreDataStack *gCoreDataStack = nil;
     return [NSEntityDescription insertNewObjectForEntityForName:entityName inManagedObjectContext: [gCoreDataStack managedObjectContext]];
 }
 
-- (BRUserInfo *)userInfoDic {
-    static BRUserInfo *userInfoDic = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+- (BRUserInfo *)getUserInfo {
+    NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
+    
+    if (self.userInfoDic && self.userInfoDic.username == username) {
+        return self.userInfoDic;
+    } else {
         NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
-        userInfoDic = [self fetchUserInfoBy: username];
-    });
-    return userInfoDic;
+        self.userInfoDic = [self fetchUserInfoBy:username];
+        return self.userInfoDic;
+    }
 }
-
 
 /**
      保存登录用户信息
@@ -66,7 +68,7 @@ static BRCoreDataStack *gCoreDataStack = nil;
     NSManagedObjectContext *context = [self managedObjectContext];
 
     if ([userModel isKindOfClass:[BRContactListModel class]]) {
-        if (!self.userInfoDic) {
+        if (![self fetchUserInfoBy:userModel.username]) {
             // 登录用户不存在， 保存新用户
             BRUserInfo *userInfo = [NSEntityDescription insertNewObjectForEntityForName:@"BRUserInfo" inManagedObjectContext:context];
             userInfo.username = userModel.username;
@@ -79,9 +81,11 @@ static BRCoreDataStack *gCoreDataStack = nil;
             if (![self saveData]) {
                 NSAssert(YES, @"数据库保存失败！！！");
             }
+            self.userInfoDic = userInfo;
         } else {
-            if (![userModel.updated isEqualToString:self.userInfoDic.updated]) {
-                BRUserInfo *userInfo = self.userInfoDic;
+            BRUserInfo *userInfo = [self getUserInfo];
+            if (![userModel.updated isEqualToString:userInfo.updated]) {
+                BRUserInfo *userInfo = [self getUserInfo];
                 userInfo.username = userModel.username;
                 userInfo.nickname = userModel.nickname;
                 userInfo.gender = userModel.gender;
@@ -106,7 +110,7 @@ static BRCoreDataStack *gCoreDataStack = nil;
  */
 - (void)updateUserInfoWithKeys:(NSArray *)keyArray andValue: (NSArray *)valueArray {
 
-    BRUserInfo *userInfo = self.userInfoDic;
+    BRUserInfo *userInfo = [self getUserInfo];
     NSString *key = [keyArray lastObject];
 
     if ([key isEqualToString:@"avatar"]) {
@@ -167,7 +171,7 @@ static BRCoreDataStack *gCoreDataStack = nil;
 - (void)saveFriendsInfoToCoreData:(NSMutableArray*)dataArray
 {
 
-    BRUserInfo *userInfo = self.userInfoDic;
+    BRUserInfo *userInfo = [self getUserInfo];
     NSMutableArray *friendsArray = [NSMutableArray array];
     // 判断好友是否已经已经保存在数据库
     for (BRContactListModel *contactModel in dataArray) {
@@ -295,7 +299,7 @@ static BRCoreDataStack *gCoreDataStack = nil;
  */
 - (BRFriendsInfo *)fetchFriendInfoBy:(NSString *)friendID {
 
-    BRUserInfo *userInfo = self.userInfoDic;
+    BRUserInfo *userInfo = [self getUserInfo];
     
     for (BRFriendsInfo *friendInfo in userInfo.friendsInfo) {
         if ([friendInfo.username isEqualToString:friendID]) {
@@ -314,7 +318,7 @@ static BRCoreDataStack *gCoreDataStack = nil;
 - (void)insertConversationToCoreData:(EMMessage *)message {
     NSManagedObjectContext *context = [self managedObjectContext];
 
-    BRUserInfo *userInfo = self.userInfoDic;
+    BRUserInfo *userInfo = [self getUserInfo];
     
     BOOL isContains = NO;
     for (BRConversation *conversation in userInfo.conversation) {
@@ -363,7 +367,7 @@ static BRCoreDataStack *gCoreDataStack = nil;
  */
 - (void)deleteConversationByID:(NSArray *)conversationIDArray {
     
-    BRUserInfo *userInfo = self.userInfoDic;
+    BRUserInfo *userInfo = [self getUserInfo];
     NSMutableSet *conversationSet = [NSMutableSet set];
     for (BRConversation *conversation in userInfo.conversation) {
         
@@ -383,7 +387,7 @@ static BRCoreDataStack *gCoreDataStack = nil;
  */
 - (NSMutableArray *)fetchConversations {
 
-    BRUserInfo *userInfo = self.userInfoDic;
+    BRUserInfo *userInfo = [self getUserInfo];
     NSMutableArray *conversationArray = [NSMutableArray array];
     
     for (BRConversation *conversation in userInfo.conversation) {

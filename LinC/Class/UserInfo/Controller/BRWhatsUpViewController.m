@@ -155,7 +155,7 @@
         [textView setText:s];
     }
     
-    //不让显示负数 口口日
+    //不让显示负数 
     self.countLabel.text = [NSString stringWithFormat:@"%ld",MAX(0,MAX_LIMIT_NUMS - existTextNum)];
 }
 

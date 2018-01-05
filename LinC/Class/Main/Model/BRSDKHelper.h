@@ -25,6 +25,8 @@
 #define kBRSDKConfigIsUseLite @"isUselibHyphenateClientSDKLite"
 /** @brief 用来判断是否是好友请求 */
 #define kBRFriendRequestExtKey @"kBRFriendRequestExtKey"
+/** @brief 用来判断是否是群请求 */
+#define kBRGroupRequestExtKey @"kBRGroupRequestExtKey"
 @interface BRSDKHelper : NSObject <EMClientDelegate>
 
 /** @brief 当前是否有imagePickerViewController弹出 */

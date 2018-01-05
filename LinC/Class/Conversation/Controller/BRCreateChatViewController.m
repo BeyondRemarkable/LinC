@@ -14,10 +14,13 @@
 #import "BRCoreDataManager.h"
 #import "BRFriendsInfo+CoreDataClass.h"
 #import <MBProgressHUD.h>
+#import "BRCreateGroupChatTableViewController.h"
 
 @interface BRCreateChatViewController ()
+
 @property (nonatomic, strong) NSArray *friendList;
 @property (nonatomic, strong) NSMutableArray *selectedList;
+@property (nonatomic, strong) NSMutableArray *buddyList;
 @end
 
 @implementation BRCreateChatViewController
@@ -54,16 +57,45 @@
     
     [self.tableView registerNib:[UINib nibWithNibName:@"BRContactListTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:[BRContactListTableViewCell cellIdentifierWithModel:nil]];
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", nil) style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Create chat", nil) style:UIBarButtonItemStylePlain target:self action:@selector(createChat)];
-    [self.navigationItem.rightBarButtonItem setEnabled:NO];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if (self.doesAddMembers) {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Add members", nil) style:UIBarButtonItemStylePlain target:self action:@selector(addMoreMembers)];
+        
+    } else {
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", nil) style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Create chat", nil) style:UIBarButtonItemStylePlain target:self action:@selector(createChat)];
+    }
+    if (self.selectedList.count >= 2) {
+        [self.navigationItem.rightBarButtonItem setEnabled:YES];
+    } else {
+        [self.navigationItem.rightBarButtonItem setEnabled:NO];
+    }
+    [self setupFriendList];
 }
 
 #pragma mark - private methods
+
 - (void)setupFriendList {
-    NSArray *buddyList = [[EMClient sharedClient].contactManager getContacts];
+    self.buddyList = [[[EMClient sharedClient].contactManager getContacts] mutableCopy];
+    if (self.groupMembersArray.count != 0) {
+        // 邀请好友加群时，排除已经在群里的成员
+        NSMutableArray *deletaArr = [NSMutableArray array];
+        for (NSString *memberName in self.groupMembersArray) {
+            if ([self.buddyList containsObject:memberName]) {
+                [deletaArr addObject:memberName];
+            }
+        }
+        if (deletaArr.count != 0) {
+            [self.buddyList removeObjectsInArray:deletaArr];
+        }
+        
+    }
+     // 从数据库获取好友的昵称
     NSMutableArray *resultArr = [NSMutableArray array];
-    for (NSString *userID in buddyList) {
+    for (NSString *userID in self.buddyList) {
          BRFriendsInfo *friendInfo = [[BRCoreDataManager sharedInstance] fetchFriendInfoBy:userID];
         if (friendInfo) {
 
@@ -85,6 +117,7 @@
 }
 
 - (void)createChat {
+    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     // 只选择一个好友，不创建群聊
     if (self.selectedList.count == 1) {
         // 退出创建界面
@@ -95,40 +128,40 @@
         // push聊天界面
         BRMessageViewController *vc = [[BRMessageViewController alloc] initWithConversationChatter:model.buddy conversationType:EMConversationTypeChat];
         vc.title = model.nickname;
-        
+        [hud hideAnimated:YES];
         [self dismissViewControllerAnimated:YES completion:^{
             self.dismissCompletionBlock(vc);
         }];
-    }
-    // 选择了两个以上的好友，创建群聊
-    else {
+    } else {
+         // 选择了两个以上的好友，创建群聊
+        [hud hideAnimated:YES];
         NSMutableArray *groupInviteeList = [NSMutableArray array];
         for (NSNumber *number in self.selectedList) {
             NSInteger index = [number integerValue];
             [groupInviteeList addObject:[[self.friendList objectAtIndex:index] buddy]];
         }
-        
-        // 创建群聊
-        EMGroupOptions *setting = [[EMGroupOptions alloc] init];
-        setting.maxUsersCount = 500;
-        setting.style = EMGroupStylePublicJoinNeedApproval;
-        [[EMClient sharedClient].groupManager createGroupWithSubject:[NSString stringWithFormat:NSLocalizedString(@"%@'s group", nil), [EMClient sharedClient].currentUsername] description:@"" invitees:groupInviteeList message:@"" setting:setting completion:^(EMGroup *aGroup, EMError *aError) {
-            if(!aError){
-                // 退出创建界面
-                [self.navigationController popViewControllerAnimated:YES];
-                NSLog(@"创建成功 -- %@", aGroup);
-                BRMessageViewController *vc = [[BRMessageViewController alloc] initWithConversationChatter:aGroup.groupId conversationType:EMConversationTypeGroupChat];
-                vc.title = aGroup.subject;
-                [self dismissViewControllerAnimated:YES completion:^{
-                    self.dismissCompletionBlock(vc);
-                }];
-            }
-            else {
-                hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                hud.mode = MBProgressHUDModeText;
-                hud.label.text = aError.errorDescription;
+        UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRConversation" bundle:[NSBundle mainBundle]];
+        BRCreateGroupChatTableViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRCreateGroupChatTableViewController"];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+        vc.selectedList = groupInviteeList;
+        [self presentViewController:nav animated:YES completion:nil];
+    }
+}
+
+
+/**
+  添加群成员
+ */
+- (void)addMoreMembers {
+    if (self.selectedList.count > 0) {
+        hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [[EMClient sharedClient].groupManager addMembers:self.buddyList toGroup:self.groupID message:nil completion:^(EMGroup *aGroup, EMError *aError) {
+            if (!aError) {
+                hud.label.text = @" Successfully";
+                [self performSelector:@selector(cancel) withObject:nil afterDelay:1.5];
+            } else {
+                hud.label.text = aError.description;
                 [hud hideAnimated:YES afterDelay:1.5];
-                NSLog(@"创建失败 -- %@", aError.errorDescription);
             }
         }];
     }
@@ -136,6 +169,7 @@
 
 - (void)cancel {
     [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - Table view data source
