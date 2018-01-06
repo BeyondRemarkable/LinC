@@ -154,11 +154,39 @@ typedef enum : NSUInteger {
     
     [self tableViewDidTriggerHeaderRefresh];
     [self setupEmotion];
+    [self setUpNavigationBarItem];
     
     // 版本更新后使用tableview的自定义高度时设置这些参数非常重要!!!!!!!!!!
     self.tableView.estimatedRowHeight = 0;
     self.tableView.estimatedSectionHeaderHeight = 0;
     self.tableView.estimatedSectionFooterHeight = 0;
+}
+
+// 群聊时的 navigation bar items
+- (void)setUpNavigationBarItem {
+    if (self.conversation.type == EMConversationTypeGroupChat) {
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [btn setFrame:CGRectMake(0, 0, 35, 35)];
+        [btn setBackgroundImage:[UIImage imageNamed:@"more_info"] forState:UIControlStateNormal];
+        [btn setBackgroundImage:[UIImage imageNamed:@"more_info_highlighted"] forState:UIControlStateHighlighted];
+        [btn addTarget:self action:@selector(settingClick) forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+    }
+    
+}
+
+
+/**
+ 群聊的群设置
+ */
+- (void)settingClick {
+    UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRFriendInfo" bundle:[NSBundle mainBundle]];
+    if (self.conversation.type == EMConversationTypeGroupChat) {
+        // 群设置
+        BRGroupChatSettingTableViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRGroupChatSettingTableViewController"];
+        vc.groupID = self.conversation.conversationId;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 /*!

@@ -49,18 +49,20 @@
     if (self.doesJoinGroup && self.groupID) {
         NSString *groupKey = [[kBRGroupRequestExtKey stringByAppendingString:@":"] stringByAppendingString:self.groupID];
         // 构建群请求消息
-        message = [BRSDKHelper sendTextMessage:self.userMessage.text
+        message = [BRSDKHelper getTextMessage:self.userMessage.text
                                                        to:self.searchID
                                               messageType:EMChatTypeChat
                                                messageExt: @{@"em_apns_ext":@{@"extern":groupKey}}];
         
         [[EMClient sharedClient].groupManager applyJoinPublicGroup:self.groupID message:nil error:nil];
     
-    // 构建需要发送的message
-    EMMessage *message = [BRSDKHelper getTextMessage:self.userMessage.text
-                                                   to:self.userID
-                                          messageType:EMChatTypeChat
-                                           messageExt: @{@"em_apns_ext":@{@"extern":kBRFriendRequestExtKey}}];
+    } else {
+        // 构建好友请求消息
+        message = [BRSDKHelper getTextMessage:self.userMessage.text
+                                            to:self.searchID
+                                   messageType:EMChatTypeChat
+                                    messageExt: @{@"em_apns_ext":@{@"extern":kBRFriendRequestExtKey}}];
+    }
     
     [[EMClient sharedClient].chatManager sendMessage:message progress:nil completion:^(EMMessage *aMessage, EMError *aError) {
         hud.mode = MBProgressHUDModeText;
