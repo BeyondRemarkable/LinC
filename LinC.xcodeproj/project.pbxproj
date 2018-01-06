@@ -246,7 +246,6 @@
 		E90F7AE91F670DC300333382 /* BRRefreshTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRRefreshTableViewController.m; sourceTree = "<group>"; };
 		E90F7AEA1F670DC300333382 /* BRTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRTabBarController.h; sourceTree = "<group>"; };
 		E90F7AEB1F670DC300333382 /* BRTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRTabBarController.m; sourceTree = "<group>"; };
-		E90F7AEE1F670DC300333382 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E90F7AF21F670DC300333382 /* BRBubbleView+File.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BRBubbleView+File.h"; sourceTree = "<group>"; };
 		E90F7AF31F670DC300333382 /* BRBubbleView+File.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BRBubbleView+File.m"; sourceTree = "<group>"; };
 		E90F7AF41F670DC300333382 /* BRBubbleView+Gif.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BRBubbleView+Gif.h"; sourceTree = "<group>"; };
@@ -719,7 +718,6 @@
 		E90F7AED1F670DC300333382 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E90F7AEE1F670DC300333382 /* LaunchScreen.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
