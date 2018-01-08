@@ -160,7 +160,7 @@
                 hud.label.text = @" Successfully";
                 [self performSelector:@selector(cancel) withObject:nil afterDelay:1.5];
             } else {
-                hud.label.text = aError.description;
+                hud.label.text = aError.errorDescription;
                 [hud hideAnimated:YES afterDelay:1.5];
             }
         }];

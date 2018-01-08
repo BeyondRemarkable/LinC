@@ -94,11 +94,16 @@ static NSString * const cellIdentifier = @"groupCell";
             }
             [self.groupDescriptionLabel sizeToFit];
             
-            // 群主 或 群设置不是EMGroupStylePrivateOnlyOwnerInvite时， 允许加新组员
-            if ([aGroup.owner isEqualToString:[EMClient sharedClient].currentUsername] || aGroup.setting.style != EMGroupStylePrivateOnlyOwnerInvite) {
-                [self setUpNavigationRightItem];
+            // 群主允许加新组员
+            if ([aGroup.owner isEqualToString:[EMClient sharedClient].currentUsername]) {
+                [self setUpAddMembersBtn];
+            } else {
+                //群权限为EMGroupStylePrivateMemberCanInvite 和 EMGroupStylePublicOpenJoin 允许加新组员
+                if (groupSetting.style == EMGroupStylePrivateMemberCanInvite || groupSetting.style == EMGroupStylePublicOpenJoin) {
+                    [self setUpAddMembersBtn];
+                }
             }
-            
+            // 获取群成员信息
             [[BRClientManager sharedManager] getUserInfoWithUsernames:aGroup.occupants andSaveFlag:NO success:^(NSMutableArray *groupMembersArray) {
                 self.dataArray = groupMembersArray;
                 [self.tableView reloadData];
@@ -127,6 +132,19 @@ static NSString * const cellIdentifier = @"groupCell";
     }
 }
 
+
+/**
+    群权限允许时，邀请好友加群
+ */
+- (void)setUpAddMembersBtn {
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn setFrame:CGRectMake(0, 0, 35, 35)];
+    [btn setBackgroundImage:[UIImage imageNamed:@"add_setting"] forState:UIControlStateNormal];
+    [btn setBackgroundImage:[UIImage imageNamed:@"add_setting_highlighted"] forState:UIControlStateHighlighted];
+    [btn addTarget:self action:@selector(clickAddMoreMembers) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+}
+
 - (void)setUpTableView {
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -146,19 +164,11 @@ static NSString * const cellIdentifier = @"groupCell";
     if (self.doesJoinGroup) {
         // 请求加群
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(clickJoinGroup)];
-    } else {
-       // 查看群设置
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [btn setFrame:CGRectMake(0, 0, 35, 35)];
-        [btn setBackgroundImage:[UIImage imageNamed:@"add_setting"] forState:UIControlStateNormal];
-        [btn setBackgroundImage:[UIImage imageNamed:@"add_setting_highlighted"] forState:UIControlStateHighlighted];
-        [btn addTarget:self action:@selector(clickAddMoreMembers) forControlEvents:UIControlEventTouchUpInside];
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
     }
 }
 
 /**
- 点击请求加群按钮
+ 点击请求加群按钮(根据群权限判断)
  */
 - (void)clickJoinGroup {
 

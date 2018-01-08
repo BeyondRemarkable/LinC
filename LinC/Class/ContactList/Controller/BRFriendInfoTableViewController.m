@@ -146,7 +146,7 @@
             hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             hud.mode = MBProgressHUDModeText;
             if (!aError) {
-                hud.label.text = @"Successful delete";
+                hud.label.text = @"Deleted Successfully.";
                 // 从core data中 删除好友数据
                 NSArray *deleteArr = [NSArray arrayWithObject:self.contactListModel.username];
                 if (deleteArr.count != 0) {
@@ -183,7 +183,7 @@
         hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         [[EMClient sharedClient].groupManager removeMembers:[NSArray arrayWithObject:self.contactListModel.username] fromGroup:self.group.groupId completion:^(EMGroup *aGroup, EMError *aError) {
             if (!aError) {
-                hud.label.text = @"Successful delete";
+                hud.label.text = @"Deleted Successfully.";
                 [self performSelector:@selector(popVC) withObject:nil afterDelay:1.0];
             } else {
                 hud.label.text = aError.errorDescription;
