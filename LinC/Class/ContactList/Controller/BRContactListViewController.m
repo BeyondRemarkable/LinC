@@ -348,7 +348,8 @@ static NSString * const cellIdentifier = @"ContactListCell";
     
     // 收到有效的邀请
     if ((aUsername || aMessage) ) {
-        NSDictionary *dataDict = [NSDictionary dictionaryWithObjectsAndKeys:aUsername, @"userID", aMessage, @"message", nil];
+        NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
+        NSDictionary *dataDict = [NSDictionary dictionaryWithObjectsAndKeys:aUsername, @"userID", aMessage, @"message",username, @"loginUser", nil];
         [BRFileWithNewRequestData savedToFileName:newFirendRequestFile withData:dataDict];
         
     }

@@ -14,14 +14,16 @@
 #import "BRFileWithNewRequestData.h"
 #import "BRNewFriendTableViewCell.h"
 #import "BRFriendRequestTableViewController.h"
+#import "BRCoreDataManager.h"
+#import "BRGroup+CoreDataClass.h"
 
 @interface BRGroupListTableViewController ()<UITableViewDataSource, UITableViewDelegate, EMGroupManagerDelegate>
 {
     MBProgressHUD *hud;
 }
-@property (nonatomic, strong) NSMutableArray *groupListArray;
+@property (nonatomic, strong) NSArray *groupListArray;
 @property (nonnull, strong) NSMutableArray *groupRequestArray;
-@property (nonnull, strong) NSMutableArray *groupNameRequestArray;
+@property (nonnull, strong) NSArray *groupNameRequestArray;
 @end
 
 @implementation BRGroupListTableViewController
@@ -39,39 +41,48 @@ typedef enum : NSInteger {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    self.groupNameRequestArray = [NSMutableArray array];
-    self.groupRequestArray = [BRFileWithNewRequestData getAllNewRequestDataFromFile:newGroupRequestFile];
-    
-    // 获取群列表
-    [[EMClient sharedClient].groupManager getJoinedGroupsFromServerWithPage:-1 pageSize:-1 completion:^(NSArray *aList, EMError *aError) {
-        if (!aError) {
-            self.groupListArray = [aList copy];
-            
-            for (int i = 0; i < self.groupRequestArray.count; i++) {
-                for (EMGroup *group in aList) {
-                    NSString *requestGroupID = self.groupRequestArray[i][@"groupID"];
-                    if ([group.groupId isEqualToString:requestGroupID]) {
-                        [self.groupNameRequestArray addObject:group.subject];
-                    }
-                }
-            }
-            [self.tableView reloadData];
-            [hud hideAnimated:YES];
-        }
-    }];
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
     [self setUpNavigationBarItem];
-    
+    [self setUpGroupInfo];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([BRGroupMemberTableViewCell class]) bundle:nil] forCellReuseIdentifier:@"groupCell"];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+/**
+ 获取及更新群信息
+ */
+- (void)setUpGroupInfo {
+    self.groupNameRequestArray = [NSMutableArray array];
+    self.groupRequestArray = [BRFileWithNewRequestData getAllNewRequestDataFromFile:newGroupRequestFile];
+    
+    for (int i = 0; i < self.groupRequestArray.count; i++) {
+        BRGroup *requestGroup = [[[BRCoreDataManager sharedInstance] fetchGroupsWithGroupID:self.groupRequestArray[i][@"groupID"]] lastObject];
+        [self.groupNameRequestArray arrayByAddingObject:requestGroup.groupName];
+    }
+    
+    self.groupListArray = [[BRCoreDataManager sharedInstance] fetchGroupsWithGroupID:nil];
+    if (!self.groupListArray.count) {
+        hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    }
+    // 获取群列表
+    [[EMClient sharedClient].groupManager getJoinedGroupsFromServerWithPage:-1 pageSize:-1 completion:^(NSArray *aList, EMError *aError) {
+        if (!aError) {
+            for (EMGroup *group in aList) {
+                [[BRCoreDataManager sharedInstance] saveGroupToCoreData:group withIcon:nil];
+            }
+            self.groupListArray = [[BRCoreDataManager sharedInstance] fetchGroupsWithGroupID:nil];
+            [self.tableView reloadData];
+            [hud hideAnimated:YES];
+        }
+    }];
 }
 
 // Set up navigation bar items
@@ -87,10 +98,10 @@ typedef enum : NSInteger {
 - (void)clickGroupSetting {
     [self.tableView setEditing:!self.tableView.editing animated:YES];
     if (self.tableView.editing){
-//        self.navigationItem.rightBarButtonItem.image =
+        //        self.navigationItem.rightBarButtonItem.image =
     }
     else{
-//        self.navigationItem.rightBarButtonItem.image =
+        //        self.navigationItem.rightBarButtonItem.image =
     }
 }
 
@@ -116,19 +127,16 @@ typedef enum : NSInteger {
             cell= (BRNewFriendTableViewCell *)[[[NSBundle  mainBundle]  loadNibNamed:@"BRNewFriendTableViewCell" owner:self options:nil]  lastObject];
         }
         cell.userID.text = self.groupRequestArray[indexPath.row][@"userID"];
-        if (self.groupNameRequestArray.count != 0) {
-            NSString *groupName = self.groupNameRequestArray[indexPath.row];
-            NSString *requestMessage = [NSString stringWithFormat: @"Join %@ group : ", groupName];
-            cell.userMessage.text = [requestMessage stringByAppendingString: self.groupRequestArray[indexPath.row][@"message"]];
-        }
+        BRGroup *group = self.groupListArray[indexPath.row];
+        NSString *requestMessage = [NSString stringWithFormat: @"Join %@ group : ", group.groupName];
+        cell.userMessage.text = [requestMessage stringByAppendingString: self.groupRequestArray[indexPath.row][@"message"]];
         
         return cell;
     } else {
         BRGroupMemberTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"groupCell" forIndexPath:indexPath];
-        //    cell.grounName.text = [NSString stringWithFormat:@"%@", self.groupArray[indexPath.row]];
-        EMGroup *group = (EMGroup *)self.groupListArray[indexPath.row];
-        cell.grounpName.text = group.subject;
-          return cell;
+        BRGroup *group = (BRGroup *)self.groupListArray[indexPath.row];
+        cell.grounpName.text = group.groupName;
+        return cell;
     }
 }
 
@@ -150,9 +158,9 @@ typedef enum : NSInteger {
         [self.navigationController pushViewController:vc animated:YES];
     } else if (self.groupListArray) {
         //获取群聊模型， 跳转到群聊天VC
-        EMGroup *group = self.groupListArray[indexPath.row];
+        BRGroup *group = self.groupListArray[indexPath.row];
         
-        BRMessageViewController *vc = [[BRMessageViewController alloc] initWithConversationChatter:group.groupId conversationType:EMConversationTypeGroupChat];
+        BRMessageViewController *vc = [[BRMessageViewController alloc] initWithConversationChatter:group.groupID conversationType:EMConversationTypeGroupChat];
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
@@ -164,15 +172,15 @@ typedef enum : NSInteger {
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        EMGroup *deleteGroup = self.groupListArray[indexPath.row];
+        BRGroup *deleteGroup = self.groupListArray[indexPath.row];
         NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
-        if ([username isEqualToString: deleteGroup.owner]) {
+        if ([username isEqualToString: deleteGroup.groupOwner]) {
             // 群主解散群
             UIAlertController *actionSheet =[UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
             
             UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Destory group" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-               
-                [[EMClient sharedClient].groupManager destroyGroup:deleteGroup.groupId finishCompletion:^(EMError *aError) {
+                
+                [[EMClient sharedClient].groupManager destroyGroup:deleteGroup.groupID finishCompletion:^(EMError *aError) {
                     if (!aError) {
                         self.groupListArray = [[[EMClient sharedClient].groupManager getJoinedGroups] copy];
                         [self.tableView reloadData];
@@ -197,7 +205,7 @@ typedef enum : NSInteger {
         } else {
             // 成员退出群
             
-            [[EMClient sharedClient].groupManager leaveGroup:deleteGroup.groupId completion:^(EMError *aError) {
+            [[EMClient sharedClient].groupManager leaveGroup:deleteGroup.groupID completion:^(EMError *aError) {
                 if (!aError) {
                     self.groupListArray = [[[EMClient sharedClient].groupManager getJoinedGroups] copy];
                     [self.tableView reloadData];
@@ -208,11 +216,10 @@ typedef enum : NSInteger {
                     [hud hideAnimated:YES afterDelay:1.5];
                 }
             }];
-            
         }
     }
 }
 
- 
+
 
 @end

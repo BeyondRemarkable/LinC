@@ -194,7 +194,8 @@
         
         if ([dict[@"status"] isEqualToString:@"success"]) {
             dispatch_group_t group = dispatch_group_create();
-            for (int i = 0; i < usernameList.count; i++) {
+            int friendConut = (int)[dict[@"data"][@"users"] count];
+            for (int i = 0; i < friendConut; i++) {
                 //给模型赋值
                 __block BRContactListModel *model = [[BRContactListModel alloc] initWithBuddy:dict[@"data"][@"users"][i][@"username"]];
                 model.username = dict[@"data"][@"users"][i][@"username"];

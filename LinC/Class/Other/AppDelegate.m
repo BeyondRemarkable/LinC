@@ -26,7 +26,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     NSDictionary *requestData = [launchOptions valueForKey: UIApplicationLaunchOptionsRemoteNotificationKey];
-    NSLog(@"requestData--%@", requestData);
+    NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
+    
     if (requestData) {
         NSString *findRequestFlat = [requestData valueForKey:@"e"];
         if (findRequestFlat && [findRequestFlat isEqualToString: kBRFriendRequestExtKey]) {
@@ -36,7 +37,7 @@
                 messageBody = [messageBody componentsSeparatedByString:@":"][1];
                 
                 NSString *messageFrom = [requestData valueForKey:@"f"];
-                NSDictionary *friendDict = [NSDictionary dictionaryWithObjectsAndKeys:messageBody, @"message", messageFrom, @"userID", nil];
+                NSDictionary *friendDict = [NSDictionary dictionaryWithObjectsAndKeys:messageBody, @"message", messageFrom, @"userID",username, @"loginUser", nil];
                 
                 [BRFileWithNewRequestData savedToFileName:newFirendRequestFile withData:friendDict];
             }
@@ -47,7 +48,7 @@
                 messageBody = [messageBody componentsSeparatedByString:@":"][1];
                 NSString *messageFrom = [requestData valueForKey:@"f"];
                 NSString *groupID = [findRequestFlat componentsSeparatedByString:@":"][1];
-                NSDictionary *groupMesDict = [NSDictionary dictionaryWithObjectsAndKeys:messageBody, @"message", messageFrom, @"userID", groupID, @"groupID", nil];
+                NSDictionary *groupMesDict = [NSDictionary dictionaryWithObjectsAndKeys:messageBody, @"message", messageFrom, @"userID", groupID, @"groupID", username, @"loginUser", nil];
                 [BRFileWithNewRequestData savedToFileName:newGroupRequestFile withData:groupMesDict];
             }
         }
@@ -133,12 +134,12 @@
 }
 
 -(void)showPushNotificationMessage:(EMMessage *)message{
-    
+    NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
     NSString *reqFlag = [message.ext valueForKeyPath:@"em_apns_ext.extern"];
     if (reqFlag) {
         // 好友请求
         if ([kBRFriendRequestExtKey isEqualToString:reqFlag]) {
-            NSDictionary *friendDict = [NSDictionary dictionaryWithObjectsAndKeys:((EMTextMessageBody *)message.body).text, @"message", message.from, @"userID" ,nil];
+            NSDictionary *friendDict = [NSDictionary dictionaryWithObjectsAndKeys:((EMTextMessageBody *)message.body).text, @"message", message.from, @"userID", username, @"loginUser", nil];
             [BRFileWithNewRequestData savedToFileName:newFirendRequestFile withData:friendDict];
             UILocalNotification *notification = [[UILocalNotification alloc] init];
             
@@ -155,7 +156,7 @@
         } else if ([reqFlag hasPrefix: kBRGroupRequestExtKey]) {
             // 群请求
             NSString *groupID = [reqFlag componentsSeparatedByString:@":"][1];
-            NSDictionary *groupRequestDict = [NSDictionary dictionaryWithObjectsAndKeys:((EMTextMessageBody *)message.body).text, @"message", message.from, @"userID", groupID, @"groupID", nil];
+            NSDictionary *groupRequestDict = [NSDictionary dictionaryWithObjectsAndKeys:((EMTextMessageBody *)message.body).text, @"message", message.from, @"userID", groupID, @"groupID",username, @"loginUser", nil];
             [BRFileWithNewRequestData savedToFileName:newGroupRequestFile withData:groupRequestDict];
             UILocalNotification *notification = [[UILocalNotification alloc] init];
             

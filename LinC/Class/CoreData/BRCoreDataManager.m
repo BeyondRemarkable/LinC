@@ -12,6 +12,7 @@
 #import "BRFriendsInfo+CoreDataClass.h"
 #import "BRConversation+CoreDataClass.h"
 #import "BRConversationModel.h"
+#import "BRGroup+CoreDataClass.h"
 
 static BRCoreDataStack *gCoreDataStack = nil;
 BRUserInfo *userInfoDic = nil;
@@ -383,7 +384,7 @@ BRUserInfo *userInfoDic = nil;
 /**
  获取所有会话模型数据
 
- @return return value 会话模型数组
+ @return 会话模型数组
  */
 - (NSMutableArray *)fetchConversations {
 
@@ -396,6 +397,172 @@ BRUserInfo *userInfoDic = nil;
     return conversationArray;
     
 }
+
+/**
+ 保存群模型数据
+
+ @param eMGroup EMGroup模型数据
+ @param groupIcon 群头像
+ */
+- (void)saveGroupToCoreData:(EMGroup *)eMGroup withIcon:(UIImage *)groupIcon; {
+    
+    BRGroup *group = [[self fetchGroupsWithGroupID:eMGroup.groupId] lastObject];
+    if (!group) {
+        [self insertGroupToCoreData:eMGroup];
+    } else {
+        [self updateGroupInfo:group];
+    }
+}
+
+/**
+ 保存群模型数据到数据库
+
+ @param eMGroup 环信群模型数据
+ */
+- (void)insertGroupToCoreData:(EMGroup *)eMGroup {
+    BRUserInfo *userInfo = [self getUserInfo];
+    NSManagedObjectContext *context = [self managedObjectContext];
+    BRGroup *group = [NSEntityDescription insertNewObjectForEntityForName:@"BRGroup" inManagedObjectContext:context];
+    group.groupOwner = eMGroup.owner;
+    group.groupName = eMGroup.subject;
+    group.groupID = eMGroup.groupId;
+    group.groupDescription = eMGroup.description;
+    [userInfo addGroupObject:group];
+    [self saveData];
+}
+
+/**
+ 更新群模型数据到数据库
+ 
+ @param group 群模型数据
+ */
+- (void)updateGroupInfo:(BRGroup *)group {
+    BRGroup *oldGroup = [[self fetchGroupsWithGroupID:group.groupID] lastObject];
+    oldGroup.groupName = group.groupName;
+    oldGroup.groupIcon = group.groupIcon;
+    oldGroup.groupOwner = group.groupOwner;
+    oldGroup.groupDescription = group.groupDescription;
+    [self saveData];
+}
+
+/**
+ 根据groupID获取群模型数据, groupID为nil时，获取所有群模型数据
+ 
+ @return return 群模型数组
+ */
+- (NSArray *)fetchGroupsWithGroupID:(NSString *)groupID {
+    BRUserInfo *userInfo = [self getUserInfo];
+    NSArray *groupsArray = nil;
+    
+    if (groupID) {
+        NSPredicate *fetchGroupFilter = [NSPredicate predicateWithFormat:@"groupID = %@", groupID];
+        NSSet *groups = [userInfo.group filteredSetUsingPredicate:fetchGroupFilter];
+        groupsArray = [groups allObjects];
+    } else {
+        groupsArray = [userInfo.group allObjects];
+    }
+    return groupsArray;
+}
+
+/**
+ 删除指定群模型数据
+ 
+ @param groupID 群ID
+ */
+- (void)deleteGroupByGoupID:(NSString *)groupID {
+    BRUserInfo *userInfo = [self getUserInfo];
+    NSPredicate *fetchGroupFilter = [NSPredicate predicateWithFormat:@"groupID = %@", groupID];
+    NSSet *groups = [userInfo.group filteredSetUsingPredicate:fetchGroupFilter];
+    BRGroup *deleteGroup = [[groups allObjects] lastObject];
+    [userInfo removeGroupObject:deleteGroup];
+    [self saveData];
+}
+
+/**
+ 保存群成员模型数据
+ 
+ @param groupMembers 群成员模型数据
+ @param groupID 群ID
+ */
+- (void)saveGroupMembersToCoreData:(NSArray *)groupMembers toGroup:(NSString *)groupID {
+    
+    NSManagedObjectContext *context = [self managedObjectContext];
+    BRGroup *group = [[self fetchGroupsWithGroupID:groupID] lastObject];
+    
+    for (BRContactListModel *model in groupMembers) {
+       
+        BRFriendsInfo *groupMember = [[self fetchGroupMembersByGroupID:groupID andGroupMemberUserName:model.username] lastObject];
+        if (!groupMember) {
+            // 群成员不存在，保存到数据库
+            BRFriendsInfo *friendsInfo = [NSEntityDescription insertNewObjectForEntityForName:@"BRFriendsInfo" inManagedObjectContext:context];
+            friendsInfo.username = model.username;
+            friendsInfo.nickname = model.nickname;
+            friendsInfo.gender = model.gender;
+            friendsInfo.email = model.email;
+            friendsInfo.whatsUp = model.whatsUp;
+            friendsInfo.updated = model.updated;
+            friendsInfo.avatar = UIImagePNGRepresentation(model.avatarImage);
+            friendsInfo.location = model.location;
+            [group addFriendsInfoObject:friendsInfo];
+            [self saveData];
+        } else {
+            // 更新群成员信息
+            [self updateGroupMemberInfo:model fromGroupID:groupID];
+        }
+    }
+    
+}
+
+/**
+ 获取指定群内成员模型数据，当groupMemberUserName为nil时，获取全部群成员模型数据
+ 
+ @param groupID 群ID
+ @param groupMemberUserName 需要获取的群成员ID
+ */
+- (NSArray *)fetchGroupMembersByGroupID:(NSString *)groupID andGroupMemberUserName:(NSString *)groupMemberUserName{
+    BRGroup *group = [[self fetchGroupsWithGroupID:groupID] lastObject];
+    if (!groupMemberUserName) {
+        return [group.friendsInfo allObjects];
+    } else {
+        NSPredicate *fetchGroupMemberFilter = [NSPredicate predicateWithFormat:@"username = %@", groupMemberUserName];
+        NSSet *groupMember = [group.friendsInfo filteredSetUsingPredicate:fetchGroupMemberFilter];
+        return [groupMember allObjects];
+    }
+}
+
+/**
+ 更新指定群内成员模型数据
+ 
+ @param groupMember 群成员数据
+ @param groupID 群ID
+ */
+- (void)updateGroupMemberInfo:(BRContactListModel *)groupMember fromGroupID:(NSString *)groupID {
+    BRFriendsInfo *groupMemberInfo = [[self fetchGroupMembersByGroupID:groupID andGroupMemberUserName:groupMember.username] lastObject];
+    if (![groupMemberInfo.updated isEqualToString:groupMember.updated]) {
+        groupMemberInfo.nickname = groupMember.nickname;
+        groupMemberInfo.gender = groupMember.gender;
+        groupMemberInfo.location = groupMember.location;
+        groupMemberInfo.email = groupMember.email;
+        groupMemberInfo.whatsUp = groupMember.whatsUp;
+        groupMemberInfo.updated = groupMember.updated;
+        groupMemberInfo.avatar = UIImagePNGRepresentation(groupMember.avatarImage);
+        [self saveData];
+    }
+}
+
+/**
+ 删除指定群内成员模型数据
+ 
+ @param groupID 群ID
+ @param groupMemberID 群成员ID
+ */
+- (void)deleteGroupMemberFromGoup:(NSString *)groupID andGroupMemberID:(NSString *)groupMemberID {
+    BRGroup *group = [[self fetchGroupsWithGroupID:groupID] lastObject];
+    BRFriendsInfo *groupMemberInfo = [[self fetchGroupMembersByGroupID:groupID andGroupMemberUserName:groupMemberID] lastObject];
+    [group removeFriendsInfoObject:groupMemberInfo];
+    [self saveData];
+}
+
 /**
  存储数据
  
