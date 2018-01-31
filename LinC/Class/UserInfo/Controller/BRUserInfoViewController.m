@@ -77,7 +77,8 @@ typedef enum NSUInteger {
     // 从Core data获取登录用户
     BRUserInfo *userInfo = [[BRCoreDataManager sharedInstance] getUserInfo];
 
-    self.imageIcon.image = [UIImage imageWithData:userInfo.avatar];
+    UIImage *avatar = [UIImage imageWithData:userInfo.avatar];
+    self.imageIcon.image = avatar ? avatar : [UIImage imageNamed:@"user_default"];
     self.username.text = userInfo.username;
     self.nickname.text = userInfo.nickname;
     self.gender.text = userInfo.gender;

@@ -1,155 +1,156 @@
 // !$*UTF8*$!
 {
-    archiveVersion = 1;
-    classes = {
-    };
-    objectVersion = 46;
-    objects = {
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
 
 /* Begin PBXBuildFile section */
-        270BD1191F9835C000266E6A /* Location.plist in Resources */ = {isa = PBXBuildFile; fileRef = 270BD1181F9835C000266E6A /* Location.plist */; };
-        270BD11C1FA27B2700266E6A /* BRAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 270BD11B1FA27B2700266E6A /* BRAboutViewController.m */; };
-        2744C4651FB68B2B007C5095 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2744C4631FB68B2A007C5095 /* LaunchScreen.storyboard */; };
-        2744C4681FB68B83007C5095 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2744C46A1FB68B83007C5095 /* Localizable.strings */; };
-        2744C4741FC377FC007C5095 /* BRBlackListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2744C4721FC377FC007C5095 /* BRBlackListViewController.m */; };
-        2744C4771FC37A1E007C5095 /* BRGeneralSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2744C4761FC37A1E007C5095 /* BRGeneralSettingViewController.m */; };
-        27617B7D1FCDF0EC004A245D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 27617B7F1FCDF0EC004A245D /* InfoPlist.strings */; };
-        276E756A1F3E2B0200D5A917 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E75691F3E2B0200D5A917 /* AVFoundation.framework */; };
-        276E757F1F3E2F1E00D5A917 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E757E1F3E2F1E00D5A917 /* AudioToolbox.framework */; };
-        276E75901F3E390100D5A917 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E758F1F3E390100D5A917 /* UserNotifications.framework */; };
-        276E75971F3E5AA600D5A917 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E75961F3E5AA600D5A917 /* AVKit.framework */; };
-        278CD94C1F549192008D6BD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 278CD94B1F549192008D6BD1 /* Assets.xcassets */; };
-        27CA03B11F38F21600D0F132 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CA03B01F38F21600D0F132 /* main.m */; };
-        27CA03CA1F38F21600D0F132 /* LinCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CA03C91F38F21600D0F132 /* LinCTests.m */; };
-        27CA03D51F38F21600D0F132 /* LinCUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CA03D41F38F21600D0F132 /* LinCUITests.m */; };
-        27FC23F11F6C4A9F001148D7 /* BRHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FC23EE1F6C4A9F001148D7 /* BRHTTPSessionManager.m */; };
-        27FC23F21F6C4A9F001148D7 /* BRSDKHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FC23F01F6C4A9F001148D7 /* BRSDKHelper.m */; };
-        27FC23F51F6C4C2C001148D7 /* BRClientManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FC23F41F6C4C2C001148D7 /* BRClientManager.m */; };
-        27FC23F81F7025D6001148D7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27FC23F71F7025D6001148D7 /* Main.storyboard */; };
-        27FC23FB1F7986D7001148D7 /* BRCreateChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FC23FA1F7986D7001148D7 /* BRCreateChatViewController.m */; };
-        777EE2E01DE2D56D25A06FA2 /* libPods-LinC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7644E4D020BABDE5A91405CF /* libPods-LinC.a */; };
-        E90C2F171F88230B004D2116 /* BRCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E96C7B531F85C8B100C0DC7E /* BRCoreData.xcdatamodeld */; };
-        E90F7B791F670DC300333382 /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E90F7AA61F670DC300333382 /* Account.storyboard */; };
-        E90F7B7A1F670DC300333382 /* BRAccountNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AA81F670DC300333382 /* BRAccountNavigationController.m */; };
-        E90F7B7B1F670DC300333382 /* BRLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AAA1F670DC300333382 /* BRLoginViewController.m */; };
-        E90F7B7C1F670DC300333382 /* BRResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AAC1F670DC300333382 /* BRResetPasswordViewController.m */; };
-        E90F7B7D1F670DC300333382 /* BRUserAccountSetUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AAE1F670DC300333382 /* BRUserAccountSetUpViewController.m */; };
-        E90F7B7E1F670DC300333382 /* BRUserInfoSetUpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AB01F670DC300333382 /* BRUserInfoSetUpTableViewController.m */; };
-        E90F7B7F1F670DC300333382 /* BRSearchFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AB41F670DC300333382 /* BRSearchFriendViewController.m */; };
-        E90F7B811F670DC300333382 /* BRContactListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AB71F670DC300333382 /* BRContactListViewController.m */; };
-        E90F7B821F670DC300333382 /* BRFriendInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E90F7AB81F670DC300333382 /* BRFriendInfo.storyboard */; };
-        E90F7B831F670DC300333382 /* BRFriendInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7ABA1F670DC300333382 /* BRFriendInfoTableViewController.m */; };
-        E90F7B841F670DC300333382 /* BRScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7ABC1F670DC300333382 /* BRScannerViewController.m */; };
-        E90F7B851F670DC300333382 /* BRScannerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E90F7ABD1F670DC300333382 /* BRScannerViewController.xib */; };
-        E90F7B861F670DC300333382 /* BRContactListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AC01F670DC300333382 /* BRContactListModel.m */; };
-        E90F7B871F670DC300333382 /* BRContactListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AC41F670DC300333382 /* BRContactListTableViewCell.m */; };
-        E90F7B881F670DC300333382 /* BRContactListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E90F7AC51F670DC300333382 /* BRContactListTableViewCell.xib */; };
-        E90F7B891F670DC300333382 /* BRConversationListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AC91F670DC300333382 /* BRConversationListViewController.m */; };
-        E90F7B8A1F670DC300333382 /* BRDropDownViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7ACB1F670DC300333382 /* BRDropDownViewController.m */; };
-        E90F7B8B1F670DC300333382 /* BRDropDownViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E90F7ACC1F670DC300333382 /* BRDropDownViewController.xib */; };
-        E90F7B8C1F670DC300333382 /* BRConversationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7ACF1F670DC300333382 /* BRConversationModel.m */; };
-        E90F7B8D1F670DC300333382 /* BRAvatarView.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AD31F670DC300333382 /* BRAvatarView.m */; };
-        E90F7B8E1F670DC300333382 /* BRConversationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AD51F670DC300333382 /* BRConversationCell.m */; };
-        E90F7B8F1F670DC300333382 /* BRConversationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E90F7AD61F670DC300333382 /* BRConversationCell.xib */; };
-        E90F7B921F670DC300333382 /* NSDate+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7ADE1F670DC300333382 /* NSDate+Category.m */; };
-        E90F7B931F670DC300333382 /* NSDateFormatter+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AE01F670DC300333382 /* NSDateFormatter+Category.m */; };
-        E90F7B941F670DC300333382 /* NSString+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AE21F670DC300333382 /* NSString+Helper.m */; };
-        E90F7B951F670DC300333382 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AE41F670DC300333382 /* UIView+Extension.m */; };
-        E90F7B961F670DC300333382 /* BRNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AE71F670DC300333382 /* BRNavigationController.m */; };
-        E90F7B971F670DC300333382 /* BRRefreshTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AE91F670DC300333382 /* BRRefreshTableViewController.m */; };
-        E90F7B981F670DC300333382 /* BRTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AEB1F670DC300333382 /* BRTabBarController.m */; };
-        E90F7B9B1F670DC300333382 /* BRBubbleView+File.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AF31F670DC300333382 /* BRBubbleView+File.m */; };
-        E90F7B9C1F670DC300333382 /* BRBubbleView+Gif.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AF51F670DC300333382 /* BRBubbleView+Gif.m */; };
-        E90F7B9D1F670DC300333382 /* BRBubbleView+Image.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AF71F670DC300333382 /* BRBubbleView+Image.m */; };
-        E90F7B9E1F670DC300333382 /* BRBubbleView+Location.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AF91F670DC300333382 /* BRBubbleView+Location.m */; };
-        E90F7B9F1F670DC300333382 /* BRBubbleView+Text.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AFB1F670DC300333382 /* BRBubbleView+Text.m */; };
-        E90F7BA01F670DC300333382 /* BRBubbleView+Video.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AFD1F670DC300333382 /* BRBubbleView+Video.m */; };
-        E90F7BA11F670DC300333382 /* BRBubbleView+Voice.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AFF1F670DC300333382 /* BRBubbleView+Voice.m */; };
-        E90F7BA21F670DC300333382 /* BRCDDeviceManager+Media.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B011F670DC300333382 /* BRCDDeviceManager+Media.m */; };
-        E90F7BA31F670DC300333382 /* BRCDDeviceManager+Microphone.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B031F670DC300333382 /* BRCDDeviceManager+Microphone.m */; };
-        E90F7BA41F670DC300333382 /* BRCDDeviceManager+ProximitySensor.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B051F670DC300333382 /* BRCDDeviceManager+ProximitySensor.m */; };
-        E90F7BA51F670DC300333382 /* BRCDDeviceManager+Remind.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B071F670DC300333382 /* BRCDDeviceManager+Remind.m */; };
-        E90F7BA61F670DC300333382 /* BRLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B0A1F670DC300333382 /* BRLocationViewController.m */; };
-        E90F7BA71F670DC300333382 /* BRMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B0C1F670DC300333382 /* BRMessageViewController.m */; };
-        E90F7BA81F670DC300333382 /* amrFileCodec.mm in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B0F1F670DC300333382 /* amrFileCodec.mm */; };
-        E90F7BA91F670DC300333382 /* BRAudioPlayerUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B111F670DC300333382 /* BRAudioPlayerUtil.m */; };
-        E90F7BAA1F670DC300333382 /* BRAudioRecorderUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B131F670DC300333382 /* BRAudioRecorderUtil.m */; };
-        E90F7BAB1F670DC300333382 /* BRCDDeviceManagerBase.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B161F670DC300333382 /* BRCDDeviceManagerBase.m */; };
-        E90F7BAC1F670DC300333382 /* BRChatToolbarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B1A1F670DC300333382 /* BRChatToolbarItem.m */; };
-        E90F7BAD1F670DC300333382 /* BRConvertToCommonEmoticonsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B1C1F670DC300333382 /* BRConvertToCommonEmoticonsHelper.m */; };
-        E90F7BAE1F670DC400333382 /* BREmoji.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B1E1F670DC300333382 /* BREmoji.m */; };
-        E90F7BAF1F670DC400333382 /* BREmojiEmoticons.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B201F670DC300333382 /* BREmojiEmoticons.m */; };
-        E90F7BB01F670DC400333382 /* BREmotionEscape.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B221F670DC300333382 /* BREmotionEscape.m */; };
-        E90F7BB11F670DC400333382 /* BREmotionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B241F670DC300333382 /* BREmotionManager.m */; };
-        E90F7BB21F670DC400333382 /* BRMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B261F670DC300333382 /* BRMessageModel.m */; };
-        E90F7BB31F670DC400333382 /* BRMessageReadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B281F670DC300333382 /* BRMessageReadManager.m */; };
-        E90F7BB41F670DC400333382 /* BRVoiceConverter.mm in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B2A1F670DC300333382 /* BRVoiceConverter.mm */; };
-        E90F7BB51F670DC400333382 /* wav.mm in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B311F670DC300333382 /* wav.mm */; };
-        E90F7BB61F670DC400333382 /* BRBaseMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B341F670DC300333382 /* BRBaseMessageCell.m */; };
-        E90F7BB71F670DC400333382 /* BRBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B361F670DC300333382 /* BRBubbleView.m */; };
-        E90F7BB81F670DC400333382 /* BRChatBarMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B381F670DC300333382 /* BRChatBarMoreView.m */; };
-        E90F7BB91F670DC400333382 /* BRChatBarMoreViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B3A1F670DC300333382 /* BRChatBarMoreViewCell.m */; };
-        E90F7BBA1F670DC400333382 /* BRChatBarMoreViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E90F7B3B1F670DC300333382 /* BRChatBarMoreViewCell.xib */; };
-        E90F7BBB1F670DC400333382 /* BRChatToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B3D1F670DC300333382 /* BRChatToolbar.m */; };
-        E90F7BBC1F670DC400333382 /* BRCustomMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B3F1F670DC300333382 /* BRCustomMessageCell.m */; };
-        E90F7BBD1F670DC400333382 /* BRFaceView.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B411F670DC300333382 /* BRFaceView.m */; };
-        E90F7BBE1F670DC400333382 /* BRFacialView.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B431F670DC300333382 /* BRFacialView.m */; };
-        E90F7BBF1F670DC400333382 /* BRMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B451F670DC300333382 /* BRMessageCell.m */; };
-        E90F7BC01F670DC400333382 /* BRMessageTimeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B471F670DC300333382 /* BRMessageTimeCell.m */; };
-        E90F7BC11F670DC400333382 /* BRRecordView.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B491F670DC300333382 /* BRRecordView.m */; };
-        E90F7BC21F670DC400333382 /* BRTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B4B1F670DC300333382 /* BRTextView.m */; };
-        E90F7BC31F670DC400333382 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B4E1F670DC300333382 /* AppDelegate.m */; };
-        E90F7BC41F670DC400333382 /* Common.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B501F670DC300333382 /* Common.m */; };
-        E90F7BC51F670DC400333382 /* BRMediaBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B531F670DC300333382 /* BRMediaBrowserViewController.m */; };
-        E90F7BC61F670DC400333382 /* BRMediaBrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E90F7B541F670DC300333382 /* BRMediaBrowserViewController.xib */; };
-        E90F7BC71F670DC400333382 /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E90F7B561F670DC300333382 /* libopencore-amrnb.a */; };
-        E90F7BC81F670DC400333382 /* libopencore-amrwb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E90F7B571F670DC300333382 /* libopencore-amrwb.a */; };
-        E90F7BC91F670DC400333382 /* BRMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B5B1F670DC300333382 /* BRMedia.m */; };
-        E90F7BCA1F670DC400333382 /* ProvincesAndCities.plist in Resources */ = {isa = PBXBuildFile; fileRef = E90F7B5C1F670DC300333382 /* ProvincesAndCities.plist */; };
-        E90F7BCB1F670DC400333382 /* BRMediaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B5F1F670DC300333382 /* BRMediaCell.m */; };
-        E90F7BCD1F670DC400333382 /* BRLocationListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B651F670DC300333382 /* BRLocationListViewController.m */; };
-        E90F7BCE1F670DC400333382 /* BRPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B671F670DC300333382 /* BRPasswordViewController.m */; };
-        E90F7BCF1F670DC400333382 /* BRQRCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B691F670DC300333382 /* BRQRCodeViewController.m */; };
-        E90F7BD01F670DC400333382 /* BRUserGenderTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B6B1F670DC300333382 /* BRUserGenderTableViewController.m */; };
-        E90F7BD11F670DC400333382 /* BRUserImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B6D1F670DC300333382 /* BRUserImageViewController.m */; };
-        E90F7BD21F670DC400333382 /* BRUserInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E90F7B6E1F670DC300333382 /* BRUserInfo.storyboard */; };
-        E90F7BD31F670DC400333382 /* BRUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B701F670DC300333382 /* BRUserInfoViewController.m */; };
-        E90F7BD41F670DC400333382 /* BRNicknameTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B721F670DC300333382 /* BRNicknameTextViewController.m */; };
-        E90F7BD51F670DC400333382 /* BRUserSettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B741F670DC300333382 /* BRUserSettingTableViewController.m */; };
-        E90F7BD61F670DC400333382 /* BRWhatsUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B761F670DC300333382 /* BRWhatsUpViewController.m */; };
-        E90F7BD91F67368200333382 /* UIView+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7BD81F67368200333382 /* UIView+Animation.m */; };
-        E95827F81FD87D8B00362F92 /* BRGroupChatSettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E95827F71FD87D8B00362F92 /* BRGroupChatSettingTableViewController.m */; };
-        E95FA8CB1F7065C50023BB1C /* BRRequestMessageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E95FA8CA1F7065C50023BB1C /* BRRequestMessageTableViewController.m */; };
-        E964F38B1FB0F4AD007C8F5E /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E964F38A1FB0F4AD007C8F5E /* MessageUI.framework */; };
-        E96C7B671F87E09A00C0DC7E /* BRCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = E96C7B661F87E09A00C0DC7E /* BRCoreDataStack.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-        E96C7B6A1F87E0B400C0DC7E /* BRCoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E96C7B691F87E0B400C0DC7E /* BRCoreDataManager.m */; };
-        E996231D1F794B5A00A90FD2 /* BRFileWithNewRequestData.m in Sources */ = {isa = PBXBuildFile; fileRef = E996231C1F794B5A00A90FD2 /* BRFileWithNewRequestData.m */; };
-        E998915A1FDB0ECB0005EE36 /* BRConversation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E99891591FDB0ECB0005EE36 /* BRConversation.storyboard */; };
-        E99891601FDB2DE20005EE36 /* BRCreateGroupChatTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E998915F1FDB2DE20005EE36 /* BRCreateGroupChatTableViewController.m */; };
-        E9C5F3F51F75A8F90073A86E /* BRFriendRequestTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C5F3F41F75A8F90073A86E /* BRFriendRequestTableViewController.m */; };
-        E9C5F3F81F75AE6D0073A86E /* BRNewFriendTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C5F3F71F75AE6D0073A86E /* BRNewFriendTableViewController.m */; };
-        E9C5F3FC1F75B2940073A86E /* BRNewFriendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C5F3FA1F75B2940073A86E /* BRNewFriendTableViewCell.m */; };
-        E9C5F3FD1F75B2940073A86E /* BRNewFriendTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9C5F3FB1F75B2940073A86E /* BRNewFriendTableViewCell.xib */; };
-        E9CC14211F7C4E3C0070E4AC /* BRGroupListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CC14201F7C4E3C0070E4AC /* BRGroupListTableViewController.m */; };
-        E9F29BB11F7EE59E0061252D /* BRGroupMemberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F29BAF1F7EE59E0061252D /* BRGroupMemberTableViewCell.m */; };
-        E9F29BB21F7EE59E0061252D /* BRGroupMemberTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9F29BB01F7EE59E0061252D /* BRGroupMemberTableViewCell.xib */; };
+		270BD1191F9835C000266E6A /* Location.plist in Resources */ = {isa = PBXBuildFile; fileRef = 270BD1181F9835C000266E6A /* Location.plist */; };
+		270BD11C1FA27B2700266E6A /* BRAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 270BD11B1FA27B2700266E6A /* BRAboutViewController.m */; };
+		2744C4651FB68B2B007C5095 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2744C4631FB68B2A007C5095 /* LaunchScreen.storyboard */; };
+		2744C4681FB68B83007C5095 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2744C46A1FB68B83007C5095 /* Localizable.strings */; };
+		2744C4741FC377FC007C5095 /* BRBlackListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2744C4721FC377FC007C5095 /* BRBlackListViewController.m */; };
+		2744C4771FC37A1E007C5095 /* BRGeneralSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2744C4761FC37A1E007C5095 /* BRGeneralSettingViewController.m */; };
+		27617B7D1FCDF0EC004A245D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 27617B7F1FCDF0EC004A245D /* InfoPlist.strings */; };
+		276398FD2022650500222875 /* UIView+NavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 276398FC2022650500222875 /* UIView+NavigationBar.m */; };
+		276E756A1F3E2B0200D5A917 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E75691F3E2B0200D5A917 /* AVFoundation.framework */; };
+		276E757F1F3E2F1E00D5A917 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E757E1F3E2F1E00D5A917 /* AudioToolbox.framework */; };
+		276E75901F3E390100D5A917 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E758F1F3E390100D5A917 /* UserNotifications.framework */; };
+		276E75971F3E5AA600D5A917 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E75961F3E5AA600D5A917 /* AVKit.framework */; };
+		278CD94C1F549192008D6BD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 278CD94B1F549192008D6BD1 /* Assets.xcassets */; };
+		27CA03B11F38F21600D0F132 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CA03B01F38F21600D0F132 /* main.m */; };
+		27CA03CA1F38F21600D0F132 /* LinCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CA03C91F38F21600D0F132 /* LinCTests.m */; };
+		27CA03D51F38F21600D0F132 /* LinCUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CA03D41F38F21600D0F132 /* LinCUITests.m */; };
+		27FC23F11F6C4A9F001148D7 /* BRHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FC23EE1F6C4A9F001148D7 /* BRHTTPSessionManager.m */; };
+		27FC23F21F6C4A9F001148D7 /* BRSDKHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FC23F01F6C4A9F001148D7 /* BRSDKHelper.m */; };
+		27FC23F51F6C4C2C001148D7 /* BRClientManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FC23F41F6C4C2C001148D7 /* BRClientManager.m */; };
+		27FC23F81F7025D6001148D7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27FC23F71F7025D6001148D7 /* Main.storyboard */; };
+		27FC23FB1F7986D7001148D7 /* BRCreateChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FC23FA1F7986D7001148D7 /* BRCreateChatViewController.m */; };
+		777EE2E01DE2D56D25A06FA2 /* libPods-LinC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7644E4D020BABDE5A91405CF /* libPods-LinC.a */; };
+		E90C2F171F88230B004D2116 /* BRCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E96C7B531F85C8B100C0DC7E /* BRCoreData.xcdatamodeld */; };
+		E90F7B791F670DC300333382 /* Account.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E90F7AA61F670DC300333382 /* Account.storyboard */; };
+		E90F7B7A1F670DC300333382 /* BRAccountNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AA81F670DC300333382 /* BRAccountNavigationController.m */; };
+		E90F7B7B1F670DC300333382 /* BRLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AAA1F670DC300333382 /* BRLoginViewController.m */; };
+		E90F7B7C1F670DC300333382 /* BRResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AAC1F670DC300333382 /* BRResetPasswordViewController.m */; };
+		E90F7B7D1F670DC300333382 /* BRUserAccountSetUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AAE1F670DC300333382 /* BRUserAccountSetUpViewController.m */; };
+		E90F7B7E1F670DC300333382 /* BRUserInfoSetUpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AB01F670DC300333382 /* BRUserInfoSetUpTableViewController.m */; };
+		E90F7B7F1F670DC300333382 /* BRSearchFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AB41F670DC300333382 /* BRSearchFriendViewController.m */; };
+		E90F7B811F670DC300333382 /* BRContactListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AB71F670DC300333382 /* BRContactListViewController.m */; };
+		E90F7B821F670DC300333382 /* BRFriendInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E90F7AB81F670DC300333382 /* BRFriendInfo.storyboard */; };
+		E90F7B831F670DC300333382 /* BRFriendInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7ABA1F670DC300333382 /* BRFriendInfoTableViewController.m */; };
+		E90F7B841F670DC300333382 /* BRScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7ABC1F670DC300333382 /* BRScannerViewController.m */; };
+		E90F7B851F670DC300333382 /* BRScannerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E90F7ABD1F670DC300333382 /* BRScannerViewController.xib */; };
+		E90F7B861F670DC300333382 /* BRContactListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AC01F670DC300333382 /* BRContactListModel.m */; };
+		E90F7B871F670DC300333382 /* BRContactListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AC41F670DC300333382 /* BRContactListTableViewCell.m */; };
+		E90F7B881F670DC300333382 /* BRContactListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E90F7AC51F670DC300333382 /* BRContactListTableViewCell.xib */; };
+		E90F7B891F670DC300333382 /* BRConversationListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AC91F670DC300333382 /* BRConversationListViewController.m */; };
+		E90F7B8A1F670DC300333382 /* BRDropDownViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7ACB1F670DC300333382 /* BRDropDownViewController.m */; };
+		E90F7B8B1F670DC300333382 /* BRDropDownViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E90F7ACC1F670DC300333382 /* BRDropDownViewController.xib */; };
+		E90F7B8C1F670DC300333382 /* BRConversationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7ACF1F670DC300333382 /* BRConversationModel.m */; };
+		E90F7B8D1F670DC300333382 /* BRAvatarView.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AD31F670DC300333382 /* BRAvatarView.m */; };
+		E90F7B8E1F670DC300333382 /* BRConversationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AD51F670DC300333382 /* BRConversationCell.m */; };
+		E90F7B8F1F670DC300333382 /* BRConversationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E90F7AD61F670DC300333382 /* BRConversationCell.xib */; };
+		E90F7B921F670DC300333382 /* NSDate+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7ADE1F670DC300333382 /* NSDate+Category.m */; };
+		E90F7B931F670DC300333382 /* NSDateFormatter+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AE01F670DC300333382 /* NSDateFormatter+Category.m */; };
+		E90F7B941F670DC300333382 /* NSString+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AE21F670DC300333382 /* NSString+Helper.m */; };
+		E90F7B951F670DC300333382 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AE41F670DC300333382 /* UIView+Extension.m */; };
+		E90F7B961F670DC300333382 /* BRNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AE71F670DC300333382 /* BRNavigationController.m */; };
+		E90F7B971F670DC300333382 /* BRRefreshTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AE91F670DC300333382 /* BRRefreshTableViewController.m */; };
+		E90F7B981F670DC300333382 /* BRTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AEB1F670DC300333382 /* BRTabBarController.m */; };
+		E90F7B9B1F670DC300333382 /* BRBubbleView+File.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AF31F670DC300333382 /* BRBubbleView+File.m */; };
+		E90F7B9C1F670DC300333382 /* BRBubbleView+Gif.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AF51F670DC300333382 /* BRBubbleView+Gif.m */; };
+		E90F7B9D1F670DC300333382 /* BRBubbleView+Image.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AF71F670DC300333382 /* BRBubbleView+Image.m */; };
+		E90F7B9E1F670DC300333382 /* BRBubbleView+Location.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AF91F670DC300333382 /* BRBubbleView+Location.m */; };
+		E90F7B9F1F670DC300333382 /* BRBubbleView+Text.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AFB1F670DC300333382 /* BRBubbleView+Text.m */; };
+		E90F7BA01F670DC300333382 /* BRBubbleView+Video.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AFD1F670DC300333382 /* BRBubbleView+Video.m */; };
+		E90F7BA11F670DC300333382 /* BRBubbleView+Voice.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7AFF1F670DC300333382 /* BRBubbleView+Voice.m */; };
+		E90F7BA21F670DC300333382 /* BRCDDeviceManager+Media.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B011F670DC300333382 /* BRCDDeviceManager+Media.m */; };
+		E90F7BA31F670DC300333382 /* BRCDDeviceManager+Microphone.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B031F670DC300333382 /* BRCDDeviceManager+Microphone.m */; };
+		E90F7BA41F670DC300333382 /* BRCDDeviceManager+ProximitySensor.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B051F670DC300333382 /* BRCDDeviceManager+ProximitySensor.m */; };
+		E90F7BA51F670DC300333382 /* BRCDDeviceManager+Remind.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B071F670DC300333382 /* BRCDDeviceManager+Remind.m */; };
+		E90F7BA61F670DC300333382 /* BRLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B0A1F670DC300333382 /* BRLocationViewController.m */; };
+		E90F7BA71F670DC300333382 /* BRMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B0C1F670DC300333382 /* BRMessageViewController.m */; };
+		E90F7BA81F670DC300333382 /* amrFileCodec.mm in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B0F1F670DC300333382 /* amrFileCodec.mm */; };
+		E90F7BA91F670DC300333382 /* BRAudioPlayerUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B111F670DC300333382 /* BRAudioPlayerUtil.m */; };
+		E90F7BAA1F670DC300333382 /* BRAudioRecorderUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B131F670DC300333382 /* BRAudioRecorderUtil.m */; };
+		E90F7BAB1F670DC300333382 /* BRCDDeviceManagerBase.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B161F670DC300333382 /* BRCDDeviceManagerBase.m */; };
+		E90F7BAC1F670DC300333382 /* BRChatToolbarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B1A1F670DC300333382 /* BRChatToolbarItem.m */; };
+		E90F7BAD1F670DC300333382 /* BRConvertToCommonEmoticonsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B1C1F670DC300333382 /* BRConvertToCommonEmoticonsHelper.m */; };
+		E90F7BAE1F670DC400333382 /* BREmoji.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B1E1F670DC300333382 /* BREmoji.m */; };
+		E90F7BAF1F670DC400333382 /* BREmojiEmoticons.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B201F670DC300333382 /* BREmojiEmoticons.m */; };
+		E90F7BB01F670DC400333382 /* BREmotionEscape.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B221F670DC300333382 /* BREmotionEscape.m */; };
+		E90F7BB11F670DC400333382 /* BREmotionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B241F670DC300333382 /* BREmotionManager.m */; };
+		E90F7BB21F670DC400333382 /* BRMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B261F670DC300333382 /* BRMessageModel.m */; };
+		E90F7BB31F670DC400333382 /* BRMessageReadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B281F670DC300333382 /* BRMessageReadManager.m */; };
+		E90F7BB41F670DC400333382 /* BRVoiceConverter.mm in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B2A1F670DC300333382 /* BRVoiceConverter.mm */; };
+		E90F7BB51F670DC400333382 /* wav.mm in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B311F670DC300333382 /* wav.mm */; };
+		E90F7BB61F670DC400333382 /* BRBaseMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B341F670DC300333382 /* BRBaseMessageCell.m */; };
+		E90F7BB71F670DC400333382 /* BRBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B361F670DC300333382 /* BRBubbleView.m */; };
+		E90F7BB81F670DC400333382 /* BRChatBarMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B381F670DC300333382 /* BRChatBarMoreView.m */; };
+		E90F7BB91F670DC400333382 /* BRChatBarMoreViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B3A1F670DC300333382 /* BRChatBarMoreViewCell.m */; };
+		E90F7BBA1F670DC400333382 /* BRChatBarMoreViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E90F7B3B1F670DC300333382 /* BRChatBarMoreViewCell.xib */; };
+		E90F7BBB1F670DC400333382 /* BRChatToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B3D1F670DC300333382 /* BRChatToolbar.m */; };
+		E90F7BBC1F670DC400333382 /* BRCustomMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B3F1F670DC300333382 /* BRCustomMessageCell.m */; };
+		E90F7BBD1F670DC400333382 /* BRFaceView.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B411F670DC300333382 /* BRFaceView.m */; };
+		E90F7BBE1F670DC400333382 /* BRFacialView.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B431F670DC300333382 /* BRFacialView.m */; };
+		E90F7BBF1F670DC400333382 /* BRMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B451F670DC300333382 /* BRMessageCell.m */; };
+		E90F7BC01F670DC400333382 /* BRMessageTimeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B471F670DC300333382 /* BRMessageTimeCell.m */; };
+		E90F7BC11F670DC400333382 /* BRRecordView.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B491F670DC300333382 /* BRRecordView.m */; };
+		E90F7BC21F670DC400333382 /* BRTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B4B1F670DC300333382 /* BRTextView.m */; };
+		E90F7BC31F670DC400333382 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B4E1F670DC300333382 /* AppDelegate.m */; };
+		E90F7BC41F670DC400333382 /* Common.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B501F670DC300333382 /* Common.m */; };
+		E90F7BC51F670DC400333382 /* BRMediaBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B531F670DC300333382 /* BRMediaBrowserViewController.m */; };
+		E90F7BC61F670DC400333382 /* BRMediaBrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E90F7B541F670DC300333382 /* BRMediaBrowserViewController.xib */; };
+		E90F7BC71F670DC400333382 /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E90F7B561F670DC300333382 /* libopencore-amrnb.a */; };
+		E90F7BC81F670DC400333382 /* libopencore-amrwb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E90F7B571F670DC300333382 /* libopencore-amrwb.a */; };
+		E90F7BC91F670DC400333382 /* BRMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B5B1F670DC300333382 /* BRMedia.m */; };
+		E90F7BCA1F670DC400333382 /* ProvincesAndCities.plist in Resources */ = {isa = PBXBuildFile; fileRef = E90F7B5C1F670DC300333382 /* ProvincesAndCities.plist */; };
+		E90F7BCB1F670DC400333382 /* BRMediaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B5F1F670DC300333382 /* BRMediaCell.m */; };
+		E90F7BCD1F670DC400333382 /* BRLocationListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B651F670DC300333382 /* BRLocationListViewController.m */; };
+		E90F7BCE1F670DC400333382 /* BRPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B671F670DC300333382 /* BRPasswordViewController.m */; };
+		E90F7BCF1F670DC400333382 /* BRQRCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B691F670DC300333382 /* BRQRCodeViewController.m */; };
+		E90F7BD01F670DC400333382 /* BRUserGenderTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B6B1F670DC300333382 /* BRUserGenderTableViewController.m */; };
+		E90F7BD11F670DC400333382 /* BRUserImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B6D1F670DC300333382 /* BRUserImageViewController.m */; };
+		E90F7BD21F670DC400333382 /* BRUserInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E90F7B6E1F670DC300333382 /* BRUserInfo.storyboard */; };
+		E90F7BD31F670DC400333382 /* BRUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B701F670DC300333382 /* BRUserInfoViewController.m */; };
+		E90F7BD41F670DC400333382 /* BRNicknameTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B721F670DC300333382 /* BRNicknameTextViewController.m */; };
+		E90F7BD51F670DC400333382 /* BRUserSettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B741F670DC300333382 /* BRUserSettingTableViewController.m */; };
+		E90F7BD61F670DC400333382 /* BRWhatsUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B761F670DC300333382 /* BRWhatsUpViewController.m */; };
+		E90F7BD91F67368200333382 /* UIView+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7BD81F67368200333382 /* UIView+Animation.m */; };
+		E95827F81FD87D8B00362F92 /* BRGroupChatSettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E95827F71FD87D8B00362F92 /* BRGroupChatSettingTableViewController.m */; };
+		E95FA8CB1F7065C50023BB1C /* BRRequestMessageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E95FA8CA1F7065C50023BB1C /* BRRequestMessageTableViewController.m */; };
+		E964F38B1FB0F4AD007C8F5E /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E964F38A1FB0F4AD007C8F5E /* MessageUI.framework */; };
+		E96C7B671F87E09A00C0DC7E /* BRCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = E96C7B661F87E09A00C0DC7E /* BRCoreDataStack.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		E96C7B6A1F87E0B400C0DC7E /* BRCoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E96C7B691F87E0B400C0DC7E /* BRCoreDataManager.m */; };
+		E996231D1F794B5A00A90FD2 /* BRFileWithNewRequestData.m in Sources */ = {isa = PBXBuildFile; fileRef = E996231C1F794B5A00A90FD2 /* BRFileWithNewRequestData.m */; };
+		E998915A1FDB0ECB0005EE36 /* BRConversation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E99891591FDB0ECB0005EE36 /* BRConversation.storyboard */; };
+		E99891601FDB2DE20005EE36 /* BRCreateGroupChatTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E998915F1FDB2DE20005EE36 /* BRCreateGroupChatTableViewController.m */; };
+		E9C5F3F51F75A8F90073A86E /* BRFriendRequestTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C5F3F41F75A8F90073A86E /* BRFriendRequestTableViewController.m */; };
+		E9C5F3F81F75AE6D0073A86E /* BRNewFriendTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C5F3F71F75AE6D0073A86E /* BRNewFriendTableViewController.m */; };
+		E9C5F3FC1F75B2940073A86E /* BRNewFriendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C5F3FA1F75B2940073A86E /* BRNewFriendTableViewCell.m */; };
+		E9C5F3FD1F75B2940073A86E /* BRNewFriendTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9C5F3FB1F75B2940073A86E /* BRNewFriendTableViewCell.xib */; };
+		E9CC14211F7C4E3C0070E4AC /* BRGroupListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CC14201F7C4E3C0070E4AC /* BRGroupListTableViewController.m */; };
+		E9F29BB11F7EE59E0061252D /* BRGroupMemberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F29BAF1F7EE59E0061252D /* BRGroupMemberTableViewCell.m */; };
+		E9F29BB21F7EE59E0061252D /* BRGroupMemberTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9F29BB01F7EE59E0061252D /* BRGroupMemberTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-        27CA03C61F38F21600D0F132 /* PBXContainerItemProxy */ = {
-            isa = PBXContainerItemProxy;
-            containerPortal = 27CA03A41F38F21600D0F132 /* Project object */;
-            proxyType = 1;
-            remoteGlobalIDString = 27CA03AB1F38F21600D0F132;
-            remoteInfo = LinC;
-        };
-        27CA03D11F38F21600D0F132 /* PBXContainerItemProxy */ = {
-            isa = PBXContainerItemProxy;
-            containerPortal = 27CA03A41F38F21600D0F132 /* Project object */;
-            proxyType = 1;
-            remoteGlobalIDString = 27CA03AB1F38F21600D0F132;
-            remoteInfo = LinC;
-        };
+		27CA03C61F38F21600D0F132 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 27CA03A41F38F21600D0F132 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 27CA03AB1F38F21600D0F132;
+			remoteInfo = LinC;
+		};
+		27CA03D11F38F21600D0F132 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 27CA03A41F38F21600D0F132 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 27CA03AB1F38F21600D0F132;
+			remoteInfo = LinC;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -167,6 +168,8 @@
 		2744C4761FC37A1E007C5095 /* BRGeneralSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRGeneralSettingViewController.m; sourceTree = "<group>"; };
 		27617B7E1FCDF0EC004A245D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		27617B801FCDF0F1004A245D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		276398FB2022650500222875 /* UIView+NavigationBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+NavigationBar.h"; sourceTree = "<group>"; };
+		276398FC2022650500222875 /* UIView+NavigationBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+NavigationBar.m"; sourceTree = "<group>"; };
 		276E75691F3E2B0200D5A917 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		276E757E1F3E2F1E00D5A917 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		276E758F1F3E390100D5A917 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
@@ -405,35 +408,35 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-        27CA03A91F38F21600D0F132 /* Frameworks */ = {
-            isa = PBXFrameworksBuildPhase;
-            buildActionMask = 2147483647;
-            files = (
-                E964F38B1FB0F4AD007C8F5E /* MessageUI.framework in Frameworks */,
-                276E75971F3E5AA600D5A917 /* AVKit.framework in Frameworks */,
-                E90F7BC71F670DC400333382 /* libopencore-amrnb.a in Frameworks */,
-                276E75901F3E390100D5A917 /* UserNotifications.framework in Frameworks */,
-                276E757F1F3E2F1E00D5A917 /* AudioToolbox.framework in Frameworks */,
-                276E756A1F3E2B0200D5A917 /* AVFoundation.framework in Frameworks */,
-                E90F7BC81F670DC400333382 /* libopencore-amrwb.a in Frameworks */,
-                777EE2E01DE2D56D25A06FA2 /* libPods-LinC.a in Frameworks */,
-            );
-            runOnlyForDeploymentPostprocessing = 0;
-        };
-        27CA03C21F38F21600D0F132 /* Frameworks */ = {
-            isa = PBXFrameworksBuildPhase;
-            buildActionMask = 2147483647;
-            files = (
-            );
-            runOnlyForDeploymentPostprocessing = 0;
-        };
-        27CA03CD1F38F21600D0F132 /* Frameworks */ = {
-            isa = PBXFrameworksBuildPhase;
-            buildActionMask = 2147483647;
-            files = (
-            );
-            runOnlyForDeploymentPostprocessing = 0;
-        };
+		27CA03A91F38F21600D0F132 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E964F38B1FB0F4AD007C8F5E /* MessageUI.framework in Frameworks */,
+				276E75971F3E5AA600D5A917 /* AVKit.framework in Frameworks */,
+				E90F7BC71F670DC400333382 /* libopencore-amrnb.a in Frameworks */,
+				276E75901F3E390100D5A917 /* UserNotifications.framework in Frameworks */,
+				276E757F1F3E2F1E00D5A917 /* AudioToolbox.framework in Frameworks */,
+				276E756A1F3E2B0200D5A917 /* AVFoundation.framework in Frameworks */,
+				E90F7BC81F670DC400333382 /* libopencore-amrwb.a in Frameworks */,
+				777EE2E01DE2D56D25A06FA2 /* libPods-LinC.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		27CA03C21F38F21600D0F132 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		27CA03CD1F38F21600D0F132 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -710,6 +713,8 @@
 				E90F7AE41F670DC300333382 /* UIView+Extension.m */,
 				E90F7BD71F67368200333382 /* UIView+Animation.h */,
 				E90F7BD81F67368200333382 /* UIView+Animation.m */,
+				276398FB2022650500222875 /* UIView+NavigationBar.h */,
+				276398FC2022650500222875 /* UIView+NavigationBar.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -987,644 +992,646 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-        27CA03AB1F38F21600D0F132 /* LinC */ = {
-            isa = PBXNativeTarget;
-            buildConfigurationList = 27CA03D91F38F21600D0F132 /* Build configuration list for PBXNativeTarget "LinC" */;
-            buildPhases = (
-                9678103DFC99320BBA8FC7E8 /* [CP] Check Pods Manifest.lock */,
-                27CA03A81F38F21600D0F132 /* Sources */,
-                27CA03A91F38F21600D0F132 /* Frameworks */,
-                27CA03AA1F38F21600D0F132 /* Resources */,
-                D1E4854568957024059F0F63 /* [CP] Embed Pods Frameworks */,
-                64F738E78211E81266206397 /* [CP] Copy Pods Resources */,
-            );
-            buildRules = (
-            );
-            dependencies = (
-            );
-            name = LinC;
-            productName = LinC;
-            productReference = 27CA03AC1F38F21600D0F132 /* LinC.app */;
-            productType = "com.apple.product-type.application";
-        };
-        27CA03C41F38F21600D0F132 /* LinCTests */ = {
-            isa = PBXNativeTarget;
-            buildConfigurationList = 27CA03DC1F38F21600D0F132 /* Build configuration list for PBXNativeTarget "LinCTests" */;
-            buildPhases = (
-                27CA03C11F38F21600D0F132 /* Sources */,
-                27CA03C21F38F21600D0F132 /* Frameworks */,
-                27CA03C31F38F21600D0F132 /* Resources */,
-            );
-            buildRules = (
-            );
-            dependencies = (
-                27CA03C71F38F21600D0F132 /* PBXTargetDependency */,
-            );
-            name = LinCTests;
-            productName = LinCTests;
-            productReference = 27CA03C51F38F21600D0F132 /* LinCTests.xctest */;
-            productType = "com.apple.product-type.bundle.unit-test";
-        };
-        27CA03CF1F38F21600D0F132 /* LinCUITests */ = {
-            isa = PBXNativeTarget;
-            buildConfigurationList = 27CA03DF1F38F21600D0F132 /* Build configuration list for PBXNativeTarget "LinCUITests" */;
-            buildPhases = (
-                27CA03CC1F38F21600D0F132 /* Sources */,
-                27CA03CD1F38F21600D0F132 /* Frameworks */,
-                27CA03CE1F38F21600D0F132 /* Resources */,
-            );
-            buildRules = (
-            );
-            dependencies = (
-                27CA03D21F38F21600D0F132 /* PBXTargetDependency */,
-            );
-            name = LinCUITests;
-            productName = LinCUITests;
-            productReference = 27CA03D01F38F21600D0F132 /* LinCUITests.xctest */;
-            productType = "com.apple.product-type.bundle.ui-testing";
-        };
+		27CA03AB1F38F21600D0F132 /* LinC */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 27CA03D91F38F21600D0F132 /* Build configuration list for PBXNativeTarget "LinC" */;
+			buildPhases = (
+				9678103DFC99320BBA8FC7E8 /* [CP] Check Pods Manifest.lock */,
+				27CA03A81F38F21600D0F132 /* Sources */,
+				27CA03A91F38F21600D0F132 /* Frameworks */,
+				27CA03AA1F38F21600D0F132 /* Resources */,
+				D1E4854568957024059F0F63 /* [CP] Embed Pods Frameworks */,
+				64F738E78211E81266206397 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LinC;
+			productName = LinC;
+			productReference = 27CA03AC1F38F21600D0F132 /* LinC.app */;
+			productType = "com.apple.product-type.application";
+		};
+		27CA03C41F38F21600D0F132 /* LinCTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 27CA03DC1F38F21600D0F132 /* Build configuration list for PBXNativeTarget "LinCTests" */;
+			buildPhases = (
+				27CA03C11F38F21600D0F132 /* Sources */,
+				27CA03C21F38F21600D0F132 /* Frameworks */,
+				27CA03C31F38F21600D0F132 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				27CA03C71F38F21600D0F132 /* PBXTargetDependency */,
+			);
+			name = LinCTests;
+			productName = LinCTests;
+			productReference = 27CA03C51F38F21600D0F132 /* LinCTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		27CA03CF1F38F21600D0F132 /* LinCUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 27CA03DF1F38F21600D0F132 /* Build configuration list for PBXNativeTarget "LinCUITests" */;
+			buildPhases = (
+				27CA03CC1F38F21600D0F132 /* Sources */,
+				27CA03CD1F38F21600D0F132 /* Frameworks */,
+				27CA03CE1F38F21600D0F132 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				27CA03D21F38F21600D0F132 /* PBXTargetDependency */,
+			);
+			name = LinCUITests;
+			productName = LinCUITests;
+			productReference = 27CA03D01F38F21600D0F132 /* LinCUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-        27CA03A41F38F21600D0F132 /* Project object */ = {
-            isa = PBXProject;
-            attributes = {
-                LastUpgradeCheck = 0900;
-                ORGANIZATIONNAME = BeyondRemarkable;
-                TargetAttributes = {
-                    27CA03AB1F38F21600D0F132 = {
-                        CreatedOnToolsVersion = 8.3.3;
-                        DevelopmentTeam = AEKJ6LE54T;
-                        ProvisioningStyle = Automatic;
-                        SystemCapabilities = {
-                            com.apple.Push = {
-                                enabled = 1;
-                            };
-                        };
-                    };
-                    27CA03C41F38F21600D0F132 = {
-                        CreatedOnToolsVersion = 8.3.3;
-                        DevelopmentTeam = M4YWTY9R92;
-                        ProvisioningStyle = Automatic;
-                        TestTargetID = 27CA03AB1F38F21600D0F132;
-                    };
-                    27CA03CF1F38F21600D0F132 = {
-                        CreatedOnToolsVersion = 8.3.3;
-                        DevelopmentTeam = E259J6P932;
-                        ProvisioningStyle = Automatic;
-                        TestTargetID = 27CA03AB1F38F21600D0F132;
-                    };
-                };
-            };
-            buildConfigurationList = 27CA03A71F38F21600D0F132 /* Build configuration list for PBXProject "LinC" */;
-            compatibilityVersion = "Xcode 3.2";
-            developmentRegion = English;
-            hasScannedForEncodings = 0;
-            knownRegions = (
-                en,
-                Base,
-                "zh-Hans",
-            );
-            mainGroup = 27CA03A31F38F21600D0F132;
-            productRefGroup = 27CA03AD1F38F21600D0F132 /* Products */;
-            projectDirPath = "";
-            projectRoot = "";
-            targets = (
-                27CA03AB1F38F21600D0F132 /* LinC */,
-                27CA03C41F38F21600D0F132 /* LinCTests */,
-                27CA03CF1F38F21600D0F132 /* LinCUITests */,
-            );
-        };
+		27CA03A41F38F21600D0F132 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0900;
+				ORGANIZATIONNAME = BeyondRemarkable;
+				TargetAttributes = {
+					27CA03AB1F38F21600D0F132 = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = AEKJ6LE54T;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
+					};
+					27CA03C41F38F21600D0F132 = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = M4YWTY9R92;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 27CA03AB1F38F21600D0F132;
+					};
+					27CA03CF1F38F21600D0F132 = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = E259J6P932;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 27CA03AB1F38F21600D0F132;
+					};
+				};
+			};
+			buildConfigurationList = 27CA03A71F38F21600D0F132 /* Build configuration list for PBXProject "LinC" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+				"zh-Hans",
+			);
+			mainGroup = 27CA03A31F38F21600D0F132;
+			productRefGroup = 27CA03AD1F38F21600D0F132 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				27CA03AB1F38F21600D0F132 /* LinC */,
+				27CA03C41F38F21600D0F132 /* LinCTests */,
+				27CA03CF1F38F21600D0F132 /* LinCUITests */,
+			);
+		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-        27CA03AA1F38F21600D0F132 /* Resources */ = {
-            isa = PBXResourcesBuildPhase;
-            buildActionMask = 2147483647;
-            files = (
-                2744C4681FB68B83007C5095 /* Localizable.strings in Resources */,
-                E90F7B791F670DC300333382 /* Account.storyboard in Resources */,
-                E90F7BC61F670DC400333382 /* BRMediaBrowserViewController.xib in Resources */,
-                E90F7BBA1F670DC400333382 /* BRChatBarMoreViewCell.xib in Resources */,
-                E90F7B821F670DC300333382 /* BRFriendInfo.storyboard in Resources */,
-                E90F7B8B1F670DC300333382 /* BRDropDownViewController.xib in Resources */,
-                27FC23F81F7025D6001148D7 /* Main.storyboard in Resources */,
-                27617B7D1FCDF0EC004A245D /* InfoPlist.strings in Resources */,
-                2744C4651FB68B2B007C5095 /* LaunchScreen.storyboard in Resources */,
-                E9F29BB21F7EE59E0061252D /* BRGroupMemberTableViewCell.xib in Resources */,
-                E90F7B851F670DC300333382 /* BRScannerViewController.xib in Resources */,
-                E9C5F3FD1F75B2940073A86E /* BRNewFriendTableViewCell.xib in Resources */,
-                E90F7B881F670DC300333382 /* BRContactListTableViewCell.xib in Resources */,
-                E90F7BCA1F670DC400333382 /* ProvincesAndCities.plist in Resources */,
-                E90F7B8F1F670DC300333382 /* BRConversationCell.xib in Resources */,
-                270BD1191F9835C000266E6A /* Location.plist in Resources */,
-                278CD94C1F549192008D6BD1 /* Assets.xcassets in Resources */,
-                E90F7BD21F670DC400333382 /* BRUserInfo.storyboard in Resources */,
-                E998915A1FDB0ECB0005EE36 /* BRConversation.storyboard in Resources */,
-            );
-            runOnlyForDeploymentPostprocessing = 0;
-        };
-        27CA03C31F38F21600D0F132 /* Resources */ = {
-            isa = PBXResourcesBuildPhase;
-            buildActionMask = 2147483647;
-            files = (
-            );
-            runOnlyForDeploymentPostprocessing = 0;
-        };
-        27CA03CE1F38F21600D0F132 /* Resources */ = {
-            isa = PBXResourcesBuildPhase;
-            buildActionMask = 2147483647;
-            files = (
-            );
-            runOnlyForDeploymentPostprocessing = 0;
-        };
+		27CA03AA1F38F21600D0F132 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2744C4681FB68B83007C5095 /* Localizable.strings in Resources */,
+				E90F7B791F670DC300333382 /* Account.storyboard in Resources */,
+				E90F7BC61F670DC400333382 /* BRMediaBrowserViewController.xib in Resources */,
+				E90F7BBA1F670DC400333382 /* BRChatBarMoreViewCell.xib in Resources */,
+				E90F7B821F670DC300333382 /* BRFriendInfo.storyboard in Resources */,
+				E90F7B8B1F670DC300333382 /* BRDropDownViewController.xib in Resources */,
+				27FC23F81F7025D6001148D7 /* Main.storyboard in Resources */,
+				27617B7D1FCDF0EC004A245D /* InfoPlist.strings in Resources */,
+				2744C4651FB68B2B007C5095 /* LaunchScreen.storyboard in Resources */,
+				E9F29BB21F7EE59E0061252D /* BRGroupMemberTableViewCell.xib in Resources */,
+				E90F7B851F670DC300333382 /* BRScannerViewController.xib in Resources */,
+				E9C5F3FD1F75B2940073A86E /* BRNewFriendTableViewCell.xib in Resources */,
+				E90F7B881F670DC300333382 /* BRContactListTableViewCell.xib in Resources */,
+				E90F7BCA1F670DC400333382 /* ProvincesAndCities.plist in Resources */,
+				E90F7B8F1F670DC300333382 /* BRConversationCell.xib in Resources */,
+				270BD1191F9835C000266E6A /* Location.plist in Resources */,
+				278CD94C1F549192008D6BD1 /* Assets.xcassets in Resources */,
+				E90F7BD21F670DC400333382 /* BRUserInfo.storyboard in Resources */,
+				E998915A1FDB0ECB0005EE36 /* BRConversation.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		27CA03C31F38F21600D0F132 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		27CA03CE1F38F21600D0F132 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-        64F738E78211E81266206397 /* [CP] Copy Pods Resources */ = {
-            isa = PBXShellScriptBuildPhase;
-            buildActionMask = 2147483647;
-            files = (
-            );
-            inputPaths = (
-                "${SRCROOT}/Pods/Target Support Files/Pods-LinC/Pods-LinC-resources.sh",
-                "${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
-                "${PODS_ROOT}/SAMKeychain/Support/SAMKeychain.bundle",
-            );
-            name = "[CP] Copy Pods Resources";
-            outputPaths = (
-                "${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
-            );
-            runOnlyForDeploymentPostprocessing = 0;
-            shellPath = /bin/sh;
-            shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LinC/Pods-LinC-resources.sh\"\n";
-            showEnvVarsInLog = 0;
-        };
-        9678103DFC99320BBA8FC7E8 /* [CP] Check Pods Manifest.lock */ = {
-            isa = PBXShellScriptBuildPhase;
-            buildActionMask = 2147483647;
-            files = (
-            );
-            inputPaths = (
-                "${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-                "${PODS_ROOT}/Manifest.lock",
-            );
-            name = "[CP] Check Pods Manifest.lock";
-            outputPaths = (
-                "$(DERIVED_FILE_DIR)/Pods-LinC-checkManifestLockResult.txt",
-            );
-            runOnlyForDeploymentPostprocessing = 0;
-            shellPath = /bin/sh;
-            shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-            showEnvVarsInLog = 0;
-        };
-        D1E4854568957024059F0F63 /* [CP] Embed Pods Frameworks */ = {
-            isa = PBXShellScriptBuildPhase;
-            buildActionMask = 2147483647;
-            files = (
-            );
-            inputPaths = (
-                "${SRCROOT}/Pods/Target Support Files/Pods-LinC/Pods-LinC-frameworks.sh",
-                "${PODS_ROOT}/Hyphenate/ios_IM_Hyphenate_sdk_3.3.7/HyphenateFullSDK/Hyphenate.framework",
-            );
-            name = "[CP] Embed Pods Frameworks";
-            outputPaths = (
-                "${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hyphenate.framework",
-            );
-            runOnlyForDeploymentPostprocessing = 0;
-            shellPath = /bin/sh;
-            shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LinC/Pods-LinC-frameworks.sh\"\n";
-            showEnvVarsInLog = 0;
-        };
+		64F738E78211E81266206397 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-LinC/Pods-LinC-resources.sh",
+				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
+				"${PODS_ROOT}/SAMKeychain/Support/SAMKeychain.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SAMKeychain.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LinC/Pods-LinC-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9678103DFC99320BBA8FC7E8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-LinC-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D1E4854568957024059F0F63 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-LinC/Pods-LinC-frameworks.sh",
+				"${PODS_ROOT}/Hyphenate/iOS_IM_SDK_V3.3.8/HyphenateFullSDK/Hyphenate.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hyphenate.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LinC/Pods-LinC-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-        27CA03A81F38F21600D0F132 /* Sources */ = {
-            isa = PBXSourcesBuildPhase;
-            buildActionMask = 2147483647;
-            files = (
-                E90F7BD51F670DC400333382 /* BRUserSettingTableViewController.m in Sources */,
-                E90F7BC01F670DC400333382 /* BRMessageTimeCell.m in Sources */,
-                E90F7B8C1F670DC300333382 /* BRConversationModel.m in Sources */,
-                E90F7BD01F670DC400333382 /* BRUserGenderTableViewController.m in Sources */,
-                27FC23F11F6C4A9F001148D7 /* BRHTTPSessionManager.m in Sources */,
-                27CA03B11F38F21600D0F132 /* main.m in Sources */,
-                E90F7B7A1F670DC300333382 /* BRAccountNavigationController.m in Sources */,
-                E90F7BAD1F670DC300333382 /* BRConvertToCommonEmoticonsHelper.m in Sources */,
-                E95827F81FD87D8B00362F92 /* BRGroupChatSettingTableViewController.m in Sources */,
-                E90F7B871F670DC300333382 /* BRContactListTableViewCell.m in Sources */,
-                E90F7B7E1F670DC300333382 /* BRUserInfoSetUpTableViewController.m in Sources */,
-                E9C5F3FC1F75B2940073A86E /* BRNewFriendTableViewCell.m in Sources */,
-                E90F7BAB1F670DC300333382 /* BRCDDeviceManagerBase.m in Sources */,
-                E90F7BAE1F670DC400333382 /* BREmoji.m in Sources */,
-                E95FA8CB1F7065C50023BB1C /* BRRequestMessageTableViewController.m in Sources */,
-                E90F7B811F670DC300333382 /* BRContactListViewController.m in Sources */,
-                E90F7BC41F670DC400333382 /* Common.m in Sources */,
-                E90F7BAF1F670DC400333382 /* BREmojiEmoticons.m in Sources */,
-                E90F7BAC1F670DC300333382 /* BRChatToolbarItem.m in Sources */,
-                E90F7BCF1F670DC400333382 /* BRQRCodeViewController.m in Sources */,
-                E90F7BB91F670DC400333382 /* BRChatBarMoreViewCell.m in Sources */,
-                E90C2F171F88230B004D2116 /* BRCoreData.xcdatamodeld in Sources */,
-                E90F7BB71F670DC400333382 /* BRBubbleView.m in Sources */,
-                E90F7B7B1F670DC300333382 /* BRLoginViewController.m in Sources */,
-                E90F7BCE1F670DC400333382 /* BRPasswordViewController.m in Sources */,
-                E90F7B8E1F670DC300333382 /* BRConversationCell.m in Sources */,
-                E90F7BBE1F670DC400333382 /* BRFacialView.m in Sources */,
-                E90F7B9E1F670DC300333382 /* BRBubbleView+Location.m in Sources */,
-                27FC23FB1F7986D7001148D7 /* BRCreateChatViewController.m in Sources */,
-                E90F7B8D1F670DC300333382 /* BRAvatarView.m in Sources */,
-                E90F7B971F670DC300333382 /* BRRefreshTableViewController.m in Sources */,
-                27FC23F21F6C4A9F001148D7 /* BRSDKHelper.m in Sources */,
-                E90F7BA91F670DC300333382 /* BRAudioPlayerUtil.m in Sources */,
-                E90F7BA01F670DC300333382 /* BRBubbleView+Video.m in Sources */,
-                E90F7BC51F670DC400333382 /* BRMediaBrowserViewController.m in Sources */,
-                E90F7B931F670DC300333382 /* NSDateFormatter+Category.m in Sources */,
-                E90F7BB81F670DC400333382 /* BRChatBarMoreView.m in Sources */,
-                2744C4741FC377FC007C5095 /* BRBlackListViewController.m in Sources */,
-                E90F7BA41F670DC300333382 /* BRCDDeviceManager+ProximitySensor.m in Sources */,
-                E90F7BB41F670DC400333382 /* BRVoiceConverter.mm in Sources */,
-                E96C7B6A1F87E0B400C0DC7E /* BRCoreDataManager.m in Sources */,
-                270BD11C1FA27B2700266E6A /* BRAboutViewController.m in Sources */,
-                E90F7BBD1F670DC400333382 /* BRFaceView.m in Sources */,
-                E90F7BA61F670DC300333382 /* BRLocationViewController.m in Sources */,
-                E90F7BD61F670DC400333382 /* BRWhatsUpViewController.m in Sources */,
-                E90F7B961F670DC300333382 /* BRNavigationController.m in Sources */,
-                E90F7BD31F670DC400333382 /* BRUserInfoViewController.m in Sources */,
-                E90F7B9C1F670DC300333382 /* BRBubbleView+Gif.m in Sources */,
-                E90F7BD91F67368200333382 /* UIView+Animation.m in Sources */,
-                E90F7BB51F670DC400333382 /* wav.mm in Sources */,
-                E996231D1F794B5A00A90FD2 /* BRFileWithNewRequestData.m in Sources */,
-                E90F7BBB1F670DC400333382 /* BRChatToolbar.m in Sources */,
-                E90F7B831F670DC300333382 /* BRFriendInfoTableViewController.m in Sources */,
-                E90F7B8A1F670DC300333382 /* BRDropDownViewController.m in Sources */,
-                27FC23F51F6C4C2C001148D7 /* BRClientManager.m in Sources */,
-                E90F7B921F670DC300333382 /* NSDate+Category.m in Sources */,
-                E90F7BCB1F670DC400333382 /* BRMediaCell.m in Sources */,
-                E90F7BD11F670DC400333382 /* BRUserImageViewController.m in Sources */,
-                E90F7BAA1F670DC300333382 /* BRAudioRecorderUtil.m in Sources */,
-                E9CC14211F7C4E3C0070E4AC /* BRGroupListTableViewController.m in Sources */,
-                E90F7B7D1F670DC300333382 /* BRUserAccountSetUpViewController.m in Sources */,
-                E90F7B9D1F670DC300333382 /* BRBubbleView+Image.m in Sources */,
-                E90F7B841F670DC300333382 /* BRScannerViewController.m in Sources */,
-                E90F7BB21F670DC400333382 /* BRMessageModel.m in Sources */,
-                E90F7B891F670DC300333382 /* BRConversationListViewController.m in Sources */,
-                E90F7BB31F670DC400333382 /* BRMessageReadManager.m in Sources */,
-                2744C4771FC37A1E007C5095 /* BRGeneralSettingViewController.m in Sources */,
-                E90F7BA31F670DC300333382 /* BRCDDeviceManager+Microphone.m in Sources */,
-                E90F7BC31F670DC400333382 /* AppDelegate.m in Sources */,
-                E99891601FDB2DE20005EE36 /* BRCreateGroupChatTableViewController.m in Sources */,
-                E90F7BB61F670DC400333382 /* BRBaseMessageCell.m in Sources */,
-                E90F7BA11F670DC300333382 /* BRBubbleView+Voice.m in Sources */,
-                E90F7B861F670DC300333382 /* BRContactListModel.m in Sources */,
-                E90F7BA81F670DC300333382 /* amrFileCodec.mm in Sources */,
-                E90F7BC21F670DC400333382 /* BRTextView.m in Sources */,
-                E90F7B981F670DC300333382 /* BRTabBarController.m in Sources */,
-                E90F7B951F670DC300333382 /* UIView+Extension.m in Sources */,
-                E9C5F3F51F75A8F90073A86E /* BRFriendRequestTableViewController.m in Sources */,
-                E9F29BB11F7EE59E0061252D /* BRGroupMemberTableViewCell.m in Sources */,
-                E90F7BCD1F670DC400333382 /* BRLocationListViewController.m in Sources */,
-                E90F7B9F1F670DC300333382 /* BRBubbleView+Text.m in Sources */,
-                E90F7B7C1F670DC300333382 /* BRResetPasswordViewController.m in Sources */,
-                E90F7BD41F670DC400333382 /* BRNicknameTextViewController.m in Sources */,
-                E9C5F3F81F75AE6D0073A86E /* BRNewFriendTableViewController.m in Sources */,
-                E96C7B671F87E09A00C0DC7E /* BRCoreDataStack.m in Sources */,
-                E90F7BA51F670DC300333382 /* BRCDDeviceManager+Remind.m in Sources */,
-                E90F7BBF1F670DC400333382 /* BRMessageCell.m in Sources */,
-                E90F7BC11F670DC400333382 /* BRRecordView.m in Sources */,
-                E90F7BA71F670DC300333382 /* BRMessageViewController.m in Sources */,
-                E90F7B7F1F670DC300333382 /* BRSearchFriendViewController.m in Sources */,
-                E90F7BB01F670DC400333382 /* BREmotionEscape.m in Sources */,
-                E90F7BA21F670DC300333382 /* BRCDDeviceManager+Media.m in Sources */,
-                E90F7B9B1F670DC300333382 /* BRBubbleView+File.m in Sources */,
-                E90F7B941F670DC300333382 /* NSString+Helper.m in Sources */,
-                E90F7BBC1F670DC400333382 /* BRCustomMessageCell.m in Sources */,
-                E90F7BC91F670DC400333382 /* BRMedia.m in Sources */,
-                E90F7BB11F670DC400333382 /* BREmotionManager.m in Sources */,
-            );
-            runOnlyForDeploymentPostprocessing = 0;
-        };
-        27CA03C11F38F21600D0F132 /* Sources */ = {
-            isa = PBXSourcesBuildPhase;
-            buildActionMask = 2147483647;
-            files = (
-                27CA03CA1F38F21600D0F132 /* LinCTests.m in Sources */,
-            );
-            runOnlyForDeploymentPostprocessing = 0;
-        };
-        27CA03CC1F38F21600D0F132 /* Sources */ = {
-            isa = PBXSourcesBuildPhase;
-            buildActionMask = 2147483647;
-            files = (
-                27CA03D51F38F21600D0F132 /* LinCUITests.m in Sources */,
-            );
-            runOnlyForDeploymentPostprocessing = 0;
-        };
+		27CA03A81F38F21600D0F132 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E90F7BD51F670DC400333382 /* BRUserSettingTableViewController.m in Sources */,
+				E90F7BC01F670DC400333382 /* BRMessageTimeCell.m in Sources */,
+				E90F7B8C1F670DC300333382 /* BRConversationModel.m in Sources */,
+				E90F7BD01F670DC400333382 /* BRUserGenderTableViewController.m in Sources */,
+				27FC23F11F6C4A9F001148D7 /* BRHTTPSessionManager.m in Sources */,
+				27CA03B11F38F21600D0F132 /* main.m in Sources */,
+				E90F7B7A1F670DC300333382 /* BRAccountNavigationController.m in Sources */,
+				E90F7BAD1F670DC300333382 /* BRConvertToCommonEmoticonsHelper.m in Sources */,
+				E95827F81FD87D8B00362F92 /* BRGroupChatSettingTableViewController.m in Sources */,
+				E90F7B871F670DC300333382 /* BRContactListTableViewCell.m in Sources */,
+				E90F7B7E1F670DC300333382 /* BRUserInfoSetUpTableViewController.m in Sources */,
+				E9C5F3FC1F75B2940073A86E /* BRNewFriendTableViewCell.m in Sources */,
+				E90F7BAB1F670DC300333382 /* BRCDDeviceManagerBase.m in Sources */,
+				E90F7BAE1F670DC400333382 /* BREmoji.m in Sources */,
+				E95FA8CB1F7065C50023BB1C /* BRRequestMessageTableViewController.m in Sources */,
+				E90F7B811F670DC300333382 /* BRContactListViewController.m in Sources */,
+				E90F7BC41F670DC400333382 /* Common.m in Sources */,
+				E90F7BAF1F670DC400333382 /* BREmojiEmoticons.m in Sources */,
+				E90F7BAC1F670DC300333382 /* BRChatToolbarItem.m in Sources */,
+				E90F7BCF1F670DC400333382 /* BRQRCodeViewController.m in Sources */,
+				E90F7BB91F670DC400333382 /* BRChatBarMoreViewCell.m in Sources */,
+				E90C2F171F88230B004D2116 /* BRCoreData.xcdatamodeld in Sources */,
+				E90F7BB71F670DC400333382 /* BRBubbleView.m in Sources */,
+				E90F7B7B1F670DC300333382 /* BRLoginViewController.m in Sources */,
+				E90F7BCE1F670DC400333382 /* BRPasswordViewController.m in Sources */,
+				E90F7B8E1F670DC300333382 /* BRConversationCell.m in Sources */,
+				E90F7BBE1F670DC400333382 /* BRFacialView.m in Sources */,
+				E90F7B9E1F670DC300333382 /* BRBubbleView+Location.m in Sources */,
+				27FC23FB1F7986D7001148D7 /* BRCreateChatViewController.m in Sources */,
+				E90F7B8D1F670DC300333382 /* BRAvatarView.m in Sources */,
+				E90F7B971F670DC300333382 /* BRRefreshTableViewController.m in Sources */,
+				27FC23F21F6C4A9F001148D7 /* BRSDKHelper.m in Sources */,
+				E90F7BA91F670DC300333382 /* BRAudioPlayerUtil.m in Sources */,
+				E90F7BA01F670DC300333382 /* BRBubbleView+Video.m in Sources */,
+				E90F7BC51F670DC400333382 /* BRMediaBrowserViewController.m in Sources */,
+				E90F7B931F670DC300333382 /* NSDateFormatter+Category.m in Sources */,
+				E90F7BB81F670DC400333382 /* BRChatBarMoreView.m in Sources */,
+				2744C4741FC377FC007C5095 /* BRBlackListViewController.m in Sources */,
+				E90F7BA41F670DC300333382 /* BRCDDeviceManager+ProximitySensor.m in Sources */,
+				E90F7BB41F670DC400333382 /* BRVoiceConverter.mm in Sources */,
+				E96C7B6A1F87E0B400C0DC7E /* BRCoreDataManager.m in Sources */,
+				270BD11C1FA27B2700266E6A /* BRAboutViewController.m in Sources */,
+				E90F7BBD1F670DC400333382 /* BRFaceView.m in Sources */,
+				E90F7BA61F670DC300333382 /* BRLocationViewController.m in Sources */,
+				E90F7BD61F670DC400333382 /* BRWhatsUpViewController.m in Sources */,
+				E90F7B961F670DC300333382 /* BRNavigationController.m in Sources */,
+				276398FD2022650500222875 /* UIView+NavigationBar.m in Sources */,
+				E90F7BD31F670DC400333382 /* BRUserInfoViewController.m in Sources */,
+				E90F7B9C1F670DC300333382 /* BRBubbleView+Gif.m in Sources */,
+				E90F7BD91F67368200333382 /* UIView+Animation.m in Sources */,
+				E90F7BB51F670DC400333382 /* wav.mm in Sources */,
+				E996231D1F794B5A00A90FD2 /* BRFileWithNewRequestData.m in Sources */,
+				E90F7BBB1F670DC400333382 /* BRChatToolbar.m in Sources */,
+				E90F7B831F670DC300333382 /* BRFriendInfoTableViewController.m in Sources */,
+				E90F7B8A1F670DC300333382 /* BRDropDownViewController.m in Sources */,
+				27FC23F51F6C4C2C001148D7 /* BRClientManager.m in Sources */,
+				E90F7B921F670DC300333382 /* NSDate+Category.m in Sources */,
+				E90F7BCB1F670DC400333382 /* BRMediaCell.m in Sources */,
+				E90F7BD11F670DC400333382 /* BRUserImageViewController.m in Sources */,
+				E90F7BAA1F670DC300333382 /* BRAudioRecorderUtil.m in Sources */,
+				E9CC14211F7C4E3C0070E4AC /* BRGroupListTableViewController.m in Sources */,
+				E90F7B7D1F670DC300333382 /* BRUserAccountSetUpViewController.m in Sources */,
+				E90F7B9D1F670DC300333382 /* BRBubbleView+Image.m in Sources */,
+				E90F7B841F670DC300333382 /* BRScannerViewController.m in Sources */,
+				E90F7BB21F670DC400333382 /* BRMessageModel.m in Sources */,
+				E90F7B891F670DC300333382 /* BRConversationListViewController.m in Sources */,
+				E90F7BB31F670DC400333382 /* BRMessageReadManager.m in Sources */,
+				2744C4771FC37A1E007C5095 /* BRGeneralSettingViewController.m in Sources */,
+				E90F7BA31F670DC300333382 /* BRCDDeviceManager+Microphone.m in Sources */,
+				E90F7BC31F670DC400333382 /* AppDelegate.m in Sources */,
+				E99891601FDB2DE20005EE36 /* BRCreateGroupChatTableViewController.m in Sources */,
+				E90F7BB61F670DC400333382 /* BRBaseMessageCell.m in Sources */,
+				E90F7BA11F670DC300333382 /* BRBubbleView+Voice.m in Sources */,
+				E90F7B861F670DC300333382 /* BRContactListModel.m in Sources */,
+				E90F7BA81F670DC300333382 /* amrFileCodec.mm in Sources */,
+				E90F7BC21F670DC400333382 /* BRTextView.m in Sources */,
+				E90F7B981F670DC300333382 /* BRTabBarController.m in Sources */,
+				E90F7B951F670DC300333382 /* UIView+Extension.m in Sources */,
+				E9C5F3F51F75A8F90073A86E /* BRFriendRequestTableViewController.m in Sources */,
+				E9F29BB11F7EE59E0061252D /* BRGroupMemberTableViewCell.m in Sources */,
+				E90F7BCD1F670DC400333382 /* BRLocationListViewController.m in Sources */,
+				E90F7B9F1F670DC300333382 /* BRBubbleView+Text.m in Sources */,
+				E90F7B7C1F670DC300333382 /* BRResetPasswordViewController.m in Sources */,
+				E90F7BD41F670DC400333382 /* BRNicknameTextViewController.m in Sources */,
+				E9C5F3F81F75AE6D0073A86E /* BRNewFriendTableViewController.m in Sources */,
+				E96C7B671F87E09A00C0DC7E /* BRCoreDataStack.m in Sources */,
+				E90F7BA51F670DC300333382 /* BRCDDeviceManager+Remind.m in Sources */,
+				E90F7BBF1F670DC400333382 /* BRMessageCell.m in Sources */,
+				E90F7BC11F670DC400333382 /* BRRecordView.m in Sources */,
+				E90F7BA71F670DC300333382 /* BRMessageViewController.m in Sources */,
+				E90F7B7F1F670DC300333382 /* BRSearchFriendViewController.m in Sources */,
+				E90F7BB01F670DC400333382 /* BREmotionEscape.m in Sources */,
+				E90F7BA21F670DC300333382 /* BRCDDeviceManager+Media.m in Sources */,
+				E90F7B9B1F670DC300333382 /* BRBubbleView+File.m in Sources */,
+				E90F7B941F670DC300333382 /* NSString+Helper.m in Sources */,
+				E90F7BBC1F670DC400333382 /* BRCustomMessageCell.m in Sources */,
+				E90F7BC91F670DC400333382 /* BRMedia.m in Sources */,
+				E90F7BB11F670DC400333382 /* BREmotionManager.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		27CA03C11F38F21600D0F132 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				27CA03CA1F38F21600D0F132 /* LinCTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		27CA03CC1F38F21600D0F132 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				27CA03D51F38F21600D0F132 /* LinCUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-        27CA03C71F38F21600D0F132 /* PBXTargetDependency */ = {
-            isa = PBXTargetDependency;
-            target = 27CA03AB1F38F21600D0F132 /* LinC */;
-            targetProxy = 27CA03C61F38F21600D0F132 /* PBXContainerItemProxy */;
-        };
-        27CA03D21F38F21600D0F132 /* PBXTargetDependency */ = {
-            isa = PBXTargetDependency;
-            target = 27CA03AB1F38F21600D0F132 /* LinC */;
-            targetProxy = 27CA03D11F38F21600D0F132 /* PBXContainerItemProxy */;
-        };
+		27CA03C71F38F21600D0F132 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 27CA03AB1F38F21600D0F132 /* LinC */;
+			targetProxy = 27CA03C61F38F21600D0F132 /* PBXContainerItemProxy */;
+		};
+		27CA03D21F38F21600D0F132 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 27CA03AB1F38F21600D0F132 /* LinC */;
+			targetProxy = 27CA03D11F38F21600D0F132 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-        2744C4631FB68B2A007C5095 /* LaunchScreen.storyboard */ = {
-            isa = PBXVariantGroup;
-            children = (
-                2744C4641FB68B2A007C5095 /* Base */,
-                2744C4661FB68B4B007C5095 /* en */,
-                2744C4671FB68B55007C5095 /* zh-Hans */,
-            );
-            name = LaunchScreen.storyboard;
-            sourceTree = "<group>";
-        };
-        2744C46A1FB68B83007C5095 /* Localizable.strings */ = {
-            isa = PBXVariantGroup;
-            children = (
-                2744C4691FB68B83007C5095 /* en */,
-                2744C46B1FB68B8B007C5095 /* zh-Hans */,
-            );
-            name = Localizable.strings;
-            sourceTree = "<group>";
-        };
-        27617B7F1FCDF0EC004A245D /* InfoPlist.strings */ = {
-            isa = PBXVariantGroup;
-            children = (
-                27617B7E1FCDF0EC004A245D /* zh-Hans */,
-                27617B801FCDF0F1004A245D /* en */,
-            );
-            name = InfoPlist.strings;
-            sourceTree = "<group>";
-        };
+		2744C4631FB68B2A007C5095 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2744C4641FB68B2A007C5095 /* Base */,
+				2744C4661FB68B4B007C5095 /* en */,
+				2744C4671FB68B55007C5095 /* zh-Hans */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		2744C46A1FB68B83007C5095 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2744C4691FB68B83007C5095 /* en */,
+				2744C46B1FB68B8B007C5095 /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		27617B7F1FCDF0EC004A245D /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				27617B7E1FCDF0EC004A245D /* zh-Hans */,
+				27617B801FCDF0F1004A245D /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-        27CA03D71F38F21600D0F132 /* Debug */ = {
-            isa = XCBuildConfiguration;
-            buildSettings = {
-                ALWAYS_SEARCH_USER_PATHS = NO;
-                CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-                CLANG_ANALYZER_NONNULL = YES;
-                CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-                CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-                CLANG_CXX_LIBRARY = "libc++";
-                CLANG_ENABLE_MODULES = YES;
-                CLANG_ENABLE_OBJC_ARC = YES;
-                CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-                CLANG_WARN_BOOL_CONVERSION = YES;
-                CLANG_WARN_COMMA = YES;
-                CLANG_WARN_CONSTANT_CONVERSION = YES;
-                CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-                CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-                CLANG_WARN_EMPTY_BODY = YES;
-                CLANG_WARN_ENUM_CONVERSION = YES;
-                CLANG_WARN_INFINITE_RECURSION = YES;
-                CLANG_WARN_INT_CONVERSION = YES;
-                CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-                CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-                CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-                CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-                CLANG_WARN_STRICT_PROTOTYPES = YES;
-                CLANG_WARN_SUSPICIOUS_MOVE = YES;
-                CLANG_WARN_UNREACHABLE_CODE = YES;
-                CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-                "CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-                COPY_PHASE_STRIP = NO;
-                DEBUG_INFORMATION_FORMAT = dwarf;
-                ENABLE_STRICT_OBJC_MSGSEND = YES;
-                ENABLE_TESTABILITY = YES;
-                GCC_C_LANGUAGE_STANDARD = gnu99;
-                GCC_DYNAMIC_NO_PIC = NO;
-                GCC_NO_COMMON_BLOCKS = YES;
-                GCC_OPTIMIZATION_LEVEL = 0;
-                GCC_PREPROCESSOR_DEFINITIONS = (
-                    "DEBUG=1",
-                    "$(inherited)",
-                );
-                GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-                GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-                GCC_WARN_UNDECLARED_SELECTOR = YES;
-                GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-                GCC_WARN_UNUSED_FUNCTION = YES;
-                GCC_WARN_UNUSED_VARIABLE = YES;
-                IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-                MTL_ENABLE_DEBUG_INFO = YES;
-                ONLY_ACTIVE_ARCH = YES;
-                SDKROOT = iphoneos;
-            };
-            name = Debug;
-        };
-        27CA03D81F38F21600D0F132 /* Release */ = {
-            isa = XCBuildConfiguration;
-            buildSettings = {
-                ALWAYS_SEARCH_USER_PATHS = NO;
-                CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-                CLANG_ANALYZER_NONNULL = YES;
-                CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-                CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-                CLANG_CXX_LIBRARY = "libc++";
-                CLANG_ENABLE_MODULES = YES;
-                CLANG_ENABLE_OBJC_ARC = YES;
-                CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-                CLANG_WARN_BOOL_CONVERSION = YES;
-                CLANG_WARN_COMMA = YES;
-                CLANG_WARN_CONSTANT_CONVERSION = YES;
-                CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-                CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-                CLANG_WARN_EMPTY_BODY = YES;
-                CLANG_WARN_ENUM_CONVERSION = YES;
-                CLANG_WARN_INFINITE_RECURSION = YES;
-                CLANG_WARN_INT_CONVERSION = YES;
-                CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-                CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-                CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-                CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-                CLANG_WARN_STRICT_PROTOTYPES = YES;
-                CLANG_WARN_SUSPICIOUS_MOVE = YES;
-                CLANG_WARN_UNREACHABLE_CODE = YES;
-                CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-                "CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-                COPY_PHASE_STRIP = NO;
-                DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-                ENABLE_NS_ASSERTIONS = NO;
-                ENABLE_STRICT_OBJC_MSGSEND = YES;
-                GCC_C_LANGUAGE_STANDARD = gnu99;
-                GCC_NO_COMMON_BLOCKS = YES;
-                GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-                GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-                GCC_WARN_UNDECLARED_SELECTOR = YES;
-                GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-                GCC_WARN_UNUSED_FUNCTION = YES;
-                GCC_WARN_UNUSED_VARIABLE = YES;
-                IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-                MTL_ENABLE_DEBUG_INFO = NO;
-                SDKROOT = iphoneos;
-                VALIDATE_PRODUCT = YES;
-            };
-            name = Release;
-        };
-        27CA03DA1F38F21600D0F132 /* Debug */ = {
-            isa = XCBuildConfiguration;
-            baseConfigurationReference = 7C9BD64024967E79CE634497 /* Pods-LinC.debug.xcconfig */;
-            buildSettings = {
-                ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-                CODE_SIGN_ENTITLEMENTS = LinC/LinC.entitlements;
-                CODE_SIGN_IDENTITY = "iPhone Developer: Yingwei Fan (3LYJJC4KNY)";
-                "CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-                CODE_SIGN_STYLE = Automatic;
-                DEVELOPMENT_TEAM = AEKJ6LE54T;
-                GCC_PRECOMPILE_PREFIX_HEADER = YES;
-                GCC_PREFIX_HEADER = "$(SRCROOT)/LinC/Class/Other/LinC.pch";
-                INFOPLIST_FILE = LinC/Info.plist;
-                IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-                LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-                LIBRARY_SEARCH_PATHS = (
-                    "$(inherited)",
-                    "$(PROJECT_DIR)/LinC/Class/Other",
-                );
-                PRODUCT_BUNDLE_IDENTIFIER = com.BeyondRemarkable.LinC.dev;
-                PRODUCT_NAME = "$(TARGET_NAME)";
-                PROVISIONING_PROFILE = "";
-                PROVISIONING_PROFILE_SPECIFIER = "";
-            };
-            name = Debug;
-        };
-        27CA03DB1F38F21600D0F132 /* Release */ = {
-            isa = XCBuildConfiguration;
-            baseConfigurationReference = 94F6AAD2F8CDC6DB43F6386A /* Pods-LinC.release.xcconfig */;
-            buildSettings = {
-                ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-                CODE_SIGN_ENTITLEMENTS = LinC/LinC.entitlements;
-                CODE_SIGN_IDENTITY = "iPhone Developer: Yingwei Fan (3LYJJC4KNY)";
-                "CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-                CODE_SIGN_STYLE = Automatic;
-                DEVELOPMENT_TEAM = AEKJ6LE54T;
-                GCC_PRECOMPILE_PREFIX_HEADER = YES;
-                GCC_PREFIX_HEADER = "$(SRCROOT)/LinC/Class/Other/LinC.pch";
-                INFOPLIST_FILE = LinC/Info.plist;
-                IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-                LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-                LIBRARY_SEARCH_PATHS = (
-                    "$(inherited)",
-                    "$(PROJECT_DIR)/LinC/Class/Other",
-                );
-                PRODUCT_BUNDLE_IDENTIFIER = com.BeyondRemarkable.LinC.dev;
-                PRODUCT_NAME = "$(TARGET_NAME)";
-                PROVISIONING_PROFILE = "";
-                PROVISIONING_PROFILE_SPECIFIER = "";
-            };
-            name = Release;
-        };
-        27CA03DD1F38F21600D0F132 /* Debug */ = {
-            isa = XCBuildConfiguration;
-            buildSettings = {
-                BUNDLE_LOADER = "$(TEST_HOST)";
-                DEVELOPMENT_TEAM = M4YWTY9R92;
-                INFOPLIST_FILE = LinCTests/Info.plist;
-                LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-                PRODUCT_BUNDLE_IDENTIFIER = com.BeyondRemarkable.LinCTests;
-                PRODUCT_NAME = "$(TARGET_NAME)";
-                TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LinC.app/LinC";
-            };
-            name = Debug;
-        };
-        27CA03DE1F38F21600D0F132 /* Release */ = {
-            isa = XCBuildConfiguration;
-            buildSettings = {
-                BUNDLE_LOADER = "$(TEST_HOST)";
-                DEVELOPMENT_TEAM = M4YWTY9R92;
-                INFOPLIST_FILE = LinCTests/Info.plist;
-                LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-                PRODUCT_BUNDLE_IDENTIFIER = com.BeyondRemarkable.LinCTests;
-                PRODUCT_NAME = "$(TARGET_NAME)";
-                TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LinC.app/LinC";
-            };
-            name = Release;
-        };
-        27CA03E01F38F21600D0F132 /* Debug */ = {
-            isa = XCBuildConfiguration;
-            buildSettings = {
-                DEVELOPMENT_TEAM = E259J6P932;
-                INFOPLIST_FILE = LinCUITests/Info.plist;
-                LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-                PRODUCT_BUNDLE_IDENTIFIER = com.BeyondRemarkable.LinCUITests;
-                PRODUCT_NAME = "$(TARGET_NAME)";
-                TEST_TARGET_NAME = LinC;
-            };
-            name = Debug;
-        };
-        27CA03E11F38F21600D0F132 /* Release */ = {
-            isa = XCBuildConfiguration;
-            buildSettings = {
-                DEVELOPMENT_TEAM = E259J6P932;
-                INFOPLIST_FILE = LinCUITests/Info.plist;
-                LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-                PRODUCT_BUNDLE_IDENTIFIER = com.BeyondRemarkable.LinCUITests;
-                PRODUCT_NAME = "$(TARGET_NAME)";
-                TEST_TARGET_NAME = LinC;
-            };
-            name = Release;
-        };
+		27CA03D71F38F21600D0F132 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		27CA03D81F38F21600D0F132 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		27CA03DA1F38F21600D0F132 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7C9BD64024967E79CE634497 /* Pods-LinC.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = LinC/LinC.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Yingwei Fan (3LYJJC4KNY)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = AEKJ6LE54T;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/LinC/Class/Other/LinC.pch";
+				INFOPLIST_FILE = LinC/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/LinC/Class/Other",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.BeyondRemarkable.LinC.dev;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+			};
+			name = Debug;
+		};
+		27CA03DB1F38F21600D0F132 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 94F6AAD2F8CDC6DB43F6386A /* Pods-LinC.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = LinC/LinC.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Yingwei Fan (3LYJJC4KNY)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = AEKJ6LE54T;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/LinC/Class/Other/LinC.pch";
+				INFOPLIST_FILE = LinC/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/LinC/Class/Other",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.BeyondRemarkable.LinC.dev;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+			};
+			name = Release;
+		};
+		27CA03DD1F38F21600D0F132 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = M4YWTY9R92;
+				INFOPLIST_FILE = LinCTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.BeyondRemarkable.LinCTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LinC.app/LinC";
+			};
+			name = Debug;
+		};
+		27CA03DE1F38F21600D0F132 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = M4YWTY9R92;
+				INFOPLIST_FILE = LinCTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.BeyondRemarkable.LinCTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LinC.app/LinC";
+			};
+			name = Release;
+		};
+		27CA03E01F38F21600D0F132 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = E259J6P932;
+				INFOPLIST_FILE = LinCUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.BeyondRemarkable.LinCUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = LinC;
+			};
+			name = Debug;
+		};
+		27CA03E11F38F21600D0F132 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = E259J6P932;
+				INFOPLIST_FILE = LinCUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.BeyondRemarkable.LinCUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = LinC;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-        27CA03A71F38F21600D0F132 /* Build configuration list for PBXProject "LinC" */ = {
-            isa = XCConfigurationList;
-            buildConfigurations = (
-                27CA03D71F38F21600D0F132 /* Debug */,
-                27CA03D81F38F21600D0F132 /* Release */,
-            );
-            defaultConfigurationIsVisible = 0;
-            defaultConfigurationName = Debug;
-        };
-        27CA03D91F38F21600D0F132 /* Build configuration list for PBXNativeTarget "LinC" */ = {
-            isa = XCConfigurationList;
-            buildConfigurations = (
-                27CA03DA1F38F21600D0F132 /* Debug */,
-                27CA03DB1F38F21600D0F132 /* Release */,
-            );
-            defaultConfigurationIsVisible = 0;
-            defaultConfigurationName = Debug;
-        };
-        27CA03DC1F38F21600D0F132 /* Build configuration list for PBXNativeTarget "LinCTests" */ = {
-            isa = XCConfigurationList;
-            buildConfigurations = (
-                27CA03DD1F38F21600D0F132 /* Debug */,
-                27CA03DE1F38F21600D0F132 /* Release */,
-            );
-            defaultConfigurationIsVisible = 0;
-            defaultConfigurationName = Debug;
-        };
-        27CA03DF1F38F21600D0F132 /* Build configuration list for PBXNativeTarget "LinCUITests" */ = {
-            isa = XCConfigurationList;
-            buildConfigurations = (
-                27CA03E01F38F21600D0F132 /* Debug */,
-                27CA03E11F38F21600D0F132 /* Release */,
-            );
-            defaultConfigurationIsVisible = 0;
-            defaultConfigurationName = Debug;
-        };
+		27CA03A71F38F21600D0F132 /* Build configuration list for PBXProject "LinC" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				27CA03D71F38F21600D0F132 /* Debug */,
+				27CA03D81F38F21600D0F132 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		27CA03D91F38F21600D0F132 /* Build configuration list for PBXNativeTarget "LinC" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				27CA03DA1F38F21600D0F132 /* Debug */,
+				27CA03DB1F38F21600D0F132 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		27CA03DC1F38F21600D0F132 /* Build configuration list for PBXNativeTarget "LinCTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				27CA03DD1F38F21600D0F132 /* Debug */,
+				27CA03DE1F38F21600D0F132 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		27CA03DF1F38F21600D0F132 /* Build configuration list for PBXNativeTarget "LinCUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				27CA03E01F38F21600D0F132 /* Debug */,
+				27CA03E11F38F21600D0F132 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-        E96C7B531F85C8B100C0DC7E /* BRCoreData.xcdatamodeld */ = {
-            isa = XCVersionGroup;
-            children = (
-                E96C7B541F85C8B100C0DC7E /* BRContactListCoreData.xcdatamodel */,
-            );
-            currentVersion = E96C7B541F85C8B100C0DC7E /* BRContactListCoreData.xcdatamodel */;
-            path = BRCoreData.xcdatamodeld;
-            sourceTree = "<group>";
-            versionGroupType = wrapper.xcdatamodel;
-        };
+		E96C7B531F85C8B100C0DC7E /* BRCoreData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				E96C7B541F85C8B100C0DC7E /* BRContactListCoreData.xcdatamodel */,
+			);
+			currentVersion = E96C7B541F85C8B100C0DC7E /* BRContactListCoreData.xcdatamodel */;
+			path = BRCoreData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
 /* End XCVersionGroup section */
-    };
-    rootObject = 27CA03A41F38F21600D0F132 /* Project object */;
+	};
+	rootObject = 27CA03A41F38F21600D0F132 /* Project object */;
 }

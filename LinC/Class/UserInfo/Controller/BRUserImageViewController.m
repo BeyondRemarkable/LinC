@@ -9,6 +9,7 @@
 #import "BRUserImageViewController.h"
 #import "BRClientManager.h"
 #import <MBProgressHUD.h>
+#import "UIView+NavigationBar.h"
 
 @interface BRUserImageViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 {
@@ -25,8 +26,10 @@
     
     [self.imageView setImage:self.image];
     
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [btn setFrame:CGRectMake(0, 0, 35, 35)];
+    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 35)];
+    if (@available(iOS 11.0, *)) {
+        [btn addNavigationBarConstraintsWithWidth:35 height:35];
+    }
     [btn setBackgroundImage:[UIImage imageNamed:@"more_info"] forState:UIControlStateNormal];
     [btn setBackgroundImage:[UIImage imageNamed:@"more_info_highlighted"] forState:UIControlStateHighlighted];
     [btn addTarget:self action:@selector(clickMoreInfo) forControlEvents:UIControlEventTouchUpInside];
