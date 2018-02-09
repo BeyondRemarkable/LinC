@@ -5,6 +5,7 @@
 //  Created by zhe wu on 9/27/17.
 //  Copyright © 2017 BeyondRemarkable. All rights reserved.
 //
+
 #import <Foundation/Foundation.h>
 #import "BRGroupListTableViewController.h"
 #import "BRGroupMemberTableViewCell.h"
@@ -16,14 +17,18 @@
 #import "BRFriendRequestTableViewController.h"
 #import "BRCoreDataManager.h"
 #import "BRGroup+CoreDataClass.h"
+#import "BRGroupIconGenerator.h"
+#import "BRFriendsInfo+CoreDataClass.h"
+#import "BRGroupModel.h"
 
 @interface BRGroupListTableViewController ()<UITableViewDataSource, UITableViewDelegate, EMGroupManagerDelegate>
 {
     MBProgressHUD *hud;
 }
-@property (nonatomic, strong) NSArray *groupListArray;
-@property (nonnull, strong) NSMutableArray *groupRequestArray;
-@property (nonnull, strong) NSArray *groupNameRequestArray;
+@property (nonatomic, strong) NSMutableArray *groupListArray;
+@property (nonatomic, strong) NSMutableArray *groupRequestArray;
+@property (nonatomic, strong) NSArray *groupNameRequestArray;
+@property (nonatomic, strong) NSArray *groupMembersIconArray;
 @end
 
 @implementation BRGroupListTableViewController
@@ -57,7 +62,7 @@ typedef enum : NSInteger {
 
 
 /**
- 获取及更新群信息
+    获取及更新群信息
  */
 - (void)setUpGroupInfo {
     self.groupNameRequestArray = [NSMutableArray array];
@@ -68,21 +73,52 @@ typedef enum : NSInteger {
         [self.groupNameRequestArray arrayByAddingObject:requestGroup.groupName];
     }
     
-    self.groupListArray = [[BRCoreDataManager sharedInstance] fetchGroupsWithGroupID:nil];
+    NSArray *groupsArray = [[[BRCoreDataManager sharedInstance] fetchGroupsWithGroupID:nil] mutableCopy];
+    NSMutableArray *groupModelArray = [NSMutableArray array];
+    for (BRGroup *group in groupsArray) {
+        BRGroupModel *groupModel = [[BRGroupModel alloc] init];
+        groupModel.groupID = group.groupID;
+        groupModel.groupName = group.groupName;
+        groupModel.groupOwner = group.groupOwner;
+        groupModel.groupDescription = group.groupDescription;
+        groupModel.groupIcon = [UIImage imageWithData:group.groupIcon];
+        [groupModelArray addObject:groupModel];
+    }
+    [groupModelArray sortUsingComparator:^NSComparisonResult(BRGroup *left, BRGroup *right) {
+        return [left.groupName compare:right.groupName];
+    }];
+    self.groupListArray = groupModelArray;
     if (!self.groupListArray.count) {
         hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     }
-    // 获取群列表
-    [[EMClient sharedClient].groupManager getJoinedGroupsFromServerWithPage:-1 pageSize:-1 completion:^(NSArray *aList, EMError *aError) {
-        if (!aError) {
-            for (EMGroup *group in aList) {
-                [[BRCoreDataManager sharedInstance] saveGroupToCoreData:group withIcon:nil];
-            }
-            self.groupListArray = [[BRCoreDataManager sharedInstance] fetchGroupsWithGroupID:nil];
-            [self.tableView reloadData];
-            [hud hideAnimated:YES];
+    
+    // 更新群模型数据
+    [[BRClientManager sharedManager] getGroupInfoWithSuccess:^(NSMutableArray *groupInfoArray) {
+        NSMutableArray *groupsArray = [groupInfoArray mutableCopy];
+        [groupsArray sortUsingComparator:^NSComparisonResult(BRGroup *left, BRGroup *right) {
+            return [left.groupName compare:right.groupName];
+        }];
+        NSMutableArray *groupList = [NSMutableArray array];
+        // 删除已经不存在的群
+        for (BRGroupModel *group in groupsArray) {
+            [groupList addObject:group.groupID];
         }
-    }];
+        for (BRGroupModel *group in self.groupListArray) {
+            if (![groupList containsObject:group.groupID]) {
+                [[BRCoreDataManager sharedInstance] deleteGroupByGoupID:group.groupID];
+            }
+        }
+        self.groupListArray = groupsArray;
+        
+//        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:1 inSection:1], nil] withRowAnimation:UITableViewRowAnimationNone];
+        [self.tableView reloadData];
+        [hud hideAnimated:YES];
+
+     } failure:^(EMError *error) {
+         hud.mode = MBProgressHUDModeText;
+         hud.label.text = error.errorDescription;
+         [hud hideAnimated:YES afterDelay:1.5];
+     }];
 }
 
 // Set up navigation bar items
@@ -134,8 +170,15 @@ typedef enum : NSInteger {
         return cell;
     } else {
         BRGroupMemberTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"groupCell" forIndexPath:indexPath];
-        BRGroup *group = (BRGroup *)self.groupListArray[indexPath.row];
+        BRGroupModel *group = self.groupListArray[indexPath.row];
         cell.grounpName.text = group.groupName;
+        if (!group.groupIcon) {
+            cell.grounpIcon.image = [UIImage imageNamed:@"group_default"];
+            
+        } else {
+            cell.grounpIcon.image = group.groupIcon;
+        }
+        
         return cell;
     }
 }

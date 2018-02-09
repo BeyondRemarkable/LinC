@@ -46,4 +46,6 @@
 /** 更新当前用户的密码 */
 - (void)updatePasswordWithCurrentPassword:(NSString *)currentPassword newPassword:(NSString *)newPassword success:(void (^)(NSString *message))successBlock failure:(void (^)(EMError *error))failureBlock;
 
+- (void)getGroupInfoWithSuccess:(void (^)(NSMutableArray *groupInfoArray))successBlock failure:(void (^)(EMError *))failureBlock;
+
 @end

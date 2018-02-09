@@ -30,8 +30,7 @@
     MBProgressHUD *hud;
     NSString *groupOwner;
     EMGroupOptions *groupSetting;
-    NSArray *groupMembersName;
-    EMGroup *currentGroup;
+    BRGroup *currentGroup;
 }
 
 @property (nonatomic, strong) NSMutableArray *dataArray;
@@ -40,7 +39,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *copiedGroupIDLabel;
 @property (weak, nonatomic) IBOutlet UILabel *groupIDLabel;
 @property (weak, nonatomic) IBOutlet UIView *leaveGroupView;
-
+@property (nonatomic, strong) NSMutableArray *groupMembersName;
 
 
 @end
@@ -81,27 +80,32 @@ static NSString * const cellIdentifier = @"groupCell";
 // 设置群信息
 - (void)setUpGroupInfo {
     BRGroup *group = [[[BRCoreDataManager sharedInstance] fetchGroupsWithGroupID:self.groupID] lastObject];
+    currentGroup = group;
     self.groupIDLabel.text = group.groupID;
     self.groupNameLabel.text = group.groupName;
-    
-    if (group.description.length == 0) {
+
+    groupOwner = group.groupOwner;
+    if (group.groupDescription.length == 0) {
         self.groupDescriptionLabel.text = @"None";
     } else {
         self.groupDescriptionLabel.text = group.groupDescription;
     }
     NSArray *groupMembersInfo = [group.friendsInfo allObjects];
     NSMutableArray *groupMembersArray = [NSMutableArray array];
+    self.groupMembersName = [NSMutableArray array];
     for (BRFriendsInfo *groupMember in groupMembersInfo) {
         BRContactListModel *model = [[BRContactListModel alloc] init];
+        model.username = groupMember.username;
         model.nickname = groupMember.nickname;
         model.gender = groupMember.gender;
         model.whatsUp = groupMember.whatsUp;
         model.location = groupMember.location;
         model.avatarImage = [UIImage imageWithData:groupMember.avatar];
         [groupMembersArray addObject:model];
+        [self.groupMembersName addObject:model.username];
     }
     [groupMembersArray sortUsingComparator:^NSComparisonResult(BRContactListModel *left, BRContactListModel *right) {
-        return [left.username compare: right.username];
+        return [left.nickname compare: right.nickname];
     }];
     
     self.dataArray = groupMembersArray;
@@ -123,11 +127,14 @@ static NSString * const cellIdentifier = @"groupCell";
         
         NSArray *groupMembersArray = nil;
         if (!aError) {
-            if (aResult.list > 0) {
-                groupMembersArray = [[aResult.list copy] arrayByAddingObject:group.groupOwner];
+            if (aResult.list > 0 && group.groupOwner) {
+                groupMembersArray = [[aResult.list mutableCopy] arrayByAddingObject:group.groupOwner];
             }
             // 获取群成员信息
             [[BRClientManager sharedManager] getUserInfoWithUsernames:groupMembersArray andSaveFlag:NO success:^(NSMutableArray *groupMembersInfoArray) {
+                [groupMembersInfoArray sortUsingComparator:^NSComparisonResult(BRContactListModel *left, BRContactListModel *right) {
+                    return [left.nickname compare: right.nickname];
+                }];
                 self.dataArray = groupMembersInfoArray;
                 // 保存到数据库
                 [[BRCoreDataManager sharedInstance] saveGroupMembersToCoreData:groupMembersInfoArray toGroup:self.groupID];
@@ -239,7 +246,7 @@ static NSString * const cellIdentifier = @"groupCell";
     BRCreateChatViewController *vc = [[BRCreateChatViewController alloc] initWithStyle:UITableViewStylePlain];
     vc.doesAddMembers = YES;
     vc.groupID = self.groupID;
-    vc.groupMembersArray = groupMembersName;
+    vc.groupMembersArray = self.groupMembersName;
     [self.navigationController pushViewController:vc animated:YES];
  }
 
@@ -297,6 +304,7 @@ static NSString * const cellIdentifier = @"groupCell";
                 hud.mode = MBProgressHUDModeText;
                 if (!aError) {
                     hud.label.text = @"Destory group successfully.";
+                    [[BRCoreDataManager sharedInstance] deleteGroupByGoupID:self.groupID];
                     dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5/*延迟执行时间*/ * NSEC_PER_SEC));
                     
                     dispatch_after(delayTime, dispatch_get_main_queue(), ^{
@@ -311,11 +319,12 @@ static NSString * const cellIdentifier = @"groupCell";
     } else {
         // 群成员退出群
         delete = [UIAlertAction actionWithTitle:@"Comfirm leave group" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-            [[EMClient sharedClient].groupManager leaveGroup:self.groupID completion:^(EMError *aError) {
+            [[EMClient sharedClient].groupManager  leaveGroup:self.groupID completion:^(EMError *aError) {
                 hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
                 hud.mode = MBProgressHUDModeText;
                 if (!aError) {
                     hud.label.text = @"Leave group successfully.";
+                    [[BRCoreDataManager sharedInstance] deleteGroupByGoupID:self.groupID];
                     dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5/*延迟执行时间*/ * NSEC_PER_SEC));
                     
                     dispatch_after(delayTime, dispatch_get_main_queue(), ^{

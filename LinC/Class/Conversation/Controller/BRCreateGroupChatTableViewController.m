@@ -11,6 +11,7 @@
 #import "BRMessageViewController.h"
 #import <MBProgressHUD.h>
 #import "BRNavigationController.h"
+#import "BRCoreDataManager.h"
 
 
 @interface BRCreateGroupChatTableViewController () <UITextViewDelegate, UITableViewDelegate, UITableViewDataSource>
@@ -83,6 +84,8 @@ typedef enum : NSInteger {
     setting.style = (EMGroupStyle)self.groupStyle;
     [[EMClient sharedClient].groupManager createGroupWithSubject:self.groupName.text description:self.textView.text invitees:self.selectedList message:@""  setting:setting completion:^(EMGroup *aGroup, EMError *aError) {
         if(!aError){
+
+//            [[BRCoreDataManager sharedInstance] saveGroupToCoreData:aGroup withIcon:nil];
             // 退出创建界面
             UITabBarController *btTabBarController = (UITabBarController *)self.presentingViewController.presentingViewController;
             [btTabBarController dismissViewControllerAnimated:YES completion:^{

@@ -14,6 +14,8 @@
 #import "BRCoreDataManager.h"
 #import "BRUserInfo+CoreDataClass.h"
 #import "BRLoginViewController.h"
+#import "BRGroupModel.h"
+#import "BRGroupIconGenerator.h"
 
 @implementation BRClientManager
 
@@ -38,7 +40,7 @@
         parameters = @{@"email":username, @"password":password};
     }
     else {
-        parameters = @{@"username":username, @"password":password};
+        parameters = @{@"username":[username lowercaseString], @"password":password};
     }
     [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dict = (NSDictionary *)responseObject;
@@ -83,7 +85,6 @@
                                 [[BRCoreDataManager sharedInstance] insertUserInfoToCoreData: model];
                                 successBlock(dict[@"data"][@"user"]);
                             });
-                            
                         });
                     }
                 }
@@ -92,8 +93,7 @@
                     EMError *error = [EMError errorWithDescription:@"Login fail." code:EMErrorGeneral];
                     failureBlock(error);
                 }
-            }];
-            
+            }];;;
         }
         // 登录服务器失败
         else {
@@ -111,7 +111,7 @@
     BRHTTPSessionManager *manager = [BRHTTPSessionManager manager];
     NSString *url = [kBaseURL stringByAppendingPathComponent:@"/api/v1/auth/register/confirm"];
     NSDictionary *parameters = @{
-                                 @"username":username,
+                                 @"username":[username lowercaseString],
                                  @"password":password,
                                  @"email":email,
                                  @"code":code
@@ -139,7 +139,9 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *username = [userDefaults objectForKey:kLoginUserNameKey];
     NSString *token = [SAMKeychain passwordForService:kLoginTokenKey account:username];
-    [manager.requestSerializer setValue:[@"Bearer " stringByAppendingString:token]  forHTTPHeaderField:@"Authorization"];
+    if (token) {
+         [manager.requestSerializer setValue:[@"Bearer " stringByAppendingString:token]  forHTTPHeaderField:@"Authorization"];
+    }
     [manager POST:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dict = (NSDictionary *)responseObject;
         if ([dict[@"status"] isEqualToString:@"success"]) {
@@ -378,4 +380,88 @@
     }];
 }
 
+/**
+    从服务器获取群模型数据，并生成群头像，保存到数据中
+ 
+ @param successBlock  群模型数组
+ @param failureBlock  error信息
+ */
+- (void)getGroupInfoWithSuccess:(void (^)(NSMutableArray *groupInfoArray))successBlock failure:(void (^)(EMError *))failureBlock {
+    __block NSMutableArray *groupListArray = [NSMutableArray array];
+    __block NSMutableArray *groupListInfoArray = [NSMutableArray array];
+    dispatch_group_t dispathGroup = dispatch_group_create();
+    dispatch_group_enter(dispathGroup);
+    [[EMClient sharedClient].groupManager getJoinedGroupsFromServerWithPage:-1 pageSize:-1 completion:^(NSArray *aList, EMError *aError) {
+        if (!aError) {
+            groupListArray = [aList mutableCopy];
+            dispatch_group_leave(dispathGroup);
+        } else {
+            dispatch_group_leave(dispathGroup);
+            failureBlock(aError);
+        }
+    }];
+    dispatch_group_notify(dispathGroup, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        dispatch_group_t dispathGroupInfo = dispatch_group_create();
+        for (EMGroup *group in groupListArray) {
+            dispatch_group_enter(dispathGroupInfo);
+            [[EMClient sharedClient].groupManager getGroupMemberListFromServerWithId:group.groupId cursor:nil pageSize:-1 completion:^(EMCursorResult *aResult, EMError *aError) {
+                if (!aError) {
+                    __block BRGroupModel *groupModel = [[BRGroupModel alloc] init];
+                    groupModel.groupOwner = group.owner;
+                    groupModel.groupID = group.groupId;
+                    groupModel.groupDescription = group.description;
+                    groupModel.groupName = group.subject;
+                    groupModel.groupStyle = group.setting.style;
+                    NSMutableArray *groupMembers = [NSMutableArray arrayWithObject:group.owner];
+                    [groupMembers addObjectsFromArray:aResult.list];
+                    groupModel.groupMembers = groupMembers;
+                    [groupListInfoArray addObject:groupModel];
+                    dispatch_group_leave(dispathGroupInfo);
+                } else {
+                    dispatch_group_leave(dispathGroupInfo);
+                    failureBlock(aError);
+                }
+            }];
+        }
+        dispatch_group_notify(dispathGroupInfo, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+            dispatch_group_t dispathGroupMemberInfo = dispatch_group_create();
+            for (BRGroupModel *groupModel in groupListInfoArray) {
+                // 取出前9个群成员生成群头像
+                NSMutableArray *groupMembersArray = [groupModel.groupMembers mutableCopy];
+                if (groupModel.groupMembers.count > 9) {
+                    groupMembersArray = [[groupMembersArray subarrayWithRange:NSMakeRange(0, 9)] copy];
+                }
+                dispatch_group_async(dispathGroupMemberInfo, dispatch_get_global_queue(0, 0), ^{
+                   dispatch_group_enter(dispathGroupMemberInfo);
+                    [self getUserInfoWithUsernames:groupMembersArray andSaveFlag:NO success:^(NSMutableArray *groupMembers) {
+                        
+                        NSMutableArray *membersIconArray = [NSMutableArray array];
+                        for (NSInteger i = 0; i < groupMembers.count; i++) {
+                            BRContactListModel *groupMember = groupMembers[i];
+                            if (groupMember.avatarImage) {
+                                [membersIconArray addObject:groupMember.avatarImage];
+                            } else {
+                                [membersIconArray addObject:[UIImage imageNamed:@"nickname"]];
+                            }
+                        }
+                        if (membersIconArray.count > 0) {
+                            groupModel.groupIcon = [BRGroupIconGenerator groupIconGenerator:membersIconArray];
+                        } else {
+                            groupModel.groupIcon = [UIImage imageNamed:@"group_default"];
+                        }
+                        dispatch_group_leave(dispathGroupMemberInfo);
+                       
+                    } failure:^(EMError *error) {
+                        dispatch_group_leave(dispathGroupMemberInfo);
+                        failureBlock(error);
+                    }];
+                });
+            }
+            dispatch_group_notify(dispathGroupMemberInfo, dispatch_get_main_queue(), ^{
+                [[BRCoreDataManager sharedInstance] saveGroupToCoreData:groupListInfoArray];
+                successBlock(groupListInfoArray);
+            });
+        });
+    });
+}
 @end

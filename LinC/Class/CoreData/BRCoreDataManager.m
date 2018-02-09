@@ -13,6 +13,7 @@
 #import "BRConversation+CoreDataClass.h"
 #import "BRConversationModel.h"
 #import "BRGroup+CoreDataClass.h"
+#import "BRGroupModel.h"
 
 static BRCoreDataStack *gCoreDataStack = nil;
 BRUserInfo *userInfoDic = nil;
@@ -256,7 +257,9 @@ BRUserInfo *userInfoDic = nil;
                 [self deleteConversationByID:userNameArray];
             }
         }
-        [userInfo removeFriendsInfo:friendInfoSet];
+        if (!friendInfoSet) {
+            [userInfo removeFriendsInfo:friendInfoSet];
+        }
     }
     [self saveData];
 }
@@ -375,10 +378,11 @@ BRUserInfo *userInfoDic = nil;
         if ([conversationIDArray containsObject:conversation.conversationId]) {
             [conversationSet addObject:conversation];
         }
-        [userInfo removeFriendsInfo:conversationSet];
-        [self saveData];
+        if (!conversationSet) {
+            [userInfo removeFriendsInfo:conversationSet];
+            [self saveData];
+        }
     }
-  
 }
 
 /**
@@ -401,32 +405,36 @@ BRUserInfo *userInfoDic = nil;
 /**
  保存群模型数据
 
- @param eMGroup EMGroup模型数据
- @param groupIcon 群头像
+ @param groupModelArray 群模型数组
  */
-- (void)saveGroupToCoreData:(EMGroup *)eMGroup withIcon:(UIImage *)groupIcon; {
-    
-    BRGroup *group = [[self fetchGroupsWithGroupID:eMGroup.groupId] lastObject];
-    if (!group) {
-        [self insertGroupToCoreData:eMGroup];
-    } else {
-        [self updateGroupInfo:group];
+- (void)saveGroupToCoreData:(NSArray *)groupModelArray {
+    for (BRGroupModel *groupModel in groupModelArray) {
+        BRGroup *group = [[self fetchGroupsWithGroupID:groupModel.groupID] lastObject];
+        if (!group) {
+            [self insertGroupToCoreData:groupModel];
+        } else {
+            [self updateGroupInfo:groupModel];
+        }
     }
 }
 
 /**
  保存群模型数据到数据库
 
- @param eMGroup 环信群模型数据
+ @param groupModel 环信群模型数据
  */
-- (void)insertGroupToCoreData:(EMGroup *)eMGroup {
+- (void)insertGroupToCoreData:(BRGroupModel *)groupModel{
     BRUserInfo *userInfo = [self getUserInfo];
     NSManagedObjectContext *context = [self managedObjectContext];
     BRGroup *group = [NSEntityDescription insertNewObjectForEntityForName:@"BRGroup" inManagedObjectContext:context];
-    group.groupOwner = eMGroup.owner;
-    group.groupName = eMGroup.subject;
-    group.groupID = eMGroup.groupId;
-    group.groupDescription = eMGroup.description;
+    group.groupOwner = groupModel.groupOwner;
+    group.groupName = groupModel.groupName;
+    group.groupID = groupModel.groupID;
+    group.groupDescription = groupModel.groupDescription;
+    group.groupStyle = groupModel.groupStyle;
+    if (!groupModel.groupIcon) {
+        group.groupIcon = UIImagePNGRepresentation(groupModel.groupIcon);
+    }
     [userInfo addGroupObject:group];
     [self saveData];
 }
@@ -434,14 +442,17 @@ BRUserInfo *userInfoDic = nil;
 /**
  更新群模型数据到数据库
  
- @param group 群模型数据
+ @param groupModel 群模型数据
  */
-- (void)updateGroupInfo:(BRGroup *)group {
-    BRGroup *oldGroup = [[self fetchGroupsWithGroupID:group.groupID] lastObject];
-    oldGroup.groupName = group.groupName;
-    oldGroup.groupIcon = group.groupIcon;
-    oldGroup.groupOwner = group.groupOwner;
-    oldGroup.groupDescription = group.groupDescription;
+- (void)updateGroupInfo:(BRGroupModel *)groupModel {
+    BRGroup *oldGroup = [[self fetchGroupsWithGroupID:groupModel.groupID] lastObject];
+    oldGroup.groupName = groupModel.groupName;
+    oldGroup.groupOwner = groupModel.groupOwner;
+    oldGroup.groupDescription = groupModel.groupDescription;
+    oldGroup.groupStyle = groupModel.groupStyle;
+    if (groupModel.groupIcon) {
+        oldGroup.groupIcon = UIImagePNGRepresentation(groupModel.groupIcon);
+    }
     [self saveData];
 }
 
@@ -474,8 +485,10 @@ BRUserInfo *userInfoDic = nil;
     NSPredicate *fetchGroupFilter = [NSPredicate predicateWithFormat:@"groupID = %@", groupID];
     NSSet *groups = [userInfo.group filteredSetUsingPredicate:fetchGroupFilter];
     BRGroup *deleteGroup = [[groups allObjects] lastObject];
-    [userInfo removeGroupObject:deleteGroup];
-    [self saveData];
+    if (!deleteGroup) {
+        [userInfo removeGroupObject:deleteGroup];
+        [self saveData];
+    }
 }
 
 /**
@@ -559,8 +572,10 @@ BRUserInfo *userInfoDic = nil;
 - (void)deleteGroupMemberFromGoup:(NSString *)groupID andGroupMemberID:(NSString *)groupMemberID {
     BRGroup *group = [[self fetchGroupsWithGroupID:groupID] lastObject];
     BRFriendsInfo *groupMemberInfo = [[self fetchGroupMembersByGroupID:groupID andGroupMemberUserName:groupMemberID] lastObject];
-    [group removeFriendsInfoObject:groupMemberInfo];
-    [self saveData];
+    if (!groupMemberInfo) {
+        [group removeFriendsInfoObject:groupMemberInfo];
+        [self saveData];
+    }
 }
 
 /**
