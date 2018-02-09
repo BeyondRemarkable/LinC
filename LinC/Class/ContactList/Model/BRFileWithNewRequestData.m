@@ -32,7 +32,7 @@
 
 
 /**
-    保存新的好友请求数据到plist文件
+    保存新的请求数据到plist文件
 
  @param dictData dictData
  */
@@ -48,8 +48,9 @@
         [newRequestData writeToFile:path atomically:YES];
         
     } else {
+        NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
         for (NSDictionary *dict in newRequestData) {
-            if (![[dict allValues] containsObject:dictData[@"userID"]]) {
+            if ([dictData[@"loginUser"] isEqualToString:username] && ![[dict allValues] containsObject:dictData[@"userID"]]) {
                 [newRequestData addObject:dictData];
                 [newRequestData writeToFile:path atomically:YES];
             }
@@ -64,9 +65,15 @@
  */
 + (NSString *)countForNewRequestFromFile:(NSString *)fileName {
     NSString *path = [self getPathWithFileName:fileName];
-    NSMutableArray *newfriendData = [[NSMutableArray alloc] initWithContentsOfFile: path];
-    
-    return [NSString stringWithFormat:@"%lu", (unsigned long)newfriendData.count];
+    NSMutableArray *allRequestData = [[NSMutableArray alloc] initWithContentsOfFile: path];
+    NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
+    NSMutableArray *requestData = [NSMutableArray array];
+    for (int i = 0; i < allRequestData.count; i++) {
+        if ([allRequestData[i][@"loginUser"] isEqualToString:username]) {
+            [requestData addObject:allRequestData[i]];
+        }
+    }
+    return [NSString stringWithFormat:@"%lu", (unsigned long)requestData.count];
 }
 
 
@@ -77,12 +84,18 @@
  */
 + (NSMutableArray *)getAllNewRequestDataFromFile:(NSString *)fileName {
     NSString *path = [self getPathWithFileName:fileName];
-    NSMutableArray *newRequestData = [[NSMutableArray alloc] initWithContentsOfFile: path];
-    
-    if (!newRequestData) {
-        newRequestData = [NSMutableArray array];
+    NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
+    NSMutableArray *allRequestData = [[NSMutableArray alloc] initWithContentsOfFile: path];
+    NSMutableArray *requestData = [NSMutableArray array];
+    for (int i = 0; i < allRequestData.count; i++) {
+        if ([allRequestData[i][@"loginUser"] isEqualToString:username]) {
+            [requestData addObject:allRequestData[i]];
+        }
     }
-    return newRequestData;
+    if (!requestData) {
+        requestData = [NSMutableArray array];
+    }
+    return requestData;
 }
 
 

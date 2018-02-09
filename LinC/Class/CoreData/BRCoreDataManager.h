@@ -12,6 +12,7 @@
 #import "BRUserInfo+CoreDataClass.h"
 
 @class BRConversationModel;
+@class BRGroupModel;
 @interface BRCoreDataManager : NSObject
 
 @property (nonatomic, strong) BRUserInfo *userInfoDic;
@@ -40,7 +41,22 @@
 - (void)deleteConversationByID:(NSArray *)conversationID;
 /** 获取会话模型数据 */
 - (NSMutableArray *)fetchConversations;
-
+/** 插入群模型数据 */
+- (void)saveGroupToCoreData:(NSArray *)groupModelArray;
+/** 获取群模型数据 */
+- (NSArray *)fetchGroupsWithGroupID:(NSString *)groupID;
+/** 更新群模型数据 */
+- (void)updateGroupInfo:(BRGroupModel *)groupModel;
+/** 删除群模型数据 */
+- (void)deleteGroupByGoupID:(NSString *)groupID;
+/** 保存群成员数据 */
+- (void)saveGroupMembersToCoreData:(NSArray *)groupMembers toGroup:(NSString *)groupID;
+/** 获取群成员数据 */
+- (NSArray *)fetchGroupMembersByGroupID:(NSString *)groupID andGroupMemberUserName:(NSString *)groupMemberUserName;
+/** 更新群成员数据 */
+- (void)updateGroupMemberInfo:(BRContactListModel *)groupMember fromGroupID:(NSString *)groupID;
+/** 删除群成员数据 */
+- (void)deleteGroupMemberFromGoup:(NSString *)groupID andGroupMemberID:(NSString *)groupMemberID;
 /** 保存到core data */
 - (BOOL)saveData;
 @end

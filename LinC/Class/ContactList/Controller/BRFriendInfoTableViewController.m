@@ -48,7 +48,7 @@
     
     [self setupFriendInfo];
     // 群主有权限删除群成员
-    if ([[EMClient sharedClient].currentUsername isEqualToString: self.group.owner] && !self.isSelf) {
+    if ([[EMClient sharedClient].currentUsername isEqualToString: self.group.groupOwner] && !self.isSelf) {
         [self.removeFromGroup setHidden:NO];
     } 
     if (self.isSelf) {
@@ -181,7 +181,7 @@
     
     UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Confirm Remove" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        [[EMClient sharedClient].groupManager removeMembers:[NSArray arrayWithObject:self.contactListModel.username] fromGroup:self.group.groupId completion:^(EMGroup *aGroup, EMError *aError) {
+        [[EMClient sharedClient].groupManager removeMembers:[NSArray arrayWithObject:self.contactListModel.username] fromGroup:self.group.groupID completion:^(EMGroup *aGroup, EMError *aError) {
             if (!aError) {
                 hud.label.text = @"Deleted Successfully.";
                 [self performSelector:@selector(popVC) withObject:nil afterDelay:1.0];

@@ -11,6 +11,7 @@
 #import "BRUserInfo+CoreDataClass.h"
 #import "BRCoreDataManager.h"
 #import "BRFriendsInfo+CoreDataClass.h"
+#import "BRGroup+CoreDataClass.h"
 @implementation BRConversationModel
 
 - (instancetype)initWithConversation:(EMConversation *)conversation
@@ -56,13 +57,21 @@
  @param conversation conversation 群聊会话模型
  */
 - (void)setupConversationGroupChat:(EMConversation *)conversation {
-    NSArray *groupArray = [[EMClient sharedClient].groupManager getJoinedGroups];
-    for (EMGroup *group in groupArray) {
-        if ([group.groupId isEqualToString:conversation.conversationId]) {
-            _title = group.subject;
-            _avatarImage = [UIImage imageNamed:@"group_default"];
-        }
+    BRGroup *group = [[[BRCoreDataManager sharedInstance] fetchGroupsWithGroupID:conversation.conversationId] lastObject];
+    _title = group.groupName;
+    if (group.groupIcon) {
+        _avatarImage = [UIImage imageWithData:group.groupIcon];
+    } else {
+        _avatarImage = [UIImage imageNamed:@"group_default"];
     }
+    
+//    NSArray *groupArray = [[EMClient sharedClient].groupManager getJoinedGroups];
+//    for (EMGroup *group in groupArray) {
+//        if ([group.groupId isEqualToString:conversation.conversationId]) {
+//            _title = group.subject;
+//
+//        }
+//    }
 }
 
 @end

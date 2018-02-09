@@ -61,7 +61,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     [self setUpTextFeildDelegate];
     [self.emailTextField becomeFirstResponder];
     // 修改背景图片
@@ -296,6 +296,16 @@
  */
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
+    if (textField == self.userNameTextField) {
+        if (![self isVaildUserName:self.userNameTextField.text]) {
+            hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.mode = MBProgressHUDModeText;
+            hud.label.text = @"Only contains letters and digits";
+            hud.label.numberOfLines = 0;
+            [hud hideAnimated:YES afterDelay:1.5];
+            self.userNameTextField.text = @"";
+        }
+    }
     // Add detail label for password textfield
     if (textField == self.passwordTextField) {
         if (![self ispasswordStrong:self.passwordTextField.text]) {
@@ -386,6 +396,21 @@
     NSString *emailRegex = @"^.+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2}[A-Za-z]*$";
     NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
     return [emailTest evaluateWithObject:emailString];
+}
+
+// 输入用户名只能包含字母和数字
+- (BOOL)isVaildUserName:(NSString *)userName {
+    if (userName.length == 0) return NO;
+    NSString *regex =@"[a-zA-Z0-9]*";
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
+    return [pred evaluateWithObject:userName];
+}
+
+- (BOOL)inputShouldLetterOrNum:(NSString *)inputString {
+    if (inputString.length == 0) return NO;
+    NSString *regex =@"[a-zA-Z0-9]*";
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
+    return [pred evaluateWithObject:inputString];
 }
 
 /**

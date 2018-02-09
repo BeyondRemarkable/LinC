@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13240" systemVersion="16G29" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="16G29" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
     <entity name="BRConversation" representedClassName="BRConversation" syncable="YES" codeGenerationType="class">
         <attribute name="avatatIcon" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="chatType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -26,7 +26,18 @@
         <attribute name="updated" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="username" attributeType="String" syncable="YES"/>
         <attribute name="whatsUp" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="group" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BRGroup" inverseName="friendsInfo" inverseEntity="BRGroup" syncable="YES"/>
         <relationship name="userInfo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BRUserInfo" inverseName="friendsInfo" inverseEntity="BRUserInfo" syncable="YES"/>
+    </entity>
+    <entity name="BRGroup" representedClassName="BRGroup" syncable="YES" codeGenerationType="class">
+        <attribute name="groupDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="groupIcon" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="groupID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="groupName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="groupOwner" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="groupStyle" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="friendsInfo" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BRFriendsInfo" inverseName="group" inverseEntity="BRFriendsInfo" syncable="YES"/>
+        <relationship name="userInfo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BRUserInfo" inverseName="group" inverseEntity="BRUserInfo" syncable="YES"/>
     </entity>
     <entity name="BRUserInfo" representedClassName="BRUserInfo" syncable="YES" codeGenerationType="class">
         <attribute name="avatar" optional="YES" attributeType="Binary" syncable="YES"/>
@@ -41,10 +52,12 @@
         <attribute name="whatsUp" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="conversation" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="BRConversation" inverseName="userInfo" inverseEntity="BRConversation" syncable="YES"/>
         <relationship name="friendsInfo" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="BRFriendsInfo" inverseName="userInfo" inverseEntity="BRFriendsInfo" syncable="YES"/>
+        <relationship name="group" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="BRGroup" inverseName="userInfo" inverseEntity="BRGroup" syncable="YES"/>
     </entity>
     <elements>
         <element name="BRConversation" positionX="-16614" positionY="-1930" width="146" height="238"/>
-        <element name="BRFriendsInfo" positionX="-16155" positionY="-1881" width="128" height="210"/>
-        <element name="BRUserInfo" positionX="-16389" positionY="-1899" width="128" height="223"/>
+        <element name="BRFriendsInfo" positionX="-16218" positionY="-2016" width="128" height="223"/>
+        <element name="BRGroup" positionX="-16020" positionY="-1920" width="128" height="165"/>
+        <element name="BRUserInfo" positionX="-16391" positionY="-1926" width="128" height="240"/>
     </elements>
 </model>

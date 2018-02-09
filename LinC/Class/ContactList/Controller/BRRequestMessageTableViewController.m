@@ -11,7 +11,7 @@
 #import <MBProgressHUD.h>
 #import "BRSDKHelper.h"
 
-@interface BRRequestMessageTableViewController ()
+@interface BRRequestMessageTableViewController ()<UITextFieldDelegate>
 {
     MBProgressHUD *hud;
 }
@@ -23,7 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.userMessage.delegate = self;
     [self setUpNavigationBarItem];
 }
 
@@ -86,6 +86,12 @@
 
 - (void)cancelBtn {
     [self dismissVC];
+}
+
+#pragma mark - UITextField delegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self sendBtn];
+    return YES;
 }
 
 @end
