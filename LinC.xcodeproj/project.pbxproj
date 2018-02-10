@@ -1482,6 +1482,7 @@
 			baseConfigurationReference = 7C9BD64024967E79CE634497 /* Pods-LinC.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CODE_SIGN_ENTITLEMENTS = LinC/LinC.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Yingwei Fan (3LYJJC4KNY)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1508,6 +1509,7 @@
 			baseConfigurationReference = 94F6AAD2F8CDC6DB43F6386A /* Pods-LinC.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CODE_SIGN_ENTITLEMENTS = LinC/LinC.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Yingwei Fan (3LYJJC4KNY)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
