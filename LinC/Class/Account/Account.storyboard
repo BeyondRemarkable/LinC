@@ -49,7 +49,7 @@
                                         <rect key="frame" x="62" y="0.0" width="213" height="44"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <textInputTraits key="textInputTraits" textContentType="username"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="username"/>
                                         <connections>
                                             <outlet property="delegate" destination="0zz-Ui-sWY" id="fpM-Du-egC"/>
                                         </connections>
@@ -249,7 +249,7 @@
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="continue" textContentType="email"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="done" textContentType="email"/>
                                                 <connections>
                                                     <outlet property="delegate" destination="5ik-MP-MfZ" id="B96-Sa-VBB"/>
                                                 </connections>
@@ -301,7 +301,7 @@
                                     <constraint firstAttribute="height" constant="108" id="oP4-vI-KfX"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1FE-9x-nzR">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1FE-9x-nzR" userLabel="Close Button">
                                 <rect key="frame" x="26" y="98" width="30" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="DxL-IR-ei7"/>
@@ -317,7 +317,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fUN-iv-CXh" userLabel="RegisterView">
                                 <rect key="frame" x="0.0" y="188" width="375" height="400"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RGk-kv-fjR">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RGk-kv-fjR" userLabel="Back Button">
                                         <rect key="frame" x="10" y="162" width="30" height="44"/>
                                         <state key="normal" image="back">
                                             <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -351,7 +351,7 @@
                                                 <rect key="frame" x="54" y="0.0" width="221" height="44"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" returnKeyType="next" textContentType="username"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="username"/>
                                             </textField>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -587,7 +587,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ONf-bw-aIv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1104.8" y="4.4334975369458132"/>
+            <point key="canvasLocation" x="633" y="4"/>
         </scene>
         <!--User Info Set Up Table View Controller-->
         <scene sceneID="UvL-5d-afE">
@@ -840,7 +840,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iEH-z9-OOZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2492" y="5"/>
+            <point key="canvasLocation" x="1194" y="5"/>
         </scene>
         <!--Account Navigation Controller-->
         <scene sceneID="xHe-Oq-8i7">
@@ -858,7 +858,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hhz-dv-how" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="399" y="5"/>
+            <point key="canvasLocation" x="158" y="5"/>
         </scene>
     </scenes>
     <resources>

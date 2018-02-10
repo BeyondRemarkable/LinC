@@ -66,17 +66,6 @@
     }];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (void)dismissVC {
-    [self dismissViewControllerAnimated:YES completion:nil];
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-
 #pragma mark - UITableView data source
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -92,18 +81,20 @@
     同意群申请或者好友申请
  */
 - (IBAction)agreeBtn {
+    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     if (self.doesJoinGroup) {
         // 同意群申请
         [BRFileWithNewRequestData deleteRequestFromFile:newGroupRequestFile byID:self.searchID];
         [[EMClient sharedClient].groupManager approveJoinGroupRequest: self.requestDic[@"groupID"] sender: self.requestDic[@"userID"] completion:^(EMGroup *aGroup, EMError *aError) {
-            NSLog(@"%@", aGroup.memberList);
-            [self.navigationController popViewControllerAnimated:YES];
+            [hud hideAnimated:YES];
+            [self.navigationController popToRootViewControllerAnimated:YES];
         }];
     } else {
         // 同意好友申请
         [BRFileWithNewRequestData deleteRequestFromFile:newFirendRequestFile byID:self.searchID];
         [[EMClient sharedClient].contactManager acceptInvitationForUsername:self.searchID];
         [[EMClient sharedClient].contactManager approveFriendRequestFromUser:self.searchID completion:^(NSString *aUsername, EMError *aError) {
+            [hud hideAnimated:YES];
             [self.navigationController popToRootViewControllerAnimated:YES];
         }];
     }
@@ -114,13 +105,16 @@
     拒绝群申请或者好友申请
  */
 - (IBAction)refuseBtn {
+    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     if (self.doesJoinGroup) {
         // 拒绝群申请
         [BRFileWithNewRequestData deleteRequestFromFile:newGroupRequestFile byID:self.searchID];
-         [self.navigationController popViewControllerAnimated:YES];
+        [hud hideAnimated:YES];
+         [self.navigationController popToRootViewControllerAnimated:YES];
     } else {
         // 拒绝好友申请
         [BRFileWithNewRequestData deleteRequestFromFile:newFirendRequestFile byID:self.searchID];
+        [hud hideAnimated:YES];
          [self.navigationController popToRootViewControllerAnimated:YES];
     }
 }
