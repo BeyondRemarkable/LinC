@@ -149,7 +149,8 @@ static NSString * const cellIdentifier = @"ContactListCell";
         BRContactListModel *contactModel = [[BRContactListModel alloc] init];
         contactModel.username = friendsInfo.username;
         contactModel.nickname = friendsInfo.nickname;
-        contactModel.avatarImage = [UIImage imageWithData: friendsInfo.avatar];
+        UIImage *avatar = [UIImage imageWithData: friendsInfo.avatar];
+        contactModel.avatarImage = avatar ? avatar : [UIImage imageNamed:@"user_default"];
         contactModel.whatsUp = friendsInfo.whatsUp;
         contactModel.gender = friendsInfo.gender;
        

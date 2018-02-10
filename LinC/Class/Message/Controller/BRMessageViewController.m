@@ -663,23 +663,24 @@ typedef enum : NSUInteger {
 - (BOOL)shouldSendHasReadAckForMessage:(EMMessage *)message
                                   read:(BOOL)read
 {
-    if (message.chatType != EMChatTypeChat || message.isReadAcked || message.direction == EMMessageDirectionSend || ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) || !self.isViewDidAppear)
-    {
-        return NO;
-    }
-    
-    EMMessageBody *body = message.body;
-    if (((body.type == EMMessageBodyTypeVideo) ||
-         (body.type == EMMessageBodyTypeVoice) ||
-         (body.type == EMMessageBodyTypeImage)) &&
-        !read)
-    {
-        return NO;
-    }
-    else
-    {
-        return YES;
-    }
+    return NO;
+//    if (message.chatType != EMChatTypeChat || message.isReadAcked || message.direction == EMMessageDirectionSend || ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) || !self.isViewDidAppear)
+//    {
+//        return NO;
+//    }
+//
+//    EMMessageBody *body = message.body;
+//    if (((body.type == EMMessageBodyTypeVideo) ||
+//         (body.type == EMMessageBodyTypeVoice) ||
+//         (body.type == EMMessageBodyTypeImage)) &&
+//        !read)
+//    {
+//        return NO;
+//    }
+//    else
+//    {
+//        return YES;
+//    }
 }
 
 /*!
@@ -701,9 +702,7 @@ typedef enum : NSUInteger {
                          shouldSendHasReadAckForMessage:message read:isRead];
         }
         else{
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                isSend = [self shouldSendHasReadAckForMessage:message read:isRead];
-            });
+            isSend = [self shouldSendHasReadAckForMessage:message read:isRead];
         }
         
         if (isSend)

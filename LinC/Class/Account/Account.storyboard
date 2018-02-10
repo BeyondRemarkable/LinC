@@ -206,7 +206,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z5L-NY-2EZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-330.39999999999998" y="4.4334975369458132"/>
+            <point key="canvasLocation" x="-601" y="4"/>
         </scene>
         <!--User Account Set Up View Controller-->
         <scene sceneID="OWB-gU-euT">
@@ -587,7 +587,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ONf-bw-aIv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="633" y="4"/>
+            <point key="canvasLocation" x="866" y="4"/>
         </scene>
         <!--User Info Set Up Table View Controller-->
         <scene sceneID="UvL-5d-afE">
@@ -719,7 +719,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E4c-tK-sqJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1821.5999999999999" y="4.9475262368815596"/>
+            <point key="canvasLocation" x="633" y="860"/>
         </scene>
         <!--Reset Password View Controller-->
         <scene sceneID="DZ3-Eo-32k">
@@ -733,6 +733,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="ebR-lm-FG0">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2ul-wi-A9L">
                                 <rect key="frame" x="26" y="54" width="30" height="30"/>
                                 <constraints>
@@ -827,8 +830,12 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="0WJ-CD-oJL" secondAttribute="trailing" id="1we-NE-oz8"/>
+                            <constraint firstAttribute="trailing" secondItem="ebR-lm-FG0" secondAttribute="trailing" id="9Q7-06-k9D"/>
+                            <constraint firstItem="ebR-lm-FG0" firstAttribute="leading" secondItem="MhJ-hx-OYu" secondAttribute="leading" id="IOk-rF-mkS"/>
+                            <constraint firstAttribute="bottom" secondItem="ebR-lm-FG0" secondAttribute="bottom" id="IjY-oy-QEz"/>
                             <constraint firstItem="0WJ-CD-oJL" firstAttribute="leading" secondItem="MhJ-hx-OYu" secondAttribute="leading" id="Jvn-uM-Zl1"/>
                             <constraint firstItem="0WJ-CD-oJL" firstAttribute="top" secondItem="2ul-wi-A9L" secondAttribute="bottom" constant="100" id="O8F-hJ-o7y"/>
+                            <constraint firstItem="ebR-lm-FG0" firstAttribute="top" secondItem="MhJ-hx-OYu" secondAttribute="top" id="UaZ-bR-dbA"/>
                             <constraint firstItem="2ul-wi-A9L" firstAttribute="top" secondItem="ptQ-qc-dJn" secondAttribute="bottom" constant="10" id="UgF-4m-4Bu"/>
                             <constraint firstItem="2ul-wi-A9L" firstAttribute="leading" secondItem="MhJ-hx-OYu" secondAttribute="leadingMargin" constant="10" id="mFZ-pf-Ebg"/>
                         </constraints>
@@ -840,7 +847,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iEH-z9-OOZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1194" y="5"/>
+            <point key="canvasLocation" x="1732" y="4"/>
         </scene>
         <!--Account Navigation Controller-->
         <scene sceneID="xHe-Oq-8i7">
@@ -858,7 +865,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hhz-dv-how" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="158" y="5"/>
+            <point key="canvasLocation" x="114" y="4"/>
         </scene>
     </scenes>
     <resources>
