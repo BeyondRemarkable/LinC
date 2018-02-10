@@ -331,6 +331,8 @@ static NSString * const cellIdentifier = @"ContactListCell";
             }];
         } else {
             NSLog(@"%@", aError.errorDescription);
+            hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.mode = MBProgressHUDModeText;
             hud.label.text = aError.errorDescription;
             [hud hideAnimated:YES afterDelay:1.5];
         }

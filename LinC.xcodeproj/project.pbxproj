@@ -131,6 +131,10 @@
 		E9C5F3FC1F75B2940073A86E /* BRNewFriendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C5F3FA1F75B2940073A86E /* BRNewFriendTableViewCell.m */; };
 		E9C5F3FD1F75B2940073A86E /* BRNewFriendTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9C5F3FB1F75B2940073A86E /* BRNewFriendTableViewCell.xib */; };
 		E9CC14211F7C4E3C0070E4AC /* BRGroupListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CC14201F7C4E3C0070E4AC /* BRGroupListTableViewController.m */; };
+		E9CF35A4202E584E00F019C6 /* BRGroupIconGenerator.h in Sources */ = {isa = PBXBuildFile; fileRef = E9F903DB20222C5E00F7248C /* BRGroupIconGenerator.h */; };
+		E9CF35A5202E584E00F019C6 /* BRGroupIconGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F903DC20222C5E00F7248C /* BRGroupIconGenerator.m */; };
+		E9CF35A6202E584E00F019C6 /* BRGroupModel.h in Sources */ = {isa = PBXBuildFile; fileRef = E942AD5620250807000C91DD /* BRGroupModel.h */; };
+		E9CF35A7202E584E00F019C6 /* BRGroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E942AD5720250807000C91DD /* BRGroupModel.m */; };
 		E9F29BB11F7EE59E0061252D /* BRGroupMemberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F29BAF1F7EE59E0061252D /* BRGroupMemberTableViewCell.m */; };
 		E9F29BB21F7EE59E0061252D /* BRGroupMemberTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9F29BB01F7EE59E0061252D /* BRGroupMemberTableViewCell.xib */; };
 /* End PBXBuildFile section */
@@ -1211,6 +1215,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9CF35A4202E584E00F019C6 /* BRGroupIconGenerator.h in Sources */,
+				E9CF35A5202E584E00F019C6 /* BRGroupIconGenerator.m in Sources */,
+				E9CF35A6202E584E00F019C6 /* BRGroupModel.h in Sources */,
+				E9CF35A7202E584E00F019C6 /* BRGroupModel.m in Sources */,
 				E90F7BD51F670DC400333382 /* BRUserSettingTableViewController.m in Sources */,
 				E90F7BC01F670DC400333382 /* BRMessageTimeCell.m in Sources */,
 				E90F7B8C1F670DC300333382 /* BRConversationModel.m in Sources */,

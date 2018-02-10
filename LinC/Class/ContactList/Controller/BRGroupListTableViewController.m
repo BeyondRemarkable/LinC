@@ -108,10 +108,12 @@ typedef enum : NSInteger {
                 [[BRCoreDataManager sharedInstance] deleteGroupByGoupID:group.groupID];
             }
         }
-        self.groupListArray = groupsArray;
+        if (groupsArray.count) {
+            self.groupListArray = groupsArray;
+            [self.tableView reloadData];
+        }
+//        [self.tableView reload RowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:1 inSection:1], nil] withRowAnimation:UITableViewRowAnimationNone];
         
-//        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:1 inSection:1], nil] withRowAnimation:UITableViewRowAnimationNone];
-        [self.tableView reloadData];
         [hud hideAnimated:YES];
 
      } failure:^(EMError *error) {

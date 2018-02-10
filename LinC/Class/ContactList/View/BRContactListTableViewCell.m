@@ -69,15 +69,11 @@
 {
     _contactListModel = contactListModel;
     
-//    if (contactListModel.avatarImage) {
+    if (contactListModel.avatarImage) {
         self.imageIcon.image = contactListModel.avatarImage;
-//    }
-    
-    //self.imageIcon.image = [UIImage imageNamed:@"placeholder"];
-   
-//    self.imageIcon.image = [UIImage imageWithContentsOfFile:contactListModel.avatarURLPath];
-//    [self.imageIcon sd_setImageWithURL:[NSURL URLWithString:contactListModel.avatarURLPath] placeholderImage:[UIImage imageNamed:@"placeholder"]];
-
+    } else {
+        self.imageIcon.image = [UIImage imageNamed:@"user_default"];
+    }
     if (contactListModel.nickname == nil) {
         self.nickName.text = contactListModel.username;
     } else {
