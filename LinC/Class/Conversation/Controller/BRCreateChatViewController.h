@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^DismissViewController)(UIViewController *);
 @interface BRCreateChatViewController : UITableViewController
-@property (nonatomic, strong) void (^dismissCompletionBlock)(UIViewController *);
+@property (nonatomic, copy) DismissViewController dismissViewControllerCompletionBlock;
 @property (nonatomic, assign) BOOL doesAddMembers;
 @property (nonatomic, strong) NSArray *groupMembersArray;
 @property (nonatomic, strong) NSString *groupID;

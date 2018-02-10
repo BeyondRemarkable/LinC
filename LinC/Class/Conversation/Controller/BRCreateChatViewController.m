@@ -121,16 +121,16 @@
     // 只选择一个好友，不创建群聊
     if (self.selectedList.count == 1) {
         // 退出创建界面
-        [self.navigationController popViewControllerAnimated:YES];
+//        [self.navigationController popViewControllerAnimated:YES];
         
-        NSInteger index = [[self.selectedList objectAtIndex:0] integerValue];
+        NSInteger index = [[self.selectedList firstObject] integerValue];
         BRContactListModel *model = [self.friendList objectAtIndex:index];
         // push聊天界面
         BRMessageViewController *vc = [[BRMessageViewController alloc] initWithConversationChatter:model.buddy conversationType:EMConversationTypeChat];
         vc.title = model.nickname;
         [hud hideAnimated:YES];
         [self dismissViewControllerAnimated:YES completion:^{
-            self.dismissCompletionBlock(vc);
+            self.dismissViewControllerCompletionBlock(vc);
         }];
     } else {
          // 选择了两个以上的好友，创建群聊
@@ -142,9 +142,9 @@
         }
         UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRConversation" bundle:[NSBundle mainBundle]];
         BRCreateGroupChatTableViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRCreateGroupChatTableViewController"];
-        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
         vc.selectedList = groupInviteeList;
-        [self presentViewController:nav animated:YES completion:nil];
+        [vc setDismissViewControllerCompletionBlock: self.dismissViewControllerCompletionBlock];
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 

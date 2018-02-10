@@ -25,6 +25,7 @@
 #import "BRUserInfo+CoreDataClass.h"
 #import "BRConversation+CoreDataClass.h"
 #import "BRGroupChatSettingTableViewController.h"
+#import "UIView+NavigationBar.h"
 
 
 #define KHintAdjustY    50
@@ -167,6 +168,9 @@ typedef enum : NSUInteger {
     if (self.conversation.type == EMConversationTypeGroupChat) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         [btn setFrame:CGRectMake(0, 0, 35, 35)];
+        if (@available(iOS 11.0, *)) {
+            [btn addNavigationBarConstraintsWithWidth:35 height:35];
+        }
         [btn setBackgroundImage:[UIImage imageNamed:@"more_info"] forState:UIControlStateNormal];
         [btn setBackgroundImage:[UIImage imageNamed:@"more_info_highlighted"] forState:UIControlStateHighlighted];
         [btn addTarget:self action:@selector(settingClick) forControlEvents:UIControlEventTouchUpInside];
@@ -691,14 +695,15 @@ typedef enum : NSUInteger {
     for (NSInteger i = 0; i < [messages count]; i++)
     {
         EMMessage *message = messages[i];
-        BOOL isSend = YES;
+        __block BOOL isSend = YES;
         if (_dataSource && [_dataSource respondsToSelector:@selector(messageViewController:shouldSendHasReadAckForMessage:read:)]) {
             isSend = [_dataSource messageViewController:self
                          shouldSendHasReadAckForMessage:message read:isRead];
         }
         else{
-            isSend = [self shouldSendHasReadAckForMessage:message
-                                                     read:isRead];
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                isSend = [self shouldSendHasReadAckForMessage:message read:isRead];
+            });
         }
         
         if (isSend)
@@ -1037,8 +1042,7 @@ typedef enum : NSUInteger {
             }
             
             //send the read acknoledgement
-            [weakSelf _sendHasReadResponseForMessages:messages
-                                               isRead:NO];
+//            [weakSelf _sendHasReadResponseForMessages:messages isRead:NO];
         });
     };
     

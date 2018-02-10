@@ -14,6 +14,7 @@
 		2744C4741FC377FC007C5095 /* BRBlackListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2744C4721FC377FC007C5095 /* BRBlackListViewController.m */; };
 		2744C4771FC37A1E007C5095 /* BRGeneralSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2744C4761FC37A1E007C5095 /* BRGeneralSettingViewController.m */; };
 		27617B7D1FCDF0EC004A245D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 27617B7F1FCDF0EC004A245D /* InfoPlist.strings */; };
+		276398FD2022650500222875 /* UIView+NavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 276398FC2022650500222875 /* UIView+NavigationBar.m */; };
 		276E756A1F3E2B0200D5A917 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E75691F3E2B0200D5A917 /* AVFoundation.framework */; };
 		276E757F1F3E2F1E00D5A917 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E757E1F3E2F1E00D5A917 /* AudioToolbox.framework */; };
 		276E75901F3E390100D5A917 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E758F1F3E390100D5A917 /* UserNotifications.framework */; };
@@ -171,6 +172,8 @@
 		2744C4761FC37A1E007C5095 /* BRGeneralSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRGeneralSettingViewController.m; sourceTree = "<group>"; };
 		27617B7E1FCDF0EC004A245D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		27617B801FCDF0F1004A245D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		276398FB2022650500222875 /* UIView+NavigationBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+NavigationBar.h"; sourceTree = "<group>"; };
+		276398FC2022650500222875 /* UIView+NavigationBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+NavigationBar.m"; sourceTree = "<group>"; };
 		276E75691F3E2B0200D5A917 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		276E757E1F3E2F1E00D5A917 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		276E758F1F3E390100D5A917 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
@@ -593,10 +596,10 @@
 		E90F7AB21F670DC300333382 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				E90F7AB31F670DC300333382 /* BRSearchFriendViewController.h */,
-				E90F7AB41F670DC300333382 /* BRSearchFriendViewController.m */,
 				E9F29BB31F7EF31A0061252D /* BRContactListViewController.h */,
 				E90F7AB71F670DC300333382 /* BRContactListViewController.m */,
+				E90F7AB31F670DC300333382 /* BRSearchFriendViewController.h */,
+				E90F7AB41F670DC300333382 /* BRSearchFriendViewController.m */,
 				E90F7AB81F670DC300333382 /* BRFriendInfo.storyboard */,
 				E90F7AB91F670DC300333382 /* BRFriendInfoTableViewController.h */,
 				E90F7ABA1F670DC300333382 /* BRFriendInfoTableViewController.m */,
@@ -662,16 +665,16 @@
 		E90F7AC71F670DC300333382 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				27FC23F91F7986D7001148D7 /* BRCreateChatViewController.h */,
-				27FC23FA1F7986D7001148D7 /* BRCreateChatViewController.m */,
 				E90F7AC81F670DC300333382 /* BRConversationListViewController.h */,
 				E90F7AC91F670DC300333382 /* BRConversationListViewController.m */,
+				27FC23F91F7986D7001148D7 /* BRCreateChatViewController.h */,
+				27FC23FA1F7986D7001148D7 /* BRCreateChatViewController.m */,
+				E998915E1FDB2DE20005EE36 /* BRCreateGroupChatTableViewController.h */,
+				E998915F1FDB2DE20005EE36 /* BRCreateGroupChatTableViewController.m */,
 				E90F7ACA1F670DC300333382 /* BRDropDownViewController.h */,
 				E90F7ACB1F670DC300333382 /* BRDropDownViewController.m */,
 				E90F7ACC1F670DC300333382 /* BRDropDownViewController.xib */,
 				E99891591FDB0ECB0005EE36 /* BRConversation.storyboard */,
-				E998915E1FDB2DE20005EE36 /* BRCreateGroupChatTableViewController.h */,
-				E998915F1FDB2DE20005EE36 /* BRCreateGroupChatTableViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -722,6 +725,8 @@
 				E90F7AE41F670DC300333382 /* UIView+Extension.m */,
 				E90F7BD71F67368200333382 /* UIView+Animation.h */,
 				E90F7BD81F67368200333382 /* UIView+Animation.m */,
+				276398FB2022650500222875 /* UIView+NavigationBar.h */,
+				276398FC2022650500222875 /* UIView+NavigationBar.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1266,6 +1271,7 @@
 				E90F7BA61F670DC300333382 /* BRLocationViewController.m in Sources */,
 				E90F7BD61F670DC400333382 /* BRWhatsUpViewController.m in Sources */,
 				E90F7B961F670DC300333382 /* BRNavigationController.m in Sources */,
+				276398FD2022650500222875 /* UIView+NavigationBar.m in Sources */,
 				E90F7BD31F670DC400333382 /* BRUserInfoViewController.m in Sources */,
 				E90F7B9C1F670DC300333382 /* BRBubbleView+Gif.m in Sources */,
 				E90F7BD91F67368200333382 /* UIView+Animation.m in Sources */,
@@ -1492,6 +1498,7 @@
 			baseConfigurationReference = 7C9BD64024967E79CE634497 /* Pods-LinC.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CODE_SIGN_ENTITLEMENTS = LinC/LinC.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Yingwei Fan (3LYJJC4KNY)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1518,6 +1525,7 @@
 			baseConfigurationReference = 94F6AAD2F8CDC6DB43F6386A /* Pods-LinC.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CODE_SIGN_ENTITLEMENTS = LinC/LinC.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Yingwei Fan (3LYJJC4KNY)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";

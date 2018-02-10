@@ -43,14 +43,8 @@ typedef enum : NSInteger {
     self.textView.delegate = self;
     self.groupStyle = -1;
     
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", nil) style:UIBarButtonItemStyleDone target:self action:@selector(doneCreatingGroup:)];
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-    
-}
-
 
 - (void)textViewDidChange:(UITextView *)textView
 {
@@ -60,21 +54,24 @@ typedef enum : NSInteger {
         self.textViewPlaceHolder.hidden = YES;
     }
 }
-- (IBAction)createBtnClick:(UIBarButtonItem *)sender {
+- (void)doneCreatingGroup:(UIBarButtonItem *)sender {
     hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-//    hud.mode = MBProgressHUDModeText;
+
     if (self.groupName.text.length == 0) {
-        hud.label.text = @"Group's name required.";
+        hud.mode = MBProgressHUDModeText;
+        hud.label.text = @"Group's name is required.";
         [hud hideAnimated:YES afterDelay:1.5];
         return;
     }
     if (self.description.length == 0) {
-        hud.label.text = @"Group's description required.";
+        hud.mode = MBProgressHUDModeText;
+        hud.label.text = @"Group's description is required.";
         [hud hideAnimated:YES afterDelay:1.5];
         return;
     }
     if (self.groupStyle == -1) {
-        hud.label.text = @"Group's style required.";
+        hud.mode = MBProgressHUDModeText;
+        hud.label.text = @"Group's style is required.";
         [hud hideAnimated:YES afterDelay:1.5];
         return;
     }
@@ -86,28 +83,20 @@ typedef enum : NSInteger {
         if(!aError){
 
 //            [[BRCoreDataManager sharedInstance] saveGroupToCoreData:aGroup withIcon:nil];
+            [hud hideAnimated:YES];
             // 退出创建界面
-            UITabBarController *btTabBarController = (UITabBarController *)self.presentingViewController.presentingViewController;
-            [btTabBarController dismissViewControllerAnimated:YES completion:^{
-                BRMessageViewController *vc = [[BRMessageViewController alloc] initWithConversationChatter:aGroup.groupId conversationType:EMConversationTypeGroupChat];
-                vc.title = aGroup.subject;
-                BRNavigationController *navConversationList = btTabBarController.selectedViewController;
-                [navConversationList pushViewController:vc animated:YES];
+            BRMessageViewController *vc = [[BRMessageViewController alloc] initWithConversationChatter:aGroup.groupId conversationType:EMConversationTypeGroupChat];
+            vc.title = aGroup.subject;
+            [self dismissViewControllerAnimated:YES completion:^{
+                self.dismissViewControllerCompletionBlock(vc);
             }];
         } else {
-            hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             hud.mode = MBProgressHUDModeText;
             hud.label.text = aError.errorDescription;
             [hud hideAnimated:YES afterDelay:1.5];
             NSLog(@"创建失败 -- %@", aError.errorDescription);
         }
     }];
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
-}
-
-
-- (IBAction)cancelBtnClick:(UIBarButtonItem *)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 //关闭键盘
