@@ -282,8 +282,11 @@
             {
                 _statusButton.hidden = YES;
                 [_activity stopAnimating];
-                if (self.model.isMessageRead) {
-                    //                    _hasRead.hidden = NO;
+                if (self.model.isDing) {
+                    _hasRead.hidden = NO;
+                    _hasRead.text = [NSString stringWithFormat:@"%@ 已读", @(self.model.dingReadCount)];
+                } else if (self.model.isMessageRead) {
+                    _hasRead.hidden = NO;
                 }
             }
                 break;

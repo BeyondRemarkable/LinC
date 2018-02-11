@@ -432,10 +432,11 @@ typedef enum : NSUInteger {
     AVAuthorizationStatus videoAuthStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
     if (videoAuthStatus == AVAuthorizationStatusNotDetermined) {
         [[AVAudioSession sharedInstance] requestRecordPermission:^(BOOL granted) {
-            if (aCompletion) {
-                aCompletion(granted ? BRCanRecord : BRRequestRecord);
-            }
+
         }];
+        if (aCompletion) {
+            aCompletion(BRRequestRecord);
+        }
     }
     else if(videoAuthStatus == AVAuthorizationStatusRestricted || videoAuthStatus == AVAuthorizationStatusDenied) {
         aCompletion(BRCanNotRecord);
@@ -1504,14 +1505,7 @@ typedef enum : NSUInteger {
 
 - (void)didStartRecordingVoiceAction:(UIView *)recordView
 {
-    if ([self.delegate respondsToSelector:@selector(messageViewController:didSelectRecordView:withEvenType:)]) {
-        [self.delegate messageViewController:self didSelectRecordView:recordView withEvenType:BRRecordViewTypeTouchDown];
-    } else {
-        if ([self.recordView isKindOfClass:[BRRecordView class]]) {
-            [(BRRecordView *)self.recordView recordButtonTouchDown];
-        }
-    }
-    
+    __weak typeof(self) weakSelf = self;
     [self _canRecordCompletion:^(BRRecordResponse recordResponse) {
         switch (recordResponse) {
             case BRRequestRecord:
@@ -1519,11 +1513,18 @@ typedef enum : NSUInteger {
                 break;
             case BRCanRecord:
             {
+                if ([weakSelf.delegate respondsToSelector:@selector(messageViewController:didSelectRecordView:withEvenType:)]) {
+                    [weakSelf.delegate messageViewController:self didSelectRecordView:recordView withEvenType:BRRecordViewTypeTouchDown];
+                } else {
+                    if ([weakSelf.recordView isKindOfClass:[BRRecordView class]]) {
+                        [(BRRecordView *)weakSelf.recordView recordButtonTouchDown];
+                    }
+                }
                 _isRecording = YES;
                 BRRecordView *tmpView = (BRRecordView *)recordView;
                 tmpView.center = self.view.center;
-                [self.view addSubview:tmpView];
-                [self.view bringSubviewToFront:recordView];
+                [weakSelf.view addSubview:tmpView];
+                [weakSelf.view bringSubviewToFront:recordView];
                 int x = arc4random() % 100000;
                 NSTimeInterval time = [[NSDate date] timeIntervalSince1970];
                 NSString *fileName = [NSString stringWithFormat:@"%d%d",(int)time,x];
@@ -1985,7 +1986,7 @@ typedef enum : NSUInteger {
     [self.tableView reloadData];
 }
 
-- (void)_sendMessage:(EMMessage *)message
+- (void)sendMessage:(EMMessage *)message
     isNeedUploadFile:(BOOL)isUploadFile
 {
     if (self.conversation.type == EMConversationTypeGroupChat){
@@ -2049,7 +2050,7 @@ typedef enum : NSUInteger {
 - (void)sendTextMessage:(NSString *)text withExt:(NSDictionary*)ext
 {
     EMMessage *message = [BRSDKHelper getTextMessage:text to:self.conversation.conversationId messageType:[self _messageTypeFromConversationType] messageExt:ext];
-    [self _sendMessage:message isNeedUploadFile:NO];
+    [self sendMessage:message isNeedUploadFile:NO];
 }
 
 - (void)sendLocationMessageLatitude:(double)latitude
@@ -2057,7 +2058,7 @@ typedef enum : NSUInteger {
                          andAddress:(NSString *)address
 {
     EMMessage *message = [BRSDKHelper getLocationMessageWithLatitude:latitude longitude:longitude address:address to:self.conversation.conversationId messageType:[self _messageTypeFromConversationType] messageExt:nil];
-    [self _sendMessage:message isNeedUploadFile:NO];
+    [self sendMessage:message isNeedUploadFile:NO];
 }
 
 - (void)sendImageMessageWithData:(NSData *)imageData
@@ -2071,7 +2072,7 @@ typedef enum : NSUInteger {
     }
     
     EMMessage *message = [BRSDKHelper getImageMessageWithImageData:imageData to:self.conversation.conversationId messageType:[self _messageTypeFromConversationType] messageExt:nil];
-    [self _sendMessage:message isNeedUploadFile:YES];
+    [self sendMessage:message isNeedUploadFile:YES];
 }
 
 - (void)sendImageMessage:(UIImage *)image
@@ -2085,7 +2086,7 @@ typedef enum : NSUInteger {
     }
     
     EMMessage *message = [BRSDKHelper getImageMessageWithImage:image to:self.conversation.conversationId messageType:[self _messageTypeFromConversationType] messageExt:nil];
-    [self _sendMessage:message isNeedUploadFile:YES];
+    [self sendMessage:message isNeedUploadFile:YES];
 }
 
 - (void)sendVoiceMessageWithLocalPath:(NSString *)localPath
@@ -2100,7 +2101,7 @@ typedef enum : NSUInteger {
     }
     
     EMMessage *message = [BRSDKHelper getVoiceMessageWithLocalPath:localPath duration:duration to:self.conversation.conversationId messageType:[self _messageTypeFromConversationType] messageExt:nil];
-    [self _sendMessage:message isNeedUploadFile:YES];
+    [self sendMessage:message isNeedUploadFile:YES];
 }
 
 - (void)sendVideoMessageWithURL:(NSURL *)url
@@ -2114,11 +2115,11 @@ typedef enum : NSUInteger {
     }
     
     EMMessage *message = [BRSDKHelper getVideoMessageWithURL:url to:self.conversation.conversationId messageType:[self _messageTypeFromConversationType] messageExt:nil];
-    [self _sendMessage:message isNeedUploadFile:YES];
+    [self sendMessage:message isNeedUploadFile:YES];
 }
 
 - (void)sendFileMessageWith:(EMMessage *)message {
-    [self _sendMessage:message isNeedUploadFile:YES];
+    [self sendMessage:message isNeedUploadFile:YES];
 }
 
 #pragma mark - notification
