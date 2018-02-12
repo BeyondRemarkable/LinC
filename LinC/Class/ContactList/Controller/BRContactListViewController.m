@@ -56,7 +56,6 @@ static NSString * const cellIdentifier = @"ContactListCell";
     [self loadFriendsInfoFromCoreData];
     [self setUpTableView];
     [self setUpNavigationBarItem];
-    [self tableViewDidTriggerHeaderRefresh];
     
     //注册好友回调
     [[EMClient sharedClient].contactManager addDelegate:self delegateQueue:nil];
@@ -67,7 +66,8 @@ static NSString * const cellIdentifier = @"ContactListCell";
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.tableView reloadData];
+    
+    [self tableViewDidTriggerHeaderRefresh];
     NSString *friendsBadgeCount = [BRFileWithNewRequestData countForNewRequestFromFile:newFirendRequestFile];
     NSString *groupBadgeCount = [BRFileWithNewRequestData countForNewRequestFromFile:newGroupRequestFile];
     NSInteger badgeCount = [friendsBadgeCount integerValue] + [groupBadgeCount integerValue];
@@ -149,7 +149,8 @@ static NSString * const cellIdentifier = @"ContactListCell";
         BRContactListModel *contactModel = [[BRContactListModel alloc] init];
         contactModel.username = friendsInfo.username;
         contactModel.nickname = friendsInfo.nickname;
-        contactModel.avatarImage = [UIImage imageWithData: friendsInfo.avatar];
+        UIImage *avatar = [UIImage imageWithData: friendsInfo.avatar];
+        contactModel.avatarImage = avatar ? avatar : [UIImage imageNamed:@"user_default"];
         contactModel.whatsUp = friendsInfo.whatsUp;
         contactModel.gender = friendsInfo.gender;
        

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xzH-Ya-j5F">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -96,21 +96,7 @@
                             <outlet property="delegate" destination="xzH-Ya-j5F" id="ELB-Or-VjQ"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="hj6-l7-jzS">
-                        <barButtonItem key="leftBarButtonItem" title="Cencel" id="M2f-bn-ImN">
-                            <connections>
-                                <action selector="cancelBtnClick:" destination="xzH-Ya-j5F" id="ERr-Jx-nAu"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Create" id="ZuV-gQ-7Ko">
-                            <connections>
-                                <action selector="createBtnClick:" destination="xzH-Ya-j5F" id="FSn-IC-NhO"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
                     <connections>
-                        <outlet property="cancelBtn" destination="M2f-bn-ImN" id="6ZY-Zc-0CE"/>
-                        <outlet property="createBtn" destination="ZuV-gQ-7Ko" id="MPz-xa-RzF"/>
                         <outlet property="groupName" destination="Uei-0I-3Yu" id="Ycs-HA-aXE"/>
                         <outlet property="textView" destination="bPX-K8-ilC" id="XxP-XK-dPo"/>
                         <outlet property="textViewPlaceHolder" destination="AHT-TE-xT3" id="ggs-lu-O72"/>
@@ -118,25 +104,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3MT-Rl-qUS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4" y="239"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="dFl-F5-Isj">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="kRa-Ne-vPN" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="lTR-dF-QOg">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="xzH-Ya-j5F" kind="relationship" relationship="rootViewController" id="XKM-4q-bfH"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fgA-4E-ShJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-732" y="239"/>
+            <point key="canvasLocation" x="-267" y="239"/>
         </scene>
     </scenes>
 </document>

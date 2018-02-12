@@ -99,7 +99,7 @@
         self.userIcon.image = contactListModel.avatarImage;
     else {
         NSURL *avatarURL = [NSURL URLWithString:contactListModel.avatarURLPath];
-        [self.userIcon sd_setImageWithURL:avatarURL placeholderImage:[UIImage imageNamed:@"placeholder"]];
+        [self.userIcon sd_setImageWithURL:avatarURL placeholderImage:[UIImage imageNamed:@"user_default"]];
     }
     
 }

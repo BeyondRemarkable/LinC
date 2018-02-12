@@ -174,10 +174,11 @@
     [self.recordButton setTitle:kTouchToFinish forState:UIControlStateHighlighted];
     self.recordButton.hidden = YES;
     [self.recordButton addTarget:self action:@selector(recordButtonTouchDown) forControlEvents:UIControlEventTouchDown];
+    [self.recordButton addTarget:self action:@selector(recordButtonTouchDragExit) forControlEvents:UIControlEventTouchDragExit];
+    [self.recordButton addTarget:self action:@selector(recordButtonTouchDragEnter) forControlEvents:UIControlEventTouchDragEnter];
     [self.recordButton addTarget:self action:@selector(recordButtonTouchUpOutside) forControlEvents:UIControlEventTouchUpOutside];
     [self.recordButton addTarget:self action:@selector(recordButtonTouchUpInside) forControlEvents:UIControlEventTouchUpInside];
-    [self.recordButton addTarget:self action:@selector(recordDragOutside) forControlEvents:UIControlEventTouchDragExit];
-    [self.recordButton addTarget:self action:@selector(recordDragInside) forControlEvents:UIControlEventTouchDragEnter];
+    [self.recordButton addTarget:self action:@selector(recordButtonTouchCancel) forControlEvents:UIControlEventTouchCancel];
     self.recordButton.hidden = YES;
     [self.toolbarView addSubview:self.recordButton];
 }
@@ -768,7 +769,7 @@
     self.recordButton.enabled = YES;
 }
 
-- (void)recordDragOutside
+- (void)recordButtonTouchDragExit
 {
     if ([self.delegate respondsToSelector:@selector(didDragOutsideAction:)])
     {
@@ -776,11 +777,19 @@
     }
 }
 
-- (void)recordDragInside
+- (void)recordButtonTouchDragEnter
 {
     if ([self.delegate respondsToSelector:@selector(didDragInsideAction:)])
     {
         [self.delegate didDragInsideAction:self.recordView];
+    }
+}
+
+- (void)recordButtonTouchCancel
+{
+    if (_delegate && [_delegate respondsToSelector:@selector(didCancelRecordingVoiceAction:)])
+    {
+        [_delegate didCancelRecordingVoiceAction:self.recordView];
     }
 }
 

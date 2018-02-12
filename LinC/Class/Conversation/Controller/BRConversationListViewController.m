@@ -86,7 +86,7 @@
     
     BRCreateChatViewController *vc = [[BRCreateChatViewController alloc] initWithStyle:UITableViewStylePlain];
     BRNavigationController *naviVc = [[BRNavigationController alloc] initWithRootViewController:vc];
-    [vc setDismissCompletionBlock:^(UIViewController *vc) {
+    [vc setDismissViewControllerCompletionBlock:^(UIViewController *vc) {
         [self.navigationController pushViewController:vc animated:YES];
     }];
     [self presentViewController:naviVc animated:YES completion:nil];

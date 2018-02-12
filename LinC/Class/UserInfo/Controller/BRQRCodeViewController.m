@@ -9,6 +9,7 @@
 #import "BRQRCodeViewController.h"
 #import <CoreImage/CoreImage.h>
 #import <MBProgressHUD.h>
+#import "UIView+NavigationBar.h"
 
 @interface BRQRCodeViewController ()
 {
@@ -36,10 +37,14 @@
     self.view.backgroundColor = BRColor(38, 38, 38);
     
     UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 35)];
+    if (@available(iOS 11.0, *)) {
+        [btn addNavigationBarConstraintsWithWidth:35 height:35];
+    }
     [btn setImage:[UIImage imageNamed:@"more_info"] forState:UIControlStateNormal];
     [btn setImage:[UIImage imageNamed:@"more_info_highlighted"] forState:UIControlStateHighlighted];
     [btn addTarget:self action:@selector(moreAction) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+    UIBarButtonItem *infoItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+    self.navigationItem.rightBarButtonItem = infoItem;
     
     CIFilter *filter = [CIFilter filterWithName:@"CIQRCodeGenerator"];
     

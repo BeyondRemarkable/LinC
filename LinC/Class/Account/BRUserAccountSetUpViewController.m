@@ -31,8 +31,6 @@
 // Constraints for layout email view and register view
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *emailViewLeftConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *emailViewRightConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *emailConentViewLeftConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *emailContentViewRightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *registerViewLeftConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *registerViewRightConstraint;
 
@@ -64,8 +62,6 @@
 
     [self setUpTextFeildDelegate];
     [self.emailTextField becomeFirstResponder];
-    // 修改背景图片
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background"]];
     
     self.registerViewLeftConstraint.constant = SCREEN_WIDTH;
     self.registerViewRightConstraint.constant = -SCREEN_WIDTH;
@@ -121,12 +117,13 @@
         NSDictionary *dict = (NSDictionary *)responseObject;
         if ([dict[@"status"] isEqualToString:@"success"]) {
             [hud hideAnimated:YES];
-            self.registerViewLeftConstraint.constant = 0;
-            self.registerViewRightConstraint.constant = 0;
-            
-            self.emailViewLeftConstraint.constant = -SCREEN_WIDTH;
-            self.emailViewRightConstraint.constant = SCREEN_WIDTH;
             [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                self.registerViewLeftConstraint.constant = 0;
+                self.registerViewRightConstraint.constant = 0;
+                
+                self.emailViewLeftConstraint.constant = -SCREEN_WIDTH;
+                self.emailViewRightConstraint.constant = SCREEN_WIDTH;
+                
                 [self.view layoutIfNeeded];
             } completion:^(BOOL finished) {
                 [hud hideAnimated:YES];
@@ -157,12 +154,12 @@
     [alertController addAction:[UIAlertAction actionWithTitle:@"Use different email" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self clearRegisterInformation];
         
-        // 平移动画
-        self.registerViewLeftConstraint.constant = SCREEN_WIDTH;
-        self.registerViewRightConstraint.constant = -SCREEN_WIDTH;
-        self.emailViewLeftConstraint.constant = 0;
-        self.emailViewRightConstraint.constant = 0;
         [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            // 平移动画
+            self.registerViewLeftConstraint.constant = SCREEN_WIDTH;
+            self.registerViewRightConstraint.constant = -SCREEN_WIDTH;
+            self.emailViewLeftConstraint.constant = 0;
+            self.emailViewRightConstraint.constant = 0;
             [self.view layoutIfNeeded];
         } completion:nil];
     }]];

@@ -21,4 +21,12 @@ typedef enum : NSUInteger {
  */
 - (void)tableViewDidTriggerHeaderRefresh;
 
+/*!
+ @method
+ @brief 删除指定cell
+ @discussion
+ @result
+*/
+- (void)deleteCellAction:(NSIndexPath *)aIndexPath;
+
 @end

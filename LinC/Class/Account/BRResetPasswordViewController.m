@@ -26,7 +26,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background"]];
     self.navigationController.navigationBar.hidden = NO;
     
 }
