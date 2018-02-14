@@ -11,6 +11,7 @@
 @interface BRRequestMessageTableViewController : UITableViewController
 
 @property (nonatomic, strong) NSString *searchID;
+@property (nonatomic, strong) NSString *groupOwner;
 @property (nonatomic, assign) BOOL doesJoinGroup;
 @property (nonatomic, strong) NSString *groupID;
 @end

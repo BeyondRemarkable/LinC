@@ -50,12 +50,24 @@
         NSString *groupKey = [[kBRGroupRequestExtKey stringByAppendingString:@":"] stringByAppendingString:self.groupID];
         // 构建群请求消息
         message = [BRSDKHelper getTextMessage:self.userMessage.text
-                                                       to:self.searchID
+                                                       to:self.groupOwner
                                               messageType:EMChatTypeChat
                                                messageExt: @{@"em_apns_ext":@{@"extern":groupKey}}];
         
         [[EMClient sharedClient].groupManager applyJoinPublicGroup:self.groupID message:nil error:nil];
-    
+
+        [[EMClient sharedClient].chatManager sendMessage:message progress:nil completion:^(EMMessage *aMessage, EMError *aError) {
+            hud.mode = MBProgressHUDModeText;
+            if (aError) {
+                hud.label.text = aError.errorDescription;
+            }
+            else {
+                hud.label.text = @"Send Successfully";
+                [self performSelector:@selector(dismissVC) withObject:nil afterDelay:1.5];
+            }
+            [hud hideAnimated:YES afterDelay:1.5];
+        }];
+        
     } else {
         // 构建好友请求消息
         message = [BRSDKHelper getTextMessage:self.userMessage.text

@@ -19,7 +19,7 @@
 
 #define newFirendRequestFile @"newfirendRequestData.plist"
 #define newGroupRequestFile @"newGroupRequestData.plist"
-
+#define GroupIDLength 14
 
 extern NSString *const GroupNameChangeNotificationName;
 // 定义系统偏好的键值

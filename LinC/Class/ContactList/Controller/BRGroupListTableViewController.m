@@ -70,7 +70,9 @@ typedef enum : NSInteger {
     
     for (int i = 0; i < self.groupRequestArray.count; i++) {
         BRGroup *requestGroup = [[[BRCoreDataManager sharedInstance] fetchGroupsWithGroupID:self.groupRequestArray[i][@"groupID"]] lastObject];
-        [self.groupNameRequestArray arrayByAddingObject:requestGroup.groupName];
+        if (requestGroup) {
+            [self.groupNameRequestArray arrayByAddingObject:requestGroup.groupName];
+        }
     }
     
     NSArray *groupsArray = [[[BRCoreDataManager sharedInstance] fetchGroupsWithGroupID:nil] mutableCopy];
@@ -165,9 +167,12 @@ typedef enum : NSInteger {
             cell= (BRNewFriendTableViewCell *)[[[NSBundle  mainBundle]  loadNibNamed:@"BRNewFriendTableViewCell" owner:self options:nil]  lastObject];
         }
         cell.userID.text = self.groupRequestArray[indexPath.row][@"userID"];
-        BRGroup *group = self.groupListArray[indexPath.row];
-        NSString *requestMessage = [NSString stringWithFormat: @"Join %@ group : ", group.groupName];
-        cell.userMessage.text = [requestMessage stringByAppendingString: self.groupRequestArray[indexPath.row][@"message"]];
+        
+        if (self.groupListArray.count) {
+            BRGroup *group = self.groupListArray[indexPath.row];
+            NSString *requestMessage = [NSString stringWithFormat: @"Join %@ group : ", group.groupName];
+            cell.userMessage.text = [requestMessage stringByAppendingString: self.groupRequestArray[indexPath.row][@"message"]];
+        }
         
         return cell;
     } else {

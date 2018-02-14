@@ -36,7 +36,7 @@
         <attribute name="groupName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="groupOwner" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="groupStyle" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <relationship name="friendsInfo" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BRFriendsInfo" inverseName="group" inverseEntity="BRFriendsInfo" syncable="YES"/>
+        <relationship name="friendsInfo" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="BRFriendsInfo" inverseName="group" inverseEntity="BRFriendsInfo" syncable="YES"/>
         <relationship name="userInfo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BRUserInfo" inverseName="group" inverseEntity="BRUserInfo" syncable="YES"/>
     </entity>
     <entity name="BRUserInfo" representedClassName="BRUserInfo" syncable="YES" codeGenerationType="class">
@@ -57,7 +57,7 @@
     <elements>
         <element name="BRConversation" positionX="-16614" positionY="-1930" width="146" height="238"/>
         <element name="BRFriendsInfo" positionX="-16218" positionY="-2016" width="128" height="223"/>
-        <element name="BRGroup" positionX="-16020" positionY="-1920" width="128" height="165"/>
+        <element name="BRGroup" positionX="-16020" positionY="-1920" width="128" height="163"/>
         <element name="BRUserInfo" positionX="-16391" positionY="-1926" width="128" height="240"/>
     </elements>
 </model>

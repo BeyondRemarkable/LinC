@@ -59,7 +59,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
                                                     <inset key="contentEdgeInsets" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                     <inset key="titleEdgeInsets" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                    <state key="normal" title="Scan Friend or Group's QR code" image="scan_qrcode">
+                                                    <state key="normal" title="Scan friend or froup's QR code" image="scan_qrcode">
                                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
                                                     <connections>

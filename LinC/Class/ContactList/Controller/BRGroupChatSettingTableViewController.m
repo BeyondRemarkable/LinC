@@ -79,11 +79,58 @@ static NSString * const cellIdentifier = @"groupCell";
 
 // 设置群信息
 - (void)setUpGroupInfo {
+    
+    [self.copiedGroupIDLabel setTitle:@"Copy" forState:UIControlStateNormal];
+    [self.copiedGroupIDLabel setTitle:@"Copied" forState:UIControlStateSelected];
+    [self.copiedGroupIDLabel addTarget:self action:@selector(copyBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
+    if (self.doesJoinGroup) {
+        [self setUpJoinGroupInfo];
+    } else {
+        [self setupGroupSettingInfo];
+    }
+}
+
+
+/**
+    申请加群时的群设置
+ */
+- (void)setUpJoinGroupInfo {
+    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.leaveGroupView.hidden = YES;
+    [[EMClient sharedClient].groupManager getGroupSpecificationFromServerWithId:self.groupID completion:^(EMGroup *aGroup, EMError *aError) {
+        if (!aError) {
+            self.groupIDLabel.text = aGroup.groupId;
+            self.groupNameLabel.text = aGroup.subject;
+            if (aGroup.description.length == 0) {
+                self.groupDescriptionLabel.text = @"None";
+            } else {
+                self.groupDescriptionLabel.text = aGroup.description;
+            }
+            groupOwner = aGroup.owner;
+            groupSetting = aGroup.setting;
+           
+            [self.tableView reloadData];
+            [hud hideAnimated:YES];
+        } else {
+            hud.mode = MBProgressHUDModeText;
+            hud.label.text = aError.errorDescription;
+            [hud hideAnimated:YES afterDelay:1.5];
+        }
+    }];
+}
+
+
+/**
+    查看群设置
+ */
+- (void)setupGroupSettingInfo {
+    self.leaveGroupView.hidden = NO;
     BRGroup *group = [[[BRCoreDataManager sharedInstance] fetchGroupsWithGroupID:self.groupID] lastObject];
     currentGroup = group;
     self.groupIDLabel.text = group.groupID;
     self.groupNameLabel.text = group.groupName;
-
+    
     groupOwner = group.groupOwner;
     if (group.groupDescription.length == 0) {
         self.groupDescriptionLabel.text = @"None";
@@ -123,6 +170,7 @@ static NSString * const cellIdentifier = @"groupCell";
     }
     
     // 获取群成员，并保存或更新
+    
     [[EMClient sharedClient].groupManager getGroupMemberListFromServerWithId:self.groupID cursor:nil pageSize:-1 completion:^(EMCursorResult *aResult, EMError *aError) {
         
         NSArray *groupMembersArray = nil;
@@ -143,25 +191,17 @@ static NSString * const cellIdentifier = @"groupCell";
                 [self.tableView reloadData];
             } failure:^(EMError *error) {
                 hud.mode = MBProgressHUDModeText;
-                hud.label.text = error.description;
+                hud.label.text = error.errorDescription;
                 [hud hideAnimated:YES afterDelay:1.5];
             }];
         } else {
             hud.mode = MBProgressHUDModeText;
-            hud.label.text = aError.description;
+            hud.label.text = aError.errorDescription;
             [hud hideAnimated:YES afterDelay:1.5];
         }
         
     }];
     
-    [self.copiedGroupIDLabel setTitle:@"Copy" forState:UIControlStateNormal];
-    [self.copiedGroupIDLabel setTitle:@"Copied" forState:UIControlStateSelected];
-    [self.copiedGroupIDLabel addTarget:self action:@selector(copyBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-    if (self.doesJoinGroup) {
-        self.leaveGroupView.hidden = YES;
-    } else {
-        self.leaveGroupView.hidden = NO;
-    }
 }
 
 
@@ -232,7 +272,7 @@ static NSString * const cellIdentifier = @"groupCell";
 - (void)sendInviteMessage {
     UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRFriendInfo" bundle:[NSBundle mainBundle]];
     BRRequestMessageTableViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRRequestMessageTableViewController"];
-    vc.searchID = groupOwner;
+    vc.groupOwner = groupOwner;
     vc.doesJoinGroup = YES;
     vc.groupID = self.groupID;
     [self.navigationController pushViewController:vc animated:YES];

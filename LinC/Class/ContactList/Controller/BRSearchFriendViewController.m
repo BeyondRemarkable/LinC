@@ -17,14 +17,13 @@
 #import "BRClientManager.h"
 #import "BRGroupChatSettingTableViewController.h"
 
-#define GroupIDLength 14
 
-@interface BRSearchFriendViewController () <UITextFieldDelegate>
+@interface BRSearchFriendViewController () <UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 {
     MBProgressHUD *hud;
 }
 @property (weak, nonatomic) IBOutlet UITextField *friendIDTextField;
-
+@property (nonatomic, strong) NSString *searchID;
 @end
 
 @implementation BRSearchFriendViewController
@@ -39,6 +38,7 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden: NO];
+    self.searchID = nil;
 }
 
 // Set up Nagigation Bar Items
@@ -48,28 +48,46 @@
     self.navigationItem.rightBarButtonItem.enabled = NO;
 }
 
+
+
+/**
+    根据输入或者扫描或者识别的ID搜索
+ */
 - (void)searchByID {
-  
-    NSString *currentUsername = [EMClient sharedClient].currentUsername;
     
+    NSString *currentUsername = [EMClient sharedClient].currentUsername;
+    if (!self.searchID) {
+        self.searchID = self.friendIDTextField.text;
+    }
     // 不能添加自己
-    if ([self.friendIDTextField.text isEqualToString:currentUsername]) {
+    if ([self.searchID isEqualToString:currentUsername]) {
+        self.searchID = nil;
         hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
         hud.label.text = @"Can not add yourself.";
         [hud hideAnimated:YES afterDelay:1.5];
         return;
     }
-    if (self.friendIDTextField.text.length == GroupIDLength) {
-        [self searchGroupID];
+    if ([self.searchID hasSuffix:@"group"]) {
+        self.searchID = [self.searchID stringByReplacingOccurrencesOfString:@"group" withString:@""];
+        [self searchGroupID:self.searchID];
+    } else if (self.searchID.length == GroupIDLength) {
+        [self searchGroupID:self.searchID];
     } else {
-        [self searchFriendID];
+        [self searchFriendID: self.searchID];
     }
+    self.searchID = nil;
 }
 
-- (void)searchFriendID {
+
+/**
+    搜索好友ID
+ 
+ @param friendID 需要添加的好友ID
+ */
+- (void)searchFriendID:(NSString *)friendID {
     hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[BRClientManager sharedManager] getUserInfoWithUsernames:[NSArray arrayWithObject:self.friendIDTextField.text] andSaveFlag:NO success:^(NSMutableArray *aList) {
+    [[BRClientManager sharedManager] getUserInfoWithUsernames:[NSArray arrayWithObject:friendID] andSaveFlag:NO success:^(NSMutableArray *aList) {
         [hud hideAnimated:YES];
         
         BRContactListModel *model = [aList firstObject];
@@ -93,23 +111,95 @@
     }];
 }
 
-- (void)searchGroupID {
+
+/**
+    搜索的群ID
+
+ @param groupID 搜索群ID
+ */
+- (void)searchGroupID:(NSString *)groupID {
     UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRFriendInfo" bundle:[NSBundle mainBundle]];
     BRGroupChatSettingTableViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRGroupChatSettingTableViewController"];
     vc.doesJoinGroup = YES;
-    vc.groupID = self.friendIDTextField.text;
+    vc.groupID = groupID;
     [hud hideAnimated:YES];
     
     [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (IBAction)scanQRCodeBtn {
+    
+    UIAlertController *actionSheet =[UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *scan = [UIAlertAction actionWithTitle:@"Scan camera" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self scanQRCodeBtnTapped];
+    }];
+    UIAlertAction *load = [UIAlertAction actionWithTitle:@"Load from album" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self readQRCodeFromAlbum];
+    }];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDestructive handler:nil];
+    
+    [actionSheet addAction:scan];
+    [actionSheet addAction:load];
+    [actionSheet addAction:cancel];
+    
+    [self presentViewController:actionSheet animated:YES completion:nil];
+}
+
+- (void)scanQRCodeBtnTapped {
     BRScannerViewController *vc = [[BRScannerViewController alloc] initWithNibName:@"BRScannerViewController" bundle:nil];
     
     [self.navigationController pushViewController:vc animated:YES];
-    
-//    [self presentViewController:vc animated:YES completion: nil];
 }
+
+
+- (void)readQRCodeFromAlbum {
+    // 判断相册是否可以打开
+    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) return;
+    
+    UIImagePickerController *ipc = [[UIImagePickerController alloc] init];
+    ipc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    ipc.delegate = self;
+    [self presentViewController:ipc animated:YES completion:nil];
+}
+
+#pragma mark -- <UIImagePickerControllerDelegate>
+
+/**
+ 识别图片中的二维码
+
+ @param info 用户选取的图片信息
+ */
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
+{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    
+    UIImage *qrImage = info[UIImagePickerControllerOriginalImage];
+    CIDetector *detector = [CIDetector detectorOfType:CIDetectorTypeQRCode context:nil options:@{CIDetectorAccuracy: CIDetectorAccuracyLow}];
+    
+    NSData *imageData = UIImagePNGRepresentation(qrImage);
+    CIImage *ciImage = [CIImage imageWithData:imageData];
+    NSArray *features = [detector featuresInImage: ciImage];
+    
+    if (features.count == 0) {
+        hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.label.text = @"QR code not found.";
+        [hud hideAnimated:YES afterDelay:1.5];
+    } else if (features.count > 1) {
+        hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.label.text = @"Multi QR code found.";
+        [hud hideAnimated:YES afterDelay:1.5];
+    } else {
+        CIQRCodeFeature *feature = [features objectAtIndex:0];
+        NSString *scannedResult = feature.messageString;
+        self.searchID = scannedResult;
+        [self searchByID];
+    }
+}
+
 
 /**
  *  Close the keyboard
