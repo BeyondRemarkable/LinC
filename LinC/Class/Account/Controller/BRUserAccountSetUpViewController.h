@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum {
+    BRRegisterTypeEmail,
+    BRRegisterTypeMobile
+} BRRegisterType;
+
 @interface BRUserAccountSetUpViewController : UIViewController
+
+@property (nonatomic, assign) BRRegisterType registerType;
 
 @end

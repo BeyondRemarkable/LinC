@@ -19,7 +19,7 @@
 
 
 
-@interface BRLoginViewController () <UITextFieldDelegate>
+@interface BRLoginViewController () <UITextFieldDelegate, UIPopoverPresentationControllerDelegate>
 {
     MBProgressHUD *hud;
 }
@@ -30,6 +30,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *userNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 
+@property (weak, nonatomic) IBOutlet UIButton *signUpButton;
 
 
 @end
@@ -93,12 +94,6 @@
     }];
 }
 
-- (IBAction)clickForgetPassword {
-    UIStoryboard *sc = [UIStoryboard storyboardWithName:@"Account" bundle:[NSBundle mainBundle]];
-    BRResetPasswordViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRResetPasswordViewController"];
-    [self presentViewController:vc animated:YES completion:nil];
-}
-
 /**
  *  Close the keyboard
  */
@@ -110,6 +105,23 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [self login];
     return YES;
+}
+
+#pragma mark - Navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"Sign Up Method"]) {
+        UIPopoverPresentationController *ppc = segue.destinationViewController.popoverPresentationController;
+        ppc.permittedArrowDirections = UIPopoverArrowDirectionAny;
+        CGRect rect = self.signUpButton.bounds;
+        rect.origin.y -= 5;
+        ppc.sourceRect = rect;
+        ppc.delegate = self;
+    }
+}
+
+#pragma mark - UIPopoverPresentationControllerDelegate
+- (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller {
+    return UIModalPresentationNone;
 }
 
 @end
