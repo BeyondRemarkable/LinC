@@ -107,6 +107,36 @@
     }];
 }
 
+- (void)getCodeWithEmail:(NSString *)email success:(void (^)(void))successBlock failure:(void (^)(EMError *))failureBlock {
+    NSDictionary *parameters = @{@"email": email};
+    [self getCodeWithParameters:parameters success:successBlock failure:failureBlock];
+}
+
+- (void)getcodeWithPhoneNumber:(NSString *)phoneNumber success:(void (^)(void))successBlock failure:(void (^)(EMError *))failureBlock {
+    NSDictionary *parameters = @{@"phone": phoneNumber};
+    [self getCodeWithParameters:parameters success:successBlock failure:failureBlock];
+}
+
+- (void)getCodeWithParameters:(NSDictionary *)parameters success:(void (^)(void))successBlock failure:(void (^)(EMError *))failureBlock {
+    BRHTTPSessionManager *manager = [BRHTTPSessionManager manager];
+    NSString *url =  [kBaseURL stringByAppendingPathComponent:@"/api/v1/auth/register/verify/"];
+    
+    [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        NSDictionary *dict = (NSDictionary *)responseObject;
+        if ([dict[@"status"] isEqualToString:@"success"]) {
+            successBlock();
+        }
+        else if ([dict[@"status"] isEqualToString:@"error"]) {
+            EMError *aError = [EMError errorWithDescription:dict[@"message"] code:EMErrorGeneral];
+            failureBlock(aError);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        EMError *aError = [EMError errorWithDescription:error.localizedFailureReason code:EMErrorGeneral];
+        failureBlock(aError);
+    }];
+}
+
 - (void)registerWithEmail:(NSString *)email username:(NSString *)username password:(NSString *)password code:(NSString *)code success:(void (^)(NSString *, NSString *))successBlock failure:(void (^)(EMError *))failureBlock {
     BRHTTPSessionManager *manager = [BRHTTPSessionManager manager];
     NSString *url = [kBaseURL stringByAppendingPathComponent:@"/api/v1/auth/register/confirm"];

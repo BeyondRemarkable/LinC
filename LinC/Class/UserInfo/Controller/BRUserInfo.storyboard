@@ -810,7 +810,7 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LinC 1.2.3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cGk-eB-Y4d">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LinC 1.0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cGk-eB-Y4d">
                                 <rect key="frame" x="16" y="184" width="343" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="1Sa-aa-dgw"/>
@@ -841,6 +841,9 @@
                             <constraint firstAttribute="trailingMargin" secondItem="cGk-eB-Y4d" secondAttribute="trailing" id="zoG-vA-ist"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="appVersionLabel" destination="cGk-eB-Y4d" id="k0a-fT-MqA"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RS4-Ug-uUW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -24,6 +24,8 @@
 		27760F9A202F592300BD082D /* BRGroupModel.h in Sources */ = {isa = PBXBuildFile; fileRef = E942AD5620250807000C91DD /* BRGroupModel.h */; };
 		27760F9B202F592300BD082D /* BRGroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E942AD5720250807000C91DD /* BRGroupModel.m */; };
 		278CD94C1F549192008D6BD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 278CD94B1F549192008D6BD1 /* Assets.xcassets */; };
+		27A094CB20322E6F00F9F846 /* BRRegisterMethodViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A094CA20322E6F00F9F846 /* BRRegisterMethodViewController.m */; };
+		27A094CF20327B2100F9F846 /* Area Code.plist in Resources */ = {isa = PBXBuildFile; fileRef = 27A094CE20327B2100F9F846 /* Area Code.plist */; };
 		27CA03B11F38F21600D0F132 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CA03B01F38F21600D0F132 /* main.m */; };
 		27CA03CA1F38F21600D0F132 /* LinCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CA03C91F38F21600D0F132 /* LinCTests.m */; };
 		27CA03D51F38F21600D0F132 /* LinCUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CA03D41F38F21600D0F132 /* LinCUITests.m */; };
@@ -181,6 +183,9 @@
 		276E75961F3E5AA600D5A917 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		278CD94B1F549192008D6BD1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		278CD94D1F549AB7008D6BD1 /* in.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = in.caf; sourceTree = "<group>"; };
+		27A094C920322E6F00F9F846 /* BRRegisterMethodViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRRegisterMethodViewController.h; sourceTree = "<group>"; };
+		27A094CA20322E6F00F9F846 /* BRRegisterMethodViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BRRegisterMethodViewController.m; sourceTree = "<group>"; };
+		27A094CE20327B2100F9F846 /* Area Code.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Area Code.plist"; sourceTree = "<group>"; };
 		27CA03AC1F38F21600D0F132 /* LinC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LinC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27CA03B01F38F21600D0F132 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		27CA03C01F38F21600D0F132 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -471,6 +476,34 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		27A094CC20327A6A00F9F846 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E90F7AA61F670DC300333382 /* Account.storyboard */,
+				E90F7AA71F670DC300333382 /* BRAccountNavigationController.h */,
+				E90F7AA81F670DC300333382 /* BRAccountNavigationController.m */,
+				E90F7AA91F670DC300333382 /* BRLoginViewController.h */,
+				E90F7AAA1F670DC300333382 /* BRLoginViewController.m */,
+				E90F7AAB1F670DC300333382 /* BRResetPasswordViewController.h */,
+				E90F7AAC1F670DC300333382 /* BRResetPasswordViewController.m */,
+				E90F7AAD1F670DC300333382 /* BRUserAccountSetUpViewController.h */,
+				E90F7AAE1F670DC300333382 /* BRUserAccountSetUpViewController.m */,
+				E90F7AAF1F670DC300333382 /* BRUserInfoSetUpTableViewController.h */,
+				E90F7AB01F670DC300333382 /* BRUserInfoSetUpTableViewController.m */,
+				27A094C920322E6F00F9F846 /* BRRegisterMethodViewController.h */,
+				27A094CA20322E6F00F9F846 /* BRRegisterMethodViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		27A094CD20327A7D00F9F846 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				27A094CE20327B2100F9F846 /* Area Code.plist */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		27CA03A31F38F21600D0F132 = {
 			isa = PBXGroup;
 			children = (
@@ -568,17 +601,8 @@
 		E90F7AA51F670DC300333382 /* Account */ = {
 			isa = PBXGroup;
 			children = (
-				E90F7AA61F670DC300333382 /* Account.storyboard */,
-				E90F7AA71F670DC300333382 /* BRAccountNavigationController.h */,
-				E90F7AA81F670DC300333382 /* BRAccountNavigationController.m */,
-				E90F7AA91F670DC300333382 /* BRLoginViewController.h */,
-				E90F7AAA1F670DC300333382 /* BRLoginViewController.m */,
-				E90F7AAB1F670DC300333382 /* BRResetPasswordViewController.h */,
-				E90F7AAC1F670DC300333382 /* BRResetPasswordViewController.m */,
-				E90F7AAD1F670DC300333382 /* BRUserAccountSetUpViewController.h */,
-				E90F7AAE1F670DC300333382 /* BRUserAccountSetUpViewController.m */,
-				E90F7AAF1F670DC300333382 /* BRUserInfoSetUpTableViewController.h */,
-				E90F7AB01F670DC300333382 /* BRUserInfoSetUpTableViewController.m */,
+				27A094CD20327A7D00F9F846 /* Model */,
+				27A094CC20327A6A00F9F846 /* Controller */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -1072,6 +1096,7 @@
 					27CA03AB1F38F21600D0F132 = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = AEKJ6LE54T;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Push = {
@@ -1120,6 +1145,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2744C4681FB68B83007C5095 /* Localizable.strings in Resources */,
+				27A094CF20327B2100F9F846 /* Area Code.plist in Resources */,
 				E90F7B791F670DC300333382 /* Account.storyboard in Resources */,
 				E90F7BC61F670DC400333382 /* BRMediaBrowserViewController.xib in Resources */,
 				E90F7BBA1F670DC400333382 /* BRChatBarMoreViewCell.xib in Resources */,
@@ -1313,6 +1339,7 @@
 				E96C7B671F87E09A00C0DC7E /* BRCoreDataStack.m in Sources */,
 				E90F7BA51F670DC300333382 /* BRCDDeviceManager+Remind.m in Sources */,
 				E90F7BBF1F670DC400333382 /* BRMessageCell.m in Sources */,
+				27A094CB20322E6F00F9F846 /* BRRegisterMethodViewController.m in Sources */,
 				E90F7BC11F670DC400333382 /* BRRecordView.m in Sources */,
 				E90F7BA71F670DC300333382 /* BRMessageViewController.m in Sources */,
 				E90F7B7F1F670DC300333382 /* BRSearchFriendViewController.m in Sources */,
@@ -1498,6 +1525,7 @@
 			baseConfigurationReference = 7C9BD64024967E79CE634497 /* Pods-LinC.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CODE_SIGN_ENTITLEMENTS = LinC/LinC.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Yingwei Fan (3LYJJC4KNY)";
@@ -1507,7 +1535,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/LinC/Class/Other/LinC.pch";
 				INFOPLIST_FILE = LinC/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1517,6 +1545,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -1525,6 +1555,7 @@
 			baseConfigurationReference = 94F6AAD2F8CDC6DB43F6386A /* Pods-LinC.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CODE_SIGN_ENTITLEMENTS = LinC/LinC.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Yingwei Fan (3LYJJC4KNY)";
@@ -1534,7 +1565,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/LinC/Class/Other/LinC.pch";
 				INFOPLIST_FILE = LinC/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1544,6 +1575,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

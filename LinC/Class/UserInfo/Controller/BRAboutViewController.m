@@ -9,6 +9,7 @@
 #import "BRAboutViewController.h"
 
 @interface BRAboutViewController ()
+@property (weak, nonatomic) IBOutlet UILabel *appVersionLabel;
 
 @end
 
@@ -16,22 +17,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    NSDictionary *infoDict = [[NSBundle mainBundle] infoDictionary];
+    NSString *appVersion = infoDict[@"CFBundleShortVersionString"];
+    NSString *appBuildVersion = infoDict[@"CFBundleVersion"];
+    self.appVersionLabel.text = [NSString stringWithFormat:@"LinC %@.%@", appVersion, appBuildVersion];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
