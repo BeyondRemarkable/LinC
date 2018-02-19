@@ -22,8 +22,14 @@
 #import "BRCoreDataManager.h"
 #import "BRFriendsInfo+CoreDataClass.h"
 #import "BRAvatarView.h"
+#import <MBProgressHUD.h>
+#import "BRFriendInfoTableViewController.h"
+#import "BRGroupChatSettingTableViewController.h"
 
-@interface BRConversationListViewController () <EMClientDelegate>
+@interface BRConversationListViewController () <EMClientDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+{
+    MBProgressHUD *hud;
+}
 
 @property (nonatomic, strong) BRDropDownViewController *dropDownVC;
 
@@ -80,6 +86,10 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
 }
 
+
+/**
+    点击创建聊天按钮
+ */
 - (void)chatBtnTapped:(UIButton *)sender {
     [self.dropDownVC.view removeFromSuperview];
     self.dropDownVC = nil;
@@ -92,23 +102,43 @@
     [self presentViewController:naviVc animated:YES completion:nil];
 }
 
-- (void)scanQRCodeBtnTapped:(UIButton *)sender {
+
+/**
+    点击扫描按钮
+ */
+- (void)getQRCodeBtnTapped:(UIButton *)sender {
     [self.dropDownVC.view removeFromSuperview];
     self.dropDownVC = nil;
     
-    BRScannerViewController *vc = [[BRScannerViewController alloc] initWithNibName:@"BRScannerViewController" bundle:nil];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-    nav.toolbarHidden = YES;
-    [self presentViewController:nav animated:YES completion:nil];
+    UIAlertController *actionSheet =[UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *scan = [UIAlertAction actionWithTitle:@"Scan camera" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self scanQRCodeBtnTapped];
+    }];
+    UIAlertAction *load = [UIAlertAction actionWithTitle:@"Load from album" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self readQRCodeFromAlbum];
+    }];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDestructive handler:nil];
+    
+    [actionSheet addAction:scan];
+    [actionSheet addAction:load];
+    [actionSheet addAction:cancel];
+    
+    [self presentViewController:actionSheet animated:YES completion:nil];
 }
 
+
+/**
+    点击下拉菜单
+ */
 - (void)clickAddDropdownMenu {
     self.navigationItem.rightBarButtonItem.enabled = NO;
     if (!self.dropDownVC) {
         self.dropDownVC = [[BRDropDownViewController alloc] initWithNibName:@"BRDropDownViewController" bundle:nil];
         UIView *dropDownMenuView = self.dropDownVC.view;
         [self.dropDownVC.chatButton addTarget:self action:@selector(chatBtnTapped:) forControlEvents:UIControlEventTouchUpInside];
-        [self.dropDownVC.scanQRCodeButton addTarget:self action:@selector(scanQRCodeBtnTapped:) forControlEvents:UIControlEventTouchUpInside];
+        [self.dropDownVC.scanQRCodeButton addTarget:self action:@selector(getQRCodeBtnTapped:) forControlEvents:UIControlEventTouchUpInside];
         
         // Set up drop down menu frame
         CGFloat viewX = 0;
@@ -135,6 +165,121 @@
         }];
     }
 }
+
+
+/**
+    点击相机扫描按钮
+ */
+- (void)scanQRCodeBtnTapped {
+    
+    BRScannerViewController *vc = [[BRScannerViewController alloc] initWithNibName:@"BRScannerViewController" bundle:nil];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    nav.toolbarHidden = YES;
+    [self presentViewController:nav animated:YES completion:nil];
+}
+
+- (void)readQRCodeFromAlbum {
+    // 判断相册是否可以打开
+    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) return;
+    
+    UIImagePickerController *ipc = [[UIImagePickerController alloc] init];
+    ipc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    ipc.delegate = self;
+    [self presentViewController:ipc animated:YES completion:nil];
+}
+
+#pragma mark -- <UIImagePickerControllerDelegate>
+
+/**
+ 识别图片中的二维码
+ 
+ @param info 用户选取的图片信息
+ */
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
+{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    
+    UIImage *qrImage = info[UIImagePickerControllerOriginalImage];
+    CIDetector *detector = [CIDetector detectorOfType:CIDetectorTypeQRCode context:nil options:@{CIDetectorAccuracy: CIDetectorAccuracyLow}];
+    
+    NSData *imageData = UIImagePNGRepresentation(qrImage);
+    CIImage *ciImage = [CIImage imageWithData:imageData];
+    NSArray *features = [detector featuresInImage: ciImage];
+    
+    if (features.count == 0) {
+        hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.label.text = @"QR code not found.";
+        [hud hideAnimated:YES afterDelay:1.5];
+    } else if (features.count > 1) {
+        hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.label.text = @"Multi QR code found.";
+        [hud hideAnimated:YES afterDelay:1.5];
+    } else {
+        CIQRCodeFeature *feature = [features objectAtIndex:0];
+        NSString *scannedResult = feature.messageString;
+        [self searchByID:scannedResult];
+    }
+}
+
+- (void)searchByID:(NSString *)searchID {
+    
+    NSString *currentUsername = [EMClient sharedClient].currentUsername;
+    // 不能添加自己
+    if ([searchID isEqualToString:currentUsername]) {
+        hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.label.text = @"Can not add yourself.";
+        [hud hideAnimated:YES afterDelay:1.5];
+        return;
+    }
+    if ([searchID hasSuffix:@"group"]) {
+        searchID = [searchID stringByReplacingOccurrencesOfString:@"group" withString:@""];
+        [self searchGroupID:searchID];
+    } else if (searchID.length == GroupIDLength) {
+        [self searchGroupID:searchID];
+    } else {
+        [self searchFriendID: searchID];
+    }
+}
+
+- (void)searchFriendID:(NSString *)friendID {
+    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [[BRClientManager sharedManager] getUserInfoWithUsernames:[NSArray arrayWithObject:friendID] andSaveFlag:NO success:^(NSMutableArray *aList) {
+        [hud hideAnimated:YES];
+        
+        BRContactListModel *model = [aList firstObject];
+        UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRFriendInfo" bundle:[NSBundle mainBundle]];
+        BRFriendInfoTableViewController *vc = [sc instantiateViewControllerWithIdentifier: @"BRFriendInfoTableViewController"];
+        vc.contactListModel = model;
+        // 如果已经是好友
+        NSArray *contactArray = [[EMClient sharedClient].contactManager getContacts];
+        if ([contactArray containsObject:friendID]) {
+            vc.isFriend = YES;
+        }
+        else {
+            vc.isFriend = NO;
+        }
+        // Push BRFriendInfoTableViewController
+        [self.navigationController pushViewController:vc animated:YES];
+    } failure:^(EMError *aError) {
+        hud.mode = MBProgressHUDModeText;
+        hud.label.text = aError.errorDescription;
+        [hud hideAnimated:YES afterDelay:1.5];
+    }];
+}
+
+- (void)searchGroupID:(NSString *)groupID {
+    UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRFriendInfo" bundle:[NSBundle mainBundle]];
+    BRGroupChatSettingTableViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRGroupChatSettingTableViewController"];
+    vc.doesJoinGroup = YES;
+    vc.groupID = groupID;
+    [hud hideAnimated:YES];
+    
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {

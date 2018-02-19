@@ -257,7 +257,7 @@ BRUserInfo *userInfoDic = nil;
                 [self deleteConversationByID:userNameArray];
             }
         }
-        if (!friendInfoSet) {
+        if (friendInfoSet.count) {
             [userInfo removeFriendsInfo:friendInfoSet];
         }
     }
@@ -485,7 +485,7 @@ BRUserInfo *userInfoDic = nil;
     NSPredicate *fetchGroupFilter = [NSPredicate predicateWithFormat:@"groupID = %@", groupID];
     NSSet *groups = [userInfo.group filteredSetUsingPredicate:fetchGroupFilter];
     BRGroup *deleteGroup = [[groups allObjects] lastObject];
-    if (!deleteGroup) {
+    if (deleteGroup) {
         [userInfo removeGroupObject:deleteGroup];
         [self saveData];
     }

@@ -70,7 +70,9 @@ typedef enum : NSInteger {
     
     for (int i = 0; i < self.groupRequestArray.count; i++) {
         BRGroup *requestGroup = [[[BRCoreDataManager sharedInstance] fetchGroupsWithGroupID:self.groupRequestArray[i][@"groupID"]] lastObject];
-        [self.groupNameRequestArray arrayByAddingObject:requestGroup.groupName];
+        if (requestGroup) {
+            [self.groupNameRequestArray arrayByAddingObject:requestGroup.groupName];
+        }
     }
     
     NSArray *groupsArray = [[[BRCoreDataManager sharedInstance] fetchGroupsWithGroupID:nil] mutableCopy];
@@ -108,10 +110,12 @@ typedef enum : NSInteger {
                 [[BRCoreDataManager sharedInstance] deleteGroupByGoupID:group.groupID];
             }
         }
-        self.groupListArray = groupsArray;
+        if (groupsArray.count) {
+            self.groupListArray = groupsArray;
+            [self.tableView reloadData];
+        }
+//        [self.tableView reload RowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:1 inSection:1], nil] withRowAnimation:UITableViewRowAnimationNone];
         
-//        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:1 inSection:1], nil] withRowAnimation:UITableViewRowAnimationNone];
-        [self.tableView reloadData];
         [hud hideAnimated:YES];
 
      } failure:^(EMError *error) {
@@ -163,9 +167,12 @@ typedef enum : NSInteger {
             cell= (BRNewFriendTableViewCell *)[[[NSBundle  mainBundle]  loadNibNamed:@"BRNewFriendTableViewCell" owner:self options:nil]  lastObject];
         }
         cell.userID.text = self.groupRequestArray[indexPath.row][@"userID"];
-        BRGroup *group = self.groupListArray[indexPath.row];
-        NSString *requestMessage = [NSString stringWithFormat: @"Join %@ group : ", group.groupName];
-        cell.userMessage.text = [requestMessage stringByAppendingString: self.groupRequestArray[indexPath.row][@"message"]];
+        
+        if (self.groupListArray.count) {
+            BRGroup *group = self.groupListArray[indexPath.row];
+            NSString *requestMessage = [NSString stringWithFormat: @"Join %@ group : ", group.groupName];
+            cell.userMessage.text = [requestMessage stringByAppendingString: self.groupRequestArray[indexPath.row][@"message"]];
+        }
         
         return cell;
     } else {
