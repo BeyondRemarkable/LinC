@@ -137,15 +137,26 @@
     }];
 }
 
-- (void)registerWithEmail:(NSString *)email username:(NSString *)username password:(NSString *)password code:(NSString *)code success:(void (^)(NSString *, NSString *))successBlock failure:(void (^)(EMError *))failureBlock {
+- (void)registerWithEmail:(NSString *)email phoneNumber:(NSString *)phoneNumber username:(NSString *)username password:(NSString *)password code:(NSString *)code success:(void (^)(NSString *, NSString *))successBlock failure:(void (^)(EMError *))failureBlock {
     BRHTTPSessionManager *manager = [BRHTTPSessionManager manager];
     NSString *url = [kBaseURL stringByAppendingPathComponent:@"/api/v1/auth/register/confirm"];
-    NSDictionary *parameters = @{
-                                 @"username":[username lowercaseString],
-                                 @"password":password,
-                                 @"email":email,
-                                 @"code":code
-                                 };
+    NSDictionary *parameters;
+    if (email) {
+        parameters = @{
+                       @"username":[username lowercaseString],
+                       @"password":password,
+                       @"email":email,
+                       @"code":code
+                       };
+    }
+    else {
+        parameters = @{
+                       @"username":[username lowercaseString],
+                       @"password":password,
+                       @"phone":phoneNumber,
+                       @"code":code
+                       };
+    }
     [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dict = (NSDictionary *)responseObject;
         if ([dict[@"status"] isEqualToString:@"success"]) {

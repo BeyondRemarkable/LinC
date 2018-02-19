@@ -308,7 +308,7 @@
     
 
     hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[BRClientManager sharedManager] registerWithEmail:email username:self.userNameTextField.text password:self.passwordTextField.text code:self.codeTextField.text success:^(NSString *username, NSString *password) {
+    void (^successBlock)(NSString*, NSString*) = ^(NSString *username, NSString *password) {
         // 注册完成后执行登录
         [[BRClientManager sharedManager] loginWithUsername:username password:password success:^(NSString *username) {
             [hud hideAnimated:YES];
@@ -321,13 +321,23 @@
             hud.label.numberOfLines = 0;
             [hud hideAnimated:YES afterDelay:1.5];
         }];
-        
-    } failure:^(EMError *error) {
+    };
+    
+    void (^failureBlock)(EMError *) = ^(EMError *error) {
         hud.mode = MBProgressHUDModeText;
         hud.label.text = error.errorDescription;
         hud.label.numberOfLines = 0;
         [hud hideAnimated:YES afterDelay:1.5];
-    }];
+    };
+    switch (self.registerType) {
+        case BRRegisterTypeEmail:
+            [[BRClientManager sharedManager] registerWithEmail:email phoneNumber:nil username:self.userNameTextField.text password:self.passwordTextField.text code:self.codeTextField.text success:successBlock failure:failureBlock];
+            break;
+            
+        case BRRegisterTypeMobile:
+            [[BRClientManager sharedManager]  registerWithEmail:nil phoneNumber:phoneNumber username:self.userNameTextField.text password:self.passwordTextField.text code:self.codeTextField.text success:successBlock failure:failureBlock];
+            break;
+    }
     
 }
 

@@ -32,7 +32,7 @@
 /**
  注册方法
  */
-- (void)registerWithEmail: (NSString *)email username:(NSString *)username password:(NSString *)password code:(NSString *)code success:(void (^)(NSString *username, NSString *password))successBlock failure:(void (^)(EMError *error))failureBlock;
+- (void)registerWithEmail:(NSString *)email phoneNumber:(NSString *)phoneNumber username:(NSString *)username password:(NSString *)password code:(NSString *)code success:(void (^)(NSString *username, NSString *password))successBlock failure:(void (^)(EMError *error))failureBlock;
 
 /**
  登出方法
