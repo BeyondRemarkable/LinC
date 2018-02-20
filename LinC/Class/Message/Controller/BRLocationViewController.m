@@ -80,6 +80,7 @@ static BRLocationViewController *defaultLocation = nil;
     _mapView = [[MKMapView alloc] initWithFrame:self.view.bounds];
     _mapView.delegate = self;
     _mapView.mapType = MKMapTypeStandard;
+    _mapView.userTrackingMode = MKUserTrackingModeFollow;
     _mapView.zoomEnabled = YES;
     [self.view addSubview:_mapView];
     

@@ -156,10 +156,10 @@
             hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             [[BRClientManager sharedManager] getCodeWithEmail:email success:^{
                 [hud hideAnimated:YES];
-                [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
                     self.registerViewLeftConstraint.constant = 0;
                     self.registerViewRightConstraint.constant = 0;
-
+                    
                     self.emailViewLeftConstraint.constant = -SCREEN_WIDTH;
                     self.emailViewRightConstraint.constant = SCREEN_WIDTH;
                     
@@ -193,7 +193,7 @@
 
             [[BRClientManager sharedManager] getcodeWithPhoneNumber:phoneNumber success:^{
                 [hud hideAnimated:YES];
-                [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
                     self.registerViewLeftConstraint.constant = 0;
                     self.registerViewRightConstraint.constant = 0;
                     
@@ -230,8 +230,7 @@
     [alertController addAction:[UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self clearRegisterInformation];
         
-        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            // 平移动画
+        [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
             self.registerViewLeftConstraint.constant = SCREEN_WIDTH;
             self.registerViewRightConstraint.constant = -SCREEN_WIDTH;
             if (self.registerType == BRRegisterTypeEmail) {

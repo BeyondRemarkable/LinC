@@ -220,7 +220,7 @@
                         <outlet property="passwordTextField" destination="Eza-Yr-uwK" id="Efn-l9-c2m"/>
                         <outlet property="passwordView" destination="cWM-tF-J1T" id="mcF-4o-7wu"/>
                         <outlet property="signUpButton" destination="Eip-cH-wjB" id="5Fp-TJ-lcV"/>
-                        <outlet property="userIcon" destination="U6m-cr-4fJ" id="DEW-hO-DI6"/>
+                        <outlet property="userAvatarView" destination="U6m-cr-4fJ" id="7qW-z5-vsj"/>
                         <outlet property="userNameTextField" destination="xdd-V6-DIA" id="7ta-5b-yPJ"/>
                         <outlet property="userNameView" destination="9On-6I-3ts" id="YHv-VG-9uh"/>
                     </connections>

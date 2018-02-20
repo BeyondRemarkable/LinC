@@ -12,6 +12,8 @@
 #import "BRHTTPSessionManager.h"
 #import "UIView+Animation.h"
 #import "BRClientManager.h"
+#import "BRCoreDataManager.h"
+#import "BRUserInfo+CoreDataClass.h"
 #import <AFNetworking.h>
 #import <MBProgressHUD.h>
 #import <Hyphenate/Hyphenate.h>
@@ -23,7 +25,7 @@
 {
     MBProgressHUD *hud;
 }
-@property (weak, nonatomic) IBOutlet UIImageView *userIcon;
+@property (weak, nonatomic) IBOutlet UIImageView *userAvatarView;
 @property (weak, nonatomic) IBOutlet UIView *userNameView;
 @property (weak, nonatomic) IBOutlet UIView *passwordView;
 
@@ -53,6 +55,15 @@
     }
     if (savedPassword) {
         self.passwordTextField.text = savedPassword;
+    }
+    
+    BRUserInfo *userInfo = [[BRCoreDataManager sharedInstance] getUserInfo];
+    if (userInfo.avatar) {
+        UIImage *avatarImage = [UIImage imageWithData:userInfo.avatar];
+        self.userAvatarView.image = avatarImage;
+        self.userAvatarView.hidden = NO;
+        self.userAvatarView.layer.cornerRadius = 5.0f;
+        self.userAvatarView.layer.masksToBounds = YES;
     }
 }
 

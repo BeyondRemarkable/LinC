@@ -12,10 +12,19 @@
 
 - (void)shakeAnimation {
     
-    self.transform = CGAffineTransformMakeTranslation(15, 0);
-    [UIView animateWithDuration:0.2 delay:0.0 usingSpringWithDamping:0.15 initialSpringVelocity:1.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        self.transform = CGAffineTransformIdentity;
-    } completion:nil];
+    CAKeyframeAnimation *keyframeAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+    CGPoint currentPoint = self.layer.position;
+    keyframeAnimation.values = @[[NSValue valueWithCGPoint:currentPoint],
+                                 [NSValue valueWithCGPoint:CGPointMake(currentPoint.x - 10, currentPoint.y)],
+                                 [NSValue valueWithCGPoint:CGPointMake(currentPoint.x + 10, currentPoint.y)],
+                                 [NSValue valueWithCGPoint:CGPointMake(currentPoint.x - 10, currentPoint.y)],
+                                 [NSValue valueWithCGPoint:CGPointMake(currentPoint.x + 10, currentPoint.y)],
+                                 [NSValue valueWithCGPoint:CGPointMake(currentPoint.x - 10, currentPoint.y)],
+                                 [NSValue valueWithCGPoint:CGPointMake(currentPoint.x + 10, currentPoint.y)],
+                                 [NSValue valueWithCGPoint:currentPoint]];
+    keyframeAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    keyframeAnimation.duration = 0.4f;
+    [self.layer addAnimation:keyframeAnimation forKey:keyframeAnimation.keyPath];
 }
 
 @end
