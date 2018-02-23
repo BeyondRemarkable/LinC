@@ -26,7 +26,7 @@
 #import "BRConversation+CoreDataClass.h"
 #import "BRGroupChatSettingTableViewController.h"
 #import "UIView+NavigationBar.h"
-
+#import <Photos/PHPhotoLibrary.h>
 
 #define KHintAdjustY    50
 
@@ -1541,9 +1541,7 @@ typedef enum : NSUInteger {
                 break;
             case BRCanNotRecord:
             {
-                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"prompt", @"Prompt") message:NSLocalizedString(@"record.failToPermission", @"No recording permission") preferredStyle:UIAlertControllerStyleAlert];
-                [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"ok", @"OK") style:UIAlertActionStyleCancel handler:nil]];
-                [self presentViewController:alertController animated:YES completion:nil];
+                [self showAuthorizationAlertWithType:@"microphone"];
             }
                 break;
             default:
@@ -1635,13 +1633,19 @@ typedef enum : NSUInteger {
     // Hide the keyboard
     [self.chatToolbar endEditing:YES];
     
-    // Pop image picker
-    self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    self.imagePicker.mediaTypes = @[(NSString *)kUTTypeImage];
-    [self presentViewController:self.imagePicker animated:YES completion:NULL];
-    
-    self.isViewDidAppear = NO;
-    [[BRSDKHelper shareHelper] setIsShowingimagePicker:YES];
+    // 判断相册是否可以打开
+    PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
+    if (status == PHAuthorizationStatusRestricted || status == PHAuthorizationStatusDenied) {
+        [self showAuthorizationAlertWithType:@"album"];
+    } else {
+        // Pop image picker
+        self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        self.imagePicker.mediaTypes = @[(NSString *)kUTTypeImage];
+        [self presentViewController:self.imagePicker animated:YES completion:NULL];
+        
+        self.isViewDidAppear = NO;
+        [[BRSDKHelper shareHelper] setIsShowingimagePicker:YES];
+    }
 }
 
 - (void)moreViewTakePicAction:(BRChatBarMoreView *)moreView
@@ -1653,12 +1657,18 @@ typedef enum : NSUInteger {
     hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.label.text = NSLocalizedString(@"message.simulatorNotSupportCamera", @"simulator does not support taking picture");
 #elif TARGET_OS_IPHONE
-    self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    self.imagePicker.mediaTypes = @[(NSString *)kUTTypeImage,(NSString *)kUTTypeMovie];
-    [self presentViewController:self.imagePicker animated:YES completion:NULL];
     
-    self.isViewDidAppear = NO;
-    [[BRSDKHelper shareHelper] setIsShowingimagePicker:YES];
+    AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+    if (status == AVAuthorizationStatusRestricted || status == AVAuthorizationStatusDenied){
+        [self showAuthorizationAlertWithType:@"camera."];
+    } else {
+        self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        self.imagePicker.mediaTypes = @[(NSString *)kUTTypeImage,(NSString *)kUTTypeMovie];
+        [self presentViewController:self.imagePicker animated:YES completion:NULL];
+        
+        self.isViewDidAppear = NO;
+        [[BRSDKHelper shareHelper] setIsShowingimagePicker:YES];
+    }
 #endif
 }
 
@@ -1666,10 +1676,15 @@ typedef enum : NSUInteger {
 {
     // Hide the keyboard
     [self.chatToolbar endEditing:YES];
-    
-    BRLocationViewController *locationController = [[BRLocationViewController alloc] init];
-    locationController.delegate = self;
-    [self.navigationController pushViewController:locationController animated:YES];
+    CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
+    if (status == kCLAuthorizationStatusRestricted || status == kCLAuthorizationStatusDenied) {
+        [self showAuthorizationAlertWithType:@"GPS"];
+    } else {
+        BRLocationViewController *locationController = [[BRLocationViewController alloc] init];
+        locationController.delegate = self;
+        [self.navigationController pushViewController:locationController animated:YES];
+    }
+   
 }
 
 - (void)moreViewAudioCallAction:(BRChatBarMoreView *)moreView
@@ -2254,6 +2269,27 @@ typedef enum : NSUInteger {
         }
     }
     return targets;
+}
+
+
+/**
+ 提示开启权限设置
+ */
+- (void)showAuthorizationAlertWithType:(NSString *)type
+{
+    NSString *title = [@"Unable to access " stringByAppendingString:type];
+    UIAlertController *actionSheet =[UIAlertController alertControllerWithTitle:NSLocalizedString(title, nil) message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *open = [UIAlertAction actionWithTitle:NSLocalizedString(@"Open", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if ([[UIApplication sharedApplication]openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]]) {
+            [[UIApplication sharedApplication]openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+        }
+    }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)  style:UIAlertActionStyleDestructive handler:nil];
+    
+    [actionSheet addAction:open];
+    [actionSheet addAction:cancel];
+    
+    [self presentViewController:actionSheet animated:YES completion:nil];
 }
 
 @end
