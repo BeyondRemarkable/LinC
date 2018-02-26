@@ -8,10 +8,11 @@
 
 #import "BRMediaBrowserViewController.h"
 #import "BRMediaCell.h"
+#import "IMessageModel.h"
 
 @interface BRMediaBrowserViewController () <BRMediaCellDelegate>
 
-@property (nonatomic, strong) NSArray *mediaArray;
+@property (nonatomic, strong) NSArray *modelArray;
 
 @end
 
@@ -19,13 +20,17 @@
 
 static NSString * const reuseIdentifier = @"BRMediaCell";
 
-- (instancetype)initWithMediaArray:(NSArray *)mediaArray {
+- (instancetype)initWithModelArray:(NSArray *)modelArray {
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.minimumLineSpacing = 0;
     layout.minimumInteritemSpacing = 0;
     layout.itemSize = CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT);
+//    if (@available(iOS 11.0, *)) {
+//        layout.sectionInsetReference = UICollectionViewFlowLayoutSectionInsetFromContentInset;
+//    }
+    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     if (self = [super initWithCollectionViewLayout:layout]) {
-        self.mediaArray = mediaArray;
+        self.modelArray = modelArray;
     }
     return self;
 }
@@ -35,6 +40,9 @@ static NSString * const reuseIdentifier = @"BRMediaCell";
     
     self.collectionView.pagingEnabled = YES;
     self.collectionView.contentMode = UIViewContentModeCenter;
+    self.collectionView.alwaysBounceHorizontal = YES;
+    self.collectionView.showsHorizontalScrollIndicator = NO;
+    self.collectionView.showsVerticalScrollIndicator = NO;
     
     // Register cell classes
     [self.collectionView registerClass:[BRMediaCell class] forCellWithReuseIdentifier:reuseIdentifier];
@@ -50,28 +58,27 @@ static NSString * const reuseIdentifier = @"BRMediaCell";
     return 1;
 }
 
-
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.mediaArray.count;
+    return self.modelArray.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     BRMediaCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     
-    BRMedia *media = [self.mediaArray objectAtIndex:indexPath.item];
     cell.delegate = self;
-    cell.media = media;
+    id<IMessageModel> model = [self.modelArray objectAtIndex:indexPath.item];
+    cell.model = model;
     
     return cell;
 }
 
 #pragma mark - BRMediaCell delegate
 - (void)mediaCell:(BRMediaCell *)cell didClickBackButton:(UIButton *)button {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.presentingViewController dismissViewControllerAnimated:NO completion:nil];
 }
 
 - (void)mediaCell:(BRMediaCell *)cell didTapImage:(UIImage *)image {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.presentingViewController dismissViewControllerAnimated:NO completion:nil];
 }
 
 @end

@@ -60,10 +60,12 @@
 "message.file1" = "[file]";
 
 // Location
+"Shared location" = "[location]";
 "location.messageType" = "location message";
 "location.ongoing" = "locating...";
 
 // Audio
+"Voice message" = "[voice]";
 "error.notFound" = "File path not exist";
 "error.initPlayerFail" = "Failed to initialize AVAudioPlayer";
 "error.initPlayFail" = "Play failuer";
@@ -74,6 +76,8 @@
 "Take Photo" = "Take Photo";
 "Choose from Album" = "Choose from Album";
 "Image Received" = "[image]";
-"message.downloadingImage" = "downloading an image...";
 "saveFail" = "Try again later.";
 "saveSuccess" = "Image saved.";
+
+// Video
+"Shared video" = "[video]";

@@ -590,13 +590,13 @@ NSString *const BRMessageCellIdentifierSendFile = @"BRMessageCellSendFile";
         
         if ([self respondsToSelector:@selector(isCustomBubbleView:)] && [self isCustomBubbleView:_model]) {
             if ([_delegate respondsToSelector:@selector(messageCellSelected:)]) {
-                [_delegate messageCellSelected:_model];
+                [_delegate messageCellSelected:self];
                 return;
             }
         }
         
         if ([_delegate respondsToSelector:@selector(messageCellSelected:)]) {
-            [_delegate messageCellSelected:_model];
+            [_delegate messageCellSelected:self];
         }
     }
 }

@@ -86,7 +86,14 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
 }
 
+- (void)deleteCellAction:(NSIndexPath *)indexPath {
+    BRConversationModel *model = [self.dataArray objectAtIndex:indexPath.row];
+    [[EMClient sharedClient].chatManager deleteConversation:model.conversation.conversationId isDeleteMessages:YES completion:nil];
+    [self.dataArray removeObjectAtIndex:indexPath.row];
+    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+}
 
+#pragma mark - Action
 /**
     点击创建聊天按钮
  */
@@ -352,10 +359,7 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        BRConversationModel *model = [self.dataArray objectAtIndex:indexPath.row];
-        [[EMClient sharedClient].chatManager deleteConversation:model.conversation.conversationId isDeleteMessages:YES completion:nil];
-        [self.dataArray removeObjectAtIndex:indexPath.row];
-        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [self deleteCellAction:indexPath];
     }
 }
 
@@ -399,7 +403,7 @@
     [self tableViewDidTriggerHeaderRefresh];
 }
 
-#pragma mark - EMCliendDelegate
+#pragma mark - EMClientDelegate
 
 - (void)connectionStateDidChange:(EMConnectionState)aConnectionState {
     if (aConnectionState == EMConnectionConnected) {
@@ -417,14 +421,14 @@
     [[EMClient sharedClient].groupManager addDelegate:self delegateQueue:dispatch_get_main_queue()];
 }
 
-//-(void)unregisterNotifications{
-//    [[EMClient sharedClient].chatManager removeDelegate:self];
-//    [[EMClient sharedClient].groupManager removeDelegate:self];
-//}
+-(void)unregisterNotifications{
+    [[EMClient sharedClient].chatManager removeDelegate:self];
+    [[EMClient sharedClient].groupManager removeDelegate:self];
+}
 
-//- (void)dealloc{
-//    [self unregisterNotifications];
-//}
+- (void)dealloc{
+    [self unregisterNotifications];
+}
 
 #pragma mark - private
 
@@ -453,7 +457,7 @@
                 latestMessageTitle = NSLocalizedString(@"Voice message", @"[voice]");
             } break;
             case EMMessageBodyTypeLocation: {
-                latestMessageTitle = NSLocalizedString(@"Shared location.", @"[location]");
+                latestMessageTitle = NSLocalizedString(@"Shared location", @"[location]");
             } break;
             case EMMessageBodyTypeVideo: {
                 latestMessageTitle = NSLocalizedString(@"Shared video", @"[video]");

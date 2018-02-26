@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "BRMedia.h"
+#import "BRMessageModel.h"
 @class BRMediaCell;
 
 @protocol BRMediaCellDelegate <NSObject>
@@ -25,6 +26,7 @@
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic, strong) NSURL *imageURL;
 @property (nonatomic, strong) NSURL *videoURL;
+@property (nonatomic, strong) BRMessageModel *model;
 
 @property (nonatomic, weak) id<BRMediaCellDelegate> delegate;
 

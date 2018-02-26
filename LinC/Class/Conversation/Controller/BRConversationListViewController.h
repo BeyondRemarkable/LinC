@@ -27,6 +27,6 @@ typedef enum : NSUInteger {
  @discussion
  @result
 */
-- (void)deleteCellAction:(NSIndexPath *)aIndexPath;
+- (void)deleteCellAction:(NSIndexPath *)indexPath;
 
 @end

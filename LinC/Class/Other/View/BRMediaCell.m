@@ -7,21 +7,23 @@
 //
 
 #import "BRMediaCell.h"
+#import "BRMessageModel.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <AVFoundation/AVFoundation.h>
 #import <MBProgressHUD.h>
 
 #define controlPanelPadding 15
 
-@interface BRMediaCell ()
+@interface BRMediaCell () <UIScrollViewDelegate>
 {
-    NSTimeInterval lastTime;
+    MBProgressHUD *hud;
 }
 
 @property (nonatomic, strong) AVPlayerItem *playerItem;
 @property (nonatomic, strong) AVPlayerLayer *playerLayer;
+@property (nonatomic, strong) UIScrollView *imageScrollView;
 @property (nonatomic, strong) UIImageView *imageView;
-@property (nonatomic, strong) UIView *videoView;
+@property (nonatomic, strong) UIImageView *videoView;
 @property (nonatomic, strong) UIButton *playButton;
 @property (nonatomic, strong) UIButton *backButton;
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
@@ -40,59 +42,87 @@
 
 @implementation BRMediaCell
 
+- (UIActivityIndicatorView *)activityIndicator {
+    if (_activityIndicator == nil) {
+        _activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+        _activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
+        _activityIndicator.hidesWhenStopped = YES;
+    }
+    return _activityIndicator;
+}
+
+- (UIScrollView *)imageScrollView {
+    if (_imageScrollView == nil) {
+        _imageScrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
+        _imageScrollView.contentSize = self.bounds.size;
+        _imageScrollView.showsHorizontalScrollIndicator = NO;
+        _imageScrollView.showsVerticalScrollIndicator = NO;
+        _imageScrollView.minimumZoomScale = 1.0;
+        _imageScrollView.maximumZoomScale = 5.0;
+        _imageScrollView.delegate = self;
+        [self.contentView addSubview:_imageScrollView];
+    }
+    return _imageScrollView;
+}
+
 - (UIImageView *)imageView {
     if (_imageView == nil) {
-        _imageView = [[UIImageView alloc] initWithFrame:self.bounds];
+        _imageView = [[UIImageView alloc] initWithFrame:self.imageScrollView.bounds];
         _imageView.contentMode = UIViewContentModeScaleAspectFit;
         // 添加菊花
-        _activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
-        _activityIndicator.center = _imageView.center;
-        _activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
-        [_imageView addSubview:_activityIndicator];
-        [self.contentView addSubview:_imageView];
+        self.activityIndicator.center = _imageView.center;
+        [_imageView addSubview:self.activityIndicator];
+        // 添加手势
+        _imageView.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapImage:)];
+        [_imageView addGestureRecognizer:tap];
+        [self.imageScrollView addSubview:_imageView];
     }
     return _imageView;
 }
 
 - (UIView *)videoView {
     if (_videoView == nil) {
-        _videoView = [[UIView alloc] initWithFrame:self.bounds];
+        _videoView = [[UIImageView alloc] initWithFrame:self.bounds];
         [self.contentView addSubview:_videoView];
         
         // 添加菊花
-        _activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
-        _activityIndicator.center = _videoView.center;
-        _activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
-        [_videoView addSubview:_activityIndicator];
+        self.activityIndicator.center = _videoView.center;
+        [_videoView addSubview:self.activityIndicator];
+        
+        // 添加手势
+        _videoView.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapVideo:)];
+        [_videoView addGestureRecognizer:tap];
         
         // 添加backButton
         _backButton = [[UIButton alloc] initWithFrame:CGRectMake(30, 30, 30, 30)];
         [_backButton setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
         [_backButton setImage:[UIImage imageNamed:@"close_highlighted"] forState:UIControlStateHighlighted];
         [_backButton addTarget:self action:@selector(clickBackButton:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:_backButton];
+        [self.contentView addSubview:_backButton];
         
         // 添加playButton
         _playButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
-        _playButton.backgroundColor = [UIColor redColor];
         _playButton.center = _videoView.center;
         [_playButton setImage:[UIImage imageNamed:@"play_big"] forState:UIControlStateNormal];
         [_playButton setImage:[UIImage imageNamed:@"pause_big"] forState:UIControlStateSelected];
         [_playButton addTarget:self action:@selector(clickPlayButton:) forControlEvents:UIControlEventTouchUpInside];
-        [_videoView addSubview:_playButton];
+        [_playButton setHidden:YES];
+        [self.contentView addSubview:_playButton];
         
         
         // 添加控制台
         CGFloat controlPanelW = _videoView.bounds.size.width;
         CGFloat controlPanelH = 34;
         CGFloat controlPanelX = 0;
-        CGFloat controlPanelY = _videoView.bounds.size.height - controlPanelH;
+        CGFloat controlPanelY = _videoView.bounds.size.height - controlPanelH - iPhoneX_BOTTOM_HEIGHT;
         _controlPanel = [[UIView alloc] initWithFrame:CGRectMake(controlPanelX, controlPanelY, controlPanelW, controlPanelH)];
         _controlPanel.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.8];
         
         _playButtonSmall = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, controlPanelH, controlPanelH)];
-        [_playButtonSmall setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
-        [_playButtonSmall setImage:[UIImage imageNamed:@""] forState:UIControlStateSelected];
+        [_playButtonSmall setImage:[UIImage imageNamed:@"play"] forState:UIControlStateNormal];
+        [_playButtonSmall setImage:[UIImage imageNamed:@"pause"] forState:UIControlStateSelected];
         [_playButtonSmall addTarget:self action:@selector(clickPlayButton:) forControlEvents:UIControlEventTouchUpInside];
         [_controlPanel addSubview:_playButtonSmall];
         
@@ -122,7 +152,7 @@
         [_restTimeLabel setText:@"00:00"];
         [_controlPanel addSubview:_restTimeLabel];
         
-        [_videoView addSubview:_controlPanel];
+        [self.contentView addSubview:_controlPanel];
         
     }
     return _videoView;
@@ -130,22 +160,13 @@
 
 #pragma mark - touch methods
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    if (_imageView) {
-        [self tapImage];
-    }
-    else if (_videoView) {
-        [self tapVideo];
-    }
-}
-
-- (void)tapImage {
+- (void)tapImage:(UITapGestureRecognizer *)tap {
     if (_delegate && [_delegate respondsToSelector:@selector(mediaCell:didTapImage:)]) {
         [_delegate mediaCell:self didTapImage:self.image];
     }
 }
 
-- (void)tapVideo {
+- (void)tapVideo:(UITapGestureRecognizer *)tap {
     if (self.backButton.alpha) {
         self.backButton.alpha = 0;
         self.controlPanel.alpha = 0;
@@ -183,6 +204,11 @@
     [self.player seekToTime:seekTime completionHandler:^(BOOL finished) {
         [self.player play];
     }];
+}
+
+#pragma mark - UIScrollViewDelegate
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
+    return self.imageView;
 }
 
 #pragma mark - private methods
@@ -233,18 +259,9 @@
     
     if (self.player.rate == 0) {
         [self.player play];
-        
-        // 初始化定时器
-        if (!self.timer) {
-            self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(loadingCheck) userInfo:nil repeats:YES];
-        }
     }
     else if (self.player.rate == 1.0) {
         [self.player pause];
-        if (self.timer) {
-            [self.timer invalidate];
-            self.timer = nil;
-        }
     }
 }
 
@@ -255,16 +272,6 @@
     }
     if (_delegate && [_delegate respondsToSelector:@selector(mediaCell:didClickBackButton:)]) {
         [_delegate mediaCell:self didClickBackButton:button];
-    }
-}
-
-- (void)loadingCheck {
-    NSTimeInterval currentTime = CMTimeGetSeconds(self.player.currentTime);
-    if (currentTime != lastTime) {
-        [self.activityIndicator startAnimating];
-    }
-    else {
-        [self.activityIndicator stopAnimating];
     }
 }
 
@@ -307,65 +314,76 @@
 
 #pragma mark - setter
 
-- (void)setMedia:(BRMedia *)media {
-    _media = media;
-    if (media.type == BRMediaImage) {
-        self.image = media.image;
+- (void)setModel:(id<IMessageModel>)model {
+    _model = model;
+    if (model.bodyType == EMMessageBodyTypeImage) {
         if (_videoView) {
             [_videoView removeFromSuperview];
             _videoView = nil;
         }
-    }
-    else if (media.type == BRMediaWebImage) {
-        self.imageURL = media.imageURL;
-        if (_videoView) {
-            [_videoView removeFromSuperview];
-            _videoView = nil;
+        
+        if (((EMImageMessageBody *)model.message.body).downloadStatus == EMDownloadStatusSucceed) {
+            self.imageView.image = model.image ? model.image : [UIImage imageWithContentsOfFile:model.fileLocalPath];
+        }
+        else {
+            self.imageView.image = model.thumbnailImage;
+            [self.activityIndicator startAnimating];
+            [[EMClient sharedClient].chatManager downloadMessageAttachment:model.message progress:nil completion:^(EMMessage *message, EMError *error) {
+                if (!error && [self.model.messageId isEqualToString:message.messageId]) {
+                    NSString *localPath = [(EMImageMessageBody *)message.body localPath];
+                    self.imageView.image = [UIImage imageWithContentsOfFile:localPath];
+                }
+                [self.activityIndicator stopAnimating];
+            }];
         }
     }
-    else if (media.type == BRMediaVideo) {
-        self.videoURL = media.videoURL;
+    else if (model.bodyType == EMMessageBodyTypeVideo) {
         if (_imageView) {
             [_imageView removeFromSuperview];
             _imageView = nil;
         }
-    }
-}
-
-- (void)setImage:(UIImage *)image {
-    _image = image;
-    [self.imageView setImage:_image];
-}
-
-- (void)setImageURL:(NSURL *)imageURL {
-    _imageURL = imageURL;
-    
-    [self.activityIndicator startAnimating];
-    [self.imageView sd_setImageWithURL:_imageURL placeholderImage:[UIImage imageNamed:@""] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-        if (error) {
-            NSLog(@"%@", error.localizedDescription);
+        
+        self.videoView.image = [UIImage imageWithContentsOfFile:model.thumbnailFileLocalPath];
+        void (^block)(NSString *) = ^(NSString *localPath) {
+            [self setupPlayerWithURL:[NSURL fileURLWithPath:localPath]];
+            [self.videoView.layer insertSublayer:self.playerLayer atIndex:0];
+            
+            __weak typeof(self) weakSelf = self;
+            // 添加视频播放进度监听
+            self.timeObserverToken = [self.player addPeriodicTimeObserverForInterval:CMTimeMake(1, 1) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
+                NSTimeInterval currentTime = CMTimeGetSeconds(time);
+                NSTimeInterval totalTime = CMTimeGetSeconds(weakSelf.playerItem.duration);
+                weakSelf.progressSlider.value = currentTime / totalTime;
+                weakSelf.currentTimeLabel.text = [weakSelf formatTimeFromDuration:currentTime];
+                weakSelf.restTimeLabel.text = [weakSelf formatTimeFromDuration:totalTime - currentTime];
+            }];
+        };
+        if (((EMVideoMessageBody *)model.message.body).downloadStatus == EMDownloadStatusSucceed) {
+            self.videoView.image = nil;
+            NSString *localPath = [(EMVideoMessageBody *)model.message.body localPath];
+            block(localPath);
         }
-        [self.activityIndicator stopAnimating];
-    }];
-}
-
-- (void)setVideoURL:(NSURL *)videoURL {
-    _videoURL = videoURL;
-    
-    [self setupPlayerWithURL:videoURL];
-    [self.videoView.layer insertSublayer:self.playerLayer atIndex:0];
-    
-    [self.activityIndicator startAnimating];
-    
-    __weak typeof(self) weakSelf = self;
-    // 添加视频播放进度监听
-    self.timeObserverToken = [self.player addPeriodicTimeObserverForInterval:CMTimeMake(1, 1) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
-        NSTimeInterval currentTime = CMTimeGetSeconds(time);
-        NSTimeInterval totalTime = CMTimeGetSeconds(weakSelf.playerItem.duration);
-        weakSelf.progressSlider.value = currentTime / totalTime;
-        weakSelf.currentTimeLabel.text = [weakSelf formatTimeFromDuration:currentTime];
-        weakSelf.restTimeLabel.text = [weakSelf formatTimeFromDuration:totalTime - currentTime];
-    }];
+        else {
+            [self.activityIndicator startAnimating];
+            [[EMClient sharedClient].chatManager downloadMessageAttachment:model.message progress:^(int progress) {
+                
+            } completion:^(EMMessage *message, EMError *error) {
+                [self.activityIndicator stopAnimating];
+                if (!error) {
+                    if ([self.model.messageId isEqualToString:message.messageId]) {
+                        NSString *localPath = [(EMVideoMessageBody *)message.body localPath];
+                        block(localPath);
+                    }
+                }
+                else {
+                    hud = [MBProgressHUD showHUDAddedTo:self.contentView animated:YES];
+                    hud.mode = MBProgressHUDModeText;
+                    hud.label.text = error.errorDescription;
+                    [hud hideAnimated:YES afterDelay:2.0];
+                }
+            }];
+        }
+    }
 }
 
 #pragma mark - 监听方法
@@ -374,8 +392,6 @@
     if ([keyPath isEqualToString:@"status"]) {
         AVPlayerStatus status = [[change objectForKey:@"new"] intValue];
         if (status == AVPlayerStatusReadyToPlay) {
-            [self.activityIndicator stopAnimating];
-            
             [self clickPlayButton:self.playButton];
         }
         else if (status == AVPlayerStatusFailed) {
