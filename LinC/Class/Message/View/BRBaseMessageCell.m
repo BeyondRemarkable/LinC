@@ -249,10 +249,11 @@
 {
     [super setModel:model];
     
+    NSLog(@"%@", model.nickname);
     self.nameLabel.text = model.nickname;
+    self.avatarView.image = model.avatarImage;
     
     if (self.model.isSender) {
-        self.avatarView.image = model.avatarImage;
         
         _hasRead.hidden = YES;
         switch (self.model.messageStatus) {
@@ -286,8 +287,6 @@
             default:
                 break;
         }
-    } else {
-        self.avatarView.image = model.avatarImage;
     }
 }
 

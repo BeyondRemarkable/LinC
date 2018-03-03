@@ -40,6 +40,8 @@
     BRFriendsInfo *friendInfo = [[BRCoreDataManager sharedInstance] fetchFriendInfoBy:conversation.conversationId];
     if (friendInfo.nickname) {
         _title = friendInfo.nickname;
+    } else if (friendInfo.username) {
+        _title = friendInfo.username;
     } else {
         _title = _conversation.conversationId;
     }

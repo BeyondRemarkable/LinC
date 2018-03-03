@@ -76,8 +76,9 @@
 "Take Photo" = "Take Photo";
 "Choose from Album" = "Choose from Album";
 "Image Received" = "[image]";
-"saveFail" = "Try again later.";
-"saveSuccess" = "Image saved.";
+"saveFail" = "Try again later";
+"saveSuccess" = "Image saved";
+"message.thumImageFail" = "Fail to get thumbnail image";
 
 // Video
 "Shared video" = "[video]";

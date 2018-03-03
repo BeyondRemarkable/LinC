@@ -617,7 +617,9 @@ typedef enum : NSUInteger {
         else
         {
             hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.mode = MBProgressHUDModeText;
             hud.label.text = NSLocalizedString(@"message.thumImageFail", @"thumbnail for failure!");
+            [hud hideAnimated:YES afterDelay:1.5];
         }
     };
     
@@ -633,7 +635,7 @@ typedef enum : NSUInteger {
                 [self _customDownloadMessageFile:message];
             } else {
                 if (isAutoDownloadThumbnail) {
-                    [[[EMClient sharedClient] chatManager] downloadMessageThumbnail:message progress:nil completion:completion];
+                    [[EMClient sharedClient].chatManager downloadMessageThumbnail:message progress:nil completion:completion];
                 }
             }
         }
@@ -648,7 +650,7 @@ typedef enum : NSUInteger {
                 [self _customDownloadMessageFile:message];
             } else {
                 if (isAutoDownloadThumbnail) {
-                    [[[EMClient sharedClient] chatManager] downloadMessageThumbnail:message progress:nil completion:completion];
+                    [[EMClient sharedClient].chatManager downloadMessageThumbnail:message progress:nil completion:completion];
                 }
             }
         }
@@ -1154,20 +1156,6 @@ typedef enum : NSUInteger {
     }
     else{
         id<IMessageModel> model = object;
-        if (self.friendsInfo == nil) {
-            self.friendsInfo = [[BRCoreDataManager sharedInstance] fetchFriendInfoBy:model.message.from];
-        }
-        if (model.isSender) {
-            UIImage *avatar = [UIImage imageWithData:self.userInfo.avatar];
-            model.avatarImage = avatar ? avatar : [UIImage imageNamed:@"user_defaults"];
-            model.nickname = self.userInfo.nickname;
-        }
-        else {
-            UIImage *avatar = [UIImage imageWithData:self.friendsInfo.avatar];
-            model.avatarImage = avatar ? avatar : [UIImage imageNamed:@"user_defaults"];
-            model.nickname = self.friendsInfo.nickname;
-        }
-        
         
         if (_delegate && [_delegate respondsToSelector:@selector(messageViewController:cellForMessageModel:)]) {
             UITableViewCell *cell = [_delegate messageViewController:tableView cellForMessageModel:model];
@@ -1978,6 +1966,23 @@ typedef enum : NSUInteger {
         }
         
         if (model) {
+            if (self.friendsInfo == nil) {
+                self.friendsInfo = [[BRCoreDataManager sharedInstance] fetchFriendInfoBy:model.message.from];
+            }
+            if (model.isSender) {
+                UIImage *avatar = [UIImage imageWithData:self.userInfo.avatar];
+                model.avatarImage = avatar ? avatar : [UIImage imageNamed:@"user_default"];
+                model.nickname = self.userInfo.nickname.length ? self.userInfo.nickname : self.userInfo.username;
+            }
+            else if (_conversation.type == EMConversationTypeChat) {
+                UIImage *avatar = [UIImage imageWithData:self.friendsInfo.avatar];
+                model.avatarImage = avatar ? avatar : [UIImage imageNamed:@"user_default"];
+                model.nickname = self.friendsInfo.nickname.length ? self.friendsInfo.nickname : self.friendsInfo.username;
+            }
+            else {
+                model.avatarImage = [UIImage imageNamed:@"user_default"];
+            }
+            
             [formattedArray addObject:model];
         }
     }

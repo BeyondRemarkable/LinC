@@ -76,8 +76,9 @@
 "Save Photo" = "保存照片";
 "Choose from Album" = "从相册获取";
 "Image Received" = "[图片]";
-"saveFail" = "图片保存失败，请稍后再试。";
-"saveSuccess" = "图片保存成功。";
+"saveFail" = "图片保存失败，请稍后再试";
+"saveSuccess" = "图片保存成功";
+"message.thumImageFail" = "获取缩略图失败";
 
 // Video
 "Shared video" = "[视频]";

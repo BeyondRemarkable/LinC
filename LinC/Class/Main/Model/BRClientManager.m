@@ -248,9 +248,7 @@
                 model.gender = dict[@"data"][@"users"][i][@"gender"];
                 model.whatsUp = dict[@"data"][@"users"][i][@"signature"];
                 model.avatarURLPath = [kBaseURL stringByAppendingPathComponent:dict[@"data"][@"users"][i][@"avatar"]];
-                if (model.nickname.length == 0) {
-                    model.nickname = model.username;
-                }
+
                 BOOL isImage = ([model.avatarURLPath.lowercaseString hasSuffix:@".jpg"] || [model.avatarURLPath.lowercaseString hasSuffix:@".png"]);
                 if (!isImage) {
                     model.avatarImage = [UIImage imageNamed:@"user_default"];
