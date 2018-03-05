@@ -249,8 +249,7 @@
 {
     [super setModel:model];
     
-    NSLog(@"%@", model.nickname);
-    self.nameLabel.text = model.nickname;
+    self.nameLabel.text = model.username;
     self.avatarView.image = model.avatarImage;
     
     if (self.model.isSender) {

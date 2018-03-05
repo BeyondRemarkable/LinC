@@ -60,12 +60,14 @@
  */
 - (void)setupConversationGroupChat:(EMConversation *)conversation {
     BRGroup *group = [[[BRCoreDataManager sharedInstance] fetchGroupsWithGroupID:conversation.conversationId] lastObject];
-    _title = group.groupName;
+    _title = group.groupName ? group.groupName : conversation.conversationId;
     if (group.groupIcon) {
         _avatarImage = [UIImage imageWithData:group.groupIcon];
     } else {
         _avatarImage = [UIImage imageNamed:@"group_default"];
     }
+    
+    
     
 //    NSArray *groupArray = [[EMClient sharedClient].groupManager getJoinedGroups];
 //    for (EMGroup *group in groupArray) {

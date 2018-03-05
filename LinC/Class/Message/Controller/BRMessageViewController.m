@@ -1972,12 +1972,12 @@ typedef enum : NSUInteger {
             if (model.isSender) {
                 UIImage *avatar = [UIImage imageWithData:self.userInfo.avatar];
                 model.avatarImage = avatar ? avatar : [UIImage imageNamed:@"user_default"];
-                model.nickname = self.userInfo.nickname.length ? self.userInfo.nickname : self.userInfo.username;
+                model.username = self.userInfo.nickname.length ? self.userInfo.nickname : self.userInfo.username;
             }
             else if (_conversation.type == EMConversationTypeChat) {
                 UIImage *avatar = [UIImage imageWithData:self.friendsInfo.avatar];
                 model.avatarImage = avatar ? avatar : [UIImage imageNamed:@"user_default"];
-                model.nickname = self.friendsInfo.nickname.length ? self.friendsInfo.nickname : self.friendsInfo.username;
+                model.username = self.friendsInfo.nickname.length ? self.friendsInfo.nickname : self.friendsInfo.username;
             }
             else {
                 model.avatarImage = [UIImage imageNamed:@"user_default"];

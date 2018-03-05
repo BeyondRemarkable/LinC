@@ -34,8 +34,8 @@
 @property (nonatomic) BOOL isMessageRead;
 /** @brief 当前登录用户是否为消息的发送方 */
 @property (nonatomic) BOOL isSender;
-/** @brief 消息发送方的昵称 */
-@property (strong, nonatomic) NSString *nickname;
+/** @brief 消息发送方的用户名 */
+@property (strong, nonatomic) NSString *username;
 /** @brief 消息发送方的头像url */
 @property (strong, nonatomic) NSString *avatarURLPath;
 /** @brief 消息发送方的头像 */

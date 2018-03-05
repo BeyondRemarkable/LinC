@@ -10,6 +10,7 @@
 #import "BRMessageViewController.h"
 #import "BRConversationModel.h"
 #import "BRConversationCell.h"
+#import "BRGroupModel.h"
 #import "NSDate+Category.h"
 #import "BREmotionEscape.h"
 #import "BRConvertToCommonEmoticonsHelper.h"
@@ -384,13 +385,18 @@
                        }];
     
     [self.dataArray removeAllObjects];
-    for (EMConversation *converstion in sorted) {
-        BRConversationModel *model = [[BRConversationModel alloc] initWithConversation:converstion];
-        
+    NSInteger totalUnreadCount = 0;
+    
+    for (EMConversation *conversation in sorted) {
+        BRConversationModel *model = [[BRConversationModel alloc] initWithConversation:conversation];
         if (model) {
             [self.dataArray addObject:model];
         }
+        
+        totalUnreadCount += conversation.unreadMessagesCount;
     }
+
+    self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%lu", (long)totalUnreadCount];
     
     [self.tableView reloadData];
     [self tableViewDidFinishRefresh:BRRefreshTableViewWidgetHeader reload:NO];
@@ -495,15 +501,27 @@
 }
 
 - (void)messagesDidReceive:(NSArray *)aMessages {
-
-    NSArray *conversations = [[EMClient sharedClient].chatManager getAllConversations];
-    NSInteger totalUnreadCount = 0;
-    for (EMConversation *conversation in conversations) {
-        totalUnreadCount += conversation.unreadMessagesCount;
+    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    NSInvocationOperation *updateOperation = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(tableViewDidTriggerHeaderRefresh) object:nil];
+    for (EMMessage *message in aMessages) {
+        if (message.chatType == EMChatTypeGroupChat) {
+            NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
+                EMGroup *group = [[EMClient sharedClient].groupManager getGroupSpecificationFromServerWithId:message.conversationId error:nil];
+                BRGroupModel *groupModel = [[BRGroupModel alloc] init];
+                groupModel.groupID = group.groupId;
+                groupModel.groupDescription = group.description;
+                groupModel.groupName = group.subject;
+                groupModel.groupOwner = group.owner;
+                groupModel.groupMembers = [NSMutableArray arrayWithArray:group.memberList];
+                groupModel.groupStyle = group.setting.style;
+                
+                [[BRCoreDataManager sharedInstance] saveGroupToCoreData:@[groupModel]];
+            }];
+            [updateOperation addDependency:operation];
+            [queue addOperation:operation];
+        }
     }
-    self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%lu", (long)totalUnreadCount];
-
-    [self tableViewDidTriggerHeaderRefresh];
+    [[NSOperationQueue mainQueue] addOperation:updateOperation];
 }
 
 
