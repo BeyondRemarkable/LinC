@@ -19,9 +19,7 @@
 		276E757F1F3E2F1E00D5A917 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E757E1F3E2F1E00D5A917 /* AudioToolbox.framework */; };
 		276E75901F3E390100D5A917 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E758F1F3E390100D5A917 /* UserNotifications.framework */; };
 		276E75971F3E5AA600D5A917 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E75961F3E5AA600D5A917 /* AVKit.framework */; };
-		27760F98202F592300BD082D /* BRGroupIconGenerator.h in Sources */ = {isa = PBXBuildFile; fileRef = E9F903DB20222C5E00F7248C /* BRGroupIconGenerator.h */; };
 		27760F99202F592300BD082D /* BRGroupIconGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F903DC20222C5E00F7248C /* BRGroupIconGenerator.m */; };
-		27760F9A202F592300BD082D /* BRGroupModel.h in Sources */ = {isa = PBXBuildFile; fileRef = E942AD5620250807000C91DD /* BRGroupModel.h */; };
 		27760F9B202F592300BD082D /* BRGroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E942AD5720250807000C91DD /* BRGroupModel.m */; };
 		278CD94C1F549192008D6BD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 278CD94B1F549192008D6BD1 /* Assets.xcassets */; };
 		27A094CB20322E6F00F9F846 /* BRRegisterMethodViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A094CA20322E6F00F9F846 /* BRRegisterMethodViewController.m */; };
@@ -1247,9 +1245,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				27760F98202F592300BD082D /* BRGroupIconGenerator.h in Sources */,
 				27760F99202F592300BD082D /* BRGroupIconGenerator.m in Sources */,
-				27760F9A202F592300BD082D /* BRGroupModel.h in Sources */,
 				27760F9B202F592300BD082D /* BRGroupModel.m in Sources */,
 				E90F7BD51F670DC400333382 /* BRUserSettingTableViewController.m in Sources */,
 				E90F7BC01F670DC400333382 /* BRMessageTimeCell.m in Sources */,

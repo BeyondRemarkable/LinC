@@ -1303,32 +1303,19 @@ typedef enum : NSUInteger {
             UIImage *orgImage = info[UIImagePickerControllerOriginalImage];
             [self sendImageMessage:orgImage];
         } else {
-            if ([[UIDevice currentDevice].systemVersion doubleValue] >= 9.0f) {
-                PHFetchResult *result = [PHAsset fetchAssetsWithALAssetURLs:@[url] options:nil];
-                [result enumerateObjectsUsingBlock:^(PHAsset *asset , NSUInteger idx, BOOL *stop){
-                    if (asset) {
-                        [[PHImageManager defaultManager] requestImageDataForAsset:asset options:nil resultHandler:^(NSData *data, NSString *uti, UIImageOrientation orientation, NSDictionary *dic){
-                            if (data != nil) {
-                                [self sendImageMessageWithData:data];
-                            } else {
-                                hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                                hud.label.text = NSLocalizedString(@"message.smallerImage", @"The image size is too large, please choose another one");
-                            }
-                        }];
-                    }
-                }];
-            } else {
-                ALAssetsLibrary *alasset = [[ALAssetsLibrary alloc] init];
-                [alasset assetForURL:url resultBlock:^(ALAsset *asset) {
-                    if (asset) {
-                        ALAssetRepresentation* assetRepresentation = [asset defaultRepresentation];
-                        Byte* buffer = (Byte*)malloc((size_t)[assetRepresentation size]);
-                        NSUInteger bufferSize = [assetRepresentation getBytes:buffer fromOffset:0.0 length:(NSUInteger)[assetRepresentation size] error:nil];
-                        NSData* fileData = [NSData dataWithBytesNoCopy:buffer length:bufferSize freeWhenDone:YES];
-                        [self sendImageMessageWithData:fileData];
-                    }
-                } failureBlock:NULL];
-            }
+            PHFetchResult *result = [PHAsset fetchAssetsWithALAssetURLs:@[url] options:nil];
+            [result enumerateObjectsUsingBlock:^(PHAsset *asset , NSUInteger idx, BOOL *stop){
+                if (asset) {
+                    [[PHImageManager defaultManager] requestImageDataForAsset:asset options:nil resultHandler:^(NSData *data, NSString *uti, UIImageOrientation orientation, NSDictionary *dic){
+                        if (data != nil) {
+                            [self sendImageMessageWithData:data];
+                        } else {
+                            hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                            hud.label.text = NSLocalizedString(@"message.smallerImage", @"The image size is too large, please choose another one");
+                        }
+                    }];
+                }
+            }];
         }
     }
     
