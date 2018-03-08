@@ -160,6 +160,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
         return [left.username compare: right.username];
     }];
     self.dataArray = friendsModelArray;
+    [self tableViewDidFinishRefresh:BRRefreshTableViewWidgetHeader reload:YES];
 }
 
 #pragma mark - button action
@@ -243,10 +244,6 @@ static NSString * const cellIdentifier = @"ContactListCell";
     return 20;
 }
 
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    return 60;
-//}
-
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -269,7 +266,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
             } else {
                 hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
                 hud.mode = MBProgressHUDModeText;
-                hud.label.text = @"No new friend.";
+                hud.label.text = NSLocalizedString(@"No new friend request", nil);
                 [hud hideAnimated:YES afterDelay:1.5];
 
             }
@@ -321,8 +318,9 @@ static NSString * const cellIdentifier = @"ContactListCell";
             [[BRClientManager sharedManager] getUserInfoWithUsernames:contactsSource andSaveFlag:YES success:^(NSMutableArray *aList) {
                 [weakself.dataArray removeAllObjects];
                 [weakself.dataArray addObjectsFromArray:aList];
-                [weakself.tableView reloadData];
-                [weakself tableViewDidFinishRefresh:BRRefreshTableViewWidgetHeader reload:NO];
+                [weakself tableViewDidFinishRefresh:BRRefreshTableViewWidgetHeader reload:YES];
+                
+                [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:BRDataUpdateNotification object:nil]];
             } failure:^(EMError *aError) {
                 NSLog(@"%@", aError.errorDescription);
                 hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];

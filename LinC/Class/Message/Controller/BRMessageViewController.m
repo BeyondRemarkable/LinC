@@ -74,6 +74,7 @@ typedef enum : NSUInteger {
 
 @property (nonatomic, strong) UIImageView *transitionView;
 @property (nonatomic) CGRect oldFrame;
+@property (nonatomic, strong) NSMutableDictionary<NSString *, BRContactListModel *> *dict;
 
 @end
 
@@ -107,6 +108,13 @@ typedef enum : NSUInteger {
     
     
     return self;
+}
+
+- (NSMutableDictionary<NSString *,BRContactListModel *> *)dict {
+    if (_dict == nil) {
+        _dict = [NSMutableDictionary dictionary];
+    }
+    return _dict;
 }
 
 - (void)viewDidLoad {
@@ -1938,6 +1946,7 @@ typedef enum : NSUInteger {
         return formattedArray;
     }
     
+    NSMutableSet *usernameSet = [NSMutableSet set];
     for (EMMessage *message in messages) {
         //Calculate time interval
         CGFloat interval = (self.messageTimeIntervalTag - message.timestamp) / 1000;
@@ -1956,7 +1965,7 @@ typedef enum : NSUInteger {
         }
         
         //Construct message model
-        id<IMessageModel> model = nil;
+        BRMessageModel *model = nil;
         if (_dataSource && [_dataSource respondsToSelector:@selector(messageViewController:modelForMessage:)]) {
             model = [_dataSource messageViewController:self modelForMessage:message];
         }
@@ -1969,22 +1978,73 @@ typedef enum : NSUInteger {
             if (self.friendsInfo == nil) {
                 self.friendsInfo = [[BRCoreDataManager sharedInstance] fetchFriendInfoBy:model.message.from];
             }
+            // 发送方
             if (model.isSender) {
                 UIImage *avatar = [UIImage imageWithData:self.userInfo.avatar];
                 model.avatarImage = avatar ? avatar : [UIImage imageNamed:@"user_default"];
                 model.username = self.userInfo.nickname.length ? self.userInfo.nickname : self.userInfo.username;
             }
+            // 非发送方单聊
             else if (_conversation.type == EMConversationTypeChat) {
                 UIImage *avatar = [UIImage imageWithData:self.friendsInfo.avatar];
                 model.avatarImage = avatar ? avatar : [UIImage imageNamed:@"user_default"];
                 model.username = self.friendsInfo.nickname.length ? self.friendsInfo.nickname : self.friendsInfo.username;
             }
+            // 非发送方群聊
             else {
-                model.avatarImage = [UIImage imageNamed:@"user_default"];
+                BRContactListModel *userModel = nil;
+                if ((userModel = self.dict[model.username])) {
+                    model.avatarImage = userModel.avatarImage;
+                    model.username = userModel.nickname ? userModel.nickname : userModel.username;
+                }
+                else {
+                    // 从数据库中获取成员信息
+                    BRFriendsInfo *info = [[[BRCoreDataManager sharedInstance] fetchGroupMembersByGroupID:_conversation.conversationId andGroupMemberUserName:model.username] firstObject];
+                    if (info) {
+                        model.username = info.nickname ? info.nickname : info.username;
+                        UIImage *avatarImage = [UIImage imageWithData:info.avatar];
+                        model.avatarImage = avatarImage;
+                        
+                        userModel = [[BRContactListModel alloc] init];
+                        userModel.username = info.username;
+                        userModel.nickname = info.nickname;
+                        userModel.avatarImage = avatarImage;
+                        self.dict[info.username] = userModel;
+                    }
+                    else {
+                        model.avatarImage = [UIImage imageNamed:@"user_default"];
+                        [usernameSet addObject:model.username];
+                    }
+                }
             }
             
             [formattedArray addObject:model];
         }
+    }
+    
+    if (_conversation.type == EMConversationTypeGroupChat && usernameSet.count > 0) {
+        NSArray *usernameArray = [usernameSet allObjects];
+        
+        // 从服务器获取成员信息
+        [[BRClientManager sharedManager] getUserInfoWithUsernames:usernameArray andSaveFlag:NO success:^(NSMutableArray *modelArray) {
+            for (BRContactListModel *userModel in modelArray) {
+                self.dict[userModel.username] = userModel;
+            }
+            [[BRCoreDataManager sharedInstance] saveGroupMembersToCoreData:modelArray toGroup:_conversation.conversationId];
+            for (id obj in self.dataArray) {
+                if (![obj isKindOfClass:[BRMessageModel class]]) {
+                    continue;
+                }
+                BRMessageModel *messageModel = (BRMessageModel *)obj;
+                BRContactListModel *userModel = self.dict[messageModel.username];
+                if (userModel) {
+                    messageModel.username = userModel.nickname ? userModel.nickname : userModel.username;
+                    messageModel.avatarURLPath = userModel.avatarURLPath;
+                    messageModel.avatarImage = userModel.avatarImage;
+                }
+            }
+            [self tableViewDidFinishRefresh:BRRefreshTableViewWidgetHeader reload:YES];
+        } failure:nil];
     }
     
     return formattedArray;

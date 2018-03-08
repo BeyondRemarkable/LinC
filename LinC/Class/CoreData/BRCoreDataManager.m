@@ -168,31 +168,30 @@ BRUserInfo *userInfoDic = nil;
  检查好友列表 如何数据不存在，插入数据，并保存
  如果数据存在，检查是否需要更新
  
- @param dataArray dataArray 登录用户的好友模型数据
+ @param dataArray dataArray 登录用户的好友模型数据(BRContactListModel)
  */
 - (void)saveFriendsInfoToCoreData:(NSMutableArray*)dataArray
 {
 
     BRUserInfo *userInfo = [self getUserInfo];
-    NSMutableArray *friendsArray = [NSMutableArray array];
+    NSMutableArray *friendsUsernameArray = [NSMutableArray array];
     // 判断好友是否已经已经保存在数据库
     for (BRContactListModel *contactModel in dataArray) {
-        [friendsArray addObject:contactModel.username];
-        BOOL isContains = NO;
+        [friendsUsernameArray addObject:contactModel.username];
         BRFriendsInfo *friendsInfo = nil;
         for (BRFriendsInfo *friendsInfoModel in userInfo.friendsInfo) {
             if ([contactModel.username isEqualToString:friendsInfoModel.username]) {
-                isContains = YES;
                 friendsInfo = friendsInfoModel;
+                break;
             }
         }
-        if (!isContains) {
+        if (!friendsInfo) {
             // 好友信息不存在， 保存到数据库
             [self insertFriendsInfoToCoreData:contactModel toUserInfo:userInfo];
         } else {
             // 判断是用户信息否需要更新（根据updated属性）
             if (contactModel.updated && friendsInfo.updated && ![contactModel.updated isEqualToString:friendsInfo.updated]) {
-                [self updateFriendsInfoCoreDataBy:userInfo.username withModel:contactModel];
+                [self updateFriendsInfoCoreDataBy:friendsInfo.username withModel:contactModel];
             }
         }
     }
@@ -200,7 +199,7 @@ BRUserInfo *userInfoDic = nil;
     // 判断是否有好友解除关系
     NSMutableArray *deleteArray = [NSMutableArray array];
     for (BRFriendsInfo *friendInfo in userInfo.friendsInfo ) {
-        if (![friendsArray containsObject:friendInfo.username]) {
+        if (![friendsUsernameArray containsObject:friendInfo.username]) {
             [deleteArray addObject:friendInfo.username];
         }
     }
@@ -271,7 +270,7 @@ BRUserInfo *userInfoDic = nil;
  @param contactModel 环信模型数据
  */
 - (void)updateFriendsInfoCoreDataBy:(NSString *)userName withModel:(BRContactListModel *)contactModel {
-    NSManagedObjectContext *context = [self managedObjectContext];
+    NSManagedObjectContext *context = [gCoreDataStack managedObjectContext];
     NSPredicate *predicate = [NSPredicate
                               predicateWithFormat:@"username = %@", userName];
     

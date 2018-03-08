@@ -33,32 +33,38 @@
 }
 
 @property (nonatomic, strong) BRDropDownViewController *dropDownVC;
+@property (nonatomic, strong) NSMutableSet *groupIDSet;
+@property (nonatomic, strong) NSMutableDictionary *updateTimeDict;
 
 @end
 
 @implementation BRConversationListViewController
 
+- (NSMutableSet *)groupIDSet {
+    if (_groupIDSet == nil) {
+        _groupIDSet = [NSMutableSet set];
+    }
+    return _groupIDSet;
+}
+
+- (NSMutableDictionary *)updateTimeDict {
+    if (_updateTimeDict == nil) {
+        _updateTimeDict = [NSMutableDictionary dictionary];
+    }
+    return _updateTimeDict;
+}
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self tableViewDidTriggerHeaderRefresh];
+    
     self.navigationController.navigationBar.hidden = NO;
-    NSArray *conversations = [[EMClient sharedClient].chatManager getAllConversations];
-    NSInteger totalUnreadCount = 0;
-    for (EMConversation *conversation in conversations) {
-        totalUnreadCount += conversation.unreadMessagesCount;
-    }
-    if (!totalUnreadCount) {
-        self.tabBarItem.badgeValue = nil;
-        [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
-    } else {
-        self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%lu", (long)totalUnreadCount];
-        [UIApplication sharedApplication].applicationIconBadgeNumber = totalUnreadCount;
-    }
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self tableViewDidTriggerHeaderRefresh];
+
     self.view.backgroundColor = [UIColor whiteColor];
     [self.tableView registerNib:[UINib nibWithNibName:@"BRConversationCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:[BRConversationCell cellIdentifierWithModel:nil]];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkRefreshMessage) name:UIApplicationDidBecomeActiveNotification object:nil];
@@ -346,11 +352,25 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     BRConversationModel *model = [self.dataArray objectAtIndex:indexPath.row];
+    NSInteger diff = model.conversation.unreadMessagesCount;
     BRMessageViewController *viewController = [[BRMessageViewController alloc] initWithConversationChatter:model.conversation.conversationId conversationType:model.conversation.type];
     
     viewController.title = model.title;
-    
     [self.navigationController pushViewController:viewController animated:YES];
+    
+    EMConversation *updatedConversation = [[EMClient sharedClient].chatManager getConversation:model.conversationID type:model.chatType createIfNotExist:NO];
+    self.dataArray[indexPath.row] = [[BRConversationModel alloc] initWithConversation:updatedConversation];
+    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    
+    if (diff) {
+        NSInteger unreadCount = [UIApplication sharedApplication].applicationIconBadgeNumber;
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:(unreadCount - diff)];
+        
+        unreadCount = [self.tabBarItem.badgeValue integerValue];
+        unreadCount -= diff;
+        self.tabBarItem.badgeValue = unreadCount ? [NSString stringWithFormat:@"%ld", unreadCount] : nil;
+    }
+    
 }
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -396,10 +416,14 @@
         totalUnreadCount += conversation.unreadMessagesCount;
     }
 
-    self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%lu", (long)totalUnreadCount];
+    self.tabBarItem.badgeValue = totalUnreadCount ? [NSString stringWithFormat:@"%lu", (long)totalUnreadCount] : nil;
+    [UIApplication sharedApplication].applicationIconBadgeNumber = totalUnreadCount;
     
-    [self.tableView reloadData];
-    [self tableViewDidFinishRefresh:BRRefreshTableViewWidgetHeader reload:NO];
+    [self tableViewDidFinishRefresh:BRRefreshTableViewWidgetHeader reload:YES];
+}
+
+- (void)updateFromNotification:(NSNotification *)notification {
+    [self tableViewDidTriggerHeaderRefresh];
 }
 
 #pragma mark - EMGroupManagerDelegate
@@ -422,14 +446,15 @@
 
 #pragma mark - registerNotifications
 -(void)registerNotifications{
-//    [self unregisterNotifications];
     [[EMClient sharedClient].chatManager addDelegate:self delegateQueue:dispatch_get_main_queue()];
     [[EMClient sharedClient].groupManager addDelegate:self delegateQueue:dispatch_get_main_queue()];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFromNotification:) name:BRDataUpdateNotification object:nil];
 }
 
 -(void)unregisterNotifications{
     [[EMClient sharedClient].chatManager removeDelegate:self];
     [[EMClient sharedClient].groupManager removeDelegate:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)dealloc{
@@ -500,13 +525,39 @@
     return latestMessageTime;
 }
 
+#pragma mark - ChatManagerDelegate
+
 - (void)messagesDidReceive:(NSArray *)aMessages {
-    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
     NSInvocationOperation *updateOperation = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(tableViewDidTriggerHeaderRefresh) object:nil];
+    NSMutableSet *idSet = [NSMutableSet set];
     for (EMMessage *message in aMessages) {
         if (message.chatType == EMChatTypeGroupChat) {
-            NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
-                EMGroup *group = [[EMClient sharedClient].groupManager getGroupSpecificationFromServerWithId:message.conversationId error:nil];
+            if (![self.groupIDSet containsObject:message.conversationId]) {
+                [idSet addObject:message.conversationId];
+                [self.groupIDSet addObject:message.conversationId];
+            }
+        }
+    }
+    
+    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    NSEnumerator *enumerator = [idSet objectEnumerator];
+    NSString *valueID;
+    while (valueID = [enumerator nextObject]) {
+        // 计算时间差判断是否需要更新
+        NSDate *lastUpdateTime = nil;
+        NSDate *currentTime = [NSDate dateWithTimeIntervalSinceNow:0];
+        if ((lastUpdateTime = self.updateTimeDict[valueID])) {
+            NSTimeInterval interval = [currentTime timeIntervalSinceDate:lastUpdateTime];
+            // 时间间隔五分钟
+            if ((int)interval/60%60 < 5) {
+                continue;
+            }
+        }
+        self.updateTimeDict[valueID] = currentTime;
+        
+        NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
+            EMGroup *group = [[EMClient sharedClient].groupManager getGroupSpecificationFromServerWithId:valueID error:nil];
+            if (group && group.subject && group.subject.length != 0) {
                 BRGroupModel *groupModel = [[BRGroupModel alloc] init];
                 groupModel.groupID = group.groupId;
                 groupModel.groupDescription = group.description;
@@ -516,10 +567,10 @@
                 groupModel.groupStyle = group.setting.style;
                 
                 [[BRCoreDataManager sharedInstance] saveGroupToCoreData:@[groupModel]];
-            }];
-            [updateOperation addDependency:operation];
-            [queue addOperation:operation];
-        }
+            }
+        }];
+        [updateOperation addDependency:operation];
+        [queue addOperation:operation];
     }
     [[NSOperationQueue mainQueue] addOperation:updateOperation];
 }
