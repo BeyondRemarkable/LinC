@@ -61,8 +61,7 @@
     } failure:^(EMError *eError) {
         hud.label.text = @"Try again later.";
         [hud hideAnimated:YES afterDelay:1.5];
-        NSLog(@"%@", eError);
-        
+        NSLog(@"%@", eError.errorDescription);
     }];
 }
 

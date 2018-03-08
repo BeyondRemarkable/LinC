@@ -1689,11 +1689,11 @@ typedef enum : NSUInteger {
 
 - (void)moreViewAudioCallAction:(BRChatBarMoreView *)moreView
 {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Prompt", nil) message:NSLocalizedString(@"The function is in the process of development", nil) preferredStyle:UIAlertControllerStyleAlert];
-    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleDefault handler:nil]];
-    [self presentViewController:alertController animated:YES completion:nil];
-    // Hide the keyboard
-    [self.chatToolbar endEditing:YES];
+//    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Prompt", nil) message:NSLocalizedString(@"The function is in the process of development", nil) preferredStyle:UIAlertControllerStyleAlert];
+//    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleDefault handler:nil]];
+//    [self presentViewController:alertController animated:YES completion:nil];
+//    // Hide the keyboard
+//    [self.chatToolbar endEditing:YES];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_CALL object:@{@"chatter":self.conversation.conversationId, @"type":[NSNumber numberWithInt:0]}];
 }

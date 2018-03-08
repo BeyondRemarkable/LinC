@@ -26,7 +26,7 @@
 #import "BRFriendInfoTableViewController.h"
 #import "BRGroupChatSettingTableViewController.h"
 #import <Photos/PHPhotoLibrary.h>
-
+#import "EMCallViewController.h"
 @interface BRConversationListViewController () <EMClientDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 {
     MBProgressHUD *hud;
@@ -94,13 +94,13 @@
 - (void)chatBtnTapped:(UIButton *)sender {
     [self.dropDownVC.view removeFromSuperview];
     self.dropDownVC = nil;
-    
+    EMCallViewController *cc =  [[EMCallViewController alloc] initWithNibName:@"EMCallViewController" bundle:nil];
     BRCreateChatViewController *vc = [[BRCreateChatViewController alloc] initWithStyle:UITableViewStylePlain];
-    BRNavigationController *naviVc = [[BRNavigationController alloc] initWithRootViewController:vc];
+//    BRNavigationController *naviVc = [[BRNavigationController alloc] initWithRootViewController:vc];
     [vc setDismissViewControllerCompletionBlock:^(UIViewController *vc) {
         [self.navigationController pushViewController:vc animated:YES];
     }];
-    [self presentViewController:naviVc animated:YES completion:nil];
+    [self presentViewController:cc animated:YES completion:nil];
 }
 
 
