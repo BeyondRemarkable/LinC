@@ -71,7 +71,7 @@
     [self registerNotifications];
     [self setUpNavigationBarItem];
     
-    self.navigationItem.title = @"LinC";
+    self.navigationItem.title = [EMClient sharedClient].isConnected ? @"LinC" : @"Disconnected";
     [[EMClient sharedClient] addDelegate:self delegateQueue:dispatch_get_main_queue()];
 }
 
@@ -349,13 +349,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
     BRConversationModel *model = [self.dataArray objectAtIndex:indexPath.row];
     NSInteger diff = model.conversation.unreadMessagesCount;
     BRMessageViewController *viewController = [[BRMessageViewController alloc] initWithConversationChatter:model.conversation.conversationId conversationType:model.conversation.type];
     
     viewController.title = model.title;
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"LinC" style:UIBarButtonItemStylePlain target:nil action:nil];
     [self.navigationController pushViewController:viewController animated:YES];
     
     EMConversation *updatedConversation = [[EMClient sharedClient].chatManager getConversation:model.conversationID type:model.chatType createIfNotExist:NO];

@@ -139,17 +139,11 @@ typedef enum : NSUInteger {
     _lpgr.minimumPressDuration = 0.5;
     [self.tableView addGestureRecognizer:_lpgr];
     
-    _messageQueue = dispatch_queue_create("hyphenate.com", NULL);
+    _messageQueue = dispatch_queue_create("BRSerialMessageQueue", NULL);
     
     //Register the delegate
     [BRCDDeviceManager sharedInstance].delegate = self;
-    [[EMClient sharedClient].chatManager addDelegate:self delegateQueue:nil];
-    [[EMClient sharedClient].roomManager addDelegate:self delegateQueue:nil];
-    
-    if (self.conversation.type == EMConversationTypeChatRoom)
-    {
-        [self joinChatroom:self.conversation.conversationId];
-    }
+    [[EMClient sharedClient].chatManager addDelegate:self delegateQueue:dispatch_get_main_queue()];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(didBecomeActive)
@@ -208,7 +202,6 @@ typedef enum : NSUInteger {
         [btn addTarget:self action:@selector(settingClick) forControlEvents:UIControlEventTouchUpInside];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
     }
-    
 }
 
 
