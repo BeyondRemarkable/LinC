@@ -21,6 +21,8 @@
 "NSDateCategory.text4" = "日";
 "NSDateCategory.text5" = "";
 "message.simulatorNotSupportCamera" = "模拟器不具备相机功能";
+"Open" = "开启";
+"Cancel" = "取消";
 
 // Account
 "Password does not match" = "密码和确认密码不符";

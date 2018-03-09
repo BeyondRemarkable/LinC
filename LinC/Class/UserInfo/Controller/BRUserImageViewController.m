@@ -10,6 +10,7 @@
 #import "BRClientManager.h"
 #import <MBProgressHUD.h>
 #import "UIView+NavigationBar.h"
+#import <Photos/PHPhotoLibrary.h>
 
 @interface BRUserImageViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 {
@@ -56,8 +57,14 @@
 }
 
 - (void)openImagePickerControllerWithType:(UIImagePickerControllerSourceType) type {
-    if ([UIImagePickerController isSourceTypeAvailable:type] == 0) {
-        return;
+    PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
+    if (status == PHAuthorizationStatusRestricted || status == PHAuthorizationStatusDenied) {
+        [self showAuthorizationAlert];
+    } else {
+        UIImagePickerController *ipc = [[UIImagePickerController alloc] init];
+        ipc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        ipc.delegate = self;
+        [self presentViewController:ipc animated:YES completion:nil];
     }
     
     UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
@@ -65,6 +72,26 @@
     imagePicker.allowsEditing = YES;
     imagePicker.delegate = self;
     [self presentViewController:imagePicker animated:YES completion:nil];
+}
+
+/**
+ 提示开启相册权限设置
+ */
+- (void)showAuthorizationAlert
+{
+    
+    UIAlertController *actionSheet =[UIAlertController alertControllerWithTitle:NSLocalizedString(@"Unable to access album.", nil) message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *open = [UIAlertAction actionWithTitle:NSLocalizedString(@"Open", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if ([[UIApplication sharedApplication]openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]]) {
+            [[UIApplication sharedApplication]openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+        }
+    }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)  style:UIAlertActionStyleDestructive handler:nil];
+    
+    [actionSheet addAction:open];
+    [actionSheet addAction:cancel];
+    
+    [self presentViewController:actionSheet animated:YES completion:nil];
 }
 
 #pragma mark - UIImagePickerController delegate
