@@ -272,18 +272,18 @@ BRUserInfo *userInfoDic = nil;
 - (void)updateFriendsInfoCoreDataBy:(NSString *)userName withModel:(BRContactListModel *)contactModel {
 
     BRUserInfo *userInfo = [self getUserInfo];
-    for (BRFriendsInfo *friendsInfo in userInfo.friendsInfo) {
-        if ([friendsInfo.username isEqualToString:friendsInfo.username]) {
-            friendsInfo.username = contactModel.username;
-            friendsInfo.nickname = contactModel.nickname;
-            friendsInfo.gender = contactModel.gender;
-            friendsInfo.location = contactModel.location;
-            friendsInfo.avatar = UIImagePNGRepresentation(contactModel.avatarImage);
-            friendsInfo.whatsUp = contactModel.whatsUp;
-            friendsInfo.updated = contactModel.updated;
-            [self saveData];
-        }
-    }
+    
+    NSPredicate *fetchGroupFilter = [NSPredicate predicateWithFormat:@"username = %@", userName];
+    NSSet *friendsInfo = [userInfo.friendsInfo filteredSetUsingPredicate:fetchGroupFilter];
+    BRFriendsInfo *updateFriendsInfo = [[friendsInfo allObjects] lastObject];
+    updateFriendsInfo.username = contactModel.username;
+    updateFriendsInfo.nickname = contactModel.nickname;
+    updateFriendsInfo.gender = contactModel.gender;
+    updateFriendsInfo.location = contactModel.location;
+    updateFriendsInfo.avatar = UIImagePNGRepresentation(contactModel.avatarImage);
+    updateFriendsInfo.whatsUp = contactModel.whatsUp;
+    updateFriendsInfo.updated = contactModel.updated;
+    [self saveData];
 }
 
 
