@@ -62,10 +62,12 @@
 "message.file1" = "[文件]";
 
 // Location
+"Shared location" = "[定位]";
 "location.messageType" = "位置消息";
 "location.ongoing" = "定位中...";
 
 // Audio
+"Voice message" = "[语音]";
 "error.notFound" = "文件路径不存在";
 "error.initPlayerFail" = "初始化AVAudioPlayer失败";
 "error.initPlayFail" = "播放失败";
@@ -73,15 +75,27 @@
 // Image
 "Save Image" = "保存图片";
 "Scan QR code" = "扫描二维码";
-"Save Photo" = "拍照片";
+"Save Photo" = "保存照片";
 "Choose from Album" = "从相册获取";
 "Image Received" = "[图片]";
+"saveFail" = "图片保存失败，请稍后再试";
+"saveSuccess" = "图片保存成功";
+"message.thumImageFail" = "获取缩略图失败";
 "message.downloadingImage" = "正在加载图片";
-"saveFail" = "图片保存失败，请稍后再试。";
 "saveSuccess" = "图片保存成功。";
 
+
+// Video
+"Shared video" = "[视频]";
+
+// Friend
+"No new friend request" = "没有新的好友请求";
 // Authorization
 "Unable to access camera." = "打开相机权限未开启。";
 "Unable to access album." = "打开相册权限未开启。";
 "Unable to access microphone." = "麦克风权限未开启";
 "Unable to access GPS." = "定位权限未开启";
+"Shared video" = "[视频]";
+
+// Friend
+"No new friend request" = "没有新的好友请求";

@@ -19,8 +19,6 @@ static BRMessageReadManager *detailInstance = nil;
 
 @property (strong, nonatomic) UIWindow *keyWindow;
 
-@property (strong, nonatomic) NSMutableArray *medias;
-
 @end
 
 @implementation BRMessageReadManager
@@ -49,55 +47,22 @@ static BRMessageReadManager *detailInstance = nil;
     return _keyWindow;
 }
 
-- (NSMutableArray *)medias
-{
-    if (_medias == nil) {
-        _medias = [[NSMutableArray alloc] init];
-    }
-    
-    return _medias;
-}
-
 #pragma mark - private
 
 
 #pragma mark - public
 
-- (void)showBrowserWithImages:(NSArray *)imageArray
+- (void)showBrowserWithModels:(NSArray *)modelArray animated:(BOOL)animated
 {
-    if (imageArray && [imageArray count] > 0) {
-        NSMutableArray *mediaArray = [NSMutableArray array];
-        for (id object in imageArray) {
-            BRMedia *media = nil;
-            if ([object isKindOfClass:[UIImage class]]) {
-                CGFloat imageSize = ((UIImage*)object).size.width * ((UIImage*)object).size.height;
-                if (imageSize > IMAGE_MAX_SIZE_5k) {
-                    media = [BRMedia mediaWithImage:[self scaleImage:object toScale:(IMAGE_MAX_SIZE_5k)/imageSize]];
-                } else {
-                    media = [BRMedia mediaWithImage:object];
-                }
-            }
-            // 暂定图片传递进来都是NSURL，视频都是NSString
-            else if ([object isKindOfClass:[NSURL class]])
-            {
-                media = [BRMedia mediaWithImageURL:object];
-            }
-            else if ([object isKindOfClass:[NSString class]])
-            {
-                NSURL *url = [NSURL fileURLWithPath:object];
-                media = [BRMedia mediaWithVideoURL:url];
-            }
-            [mediaArray addObject:media];
-        }
-        
-        self.medias = mediaArray;
+    if (modelArray == nil || modelArray.count == 0) {
+        return;
     }
     
-    BRMediaBrowserViewController *mediaBrowserVc = [[BRMediaBrowserViewController alloc] initWithMediaArray:self.medias];
+    BRMediaBrowserViewController *mediaBrowserVc = [[BRMediaBrowserViewController alloc] initWithModelArray:modelArray];
     UINavigationController *naviVc = [[UINavigationController alloc] initWithRootViewController:mediaBrowserVc];
     [naviVc setNavigationBarHidden:YES];
     UIViewController *rootController = [self.keyWindow rootViewController];
-    [rootController presentViewController:naviVc animated:YES completion:nil];
+    [rootController presentViewController:naviVc animated:animated completion:nil];
 }
 
 - (BOOL)prepareMessageAudioModel:(BRMessageModel *)messageModel

@@ -193,9 +193,9 @@ typedef enum{
 /*
  *  消息点击回调
  *
- *  @param  消息model
+ *  @param  消息cell
  */
-- (void)messageCellSelected:(id<IMessageModel>)model;
+- (void)messageCellSelected:(BRMessageCell *)mesageCell;
 
 /*
  *  状态按钮点击回调

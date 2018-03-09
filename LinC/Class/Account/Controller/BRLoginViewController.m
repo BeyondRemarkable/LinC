@@ -100,8 +100,6 @@
         hud.label.text = error.errorDescription;
         hud.label.numberOfLines = 0;
         [hud hideAnimated:YES afterDelay:1.5];
-        
-        [self.passwordTextField becomeFirstResponder];
     }];
 }
 

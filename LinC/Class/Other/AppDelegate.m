@@ -54,8 +54,8 @@
         }
     }
     NSString *appkey = @"1153170608178531#linc-dev";
-//    NSString *apnsCertName = @"pushCertificates";
-    NSString *apnsCertName = @"developCertificates";
+    NSString *apnsCertName = @"pushCertificates";
+//    NSString *apnsCertName = @"developCertificates";
     [[BRSDKHelper shareHelper] hyphenateApplication:application
                       didFinishLaunchingWithOptions:launchOptions
                                              appkey:appkey
@@ -94,7 +94,7 @@
     }
 
     //添加监听在线推送消息
-    [[EMClient sharedClient].chatManager addDelegate: self delegateQueue:nil];
+    [[EMClient sharedClient].chatManager addDelegate: self delegateQueue:dispatch_get_main_queue()];
 
     return YES;
 }

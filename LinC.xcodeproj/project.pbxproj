@@ -1,10 +1,10 @@
 // !$*UTF8*$!
 {
-	archiveVersion = 1;
-	classes = {
-	};
-	objectVersion = 46;
-	objects = {
+    archiveVersion = 1;
+    classes = {
+    };
+    objectVersion = 46;
+    objects = {
 
 /* Begin PBXBuildFile section */
 		270BD1191F9835C000266E6A /* Location.plist in Resources */ = {isa = PBXBuildFile; fileRef = 270BD1181F9835C000266E6A /* Location.plist */; };
@@ -228,20 +228,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		27CA03C61F38F21600D0F132 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 27CA03A41F38F21600D0F132 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 27CA03AB1F38F21600D0F132;
-			remoteInfo = LinC;
-		};
-		27CA03D11F38F21600D0F132 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 27CA03A41F38F21600D0F132 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 27CA03AB1F38F21600D0F132;
-			remoteInfo = LinC;
-		};
+        27CA03C61F38F21600D0F132 /* PBXContainerItemProxy */ = {
+            isa = PBXContainerItemProxy;
+            containerPortal = 27CA03A41F38F21600D0F132 /* Project object */;
+            proxyType = 1;
+            remoteGlobalIDString = 27CA03AB1F38F21600D0F132;
+            remoteInfo = LinC;
+        };
+        27CA03D11F38F21600D0F132 /* PBXContainerItemProxy */ = {
+            isa = PBXContainerItemProxy;
+            containerPortal = 27CA03A41F38F21600D0F132 /* Project object */;
+            proxyType = 1;
+            remoteGlobalIDString = 27CA03AB1F38F21600D0F132;
+            remoteInfo = LinC;
+        };
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -1380,115 +1380,115 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		27CA03AB1F38F21600D0F132 /* LinC */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 27CA03D91F38F21600D0F132 /* Build configuration list for PBXNativeTarget "LinC" */;
-			buildPhases = (
-				9678103DFC99320BBA8FC7E8 /* [CP] Check Pods Manifest.lock */,
-				27CA03A81F38F21600D0F132 /* Sources */,
-				27CA03A91F38F21600D0F132 /* Frameworks */,
-				27CA03AA1F38F21600D0F132 /* Resources */,
-				D1E4854568957024059F0F63 /* [CP] Embed Pods Frameworks */,
-				64F738E78211E81266206397 /* [CP] Copy Pods Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = LinC;
-			productName = LinC;
-			productReference = 27CA03AC1F38F21600D0F132 /* LinC.app */;
-			productType = "com.apple.product-type.application";
-		};
-		27CA03C41F38F21600D0F132 /* LinCTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 27CA03DC1F38F21600D0F132 /* Build configuration list for PBXNativeTarget "LinCTests" */;
-			buildPhases = (
-				27CA03C11F38F21600D0F132 /* Sources */,
-				27CA03C21F38F21600D0F132 /* Frameworks */,
-				27CA03C31F38F21600D0F132 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				27CA03C71F38F21600D0F132 /* PBXTargetDependency */,
-			);
-			name = LinCTests;
-			productName = LinCTests;
-			productReference = 27CA03C51F38F21600D0F132 /* LinCTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		27CA03CF1F38F21600D0F132 /* LinCUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 27CA03DF1F38F21600D0F132 /* Build configuration list for PBXNativeTarget "LinCUITests" */;
-			buildPhases = (
-				27CA03CC1F38F21600D0F132 /* Sources */,
-				27CA03CD1F38F21600D0F132 /* Frameworks */,
-				27CA03CE1F38F21600D0F132 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				27CA03D21F38F21600D0F132 /* PBXTargetDependency */,
-			);
-			name = LinCUITests;
-			productName = LinCUITests;
-			productReference = 27CA03D01F38F21600D0F132 /* LinCUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
+        27CA03AB1F38F21600D0F132 /* LinC */ = {
+            isa = PBXNativeTarget;
+            buildConfigurationList = 27CA03D91F38F21600D0F132 /* Build configuration list for PBXNativeTarget "LinC" */;
+            buildPhases = (
+                9678103DFC99320BBA8FC7E8 /* [CP] Check Pods Manifest.lock */,
+                27CA03A81F38F21600D0F132 /* Sources */,
+                27CA03A91F38F21600D0F132 /* Frameworks */,
+                27CA03AA1F38F21600D0F132 /* Resources */,
+                D1E4854568957024059F0F63 /* [CP] Embed Pods Frameworks */,
+                64F738E78211E81266206397 /* [CP] Copy Pods Resources */,
+            );
+            buildRules = (
+            );
+            dependencies = (
+            );
+            name = LinC;
+            productName = LinC;
+            productReference = 27CA03AC1F38F21600D0F132 /* LinC.app */;
+            productType = "com.apple.product-type.application";
+        };
+        27CA03C41F38F21600D0F132 /* LinCTests */ = {
+            isa = PBXNativeTarget;
+            buildConfigurationList = 27CA03DC1F38F21600D0F132 /* Build configuration list for PBXNativeTarget "LinCTests" */;
+            buildPhases = (
+                27CA03C11F38F21600D0F132 /* Sources */,
+                27CA03C21F38F21600D0F132 /* Frameworks */,
+                27CA03C31F38F21600D0F132 /* Resources */,
+            );
+            buildRules = (
+            );
+            dependencies = (
+                27CA03C71F38F21600D0F132 /* PBXTargetDependency */,
+            );
+            name = LinCTests;
+            productName = LinCTests;
+            productReference = 27CA03C51F38F21600D0F132 /* LinCTests.xctest */;
+            productType = "com.apple.product-type.bundle.unit-test";
+        };
+        27CA03CF1F38F21600D0F132 /* LinCUITests */ = {
+            isa = PBXNativeTarget;
+            buildConfigurationList = 27CA03DF1F38F21600D0F132 /* Build configuration list for PBXNativeTarget "LinCUITests" */;
+            buildPhases = (
+                27CA03CC1F38F21600D0F132 /* Sources */,
+                27CA03CD1F38F21600D0F132 /* Frameworks */,
+                27CA03CE1F38F21600D0F132 /* Resources */,
+            );
+            buildRules = (
+            );
+            dependencies = (
+                27CA03D21F38F21600D0F132 /* PBXTargetDependency */,
+            );
+            name = LinCUITests;
+            productName = LinCUITests;
+            productReference = 27CA03D01F38F21600D0F132 /* LinCUITests.xctest */;
+            productType = "com.apple.product-type.bundle.ui-testing";
+        };
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		27CA03A41F38F21600D0F132 /* Project object */ = {
-			isa = PBXProject;
-			attributes = {
-				LastUpgradeCheck = 0900;
-				ORGANIZATIONNAME = BeyondRemarkable;
-				TargetAttributes = {
-					27CA03AB1F38F21600D0F132 = {
-						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = AEKJ6LE54T;
-						LastSwiftMigration = 0920;
-						ProvisioningStyle = Automatic;
-						SystemCapabilities = {
-							com.apple.Push = {
-								enabled = 1;
-							};
-						};
-					};
-					27CA03C41F38F21600D0F132 = {
-						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = M4YWTY9R92;
-						ProvisioningStyle = Automatic;
-						TestTargetID = 27CA03AB1F38F21600D0F132;
-					};
-					27CA03CF1F38F21600D0F132 = {
-						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = E259J6P932;
-						ProvisioningStyle = Automatic;
-						TestTargetID = 27CA03AB1F38F21600D0F132;
-					};
-				};
-			};
-			buildConfigurationList = 27CA03A71F38F21600D0F132 /* Build configuration list for PBXProject "LinC" */;
-			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
-			hasScannedForEncodings = 0;
-			knownRegions = (
-				en,
-				Base,
-				"zh-Hans",
-			);
-			mainGroup = 27CA03A31F38F21600D0F132;
-			productRefGroup = 27CA03AD1F38F21600D0F132 /* Products */;
-			projectDirPath = "";
-			projectRoot = "";
-			targets = (
-				27CA03AB1F38F21600D0F132 /* LinC */,
-				27CA03C41F38F21600D0F132 /* LinCTests */,
-				27CA03CF1F38F21600D0F132 /* LinCUITests */,
-			);
-		};
+        27CA03A41F38F21600D0F132 /* Project object */ = {
+            isa = PBXProject;
+            attributes = {
+                LastUpgradeCheck = 0900;
+                ORGANIZATIONNAME = BeyondRemarkable;
+                TargetAttributes = {
+                    27CA03AB1F38F21600D0F132 = {
+                        CreatedOnToolsVersion = 8.3.3;
+                        DevelopmentTeam = AEKJ6LE54T;
+                        LastSwiftMigration = 0920;
+                        ProvisioningStyle = Automatic;
+                        SystemCapabilities = {
+                            com.apple.Push = {
+                                enabled = 1;
+                            };
+                        };
+                    };
+                    27CA03C41F38F21600D0F132 = {
+                        CreatedOnToolsVersion = 8.3.3;
+                        DevelopmentTeam = M4YWTY9R92;
+                        ProvisioningStyle = Automatic;
+                        TestTargetID = 27CA03AB1F38F21600D0F132;
+                    };
+                    27CA03CF1F38F21600D0F132 = {
+                        CreatedOnToolsVersion = 8.3.3;
+                        DevelopmentTeam = E259J6P932;
+                        ProvisioningStyle = Automatic;
+                        TestTargetID = 27CA03AB1F38F21600D0F132;
+                    };
+                };
+            };
+            buildConfigurationList = 27CA03A71F38F21600D0F132 /* Build configuration list for PBXProject "LinC" */;
+            compatibilityVersion = "Xcode 3.2";
+            developmentRegion = English;
+            hasScannedForEncodings = 0;
+            knownRegions = (
+                en,
+                Base,
+                "zh-Hans",
+            );
+            mainGroup = 27CA03A31F38F21600D0F132;
+            productRefGroup = 27CA03AD1F38F21600D0F132 /* Products */;
+            projectDirPath = "";
+            projectRoot = "";
+            targets = (
+                27CA03AB1F38F21600D0F132 /* LinC */,
+                27CA03C41F38F21600D0F132 /* LinCTests */,
+                27CA03CF1F38F21600D0F132 /* LinCUITests */,
+            );
+        };
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -1606,61 +1606,61 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		64F738E78211E81266206397 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-LinC/Pods-LinC-resources.sh",
-				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
-				"${PODS_ROOT}/SAMKeychain/Support/SAMKeychain.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LinC/Pods-LinC-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9678103DFC99320BBA8FC7E8 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-LinC-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D1E4854568957024059F0F63 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-LinC/Pods-LinC-frameworks.sh",
-				"${PODS_ROOT}/Hyphenate/iOS_IM_SDK_V3.3.9/HyphenateFullSDK/Hyphenate.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hyphenate.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LinC/Pods-LinC-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
+        64F738E78211E81266206397 /* [CP] Copy Pods Resources */ = {
+            isa = PBXShellScriptBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+            );
+            inputPaths = (
+                "${SRCROOT}/Pods/Target Support Files/Pods-LinC/Pods-LinC-resources.sh",
+                "${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
+                "${PODS_ROOT}/SAMKeychain/Support/SAMKeychain.bundle",
+            );
+            name = "[CP] Copy Pods Resources";
+            outputPaths = (
+                "${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+            shellPath = /bin/sh;
+            shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LinC/Pods-LinC-resources.sh\"\n";
+            showEnvVarsInLog = 0;
+        };
+        9678103DFC99320BBA8FC7E8 /* [CP] Check Pods Manifest.lock */ = {
+            isa = PBXShellScriptBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+            );
+            inputPaths = (
+                "${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+                "${PODS_ROOT}/Manifest.lock",
+            );
+            name = "[CP] Check Pods Manifest.lock";
+            outputPaths = (
+                "$(DERIVED_FILE_DIR)/Pods-LinC-checkManifestLockResult.txt",
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+            shellPath = /bin/sh;
+            shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+            showEnvVarsInLog = 0;
+        };
+        D1E4854568957024059F0F63 /* [CP] Embed Pods Frameworks */ = {
+            isa = PBXShellScriptBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+            );
+            inputPaths = (
+                "${SRCROOT}/Pods/Target Support Files/Pods-LinC/Pods-LinC-frameworks.sh",
+                "${PODS_ROOT}/Hyphenate/iOS_IM_SDK_V3.3.9/HyphenateFullSDK/Hyphenate.framework",
+            );
+            name = "[CP] Embed Pods Frameworks";
+            outputPaths = (
+                "${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hyphenate.framework",
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+            shellPath = /bin/sh;
+            shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LinC/Pods-LinC-frameworks.sh\"\n";
+            showEnvVarsInLog = 0;
+        };
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1806,47 +1806,47 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		27CA03C71F38F21600D0F132 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 27CA03AB1F38F21600D0F132 /* LinC */;
-			targetProxy = 27CA03C61F38F21600D0F132 /* PBXContainerItemProxy */;
-		};
-		27CA03D21F38F21600D0F132 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 27CA03AB1F38F21600D0F132 /* LinC */;
-			targetProxy = 27CA03D11F38F21600D0F132 /* PBXContainerItemProxy */;
-		};
+        27CA03C71F38F21600D0F132 /* PBXTargetDependency */ = {
+            isa = PBXTargetDependency;
+            target = 27CA03AB1F38F21600D0F132 /* LinC */;
+            targetProxy = 27CA03C61F38F21600D0F132 /* PBXContainerItemProxy */;
+        };
+        27CA03D21F38F21600D0F132 /* PBXTargetDependency */ = {
+            isa = PBXTargetDependency;
+            target = 27CA03AB1F38F21600D0F132 /* LinC */;
+            targetProxy = 27CA03D11F38F21600D0F132 /* PBXContainerItemProxy */;
+        };
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		2744C4631FB68B2A007C5095 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2744C4641FB68B2A007C5095 /* Base */,
-				2744C4661FB68B4B007C5095 /* en */,
-				2744C4671FB68B55007C5095 /* zh-Hans */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		2744C46A1FB68B83007C5095 /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2744C4691FB68B83007C5095 /* en */,
-				2744C46B1FB68B8B007C5095 /* zh-Hans */,
-			);
-			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-		27617B7F1FCDF0EC004A245D /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				27617B7E1FCDF0EC004A245D /* zh-Hans */,
-				27617B801FCDF0F1004A245D /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
+        2744C4631FB68B2A007C5095 /* LaunchScreen.storyboard */ = {
+            isa = PBXVariantGroup;
+            children = (
+                2744C4641FB68B2A007C5095 /* Base */,
+                2744C4661FB68B4B007C5095 /* en */,
+                2744C4671FB68B55007C5095 /* zh-Hans */,
+            );
+            name = LaunchScreen.storyboard;
+            sourceTree = "<group>";
+        };
+        2744C46A1FB68B83007C5095 /* Localizable.strings */ = {
+            isa = PBXVariantGroup;
+            children = (
+                2744C4691FB68B83007C5095 /* en */,
+                2744C46B1FB68B8B007C5095 /* zh-Hans */,
+            );
+            name = Localizable.strings;
+            sourceTree = "<group>";
+        };
+        27617B7F1FCDF0EC004A245D /* InfoPlist.strings */ = {
+            isa = PBXVariantGroup;
+            children = (
+                27617B7E1FCDF0EC004A245D /* zh-Hans */,
+                27617B801FCDF0F1004A245D /* en */,
+            );
+            name = InfoPlist.strings;
+            sourceTree = "<group>";
+        };
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -2132,56 +2132,56 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		27CA03A71F38F21600D0F132 /* Build configuration list for PBXProject "LinC" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				27CA03D71F38F21600D0F132 /* Debug */,
-				27CA03D81F38F21600D0F132 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		27CA03D91F38F21600D0F132 /* Build configuration list for PBXNativeTarget "LinC" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				27CA03DA1F38F21600D0F132 /* Debug */,
-				27CA03DB1F38F21600D0F132 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		27CA03DC1F38F21600D0F132 /* Build configuration list for PBXNativeTarget "LinCTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				27CA03DD1F38F21600D0F132 /* Debug */,
-				27CA03DE1F38F21600D0F132 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		27CA03DF1F38F21600D0F132 /* Build configuration list for PBXNativeTarget "LinCUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				27CA03E01F38F21600D0F132 /* Debug */,
-				27CA03E11F38F21600D0F132 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
+        27CA03A71F38F21600D0F132 /* Build configuration list for PBXProject "LinC" */ = {
+            isa = XCConfigurationList;
+            buildConfigurations = (
+                27CA03D71F38F21600D0F132 /* Debug */,
+                27CA03D81F38F21600D0F132 /* Release */,
+            );
+            defaultConfigurationIsVisible = 0;
+            defaultConfigurationName = Debug;
+        };
+        27CA03D91F38F21600D0F132 /* Build configuration list for PBXNativeTarget "LinC" */ = {
+            isa = XCConfigurationList;
+            buildConfigurations = (
+                27CA03DA1F38F21600D0F132 /* Debug */,
+                27CA03DB1F38F21600D0F132 /* Release */,
+            );
+            defaultConfigurationIsVisible = 0;
+            defaultConfigurationName = Debug;
+        };
+        27CA03DC1F38F21600D0F132 /* Build configuration list for PBXNativeTarget "LinCTests" */ = {
+            isa = XCConfigurationList;
+            buildConfigurations = (
+                27CA03DD1F38F21600D0F132 /* Debug */,
+                27CA03DE1F38F21600D0F132 /* Release */,
+            );
+            defaultConfigurationIsVisible = 0;
+            defaultConfigurationName = Debug;
+        };
+        27CA03DF1F38F21600D0F132 /* Build configuration list for PBXNativeTarget "LinCUITests" */ = {
+            isa = XCConfigurationList;
+            buildConfigurations = (
+                27CA03E01F38F21600D0F132 /* Debug */,
+                27CA03E11F38F21600D0F132 /* Release */,
+            );
+            defaultConfigurationIsVisible = 0;
+            defaultConfigurationName = Debug;
+        };
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		E96C7B531F85C8B100C0DC7E /* BRCoreData.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				E96C7B541F85C8B100C0DC7E /* BRContactListCoreData.xcdatamodel */,
-			);
-			currentVersion = E96C7B541F85C8B100C0DC7E /* BRContactListCoreData.xcdatamodel */;
-			path = BRCoreData.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
+        E96C7B531F85C8B100C0DC7E /* BRCoreData.xcdatamodeld */ = {
+            isa = XCVersionGroup;
+            children = (
+                E96C7B541F85C8B100C0DC7E /* BRContactListCoreData.xcdatamodel */,
+            );
+            currentVersion = E96C7B541F85C8B100C0DC7E /* BRContactListCoreData.xcdatamodel */;
+            path = BRCoreData.xcdatamodeld;
+            sourceTree = "<group>";
+            versionGroupType = wrapper.xcdatamodel;
+        };
 /* End XCVersionGroup section */
-	};
-	rootObject = 27CA03A41F38F21600D0F132 /* Project object */;
+    };
+    rootObject = 27CA03A41F38F21600D0F132 /* Project object */;
 }

@@ -93,7 +93,7 @@
                     EMError *error = [EMError errorWithDescription:@"Login fail." code:EMErrorGeneral];
                     failureBlock(error);
                 }
-            }];;;
+            }];
         }
         // 登录服务器失败
         else {
@@ -248,12 +248,10 @@
                 model.gender = dict[@"data"][@"users"][i][@"gender"];
                 model.whatsUp = dict[@"data"][@"users"][i][@"signature"];
                 model.avatarURLPath = [kBaseURL stringByAppendingPathComponent:dict[@"data"][@"users"][i][@"avatar"]];
-                if (model.nickname.length == 0) {
-                    model.nickname = model.username;
-                }
+
                 BOOL isImage = ([model.avatarURLPath.lowercaseString hasSuffix:@".jpg"] || [model.avatarURLPath.lowercaseString hasSuffix:@".png"]);
                 if (!isImage) {
-                    model.avatarImage = [UIImage imageNamed:@"user_default"];
+                    model.avatarImage = [UIImage imageNamed:@"user_default"];;
                 } else {
                     dispatch_group_async(group, dispatch_get_global_queue(0, 0), ^{
                         model.avatarImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:model.avatarURLPath]]];

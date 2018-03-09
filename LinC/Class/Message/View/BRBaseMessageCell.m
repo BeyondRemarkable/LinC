@@ -249,25 +249,10 @@
 {
     [super setModel:model];
     
-    _nameLabel.text = model.nickname;
-    NSString *nicknameInModel = model.nickname;
-    UIImage *avatarImageInModel = model.avatarImage;
+    self.nameLabel.text = model.username;
+    self.avatarView.image = model.avatarImage;
     
     if (self.model.isSender) {
-        
-        if(!nicknameInModel || !avatarImageInModel) {
-            BRUserInfo *userInfo = [[BRCoreDataManager sharedInstance] getUserInfo];
-
-            model.avatarImage = [UIImage imageWithData:userInfo.avatar];
-            if (!model.avatarImage) {
-                model.avatarImage = [UIImage imageNamed:@"user_default"];
-            }
-            model.nickname = userInfo.nickname.length > 0 ? userInfo.nickname : @""; // don't want nil value
-        }
-        
-        self.model.avatarImage = model.avatarImage;
-        self.avatarView.image = model.avatarImage;
-        self.nameLabel.text = model.nickname;
         
         _hasRead.hidden = YES;
         switch (self.model.messageStatus) {
@@ -301,20 +286,6 @@
             default:
                 break;
         }
-    } else {
-        if(!nicknameInModel || !avatarImageInModel) {
-            BRFriendsInfo *friendInfo = [[BRCoreDataManager sharedInstance] fetchFriendInfoBy:model.message.from];
-            if (!friendInfo) {
-                model.avatarImage = [UIImage imageNamed:@"user_default"];
-                model.nickname = @""; // don't want nil value
-            } else {
-                model.avatarImage = [UIImage imageWithData:friendInfo.avatar];
-                model.nickname = friendInfo.nickname;
-            }
-        }
-        
-        self.avatarView.image = model.avatarImage;
-        self.nameLabel.text = model.nickname;
     }
 }
 

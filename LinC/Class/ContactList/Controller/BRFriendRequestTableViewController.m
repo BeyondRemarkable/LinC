@@ -52,11 +52,8 @@
         self.userGender.text = friendInfo.gender;
         self.userWhatUp.text = friendInfo.whatsUp;
         self.userLocation.text = friendInfo.location;
-        if (!self.model.nickname) {
-            self.userNickName.text = self.searchID;
-        } else {
-            self.userNickName.text = friendInfo.nickname;
-        }
+        self.userNickName.text = friendInfo.nickname;
+
         [hud hideAnimated:YES];
     } failure:^(EMError *eError) {
         hud.label.text = @"Try again later.";

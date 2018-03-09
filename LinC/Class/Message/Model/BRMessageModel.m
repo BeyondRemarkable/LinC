@@ -21,7 +21,7 @@
         _firstMessageBody = message.body;
         _isMediaPlaying = NO;
         
-        _nickname = message.from;
+        _username = message.from;
         _isSender = message.direction == EMMessageDirectionSend ? YES : NO;
         
         switch (_firstMessageBody.type) {

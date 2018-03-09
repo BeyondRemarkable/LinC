@@ -19,6 +19,7 @@
     self = [super init];
     if (self) {
         _conversation = conversation;
+        _conversationID = conversation.conversationId;
         if (_conversation.type == EMConversationTypeChat) {
             [self setupConversationTypeChat:conversation];
         }
@@ -40,6 +41,8 @@
     BRFriendsInfo *friendInfo = [[BRCoreDataManager sharedInstance] fetchFriendInfoBy:conversation.conversationId];
     if (friendInfo.nickname) {
         _title = friendInfo.nickname;
+    } else if (friendInfo.username) {
+        _title = friendInfo.username;
     } else {
         _title = _conversation.conversationId;
     }
@@ -58,12 +61,14 @@
  */
 - (void)setupConversationGroupChat:(EMConversation *)conversation {
     BRGroup *group = [[[BRCoreDataManager sharedInstance] fetchGroupsWithGroupID:conversation.conversationId] lastObject];
-    _title = group.groupName;
+    _title = group.groupName ? group.groupName : conversation.conversationId;
     if (group.groupIcon) {
         _avatarImage = [UIImage imageWithData:group.groupIcon];
     } else {
         _avatarImage = [UIImage imageNamed:@"group_default"];
     }
+    
+    
     
 //    NSArray *groupArray = [[EMClient sharedClient].groupManager getJoinedGroups];
 //    for (EMGroup *group in groupArray) {
