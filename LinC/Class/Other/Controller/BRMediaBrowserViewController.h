@@ -11,6 +11,6 @@
 
 @interface BRMediaBrowserViewController : UICollectionViewController
 
-- (instancetype)initWithMediaArray:(NSArray *)mediaArray;
+- (instancetype)initWithModelArray:(NSArray *)modelArray;
 
 @end

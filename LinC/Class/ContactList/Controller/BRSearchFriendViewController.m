@@ -131,14 +131,14 @@
     
     UIAlertController *actionSheet =[UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
-    UIAlertAction *scan = [UIAlertAction actionWithTitle:@"Scan camera" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *scan = [UIAlertAction actionWithTitle:NSLocalizedString(@"Scan from camera", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self scanQRCodeBtnTapped];
     }];
-    UIAlertAction *load = [UIAlertAction actionWithTitle:@"Load from album" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *load = [UIAlertAction actionWithTitle:NSLocalizedString(@"Load from album", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self readQRCodeFromAlbum];
     }];
     
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDestructive handler:nil];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:nil];
     
     [actionSheet addAction:scan];
     [actionSheet addAction:load];

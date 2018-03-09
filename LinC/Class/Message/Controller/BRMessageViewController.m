@@ -23,13 +23,14 @@
 #import <SDWebImage/UIImage+GIF.h>
 #import "BRCoreDataManager.h"
 #import "BRUserInfo+CoreDataClass.h"
+#import "BRFriendsInfo+CoreDataClass.h"
 #import "BRConversation+CoreDataClass.h"
 #import "BRGroupChatSettingTableViewController.h"
 #import "UIView+NavigationBar.h"
 
 
 #define KHintAdjustY    50
-
+#define KTransitionDuration 0.2
 #define IOS_VERSION [[UIDevice currentDevice] systemVersion]>=9.0
 
 typedef enum : NSUInteger {
@@ -68,6 +69,12 @@ typedef enum : NSUInteger {
 @property (nonatomic) BOOL isKicked;
 @property (nonatomic) BOOL isPlayingAudio;
 @property (nonatomic, strong) NSMutableArray *atTargets;
+@property (nonatomic, strong) BRUserInfo *userInfo;
+@property (nonatomic, strong) BRFriendsInfo *friendsInfo;
+
+@property (nonatomic, strong) UIImageView *transitionView;
+@property (nonatomic) CGRect oldFrame;
+@property (nonatomic, strong) NSMutableDictionary<NSString *, BRContactListModel *> *dict;
 
 @end
 
@@ -103,6 +110,13 @@ typedef enum : NSUInteger {
     return self;
 }
 
+- (NSMutableDictionary<NSString *,BRContactListModel *> *)dict {
+    if (_dict == nil) {
+        _dict = [NSMutableDictionary dictionary];
+    }
+    return _dict;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -125,17 +139,11 @@ typedef enum : NSUInteger {
     _lpgr.minimumPressDuration = 0.5;
     [self.tableView addGestureRecognizer:_lpgr];
     
-    _messageQueue = dispatch_queue_create("hyphenate.com", NULL);
+    _messageQueue = dispatch_queue_create("BRSerialMessageQueue", NULL);
     
     //Register the delegate
     [BRCDDeviceManager sharedInstance].delegate = self;
-    [[EMClient sharedClient].chatManager addDelegate:self delegateQueue:nil];
-    [[EMClient sharedClient].roomManager addDelegate:self delegateQueue:nil];
-    
-    if (self.conversation.type == EMConversationTypeChatRoom)
-    {
-        [self joinChatroom:self.conversation.conversationId];
-    }
+    [[EMClient sharedClient].chatManager addDelegate:self delegateQueue:dispatch_get_main_queue()];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(didBecomeActive)
@@ -161,6 +169,24 @@ typedef enum : NSUInteger {
     self.tableView.estimatedRowHeight = 0;
     self.tableView.estimatedSectionHeaderHeight = 0;
     self.tableView.estimatedSectionFooterHeight = 0;
+    
+    // 从数据库获取自己的信息
+    self.userInfo = [[BRCoreDataManager sharedInstance] getUserInfo];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    if (self.transitionView != nil) {
+        [UIView animateWithDuration:KTransitionDuration delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            self.transitionView.frame = self.oldFrame;
+            self.transitionView.backgroundColor = [UIColor clearColor];
+        } completion:^(BOOL finished) {
+            [self.transitionView removeFromSuperview];
+            self.transitionView = nil;
+            self.oldFrame = CGRectZero;
+        }];
+    }
 }
 
 // 群聊时的 navigation bar items
@@ -176,7 +202,6 @@ typedef enum : NSUInteger {
         [btn addTarget:self action:@selector(settingClick) forControlEvents:UIControlEventTouchUpInside];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
     }
-    
 }
 
 
@@ -593,7 +618,9 @@ typedef enum : NSUInteger {
         else
         {
             hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.mode = MBProgressHUDModeText;
             hud.label.text = NSLocalizedString(@"message.thumImageFail", @"thumbnail for failure!");
+            [hud hideAnimated:YES afterDelay:1.5];
         }
     };
     
@@ -609,7 +636,7 @@ typedef enum : NSUInteger {
                 [self _customDownloadMessageFile:message];
             } else {
                 if (isAutoDownloadThumbnail) {
-                    [[[EMClient sharedClient] chatManager] downloadMessageThumbnail:message progress:nil completion:completion];
+                    [[EMClient sharedClient].chatManager downloadMessageThumbnail:message progress:nil completion:completion];
                 }
             }
         }
@@ -624,7 +651,7 @@ typedef enum : NSUInteger {
                 [self _customDownloadMessageFile:message];
             } else {
                 if (isAutoDownloadThumbnail) {
-                    [[[EMClient sharedClient] chatManager] downloadMessageThumbnail:message progress:nil completion:completion];
+                    [[EMClient sharedClient].chatManager downloadMessageThumbnail:message progress:nil completion:completion];
                 }
             }
         }
@@ -755,10 +782,10 @@ typedef enum : NSUInteger {
  @brief 视频消息被点击选择
  @param model 消息model
  */
-- (void)_videoMessageCellSelected:(id<IMessageModel>)model
+- (void)_videoMessageCellSelected:(BRMessageCell *)messageCell
 {
     _scrollToBottomWhenAppear = NO;
-    
+    BRMessageModel *model = messageCell.model;
     EMVideoMessageBody *videoBody = (EMVideoMessageBody*)model.message.body;
     
     NSString *localPath = [model.fileLocalPath length] > 0 ? model.fileLocalPath : videoBody.localPath;
@@ -769,14 +796,6 @@ typedef enum : NSUInteger {
         [hud hideAnimated:YES afterDelay:1.5];
         return;
     }
-    
-    dispatch_block_t block = ^{
-        //send the acknowledgement
-        [self _sendHasReadResponseForMessages:@[model.message]
-                                       isRead:YES];
-        
-        [[BRMessageReadManager defaultManager] showBrowserWithImages:@[localPath]];
-    };
     
     BOOL isCustomDownload = !([EMClient sharedClient].options.isAutoTransferMessageAttachments);
     __weak typeof(self) weakSelf = self;
@@ -805,28 +824,53 @@ typedef enum : NSUInteger {
         return;
     }
     
-    if (videoBody.downloadStatus == EMDownloadStatusSuccessed && [[NSFileManager defaultManager] fileExistsAtPath:localPath])
-    {
-        block();
-        return;
-    }
-    
-    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.label.text = NSLocalizedString(@"message.downloadingVideo", @"downloading video...");
-    if (isCustomDownload) {
-        [self _customDownloadMessageFile:model.message];
-    } else {
-        [[EMClient sharedClient].chatManager downloadMessageAttachment:model.message progress:nil completion:^(EMMessage *message, EMError *error) {
-            if (!error) {
-                [hud hideAnimated:YES];
-                block();
-            }else{
-                hud.mode = MBProgressHUDModeText;
-                hud.label.text = NSLocalizedString(@"message.videoFail", @"video for failure!");
-                [hud hideAnimated:YES afterDelay:1.5];
-            }
-        }];
-    }
+    // 将图片动画放大
+    UIImage *image = [UIImage imageWithContentsOfFile:videoBody.thumbnailLocalPath];
+
+    self.oldFrame = [messageCell.bubbleView convertRect:messageCell.bubbleView.videoImageView.frame toView:self.view];
+    CGRect newFrame = CGRectMake(0, 5, SCREEN_WIDTH, SCREEN_HEIGHT);
+    self.transitionView = [[UIImageView alloc] initWithFrame:self.oldFrame];
+    self.transitionView.image = image;
+    self.transitionView.contentMode = UIViewContentModeScaleAspectFit;
+    self.transitionView.backgroundColor = [UIColor clearColor];
+    [self.navigationController.view addSubview:self.transitionView];
+    [UIView animateWithDuration:KTransitionDuration delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        self.transitionView.frame = newFrame;
+        self.transitionView.backgroundColor = [UIColor blackColor];
+    } completion:^(BOOL finished) {
+        // 弹出图片浏览器
+        [[BRMessageReadManager defaultManager] showBrowserWithModels:@[model] animated:NO];
+    }];
+//    dispatch_block_t block = ^{
+//        //send the acknowledgement
+//        [self _sendHasReadResponseForMessages:@[model.message]
+//                                       isRead:YES];
+//
+//        [[BRMessageReadManager defaultManager] showBrowserWithModels:@[model] animated:YES];
+//    };
+//
+//    if (videoBody.downloadStatus == EMDownloadStatusSuccessed && [[NSFileManager defaultManager] fileExistsAtPath:localPath])
+//    {
+//        block();
+//        return;
+//    }
+//
+//    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//    hud.label.text = NSLocalizedString(@"message.downloadingVideo", @"downloading video...");
+//    if (isCustomDownload) {
+//        [self _customDownloadMessageFile:model.message];
+//    } else {
+//        [[EMClient sharedClient].chatManager downloadMessageAttachment:model.message progress:nil completion:^(EMMessage *message, EMError *error) {
+//            if (!error) {
+//                [hud hideAnimated:YES];
+//                block();
+//            }else{
+//                hud.mode = MBProgressHUDModeText;
+//                hud.label.text = NSLocalizedString(@"message.videoFail", @"video for failure!");
+//                [hud hideAnimated:YES afterDelay:1.5];
+//            }
+//        }];
+//    }
 }
 
 /*!
@@ -834,61 +878,37 @@ typedef enum : NSUInteger {
  @brief 图片消息被点击选择
  @param model 消息model
  */
-- (void)_imageMessageCellSelected:(id<IMessageModel>)model
+- (void)_imageMessageCellSelected:(BRMessageCell *)messageCell
 {
     __weak BRMessageViewController *weakSelf = self;
-    EMImageMessageBody *imageBody = (EMImageMessageBody*)[model.message body];
+    BRMessageModel *model = messageCell.model;
+    EMImageMessageBody *imageBody = (EMImageMessageBody*)model.message.body;
     
     BOOL isCustomDownload = !([EMClient sharedClient].options.isAutoTransferMessageAttachments);
     if ([imageBody type] == EMMessageBodyTypeImage) {
-        if (imageBody.thumbnailDownloadStatus == EMDownloadStatusSuccessed) {
-            if (imageBody.downloadStatus == EMDownloadStatusSuccessed)
-            {
-                //send the acknowledgement
-                [weakSelf _sendHasReadResponseForMessages:@[model.message] isRead:YES];
-                NSString *localPath = model.message == nil ? model.fileLocalPath : [imageBody localPath];
-                if (localPath && localPath.length > 0) {
-                    UIImage *image = [UIImage imageWithContentsOfFile:localPath];
-                    if (image) {
-                        [[BRMessageReadManager defaultManager] showBrowserWithImages:@[image]];
-                        return;
-                    }
-                }
+        if (imageBody.thumbnailDownloadStatus == EMDownloadStatusSucceed) {
+            // 将图片动画放大
+            UIImage *image = nil;
+            if (imageBody.downloadStatus == EMDownloadStatusSucceed) {
+                image = model.image ? model.image : [UIImage imageWithContentsOfFile:model.fileLocalPath];
             }
-            
-            hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            hud.label.text = NSLocalizedString(@"message.downloadingImage", @"downloading an image...");
-            
-            void (^completion)(EMMessage *aMessage, EMError *error) = ^(EMMessage *aMessage, EMError *error) {
-                if (!error) {
-                    [hud hideAnimated:YES];
-                    //send the acknowledgement
-                    [weakSelf _sendHasReadResponseForMessages:@[model.message] isRead:YES];
-                    NSString *localPath = aMessage == nil ? model.fileLocalPath : [(EMImageMessageBody*)aMessage.body localPath];
-                    if (localPath && localPath.length > 0) {
-                        UIImage *image = [UIImage imageWithContentsOfFile:localPath];
-                        //                        weakSelf.isScrollToBottom = NO;
-                        if (image)
-                        {
-                            [[BRMessageReadManager defaultManager] showBrowserWithImages:@[image]];
-                        }
-                        else
-                        {
-                            NSLog(@"Read %@ failed!", localPath);
-                        }
-                        return ;
-                    }
-                }
-                hud.mode = MBProgressHUDModeText;
-                hud.label.text = error.errorDescription;
-                [hud hideAnimated:YES afterDelay:1.5];
-            };
-            
-            if (isCustomDownload) {
-                [self _customDownloadMessageFile:model.message];
-            } else {
-                [[EMClient sharedClient].chatManager downloadMessageAttachment:model.message progress:nil completion:completion];
+            else {
+                image = model.thumbnailImage;
             }
+            self.oldFrame = [messageCell.bubbleView convertRect:messageCell.bubbleView.imageView.frame toView:self.view];
+            CGRect newFrame = CGRectMake(0, 5, SCREEN_WIDTH, SCREEN_HEIGHT);
+            self.transitionView = [[UIImageView alloc] initWithFrame:self.oldFrame];
+            self.transitionView.image = image;
+            self.transitionView.contentMode = UIViewContentModeScaleAspectFit;
+            self.transitionView.backgroundColor = [UIColor clearColor];
+            [self.navigationController.view addSubview:self.transitionView];
+            [UIView animateWithDuration:KTransitionDuration delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+                self.transitionView.frame = newFrame;
+                self.transitionView.backgroundColor = [UIColor blackColor];
+            } completion:^(BOOL finished) {
+                // 弹出图片浏览器
+                [[BRMessageReadManager defaultManager] showBrowserWithModels:@[model] animated:NO];
+            }];
         }else{
             //get the message thumbnail
             if (isCustomDownload) {
@@ -896,9 +916,9 @@ typedef enum : NSUInteger {
             } else {
                 [[EMClient sharedClient].chatManager downloadMessageThumbnail:model.message progress:nil completion:^(EMMessage *message, EMError *error) {
                     if (!error) {
-                        [hud hideAnimated:YES];
                         [weakSelf _reloadTableViewDataWithMessage:model.message];
                     }else{
+                        hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
                         hud.mode = MBProgressHUDModeText;
                         hud.label.text = NSLocalizedString(@"message.thumImageFail", @"thumbnail for failure!");
                         [hud hideAnimated:YES afterDelay:1.5];
@@ -1137,6 +1157,7 @@ typedef enum : NSUInteger {
     }
     else{
         id<IMessageModel> model = object;
+        
         if (_delegate && [_delegate respondsToSelector:@selector(messageViewController:cellForMessageModel:)]) {
             UITableViewCell *cell = [_delegate messageViewController:tableView cellForMessageModel:model];
             if (cell) {
@@ -1275,32 +1296,19 @@ typedef enum : NSUInteger {
             UIImage *orgImage = info[UIImagePickerControllerOriginalImage];
             [self sendImageMessage:orgImage];
         } else {
-            if ([[UIDevice currentDevice].systemVersion doubleValue] >= 9.0f) {
-                PHFetchResult *result = [PHAsset fetchAssetsWithALAssetURLs:@[url] options:nil];
-                [result enumerateObjectsUsingBlock:^(PHAsset *asset , NSUInteger idx, BOOL *stop){
-                    if (asset) {
-                        [[PHImageManager defaultManager] requestImageDataForAsset:asset options:nil resultHandler:^(NSData *data, NSString *uti, UIImageOrientation orientation, NSDictionary *dic){
-                            if (data != nil) {
-                                [self sendImageMessageWithData:data];
-                            } else {
-                                hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                                hud.label.text = NSLocalizedString(@"message.smallerImage", @"The image size is too large, please choose another one");
-                            }
-                        }];
-                    }
-                }];
-            } else {
-                ALAssetsLibrary *alasset = [[ALAssetsLibrary alloc] init];
-                [alasset assetForURL:url resultBlock:^(ALAsset *asset) {
-                    if (asset) {
-                        ALAssetRepresentation* assetRepresentation = [asset defaultRepresentation];
-                        Byte* buffer = (Byte*)malloc((size_t)[assetRepresentation size]);
-                        NSUInteger bufferSize = [assetRepresentation getBytes:buffer fromOffset:0.0 length:(NSUInteger)[assetRepresentation size] error:nil];
-                        NSData* fileData = [NSData dataWithBytesNoCopy:buffer length:bufferSize freeWhenDone:YES];
-                        [self sendImageMessageWithData:fileData];
-                    }
-                } failureBlock:NULL];
-            }
+            PHFetchResult *result = [PHAsset fetchAssetsWithALAssetURLs:@[url] options:nil];
+            [result enumerateObjectsUsingBlock:^(PHAsset *asset , NSUInteger idx, BOOL *stop){
+                if (asset) {
+                    [[PHImageManager defaultManager] requestImageDataForAsset:asset options:nil resultHandler:^(NSData *data, NSString *uti, UIImageOrientation orientation, NSDictionary *dic){
+                        if (data != nil) {
+                            [self sendImageMessageWithData:data];
+                        } else {
+                            hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                            hud.label.text = NSLocalizedString(@"message.smallerImage", @"The image size is too large, please choose another one");
+                        }
+                    }];
+                }
+            }];
         }
     }
     
@@ -1320,8 +1328,9 @@ typedef enum : NSUInteger {
 
 #pragma mark - BRMessageCellDelegate
 
-- (void)messageCellSelected:(id<IMessageModel>)model
+- (void)messageCellSelected:(BRMessageCell *)messageCell
 {
+    id<IMessageModel> model = messageCell.model;
     if (_delegate && [_delegate respondsToSelector:@selector(messageViewController:didSelectMessageModel:)]) {
         BOOL flag = [_delegate messageViewController:self didSelectMessageModel:model];
         if (flag) {
@@ -1334,7 +1343,7 @@ typedef enum : NSUInteger {
         case EMMessageBodyTypeImage:
         {
             _scrollToBottomWhenAppear = NO;
-            [self _imageMessageCellSelected:model];
+            [self _imageMessageCellSelected:messageCell];
         }
             break;
         case EMMessageBodyTypeLocation:
@@ -1349,7 +1358,7 @@ typedef enum : NSUInteger {
             break;
         case EMMessageBodyTypeVideo:
         {
-            [self _videoMessageCellSelected:model];
+            [self _videoMessageCellSelected:messageCell];
             
         }
             break;
@@ -1635,31 +1644,66 @@ typedef enum : NSUInteger {
     // Hide the keyboard
     [self.chatToolbar endEditing:YES];
     
-    // Pop image picker
-    self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    self.imagePicker.mediaTypes = @[(NSString *)kUTTypeImage];
-    [self presentViewController:self.imagePicker animated:YES completion:NULL];
-    
-    self.isViewDidAppear = NO;
-    [[BRSDKHelper shareHelper] setIsShowingimagePicker:YES];
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
+        void (^authorizedBlock)(void) = ^() {
+            // Pop image picker
+            self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            self.imagePicker.mediaTypes = @[(NSString *)kUTTypeImage, (NSString *)kUTTypeMovie];
+            [self presentViewController:self.imagePicker animated:YES completion:NULL];
+            
+            self.isViewDidAppear = NO;
+            [[BRSDKHelper shareHelper] setIsShowingimagePicker:YES];
+        };
+        
+        PHAuthorizationStatus authStatus = [PHPhotoLibrary authorizationStatus];
+        if (authStatus == PHAuthorizationStatusNotDetermined) {
+            [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+                switch (status) {
+                    case PHAuthorizationStatusAuthorized:
+                        authorizedBlock();
+                        break;
+                        
+                    case PHAuthorizationStatusDenied:
+                        break;
+                        
+                    default:
+                        break;
+                }
+            }];
+        }
+        else if (authStatus == PHAuthorizationStatusAuthorized) {
+            authorizedBlock();
+        }
+    }
 }
 
 - (void)moreViewTakePicAction:(BRChatBarMoreView *)moreView
 {
     // Hide the keyboard
     [self.chatToolbar endEditing:YES];
-    
-#if TARGET_IPHONE_SIMULATOR
-    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.label.text = NSLocalizedString(@"message.simulatorNotSupportCamera", @"simulator does not support taking picture");
-#elif TARGET_OS_IPHONE
-    self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    self.imagePicker.mediaTypes = @[(NSString *)kUTTypeImage,(NSString *)kUTTypeMovie];
-    [self presentViewController:self.imagePicker animated:YES completion:NULL];
-    
-    self.isViewDidAppear = NO;
-    [[BRSDKHelper shareHelper] setIsShowingimagePicker:YES];
-#endif
+
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        void (^authorizedBlock)(void) = ^() {
+            self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+            self.imagePicker.mediaTypes = @[(NSString *)kUTTypeImage,(NSString *)kUTTypeMovie];
+            [self presentViewController:self.imagePicker animated:YES completion:NULL];
+            
+            self.isViewDidAppear = NO;
+            [[BRSDKHelper shareHelper] setIsShowingimagePicker:YES];
+        };
+        
+        AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+        if (authStatus == AVAuthorizationStatusNotDetermined) {
+            [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+                if (granted) {
+                    authorizedBlock();
+                }
+            }];
+        }
+        else if (authStatus == AVAuthorizationStatusAuthorized) {
+            authorizedBlock();
+        }
+    }
 }
 
 - (void)moreViewLocationAction:(BRChatBarMoreView *)moreView
@@ -1882,6 +1926,7 @@ typedef enum : NSUInteger {
         return formattedArray;
     }
     
+    NSMutableSet *usernameSet = [NSMutableSet set];
     for (EMMessage *message in messages) {
         //Calculate time interval
         CGFloat interval = (self.messageTimeIntervalTag - message.timestamp) / 1000;
@@ -1900,19 +1945,86 @@ typedef enum : NSUInteger {
         }
         
         //Construct message model
-        id<IMessageModel> model = nil;
+        BRMessageModel *model = nil;
         if (_dataSource && [_dataSource respondsToSelector:@selector(messageViewController:modelForMessage:)]) {
             model = [_dataSource messageViewController:self modelForMessage:message];
         }
         else{
             model = [[BRMessageModel alloc] initWithMessage:message];
-//            model.avatarImage = [UIImage imageNamed:@"user_default"];
             model.failImageName = @"imageDownloadFail";
         }
         
         if (model) {
+            if (self.friendsInfo == nil) {
+                self.friendsInfo = [[BRCoreDataManager sharedInstance] fetchFriendInfoBy:model.message.from];
+            }
+            // 发送方
+            if (model.isSender) {
+                UIImage *avatar = [UIImage imageWithData:self.userInfo.avatar];
+                model.avatarImage = avatar ? avatar : [UIImage imageNamed:@"user_default"];
+                model.username = self.userInfo.nickname.length ? self.userInfo.nickname : self.userInfo.username;
+            }
+            // 非发送方单聊
+            else if (_conversation.type == EMConversationTypeChat) {
+                UIImage *avatar = [UIImage imageWithData:self.friendsInfo.avatar];
+                model.avatarImage = avatar ? avatar : [UIImage imageNamed:@"user_default"];
+                model.username = self.friendsInfo.nickname.length ? self.friendsInfo.nickname : self.friendsInfo.username;
+            }
+            // 非发送方群聊
+            else {
+                BRContactListModel *userModel = nil;
+                if ((userModel = self.dict[model.username])) {
+                    model.avatarImage = userModel.avatarImage;
+                    model.username = userModel.nickname ? userModel.nickname : userModel.username;
+                }
+                else {
+                    // 从数据库中获取成员信息
+                    BRFriendsInfo *info = [[[BRCoreDataManager sharedInstance] fetchGroupMembersByGroupID:_conversation.conversationId andGroupMemberUserName:model.username] firstObject];
+                    if (info) {
+                        model.username = info.nickname ? info.nickname : info.username;
+                        UIImage *avatarImage = [UIImage imageWithData:info.avatar];
+                        model.avatarImage = avatarImage;
+                        
+                        userModel = [[BRContactListModel alloc] init];
+                        userModel.username = info.username;
+                        userModel.nickname = info.nickname;
+                        userModel.avatarImage = avatarImage;
+                        self.dict[info.username] = userModel;
+                    }
+                    else {
+                        model.avatarImage = [UIImage imageNamed:@"user_default"];
+                        [usernameSet addObject:model.username];
+                    }
+                }
+            }
+            
             [formattedArray addObject:model];
         }
+    }
+    
+    if (_conversation.type == EMConversationTypeGroupChat && usernameSet.count > 0) {
+        NSArray *usernameArray = [usernameSet allObjects];
+        
+        // 从服务器获取成员信息
+        [[BRClientManager sharedManager] getUserInfoWithUsernames:usernameArray andSaveFlag:NO success:^(NSMutableArray *modelArray) {
+            for (BRContactListModel *userModel in modelArray) {
+                self.dict[userModel.username] = userModel;
+            }
+            [[BRCoreDataManager sharedInstance] saveGroupMembersToCoreData:modelArray toGroup:_conversation.conversationId];
+            for (id obj in self.dataArray) {
+                if (![obj isKindOfClass:[BRMessageModel class]]) {
+                    continue;
+                }
+                BRMessageModel *messageModel = (BRMessageModel *)obj;
+                BRContactListModel *userModel = self.dict[messageModel.username];
+                if (userModel) {
+                    messageModel.username = userModel.nickname ? userModel.nickname : userModel.username;
+                    messageModel.avatarURLPath = userModel.avatarURLPath;
+                    messageModel.avatarImage = userModel.avatarImage;
+                }
+            }
+            [self tableViewDidFinishRefresh:BRRefreshTableViewWidgetHeader reload:YES];
+        } failure:nil];
     }
     
     return formattedArray;

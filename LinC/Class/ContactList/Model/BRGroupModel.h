@@ -7,6 +7,7 @@
 //
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
+#import <Hyphenate/EMGroupOptions.h>
 
 @interface BRGroupModel : NSObject
 
@@ -16,5 +17,5 @@
 @property (nonatomic, strong) NSString *groupOwner;
 @property (nonatomic, strong) UIImage *groupIcon;
 @property (nonatomic, strong) NSMutableArray *groupMembers;
-@property (nonatomic, assign) NSInteger groupStyle;
+@property (nonatomic, assign) EMGroupStyle groupStyle;
 @end

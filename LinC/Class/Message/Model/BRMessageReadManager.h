@@ -23,9 +23,9 @@ typedef void (^PlayBlock)(BOOL playing, BRMessageModel *messageModel);
 /*!
  @method
  @brief 显示图片消息原图
- @param imageArray   原图数组，需要传入UIImage对象
+ @param modelArray   模型数组，需要传入BRMessageModel对象
  */
-- (void)showBrowserWithImages:(NSArray *)imageArray;
+- (void)showBrowserWithModels:(NSArray *)modelArray animated:(BOOL)animated;
 
 /*!
  @method

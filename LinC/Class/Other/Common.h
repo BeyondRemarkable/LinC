@@ -21,6 +21,8 @@
 #define newGroupRequestFile @"newGroupRequestData.plist"
 #define GroupIDLength 14
 
+#define BRDataUpdateNotification @"DataUpdateNotification"
+
 extern NSString *const GroupNameChangeNotificationName;
 // 定义系统偏好的键值
 extern NSString *const kLoginUserNameKey;
