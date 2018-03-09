@@ -52,11 +52,7 @@
 /** 保存群成员数据 */
 - (void)saveGroupMembersToCoreData:(NSArray *)groupMembers toGroup:(NSString *)groupID;
 /** 获取群成员数据 */
-- (NSArray *)fetchGroupMembersByGroupID:(NSString *)groupID andGroupMemberUserName:(NSString *)groupMemberUserName;
-/** 更新群成员数据 */
-- (void)updateGroupMemberInfo:(BRContactListModel *)groupMember fromGroupID:(NSString *)groupID;
-/** 删除群成员数据 */
-- (void)deleteGroupMemberFromGoup:(NSString *)groupID andGroupMemberID:(NSString *)groupMemberID;
+- (NSArray *)fetchGroupMembersByGroupID:(NSString *)groupID andGroupMemberUserNameArray:(NSArray *)groupMemberUserNameArray;
 /** 保存到core data */
 - (BOOL)saveData;
 @end

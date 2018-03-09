@@ -93,7 +93,7 @@
                     EMError *error = [EMError errorWithDescription:@"Login fail." code:EMErrorGeneral];
                     failureBlock(error);
                 }
-            }];;;
+            }];
         }
         // 登录服务器失败
         else {

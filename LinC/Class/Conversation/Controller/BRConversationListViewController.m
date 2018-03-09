@@ -54,6 +54,7 @@
         self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%lu", (long)totalUnreadCount];
         [UIApplication sharedApplication].applicationIconBadgeNumber = totalUnreadCount;
     }
+    [self.tableView reloadData];
 }
 
 - (void)viewDidLoad {
