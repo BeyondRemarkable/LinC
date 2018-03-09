@@ -1642,36 +1642,18 @@ typedef enum : NSUInteger {
     // Hide the keyboard
     [self.chatToolbar endEditing:YES];
     
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
-        void (^authorizedBlock)(void) = ^() {
-            // Pop image picker
-            self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-            self.imagePicker.mediaTypes = @[(NSString *)kUTTypeImage, (NSString *)kUTTypeMovie];
-            [self presentViewController:self.imagePicker animated:YES completion:NULL];
-            
-            self.isViewDidAppear = NO;
-            [[BRSDKHelper shareHelper] setIsShowingimagePicker:YES];
-        };
+    // 判断相册是否可以打开
+    PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
+    if (status == PHAuthorizationStatusRestricted || status == PHAuthorizationStatusDenied) {
+        [self showAuthorizationAlertWithType:@"album"];
+    } else {
+        // Pop image picker
+        self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        self.imagePicker.mediaTypes = @[(NSString *)kUTTypeImage];
+        [self presentViewController:self.imagePicker animated:YES completion:NULL];
         
-        PHAuthorizationStatus authStatus = [PHPhotoLibrary authorizationStatus];
-        if (authStatus == PHAuthorizationStatusNotDetermined) {
-            [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
-                switch (status) {
-                    case PHAuthorizationStatusAuthorized:
-                        authorizedBlock();
-                        break;
-                        
-                    case PHAuthorizationStatusDenied:
-                        break;
-                        
-                    default:
-                        break;
-                }
-            }];
-        }
-        else if (authStatus == PHAuthorizationStatusAuthorized) {
-            authorizedBlock();
-        }
+        self.isViewDidAppear = NO;
+        [[BRSDKHelper shareHelper] setIsShowingimagePicker:YES];
     }
 }
 
@@ -1679,29 +1661,24 @@ typedef enum : NSUInteger {
 {
     // Hide the keyboard
     [self.chatToolbar endEditing:YES];
-
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        void (^authorizedBlock)(void) = ^() {
-            self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-            self.imagePicker.mediaTypes = @[(NSString *)kUTTypeImage,(NSString *)kUTTypeMovie];
-            [self presentViewController:self.imagePicker animated:YES completion:NULL];
-            
-            self.isViewDidAppear = NO;
-            [[BRSDKHelper shareHelper] setIsShowingimagePicker:YES];
-        };
+    
+#if TARGET_IPHONE_SIMULATOR
+    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.label.text = NSLocalizedString(@"message.simulatorNotSupportCamera", @"simulator does not support taking picture");
+#elif TARGET_OS_IPHONE
+    
+    AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+    if (status == AVAuthorizationStatusRestricted || status == AVAuthorizationStatusDenied){
+        [self showAuthorizationAlertWithType:@"camera."];
+    } else {
+        self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        self.imagePicker.mediaTypes = @[(NSString *)kUTTypeImage,(NSString *)kUTTypeMovie];
+        [self presentViewController:self.imagePicker animated:YES completion:NULL];
         
-        AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
-        if (authStatus == AVAuthorizationStatusNotDetermined) {
-            [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
-                if (granted) {
-                    authorizedBlock();
-                }
-            }];
-        }
-        else if (authStatus == AVAuthorizationStatusAuthorized) {
-            authorizedBlock();
-        }
+        self.isViewDidAppear = NO;
+        [[BRSDKHelper shareHelper] setIsShowingimagePicker:YES];
     }
+#endif
 }
 
 - (void)moreViewLocationAction:(BRChatBarMoreView *)moreView

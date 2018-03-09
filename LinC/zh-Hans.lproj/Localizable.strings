@@ -81,8 +81,20 @@
 "saveFail" = "图片保存失败，请稍后再试";
 "saveSuccess" = "图片保存成功";
 "message.thumImageFail" = "获取缩略图失败";
+"message.downloadingImage" = "正在加载图片";
+"saveSuccess" = "图片保存成功。";
+
 
 // Video
+"Shared video" = "[视频]";
+
+// Friend
+"No new friend request" = "没有新的好友请求";
+// Authorization
+"Unable to access camera." = "打开相机权限未开启。";
+"Unable to access album." = "打开相册权限未开启。";
+"Unable to access microphone." = "麦克风权限未开启";
+"Unable to access GPS." = "定位权限未开启";
 "Shared video" = "[视频]";
 
 // Friend
