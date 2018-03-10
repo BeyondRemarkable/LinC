@@ -71,7 +71,7 @@
                     model.updated = dict[@"data"][@"user"][@"updated_at"];
                     BOOL isImage = ([model.avatarURLPath.lowercaseString hasSuffix:@".jpg"] || [model.avatarURLPath.lowercaseString hasSuffix:@".png"]);
                     if (!isImage) {
-                        model.avatarImage = [UIImage imageNamed:@"user_default"];
+                        model.avatarImage = nil;
                         [[BRCoreDataManager sharedInstance] insertUserInfoToCoreData: model];
                         successBlock(dict[@"data"][@"user"]);
                     } else {
@@ -251,7 +251,7 @@
 
                 BOOL isImage = ([model.avatarURLPath.lowercaseString hasSuffix:@".jpg"] || [model.avatarURLPath.lowercaseString hasSuffix:@".png"]);
                 if (!isImage) {
-                    model.avatarImage = [UIImage imageNamed:@"user_default"];;
+                    model.avatarImage = nil;
                 } else {
                     dispatch_group_async(group, dispatch_get_global_queue(0, 0), ^{
                         model.avatarImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:model.avatarURLPath]]];
@@ -308,7 +308,7 @@
         model.updated = dict[@"data"][@"user"][@"updated_at"];
         BOOL isImage = ([model.avatarURLPath.lowercaseString hasSuffix:@".jpg"] || [model.avatarURLPath.lowercaseString hasSuffix:@".png"]);
         if (!isImage) {
-            model.avatarImage = [UIImage imageNamed:@"user_default"];
+            model.avatarImage = nil;
             [[BRCoreDataManager sharedInstance] insertUserInfoToCoreData: model];
             successBlock(model);
         } else {

@@ -147,7 +147,7 @@ static NSString * const cellIdentifier = @"groupCell";
         model.gender = groupMember.gender;
         model.whatsUp = groupMember.whatsUp;
         model.location = groupMember.location;
-        model.avatarImage = [UIImage imageWithData:groupMember.avatar];
+        model.avatarImage = groupMember.avatar ? [UIImage imageWithData:groupMember.avatar] : [UIImage imageNamed:@"user_default"];
         [groupMembersArray addObject:model];
         [self.groupMembersName addObject:model.username];
     }
