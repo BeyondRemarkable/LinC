@@ -46,7 +46,7 @@
     [super viewWillAppear:animated];
     self.view.backgroundColor = [UIColor blackColor];
     [self.navigationController setNavigationBarHidden: YES];
-    [self scannerView];
+    [self cameraAuthorizationCheck];
 }
 
 - (void)viewDidLoad {
@@ -60,6 +60,41 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+/**
+ 相机授权提示判断
+ */
+- (void)cameraAuthorizationCheck
+{
+    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+    if (authStatus == AVAuthorizationStatusDenied || authStatus == AVAuthorizationStatusRestricted) {
+        // 没有权限。弹出alertView
+        [self showAuthorizationAlert];
+    }else{
+        //获取了权限，直接调用相机接口
+         [self scannerView];
+    }
+}
+
+/**
+  提示开启相机权限设置
+ */
+- (void)showAuthorizationAlert
+{
+    
+    UIAlertController *actionSheet =[UIAlertController alertControllerWithTitle:NSLocalizedString(@"Unable to access camera.", nil) message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *open = [UIAlertAction actionWithTitle:NSLocalizedString(@"Open", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if ([[UIApplication sharedApplication]openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]]) {
+            [[UIApplication sharedApplication]openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+        }
+    }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)  style:UIAlertActionStyleDestructive handler:nil];
+    
+    [actionSheet addAction:open];
+    [actionSheet addAction:cancel];
+    
+    [self presentViewController:actionSheet animated:YES completion:nil];
+}
 
 /**
  *  Run the scanner
@@ -127,7 +162,7 @@
         [hud hideAnimated:YES];
         
         BRContactListModel *model = [aList firstObject];
-        NSLog(@"%@", model);
+        
         UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRFriendInfo" bundle:[NSBundle mainBundle]];
         BRFriendInfoTableViewController *vc = [sc instantiateViewControllerWithIdentifier: @"BRFriendInfoTableViewController"];
         vc.contactListModel = model;

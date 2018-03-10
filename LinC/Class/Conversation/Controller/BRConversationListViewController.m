@@ -26,6 +26,7 @@
 #import <MBProgressHUD.h>
 #import "BRFriendInfoTableViewController.h"
 #import "BRGroupChatSettingTableViewController.h"
+#import <Photos/PHPhotoLibrary.h>
 
 @interface BRConversationListViewController () <EMClientDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 {
@@ -59,6 +60,19 @@
     [super viewWillAppear:animated];
     
     self.navigationController.navigationBar.hidden = NO;
+    NSArray *conversations = [[EMClient sharedClient].chatManager getAllConversations];
+    NSInteger totalUnreadCount = 0;
+    for (EMConversation *conversation in conversations) {
+        totalUnreadCount += conversation.unreadMessagesCount;
+    }
+    if (!totalUnreadCount) {
+        self.tabBarItem.badgeValue = nil;
+        [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    } else {
+        self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%lu", (long)totalUnreadCount];
+        [UIApplication sharedApplication].applicationIconBadgeNumber = totalUnreadCount;
+    }
+    [self.tableView reloadData];
 }
 
 - (void)viewDidLoad {
@@ -192,14 +206,42 @@
     [self presentViewController:nav animated:YES completion:nil];
 }
 
+
+/**
+ 打开用户手机相册
+ */
 - (void)readQRCodeFromAlbum {
     // 判断相册是否可以打开
-    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) return;
+    PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
+    if (status == PHAuthorizationStatusRestricted || status == PHAuthorizationStatusDenied) {
+        [self showAuthorizationAlert];
+    } else {
+        UIImagePickerController *ipc = [[UIImagePickerController alloc] init];
+        ipc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        ipc.delegate = self;
+        [self presentViewController:ipc animated:YES completion:nil];
+    }
+}
+
+
+/**
+ 提示开启相册权限设置
+ */
+- (void)showAuthorizationAlert
+{
     
-    UIImagePickerController *ipc = [[UIImagePickerController alloc] init];
-    ipc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    ipc.delegate = self;
-    [self presentViewController:ipc animated:YES completion:nil];
+    UIAlertController *actionSheet =[UIAlertController alertControllerWithTitle:NSLocalizedString(@"Unable to access album.", nil) message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *open = [UIAlertAction actionWithTitle:NSLocalizedString(@"Open", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if ([[UIApplication sharedApplication]openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]]) {
+             [[UIApplication sharedApplication]openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+        }
+    }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)  style:UIAlertActionStyleDestructive handler:nil];
+    
+    [actionSheet addAction:open];
+    [actionSheet addAction:cancel];
+    
+    [self presentViewController:actionSheet animated:YES completion:nil];
 }
 
 #pragma mark -- <UIImagePickerControllerDelegate>

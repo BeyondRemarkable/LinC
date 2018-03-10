@@ -71,7 +71,7 @@
                     model.updated = dict[@"data"][@"user"][@"updated_at"];
                     BOOL isImage = ([model.avatarURLPath.lowercaseString hasSuffix:@".jpg"] || [model.avatarURLPath.lowercaseString hasSuffix:@".png"]);
                     if (!isImage) {
-                        model.avatarImage = [UIImage imageNamed:@"user_default"];
+                        model.avatarImage = nil;
                         [[BRCoreDataManager sharedInstance] insertUserInfoToCoreData: model];
                         successBlock(dict[@"data"][@"user"]);
                     } else {
@@ -93,7 +93,7 @@
                     EMError *error = [EMError errorWithDescription:@"Login fail." code:EMErrorGeneral];
                     failureBlock(error);
                 }
-            }];;;
+            }];
         }
         // 登录服务器失败
         else {
@@ -308,7 +308,7 @@
         model.updated = dict[@"data"][@"user"][@"updated_at"];
         BOOL isImage = ([model.avatarURLPath.lowercaseString hasSuffix:@".jpg"] || [model.avatarURLPath.lowercaseString hasSuffix:@".png"]);
         if (!isImage) {
-            model.avatarImage = [UIImage imageNamed:@"user_default"];
+            model.avatarImage = nil;
             [[BRCoreDataManager sharedInstance] insertUserInfoToCoreData: model];
             successBlock(model);
         } else {

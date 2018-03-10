@@ -27,7 +27,7 @@
 #import "BRConversation+CoreDataClass.h"
 #import "BRGroupChatSettingTableViewController.h"
 #import "UIView+NavigationBar.h"
-
+#import <Photos/PHPhotoLibrary.h>
 
 #define KHintAdjustY    50
 #define KTransitionDuration 0.2
@@ -1550,9 +1550,7 @@ typedef enum : NSUInteger {
                 break;
             case BRCanNotRecord:
             {
-                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"prompt", @"Prompt") message:NSLocalizedString(@"record.failToPermission", @"No recording permission") preferredStyle:UIAlertControllerStyleAlert];
-                [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"ok", @"OK") style:UIAlertActionStyleCancel handler:nil]];
-                [self presentViewController:alertController animated:YES completion:nil];
+                [self showAuthorizationAlertWithType:@"microphone"];
             }
                 break;
             default:
@@ -1644,36 +1642,18 @@ typedef enum : NSUInteger {
     // Hide the keyboard
     [self.chatToolbar endEditing:YES];
     
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
-        void (^authorizedBlock)(void) = ^() {
-            // Pop image picker
-            self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-            self.imagePicker.mediaTypes = @[(NSString *)kUTTypeImage, (NSString *)kUTTypeMovie];
-            [self presentViewController:self.imagePicker animated:YES completion:NULL];
-            
-            self.isViewDidAppear = NO;
-            [[BRSDKHelper shareHelper] setIsShowingimagePicker:YES];
-        };
+    // 判断相册是否可以打开
+    PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
+    if (status == PHAuthorizationStatusRestricted || status == PHAuthorizationStatusDenied) {
+        [self showAuthorizationAlertWithType:@"album"];
+    } else {
+        // Pop image picker
+        self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        self.imagePicker.mediaTypes = @[(NSString *)kUTTypeImage];
+        [self presentViewController:self.imagePicker animated:YES completion:NULL];
         
-        PHAuthorizationStatus authStatus = [PHPhotoLibrary authorizationStatus];
-        if (authStatus == PHAuthorizationStatusNotDetermined) {
-            [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
-                switch (status) {
-                    case PHAuthorizationStatusAuthorized:
-                        authorizedBlock();
-                        break;
-                        
-                    case PHAuthorizationStatusDenied:
-                        break;
-                        
-                    default:
-                        break;
-                }
-            }];
-        }
-        else if (authStatus == PHAuthorizationStatusAuthorized) {
-            authorizedBlock();
-        }
+        self.isViewDidAppear = NO;
+        [[BRSDKHelper shareHelper] setIsShowingimagePicker:YES];
     }
 }
 
@@ -1681,39 +1661,39 @@ typedef enum : NSUInteger {
 {
     // Hide the keyboard
     [self.chatToolbar endEditing:YES];
-
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        void (^authorizedBlock)(void) = ^() {
-            self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-            self.imagePicker.mediaTypes = @[(NSString *)kUTTypeImage,(NSString *)kUTTypeMovie];
-            [self presentViewController:self.imagePicker animated:YES completion:NULL];
-            
-            self.isViewDidAppear = NO;
-            [[BRSDKHelper shareHelper] setIsShowingimagePicker:YES];
-        };
+    
+#if TARGET_IPHONE_SIMULATOR
+    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.label.text = NSLocalizedString(@"message.simulatorNotSupportCamera", @"simulator does not support taking picture");
+#elif TARGET_OS_IPHONE
+    
+    AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+    if (status == AVAuthorizationStatusRestricted || status == AVAuthorizationStatusDenied){
+        [self showAuthorizationAlertWithType:@"camera."];
+    } else {
+        self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        self.imagePicker.mediaTypes = @[(NSString *)kUTTypeImage,(NSString *)kUTTypeMovie];
+        [self presentViewController:self.imagePicker animated:YES completion:NULL];
         
-        AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
-        if (authStatus == AVAuthorizationStatusNotDetermined) {
-            [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
-                if (granted) {
-                    authorizedBlock();
-                }
-            }];
-        }
-        else if (authStatus == AVAuthorizationStatusAuthorized) {
-            authorizedBlock();
-        }
+        self.isViewDidAppear = NO;
+        [[BRSDKHelper shareHelper] setIsShowingimagePicker:YES];
     }
+#endif
 }
 
 - (void)moreViewLocationAction:(BRChatBarMoreView *)moreView
 {
     // Hide the keyboard
     [self.chatToolbar endEditing:YES];
-    
-    BRLocationViewController *locationController = [[BRLocationViewController alloc] init];
-    locationController.delegate = self;
-    [self.navigationController pushViewController:locationController animated:YES];
+    CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
+    if (status == kCLAuthorizationStatusRestricted || status == kCLAuthorizationStatusDenied) {
+        [self showAuthorizationAlertWithType:@"GPS"];
+    } else {
+        BRLocationViewController *locationController = [[BRLocationViewController alloc] init];
+        locationController.delegate = self;
+        [self.navigationController pushViewController:locationController animated:YES];
+    }
+   
 }
 
 - (void)moreViewAudioCallAction:(BRChatBarMoreView *)moreView
@@ -1979,7 +1959,9 @@ typedef enum : NSUInteger {
                 }
                 else {
                     // 从数据库中获取成员信息
-                    BRFriendsInfo *info = [[[BRCoreDataManager sharedInstance] fetchGroupMembersByGroupID:_conversation.conversationId andGroupMemberUserName:model.username] firstObject];
+                    
+                    BRFriendsInfo *info = [[[BRCoreDataManager sharedInstance] fetchGroupMembersByGroupID:_conversation.conversationId andGroupMemberUserNameArray:[NSArray arrayWithObject:model.username]] firstObject];
+//                    BRFriendsInfo *info = [[[BRCoreDataManager sharedInstance] fetchGroupMembersByGroupID:_conversation.conversationId andGroupMemberUserName:model.username] firstObject];
                     if (info) {
                         model.username = info.nickname ? info.nickname : info.username;
                         UIImage *avatarImage = [UIImage imageWithData:info.avatar];
@@ -2366,6 +2348,27 @@ typedef enum : NSUInteger {
         }
     }
     return targets;
+}
+
+
+/**
+ 提示开启权限设置
+ */
+- (void)showAuthorizationAlertWithType:(NSString *)type
+{
+    NSString *title = [@"Unable to access " stringByAppendingString:type];
+    UIAlertController *actionSheet =[UIAlertController alertControllerWithTitle:NSLocalizedString(title, nil) message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *open = [UIAlertAction actionWithTitle:NSLocalizedString(@"Open", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if ([[UIApplication sharedApplication]openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]]) {
+            [[UIApplication sharedApplication]openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+        }
+    }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)  style:UIAlertActionStyleDestructive handler:nil];
+    
+    [actionSheet addAction:open];
+    [actionSheet addAction:cancel];
+    
+    [self presentViewController:actionSheet animated:YES completion:nil];
 }
 
 @end
