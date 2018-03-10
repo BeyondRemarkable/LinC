@@ -85,3 +85,9 @@
 
 // Friend
 "No new friend request" = "No new friend request";
+
+// Tabbar
+"Playground" = "Playground";
+"Messages" = "Messages";
+"Contacts" = "Contacts";
+"Me" = "Me";

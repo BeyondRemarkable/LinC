@@ -8,6 +8,7 @@
 
 #import "BRTabBarController.h"
 #import "BRNavigationController.h"
+#import "BRPlaygroundViewController.h"
 #import "BRConversationListViewController.h"
 #import "BRContactListViewController.h"
 #import "BRUserInfoViewController.h"
@@ -31,17 +32,23 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super initWithCoder:aDecoder]) {
         // 设置tabBar的四个子控制器
+        
+        // Add playground view controller
+        BRPlaygroundViewController *playgroundVc = [[BRPlaygroundViewController alloc] initWithStyle:UITableViewStylePlain];
+        [self setupChildVc:playgroundVc title:NSLocalizedString(@"Playground", nil) imageName:@"tabbar_profile" selectedImageName:@"tabbar_profile_selected"];
+        
+        // Add conversation list view controller
         BRConversationListViewController *chatsVc = [[BRConversationListViewController alloc] initWithStyle:UITableViewStylePlain];
-        [self setupChildVc:chatsVc title:@"LinC" imageName:@"tabbar_conversationlist" selectedImageName:@"tabbar_conversationlist_selected"];
+        [self setupChildVc:chatsVc title:NSLocalizedString(@"Messages", nil) imageName:@"tabbar_conversationlist" selectedImageName:@"tabbar_conversationlist_selected"];
 
         // Add contact list view controller
         BRContactListViewController *contactListVC = [[BRContactListViewController alloc] initWithStyle:UITableViewStyleGrouped];
-        [self setupChildVc:contactListVC title:@"Contact List" imageName:@"tabbar_contactlist" selectedImageName:@"tabbar_contactlist_selected"];
+        [self setupChildVc:contactListVC title:NSLocalizedString(@"Contacts", nil) imageName:@"tabbar_contactlist" selectedImageName:@"tabbar_contactlist_selected"];
         
         // Add user infromation view controller
         UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRUserInfo" bundle:nil];
         BRUserInfoViewController *vc =  [sc instantiateViewControllerWithIdentifier:@"BRUserInfoViewController"];
-        [self setupChildVc:vc title:@"About Me" imageName:@"tabbar_profile" selectedImageName:@"tabbar_profile_selected"];
+        [self setupChildVc:vc title:NSLocalizedString(@"Me", nil) imageName:@"tabbar_profile" selectedImageName:@"tabbar_profile_selected"];
     }
     return self;
 }

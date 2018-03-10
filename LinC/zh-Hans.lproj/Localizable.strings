@@ -85,3 +85,9 @@
 
 // Friend
 "No new friend request" = "没有新的好友请求";
+
+// Tabbar
+"Playground" = "知识广场";
+"Messages" = "消息";
+"Contacts" = "联系人";
+"Me" = "我";

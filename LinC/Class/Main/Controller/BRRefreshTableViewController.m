@@ -30,6 +30,7 @@
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) style:self.style];
     _tableView.delegate = self;
     _tableView.dataSource = self;
+    _tableView.rowHeight = KCellDefaultHeight;
     _tableView.tableFooterView = self.defaultFooterView;
     _tableView.backgroundColor = [UIColor clearColor];
     [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
@@ -78,7 +79,6 @@
         if (_showRefreshHeader) {
             __weak BRRefreshTableViewController *weakSelf = self;
             MJRefreshHeader *header =[MJRefreshNormalHeader headerWithRefreshingBlock:^{
-                NSLog(@"正在刷新...");
                 [weakSelf tableViewDidTriggerHeaderRefresh];
             }];
             
@@ -129,13 +129,6 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     return cell;
-}
-
-#pragma mark - Table view delegate
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return KCellDefaultHeight;
 }
 
 #pragma mark - public refresh

@@ -28,6 +28,7 @@
 		27CA03B11F38F21600D0F132 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CA03B01F38F21600D0F132 /* main.m */; };
 		27CA03CA1F38F21600D0F132 /* LinCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CA03C91F38F21600D0F132 /* LinCTests.m */; };
 		27CA03D51F38F21600D0F132 /* LinCUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CA03D41F38F21600D0F132 /* LinCUITests.m */; };
+		27FA8FC02052EA4D0036DF0A /* BRLectureVideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FA8FBF2052EA4D0036DF0A /* BRLectureVideoCell.m */; };
 		27FC23F11F6C4A9F001148D7 /* BRHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FC23EE1F6C4A9F001148D7 /* BRHTTPSessionManager.m */; };
 		27FC23F21F6C4A9F001148D7 /* BRSDKHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FC23F01F6C4A9F001148D7 /* BRSDKHelper.m */; };
 		27FC23F51F6C4C2C001148D7 /* BRClientManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FC23F41F6C4C2C001148D7 /* BRClientManager.m */; };
@@ -196,6 +197,8 @@
 		27CA03D01F38F21600D0F132 /* LinCUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LinCUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		27CA03D41F38F21600D0F132 /* LinCUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LinCUITests.m; sourceTree = "<group>"; };
 		27CA03D61F38F21600D0F132 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		27FA8FBE2052EA4D0036DF0A /* BRLectureVideoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRLectureVideoCell.h; sourceTree = "<group>"; };
+		27FA8FBF2052EA4D0036DF0A /* BRLectureVideoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BRLectureVideoCell.m; sourceTree = "<group>"; };
 		27FC23ED1F6C4A9F001148D7 /* BRHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRHTTPSessionManager.h; sourceTree = "<group>"; };
 		27FC23EE1F6C4A9F001148D7 /* BRHTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRHTTPSessionManager.m; sourceTree = "<group>"; };
 		27FC23EF1F6C4A9F001148D7 /* BRSDKHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRSDKHelper.h; sourceTree = "<group>"; };
@@ -480,6 +483,8 @@
 		273A66B62051F77B006C2A94 /* Playground */ = {
 			isa = PBXGroup;
 			children = (
+				27FA8FBD2052E9C50036DF0A /* Model */,
+				27FA8FBC2052E9B10036DF0A /* View */,
 				273A66B72051F8D8006C2A94 /* Controller */,
 			);
 			path = Playground;
@@ -585,6 +590,22 @@
 				27CA03D61F38F21600D0F132 /* Info.plist */,
 			);
 			path = LinCUITests;
+			sourceTree = "<group>";
+		};
+		27FA8FBC2052E9B10036DF0A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				27FA8FBE2052EA4D0036DF0A /* BRLectureVideoCell.h */,
+				27FA8FBF2052EA4D0036DF0A /* BRLectureVideoCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		27FA8FBD2052E9C50036DF0A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		27FC23EC1F6C4A56001148D7 /* Model */ = {
@@ -1288,6 +1309,7 @@
 				E90F7BAF1F670DC400333382 /* BREmojiEmoticons.m in Sources */,
 				E90F7BAC1F670DC300333382 /* BRChatToolbarItem.m in Sources */,
 				E90F7BCF1F670DC400333382 /* BRQRCodeViewController.m in Sources */,
+				27FA8FC02052EA4D0036DF0A /* BRLectureVideoCell.m in Sources */,
 				E90F7BB91F670DC400333382 /* BRChatBarMoreViewCell.m in Sources */,
 				E90C2F171F88230B004D2116 /* BRCoreData.xcdatamodeld in Sources */,
 				E90F7BB71F670DC400333382 /* BRBubbleView.m in Sources */,
