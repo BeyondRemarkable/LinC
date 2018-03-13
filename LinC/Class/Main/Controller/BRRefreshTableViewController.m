@@ -78,7 +78,7 @@
         _showRefreshHeader = showRefreshHeader;
         if (_showRefreshHeader) {
             __weak BRRefreshTableViewController *weakSelf = self;
-            MJRefreshHeader *header =[MJRefreshNormalHeader headerWithRefreshingBlock:^{
+            MJRefreshHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
                 [weakSelf tableViewDidTriggerHeaderRefresh];
             }];
             

@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BRLectureVideoModel.h"
 
 @interface BRLectureVideoCell : UITableViewCell
 
 + (NSString *)reuseIdentifier;
 
 + (CGFloat)defaultCellHeight;
+
+@property (nonatomic, strong) BRLectureVideoModel *model;
 
 @end

@@ -10,7 +10,7 @@
 #import "BRMediaCell.h"
 #import "IMessageModel.h"
 
-@interface BRMediaBrowserViewController () <BRMediaCellDelegate>
+@interface BRMediaBrowserViewController () <BRMediaCellDelegate, UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, strong) NSArray *modelArray;
 
@@ -22,9 +22,9 @@ static NSString * const reuseIdentifier = @"BRMediaCell";
 
 - (instancetype)initWithModelArray:(NSArray *)modelArray {
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    layout.minimumLineSpacing = 0;
-    layout.minimumInteritemSpacing = 0;
-    layout.itemSize = CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT);
+//    layout.minimumLineSpacing = 0;
+//    layout.minimumInteritemSpacing = 0;
+//    layout.itemSize = CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT);
 //    if (@available(iOS 11.0, *)) {
 //        layout.sectionInsetReference = UICollectionViewFlowLayoutSectionInsetFromContentInset;
 //    }
@@ -52,7 +52,7 @@ static NSString * const reuseIdentifier = @"BRMediaCell";
     return YES;
 }
 
-#pragma mark <UICollectionViewDataSource>
+#pragma mark - UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
@@ -70,6 +70,20 @@ static NSString * const reuseIdentifier = @"BRMediaCell";
     cell.model = model;
     
     return cell;
+}
+
+#pragma mark - UICollectionViewDelegateFlowLayout
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT);;
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+    return 0;
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
+    return 0;
 }
 
 #pragma mark - BRMediaCell delegate

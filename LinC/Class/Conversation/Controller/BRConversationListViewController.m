@@ -55,26 +55,6 @@
     return _updateTimeDict;
 }
 
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    self.navigationController.navigationBar.hidden = NO;
-    NSArray *conversations = [[EMClient sharedClient].chatManager getAllConversations];
-    NSInteger totalUnreadCount = 0;
-    for (EMConversation *conversation in conversations) {
-        totalUnreadCount += conversation.unreadMessagesCount;
-    }
-    if (!totalUnreadCount) {
-        self.tabBarItem.badgeValue = nil;
-        [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
-    } else {
-        self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%lu", (long)totalUnreadCount];
-        [UIApplication sharedApplication].applicationIconBadgeNumber = totalUnreadCount;
-    }
-    [self.tableView reloadData];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self tableViewDidTriggerHeaderRefresh];

@@ -91,3 +91,9 @@
 "Messages" = "Messages";
 "Contacts" = "Contacts";
 "Me" = "Me";
+
+// Authorization
+"Unable to access camera" = "Camera is not authorized";
+"Unable to access album" = "Album is not authorized";
+"Unable to access microphone" = "Microphone is not authorized";
+"Unable to access GPS" = "Location service is not authorized";

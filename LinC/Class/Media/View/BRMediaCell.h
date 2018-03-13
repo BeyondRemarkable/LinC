@@ -21,7 +21,6 @@
 @interface BRMediaCell : UICollectionViewCell
 
 @property (nonatomic, strong) BRMedia *media;
-@property (nonatomic, strong) AVPlayer *player;
 
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic, strong) NSURL *imageURL;
