@@ -61,52 +61,60 @@
 //    MainTabBar *tabBar = [[MainTabBar alloc] init];
 //    [self setValue:tabBar forKey:@"tabBar"];
 //    [self.tabBar setBackgroundImage:[UIImage imageNamed:@"tabbar_background"]];
-//    
-//    // 设置代理
-//    [self.chatsVc setDelegate:self];
-    [[EMClient sharedClient].contactManager addDelegate:self delegateQueue:dispatch_get_main_queue()];
-//
-//    // 获取未读消息数，设置badge
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedNewFriendRequest:)
-                                                     name:kBRFriendRequestExtKey object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedNewFriendRequest:)
-                                                     name:kBRGroupRequestExtKey object:nil];
-        NSArray *conversations = [[EMClient sharedClient].chatManager getAllConversations];
-        
-        NSInteger totalUnreadCount = 0;
-        for (EMConversation *conversation in conversations) {
-            totalUnreadCount += conversation.unreadMessagesCount;
-        }
-        if (totalUnreadCount) {
-            self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%lu", totalUnreadCount];
-        }
-    });
+    
+    [self registerNotification];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    BRContactListViewController *contactListVC = [((UINavigationController *)self.viewControllers[1]).viewControllers firstObject];
     
+    // 获取未读消息数，设置badge
+    NSArray *conversations = [[EMClient sharedClient].chatManager getAllConversations];
+    NSInteger totalUnreadCount = 0;
+    for (EMConversation *conversation in conversations) {
+        totalUnreadCount += conversation.unreadMessagesCount;
+    }
+    if (totalUnreadCount) {
+        self.tabBar.items[1].badgeValue = [NSString stringWithFormat:@"%ld", totalUnreadCount];
+    }
+    
+    // 获取未处理好友请求数，设置badge
     NSString *friendsBadgeCount = [BRFileWithNewRequestData countForNewRequestFromFile:newFirendRequestFile];
     NSString *groupBadgeCount = [BRFileWithNewRequestData countForNewRequestFromFile:newGroupRequestFile];
-    NSInteger badgeCount = [friendsBadgeCount integerValue] + [groupBadgeCount integerValue];
-    contactListVC.tabBarItem.badgeValue = badgeCount != 0 ? [NSString stringWithFormat: @"%ld", (long)badgeCount] : nil;
+    NSInteger friendRequestCount = [friendsBadgeCount integerValue] + [groupBadgeCount integerValue];
+    if (friendRequestCount) {
+        self.tabBar.items[2].badgeValue = [NSString stringWithFormat:@"%ld", friendRequestCount];
+    }
 }
 
-- (void)receivedNewFriendRequest:(NSNotification *)notification
-{
-    BRContactListViewController *contactListVC = [((UINavigationController *)self.viewControllers[1]).viewControllers firstObject];
-    
-    NSString *friendsBadgeCount = [BRFileWithNewRequestData countForNewRequestFromFile:newFirendRequestFile];
-    NSString *groupBadgeCount = [BRFileWithNewRequestData countForNewRequestFromFile:newGroupRequestFile];
-    NSInteger badgeCount = [friendsBadgeCount integerValue] + [groupBadgeCount integerValue];
-    contactListVC.tabBarItem.badgeValue = badgeCount != 0 ? [NSString stringWithFormat: @"%ld", (long)badgeCount] : nil;
-    [contactListVC.tableView reloadData];
+- (void)receivedNewFriendRequest:(NSNotification *)notification {
+    UITabBarItem *contactItem = self.tabBar.items[2];
+    [self addBadgeBy:1 inItem:contactItem];
+}
+
+- (void)updateFriendRequest:(NSNotification *)notification {
+    UITabBarItem *contactItem = self.tabBar.items[2];
+    [self addBadgeBy:-1 inItem:contactItem];
 }
 
 #pragma mark - private methods
+
+- (void)registerNotification {
+    // 设置代理
+    [[EMClient sharedClient].chatManager addDelegate:self delegateQueue:dispatch_get_main_queue()];
+    [[EMClient sharedClient].contactManager addDelegate:self delegateQueue:dispatch_get_main_queue()];
+    // 注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedNewFriendRequest:)
+                                                 name:kBRFriendRequestExtKey object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedNewFriendRequest:)
+                                                 name:kBRGroupRequestExtKey object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFriendRequest:) name:BRFriendRequestUpdateNotification object:nil];
+}
+
+- (void)unregisterNotification {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)setupChildVc:(UIViewController *)childVc title:(NSString *)title imageName:(NSString *)imageName selectedImageName:(NSString *)selectedImageName {
     // 设置子控制器的标题和图标
     childVc.title = title; //set up tabbar and navigation bar
@@ -123,22 +131,32 @@
     
 }
 
+- (void)addBadgeBy:(NSInteger)number inItem:(UITabBarItem *)item {
+    if (number == 0) {
+        return;
+    }
+    
+    NSInteger currNum = [item.badgeValue integerValue];
+    currNum += number;
+    if (currNum == 0) {
+        [item setBadgeValue:nil];
+    }
+    else {
+        [item setBadgeValue:[NSString stringWithFormat:@"%ld", (long)currNum]];
+    }
+}
 
+#pragma mark - EMChatManagerDelegate
 
-//- (void)addChatBadgeBy:(NSInteger)number {
-//    if (number == 0) {
-//        return;
-//    }
-//    UITabBarItem *chatItem = [self.tabBar.items objectAtIndex:0];
-//    NSInteger currNum = [chatItem.badgeValue integerValue];
-//    currNum += number;
-//    if (currNum == 0) {
-//        [chatItem setBadgeValue:nil];
-//    }
-//    else {
-//        [chatItem setBadgeValue:[NSString stringWithFormat:@"%ld", (long)currNum]];
-//    }
-//}
+- (void)messagesDidReceive:(NSArray *)aMessages {
+    UITabBarItem *chatItem = self.tabBar.items[1];
+    [self addBadgeBy:aMessages.count inItem:chatItem];
+}
+
+- (void)dealloc {
+    [self unregisterNotification];
+}
+
 //
 //- (void)setChatBadgeTo:(NSInteger)number {
 //    UITabBarItem *chatItem = [self.tabBar.items objectAtIndex:0];

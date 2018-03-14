@@ -111,8 +111,7 @@
     if (aMessages.count == 0) {
         return ;
     }
-    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-    [userDefault setBool:YES forKey:@"receivedMessage"];
+
     for (EMMessage *message in aMessages) {
         UIApplicationState state =[[UIApplication sharedApplication] applicationState];
         switch (state) {

@@ -813,13 +813,16 @@ typedef enum : NSUInteger {
         }
     };
     
-    if (videoBody.thumbnailDownloadStatus == EMDownloadStatusFailed || ![[NSFileManager defaultManager] fileExistsAtPath:videoBody.thumbnailLocalPath]) {
+    if (videoBody.thumbnailDownloadStatus == EMDownloadStatusFailed || videoBody.thumbnailDownloadStatus == EMDownloadStatusDownloading || ![[NSFileManager defaultManager] fileExistsAtPath:videoBody.thumbnailLocalPath]) {
         hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.label.text = @"begin downloading thumbnail image, click later";
-        if (isCustomDownload) {
-            [self _customDownloadMessageFile:model.message];
-        } else {
-            [[EMClient sharedClient].chatManager downloadMessageThumbnail:model.message progress:nil completion:completion];
+        hud.label.text = @"Downloading thumbnail image, try later";
+        [hud hideAnimated:YES afterDelay:1.5];
+        if (videoBody.thumbnailDownloadStatus != EMDownloadStatusDownloading) {
+            if (isCustomDownload) {
+                [self _customDownloadMessageFile:model.message];
+            } else {
+                [[EMClient sharedClient].chatManager downloadMessageThumbnail:model.message progress:nil completion:completion];
+            }
         }
         return;
     }
@@ -841,36 +844,6 @@ typedef enum : NSUInteger {
         // 弹出图片浏览器
         [[BRMessageReadManager defaultManager] showBrowserWithModels:@[model] animated:NO];
     }];
-//    dispatch_block_t block = ^{
-//        //send the acknowledgement
-//        [self _sendHasReadResponseForMessages:@[model.message]
-//                                       isRead:YES];
-//
-//        [[BRMessageReadManager defaultManager] showBrowserWithModels:@[model] animated:YES];
-//    };
-//
-//    if (videoBody.downloadStatus == EMDownloadStatusSuccessed && [[NSFileManager defaultManager] fileExistsAtPath:localPath])
-//    {
-//        block();
-//        return;
-//    }
-//
-//    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-//    hud.label.text = NSLocalizedString(@"message.downloadingVideo", @"downloading video...");
-//    if (isCustomDownload) {
-//        [self _customDownloadMessageFile:model.message];
-//    } else {
-//        [[EMClient sharedClient].chatManager downloadMessageAttachment:model.message progress:nil completion:^(EMMessage *message, EMError *error) {
-//            if (!error) {
-//                [hud hideAnimated:YES];
-//                block();
-//            }else{
-//                hud.mode = MBProgressHUDModeText;
-//                hud.label.text = NSLocalizedString(@"message.videoFail", @"video for failure!");
-//                [hud hideAnimated:YES afterDelay:1.5];
-//            }
-//        }];
-//    }
 }
 
 /*!
@@ -1660,11 +1633,6 @@ typedef enum : NSUInteger {
                         authorizedBlock();
                         break;
                         
-                    case PHAuthorizationStatusDenied:
-                    case PHAuthorizationStatusRestricted:
-                        [self showAuthorizationAlertWithType:@"album"];
-                        break;
-                        
                     default:
                         break;
                 }
@@ -1672,6 +1640,9 @@ typedef enum : NSUInteger {
         }
         else if (authStatus == PHAuthorizationStatusAuthorized) {
             authorizedBlock();
+        }
+        else if (authStatus == PHAuthorizationStatusRestricted || authStatus == PHAuthorizationStatusDenied) {
+            [self showAuthorizationAlertWithType:@"album"];
         }
     }
 }
@@ -1697,13 +1668,13 @@ typedef enum : NSUInteger {
                 if (granted) {
                     authorizedBlock();
                 }
-                else {
-                    [self showAuthorizationAlertWithType:@"camera"];
-                }
             }];
         }
         else if (authStatus == AVAuthorizationStatusAuthorized) {
             authorizedBlock();
+        }
+        else if (authStatus == AVAuthorizationStatusRestricted || authStatus == AVAuthorizationStatusDenied) {
+            [self showAuthorizationAlertWithType:@"camera"];
         }
     }
 }
@@ -1859,7 +1830,10 @@ typedef enum : NSUInteger {
         }
         
     }else{
-        
+        hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.label.text = error.errorDescription;
+        [hud hideAnimated:YES afterDelay:1.5];
     }
 }
 
@@ -2119,6 +2093,7 @@ typedef enum : NSUInteger {
     
     BRCoreDataManager *manager = [BRCoreDataManager sharedInstance];
     [manager insertConversationToCoreData:message];
+    [[NSNotificationCenter defaultCenter] postNotificationName:BRDataUpdateNotification object:nil];
     
     __weak typeof(self) weakself = self;
     if (!([EMClient sharedClient].options.isAutoTransferMessageAttachments) && isUploadFile) {
@@ -2287,20 +2262,18 @@ typedef enum : NSUInteger {
         for (int i = 0; i < self.dataArray.count; i ++) {
             id object = [self.dataArray objectAtIndex:i];
             if ([object isKindOfClass:[BRMessageModel class]]) {
-                id<IMessageModel> model = object;
-                if ([message.messageId isEqualToString:model.messageId]) {
-                    id<IMessageModel> model = nil;
+                BRMessageModel *oldModel = object;
+                if ([message.messageId isEqualToString:oldModel.messageId]) {
+                    BRMessageModel *newModel = nil;
                     if (self.dataSource && [self.dataSource respondsToSelector:@selector(messageViewController:modelForMessage:)]) {
-                        model = [self.dataSource messageViewController:self modelForMessage:message];
+                        newModel = [self.dataSource messageViewController:self modelForMessage:message];
                     }
                     else{
-                        model = [[BRMessageModel alloc] initWithMessage:message];
-                        model.avatarImage = [UIImage imageNamed:@"user_default"];
-                        model.failImageName = @"imageDownloadFail";
+                        newModel = [self formatMessages:@[message]].firstObject;
                     }
                     
                     [self.tableView beginUpdates];
-                    [self.dataArray replaceObjectAtIndex:i withObject:model];
+                    [self.dataArray replaceObjectAtIndex:i withObject:newModel];
                     [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:i inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
                     [self.tableView endUpdates];
                     break;
@@ -2319,9 +2292,7 @@ typedef enum : NSUInteger {
             model = [_dataSource messageViewController:self modelForMessage:aMessage];
         }
         else{
-            model = [[BRMessageModel alloc] initWithMessage:aMessage];
-            model.avatarImage = [UIImage imageNamed:@"user_default"];
-            model.failImageName = @"imageDownloadFail";
+            model = [self formatMessages:@[aMessage]].firstObject;
         }
         if (model) {
             __block NSUInteger index = NSNotFound;

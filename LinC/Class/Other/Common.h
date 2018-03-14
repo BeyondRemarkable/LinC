@@ -21,7 +21,8 @@
 #define newGroupRequestFile @"newGroupRequestData.plist"
 #define GroupIDLength 14
 
-#define BRDataUpdateNotification @"DataUpdateNotification"
+#define BRDataUpdateNotification @"DataUpdate"
+#define BRFriendRequestUpdateNotification @"FriendRequestUpdate"
 
 extern NSString *const GroupNameChangeNotificationName;
 // 定义系统偏好的键值

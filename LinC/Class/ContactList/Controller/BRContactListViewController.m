@@ -56,35 +56,25 @@ static NSString * const cellIdentifier = @"ContactListCell";
     [self loadFriendsInfoFromCoreData];
     [self setUpTableView];
     [self setUpNavigationBarItem];
-    
-    //注册好友回调
-    [[EMClient sharedClient].contactManager addDelegate:self delegateQueue:nil];
-    
-    //通知 刷新tabbar
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkFriendRequest) name:UIApplicationDidBecomeActiveNotification object:nil];
+    // 注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedNewFriendRequest:)
+                                                 name:kBRFriendRequestExtKey object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedNewFriendRequest:)
+                                                 name:kBRGroupRequestExtKey object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
     [self tableViewDidTriggerHeaderRefresh];
-    NSString *friendsBadgeCount = [BRFileWithNewRequestData countForNewRequestFromFile:newFirendRequestFile];
-    NSString *groupBadgeCount = [BRFileWithNewRequestData countForNewRequestFromFile:newGroupRequestFile];
-    NSInteger badgeCount = [friendsBadgeCount integerValue] + [groupBadgeCount integerValue];
-    // 是否需要显示tabbar bagge
-    if (badgeCount != 0) {
-        self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%ld", (long)badgeCount];
-    } else {
-        self.tabBarItem.badgeValue = nil;
-    }
-    [self.navigationController setNavigationBarHidden: NO];
-   
 }
 
-- (void)checkFriendRequest {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.tableView reloadData];
-    });
+- (void)updateFriendRequestCell {
+    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+}
+
+- (void)receivedNewFriendRequest:(NSNotification *)notification {
+    [self updateFriendRequestCell];
 }
 
 /**
@@ -230,7 +220,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
     }
 }
 
-#pragma mark UITableViewDelegate
+#pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 50;
@@ -290,8 +280,9 @@ static NSString * const cellIdentifier = @"ContactListCell";
 
 - (void)tableViewDidTriggerHeaderRefresh
 {
-    __weak typeof(self) weakself = self;
+    [self updateFriendRequestCell];
     
+    __weak typeof(self) weakself = self;
     [[EMClient sharedClient].contactManager getContactsFromServerWithCompletion:^(NSArray *aList, EMError *aError) {
         
         if (!aError) {
@@ -336,6 +327,10 @@ static NSString * const cellIdentifier = @"ContactListCell";
             [hud hideAnimated:YES afterDelay:1.5];
         }
     }];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - EMContactManager delegate
