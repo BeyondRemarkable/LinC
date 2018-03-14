@@ -60,32 +60,19 @@
     [super viewWillAppear:animated];
     
     self.navigationController.navigationBar.hidden = NO;
-    NSArray *conversations = [[EMClient sharedClient].chatManager getAllConversations];
-    NSInteger totalUnreadCount = 0;
-    for (EMConversation *conversation in conversations) {
-        totalUnreadCount += conversation.unreadMessagesCount;
-    }
-    if (!totalUnreadCount) {
-        self.tabBarItem.badgeValue = nil;
-        [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
-    } else {
-        self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%lu", (long)totalUnreadCount];
-        [UIApplication sharedApplication].applicationIconBadgeNumber = totalUnreadCount;
-    }
-    [self.tableView reloadData];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self tableViewDidTriggerHeaderRefresh];
-
+    
     self.view.backgroundColor = [UIColor whiteColor];
     [self.tableView registerNib:[UINib nibWithNibName:@"BRConversationCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:[BRConversationCell cellIdentifierWithModel:nil]];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkRefreshMessage) name:UIApplicationDidBecomeActiveNotification object:nil];
     [self registerNotifications];
     [self setUpNavigationBarItem];
     
-    self.navigationItem.title = [EMClient sharedClient].isConnected ? @"LinC" : @"Disconnected";
+    self.navigationItem.title = @"LinC";
     [[EMClient sharedClient] addDelegate:self delegateQueue:dispatch_get_main_queue()];
 }
 
@@ -116,7 +103,7 @@
 
 #pragma mark - Action
 /**
-    点击创建聊天按钮
+ 点击创建聊天按钮
  */
 - (void)chatBtnTapped:(UIButton *)sender {
     [self.dropDownVC.view removeFromSuperview];
@@ -132,7 +119,7 @@
 
 
 /**
-    点击扫描按钮
+ 点击扫描按钮
  */
 - (void)getQRCodeBtnTapped:(UIButton *)sender {
     [self.dropDownVC.view removeFromSuperview];
@@ -158,7 +145,7 @@
 
 
 /**
-    点击下拉菜单
+ 点击下拉菜单
  */
 - (void)clickAddDropdownMenu {
     self.navigationItem.rightBarButtonItem.enabled = NO;
@@ -196,7 +183,7 @@
 
 
 /**
-    点击相机扫描按钮
+ 点击相机扫描按钮
  */
 - (void)scanQRCodeBtnTapped {
     
@@ -233,7 +220,7 @@
     UIAlertController *actionSheet =[UIAlertController alertControllerWithTitle:NSLocalizedString(@"Unable to access album.", nil) message:nil preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *open = [UIAlertAction actionWithTitle:NSLocalizedString(@"Open", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         if ([[UIApplication sharedApplication]openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]]) {
-             [[UIApplication sharedApplication]openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+            [[UIApplication sharedApplication]openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
         }
     }];
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)  style:UIAlertActionStyleDestructive handler:nil];
@@ -391,12 +378,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     BRConversationModel *model = [self.dataArray objectAtIndex:indexPath.row];
     NSInteger diff = model.conversation.unreadMessagesCount;
     BRMessageViewController *viewController = [[BRMessageViewController alloc] initWithConversationChatter:model.conversation.conversationId conversationType:model.conversation.type];
     
     viewController.title = model.title;
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"LinC" style:UIBarButtonItemStylePlain target:nil action:nil];
     [self.navigationController pushViewController:viewController animated:YES];
     
     EMConversation *updatedConversation = [[EMClient sharedClient].chatManager getConversation:model.conversationID type:model.chatType createIfNotExist:NO];
@@ -456,7 +444,7 @@
         
         totalUnreadCount += conversation.unreadMessagesCount;
     }
-
+    
     self.tabBarItem.badgeValue = totalUnreadCount ? [NSString stringWithFormat:@"%lu", (long)totalUnreadCount] : nil;
     [UIApplication sharedApplication].applicationIconBadgeNumber = totalUnreadCount;
     
