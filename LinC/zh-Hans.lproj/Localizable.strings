@@ -99,3 +99,11 @@
 
 // Friend
 "No new friend request" = "没有新的好友请求";
+
+// Audio call
+"NO response" = "无人接听。";
+"Reject the call" = "对方拒绝接听。";
+"In the call..." = "对方正在通话中。";
+"Connect failed" = "连接失败";
+"Unsupported" = "不支持语音通话";
+"Remote offline" = "对方不在线";

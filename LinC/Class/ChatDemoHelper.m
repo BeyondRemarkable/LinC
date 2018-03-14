@@ -19,9 +19,7 @@
 //#import "BRSDKHelper.h"
 ////#import "EMDingMessageHelper.h"
 //
-////#if DEMO_CALL == 1
 //#import "DemoCallManager.h"
-////#endif
 //
 static ChatDemoHelper *helper = nil;
 //
@@ -62,9 +60,7 @@ static ChatDemoHelper *helper = nil;
 //{
 ////    _mainVC = mainVC;
 //
-//#if DEMO_CALL == 1
 //    [[DemoCallManager sharedManager] setMainController:mainVC];
-//#endif
 //}
 //
 //#pragma mark - init
@@ -78,9 +74,7 @@ static ChatDemoHelper *helper = nil;
 //    [[EMClient sharedClient].roomManager addDelegate:self delegateQueue:nil];
 //    [[EMClient sharedClient].chatManager addDelegate:self delegateQueue:nil];
 //
-//#if DEMO_CALL == 1
 //    [DemoCallManager sharedManager];
-//#endif
 //}
 //
 //- (void)asyncPushOptions
