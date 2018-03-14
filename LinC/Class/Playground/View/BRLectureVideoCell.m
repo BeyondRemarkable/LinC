@@ -63,20 +63,22 @@
     
     _titleLabel = [[UILabel alloc] init];
     _titleLabel.font = [UIFont systemFontOfSize:20.0];
+    _titleLabel.adjustsFontSizeToFitWidth = YES;
+    _titleLabel.numberOfLines = 2;
     [self.contentView addSubview:_titleLabel];
     _titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [_titleLabel.topAnchor constraintEqualToAnchor:_thumbnailImageView.topAnchor].active = YES;
     [_titleLabel.leadingAnchor constraintEqualToAnchor:_thumbnailImageView.trailingAnchor constant:5].active = YES;
-    [_titleLabel.trailingAnchor constraintEqualToAnchor:_purchaseButton.leadingAnchor constant:5].active = YES;
+    [_titleLabel.trailingAnchor constraintEqualToAnchor:marginGuide.trailingAnchor].active = YES;
     
     _instructorLabel = [[UILabel alloc] init];
     _instructorLabel.font = [UIFont systemFontOfSize:14.0];
     _instructorLabel.textColor = [UIColor darkGrayColor];
     [self.contentView addSubview:_instructorLabel];
     _instructorLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [_instructorLabel.topAnchor constraintEqualToAnchor:_titleLabel.bottomAnchor constant:5.0].active = YES;
+    [_instructorLabel.topAnchor constraintEqualToAnchor:_titleLabel.bottomAnchor constant:3.0].active = YES;
     [_instructorLabel.leadingAnchor constraintEqualToAnchor:_titleLabel.leadingAnchor].active = YES;
-    [_instructorLabel.trailingAnchor constraintEqualToAnchor:_titleLabel.trailingAnchor].active = YES;
+    [_instructorLabel.trailingAnchor constraintEqualToAnchor:_purchaseButton.leadingAnchor constant:5.0].active = YES;
     
     _detailLabel = [[UILabel alloc] init];
     _detailLabel.font = [UIFont systemFontOfSize:13.0];

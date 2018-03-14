@@ -8,6 +8,7 @@
 
 #import "BRVideoPlayerView.h"
 #import <AVFoundation/AVFoundation.h>
+#import <MBProgressHUD.h>
 
 #define controlPanelPadding 15
 
@@ -29,6 +30,8 @@
 
 @property (nonatomic, strong) UITapGestureRecognizer *tapGesture;
 
+@property (nonatomic, strong) MBProgressHUD *hud;
+
 @end
 
 @implementation BRVideoPlayerView
@@ -41,13 +44,6 @@
         _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapVideo:)];
         [self addGestureRecognizer:_tapGesture];
         
-        // 添加backButton
-        _backButton = [[UIButton alloc] initWithFrame:CGRectMake(30, 30, 30, 30)];
-        [_backButton setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
-        [_backButton setImage:[UIImage imageNamed:@"close_highlighted"] forState:UIControlStateHighlighted];
-        [_backButton addTarget:self action:@selector(clickBackButton:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:_backButton];
-        
         // 添加playButton
         _playButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
         _playButton.center = self.center;
@@ -56,7 +52,6 @@
         [_playButton addTarget:self action:@selector(clickPlayButton:) forControlEvents:UIControlEventTouchUpInside];
         [_playButton setHidden:YES];
         [self addSubview:_playButton];
-        
         
         // 添加控制台
         CGFloat controlPanelW = self.bounds.size.width;
@@ -99,8 +94,54 @@
         [_controlPanel addSubview:_restTimeLabel];
         
         [self addSubview:_controlPanel];
+        
+        // 添加backButton
+        _backButton = [[UIButton alloc] initWithFrame:CGRectMake(30, 30, 30, 30)];
+        [_backButton setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
+        [_backButton setImage:[UIImage imageNamed:@"close_highlighted"] forState:UIControlStateHighlighted];
+        [_backButton addTarget:self action:@selector(clickBackButton:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_backButton];
+        
+        
+        _isShowDownloadProcess = NO;
     }
     return self;
+}
+
+#pragma mark - getter
+
+- (MBProgressHUD *)hud {
+    if (_hud == nil) {
+        _hud = [[MBProgressHUD alloc] init];
+        _hud.mode = MBProgressHUDModeDeterminate;
+        [self insertSubview:_hud aboveSubview:self.controlPanel];
+    }
+    return _hud;
+}
+
+- (BOOL)showDownloadProcess {
+    return self.isShowDownloadProcess;
+}
+
+#pragma mark - setter
+
+- (void)setDownloadProgress:(double)downloadProgress {
+    if (self.isShowDownloadProcess) {
+        _downloadProgress = downloadProgress;
+        self.hud.progress = downloadProgress;
+    }
+}
+
+- (void)setShowDownloadProcess:(BOOL)showDownloadProcess {
+    self.isShowDownloadProcess = showDownloadProcess;
+    
+    if (showDownloadProcess) {
+        self.hud.progress = 0;
+        [self.hud showAnimated:YES];
+    }
+    else {
+        [self.hud hideAnimated:YES];
+    }
 }
 
 #pragma mark - Action
@@ -126,7 +167,6 @@
 }
 
 - (void)tapSlider:(UITapGestureRecognizer *)tap {
-    [self.player pause];
     CGPoint touchPoint = [tap locationInView:self.progressSlider];
     CGFloat value = touchPoint.x / self.progressSlider.bounds.size.width;
     [self.progressSlider setValue:value];
@@ -134,9 +174,7 @@
     NSTimeInterval totalTime = CMTimeGetSeconds(self.playerItem.duration);
     NSTimeInterval newTime = totalTime * value;
     CMTime seekTime = CMTimeMake(newTime, 1);
-    [self.player seekToTime:seekTime completionHandler:^(BOOL finished) {
-        
-    }];
+    [self.player seekToTime:seekTime];
 }
 
 - (void)sliderTouchDown {

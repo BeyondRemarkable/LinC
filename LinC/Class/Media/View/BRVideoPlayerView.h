@@ -18,6 +18,13 @@
 
 @interface BRVideoPlayerView : UIImageView
 
+@property (nonatomic, assign) BOOL isShowDownloadProcess;
+
+@property (nonatomic, assign) BOOL showDownloadProcess;
+
+@property (nonatomic, assign) double downloadProgress;
+
+
 @property (nonatomic, copy) NSString *videoLocalPath;
 
 @property (nonatomic, weak) id<BRVideoPlayerViewDelegate> delegate;

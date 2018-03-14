@@ -23,6 +23,8 @@
 
 #define BRDataUpdateNotification @"DataUpdate"
 #define BRFriendRequestUpdateNotification @"FriendRequestUpdate"
+#define BRImageMessageDownloadResultNotification @"ImageMessageDownloadResult"
+#define BRVideoMessageDownloadResultNotification @"VideoMessageDownloadResult"
 
 extern NSString *const GroupNameChangeNotificationName;
 // 定义系统偏好的键值

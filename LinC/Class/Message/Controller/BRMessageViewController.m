@@ -1262,7 +1262,8 @@ typedef enum : NSUInteger {
         }
         [self sendVideoMessageWithURL:mp4];
         
-    }else{
+    }
+    else {
         
         NSURL *url = info[UIImagePickerControllerReferenceURL];
         if (url == nil) {
@@ -1601,14 +1602,6 @@ typedef enum : NSUInteger {
 }
 
 #pragma mark - BRChatBarMoreViewDelegate
-
-- (void)moreView:(BRChatBarMoreView *)moreView didItemInMoreViewAtIndex:(NSInteger)index
-{
-    if ([self.delegate respondsToSelector:@selector(messageViewController:didSelectMoreView:AtIndex:)]) {
-        [self.delegate messageViewController:self didSelectMoreView:moreView AtIndex:index];
-        return;
-    }
-}
 
 - (void)moreViewPhotoAction:(BRChatBarMoreView *)moreView
 {
@@ -1962,7 +1955,6 @@ typedef enum : NSUInteger {
                     // 从数据库中获取成员信息
                     
                     BRFriendsInfo *info = [[[BRCoreDataManager sharedInstance] fetchGroupMembersByGroupID:_conversation.conversationId andGroupMemberUserNameArray:[NSArray arrayWithObject:model.username]] firstObject];
-//                    BRFriendsInfo *info = [[[BRCoreDataManager sharedInstance] fetchGroupMembersByGroupID:_conversation.conversationId andGroupMemberUserName:model.username] firstObject];
                     if (info) {
                         model.username = info.nickname ? info.nickname : info.username;
                         UIImage *avatarImage = [UIImage imageWithData:info.avatar];

@@ -13,14 +13,14 @@
 #import <MBProgressHUD.h>
 
 @interface BRMediaCell () <UIScrollViewDelegate, BRVideoPlayerViewDelegate>
-{
-    MBProgressHUD *hud;
-}
 
 @property (nonatomic, strong) UIScrollView *imageScrollView;
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) BRVideoPlayerView *videoView;
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
+
+@property (nonatomic, strong) id<NSObject> videoObserver;
+@property (nonatomic, strong) MBProgressHUD *hud;
 
 @end
 
@@ -103,19 +103,55 @@
             _videoView = nil;
         }
         
-        if (((EMImageMessageBody *)model.message.body).downloadStatus == EMDownloadStatusSucceed) {
+        EMDownloadStatus downloadStatus = ((EMImageMessageBody *)model.message.body).downloadStatus;
+        if (downloadStatus == EMDownloadStatusSucceed) {
             self.imageView.image = model.image ? model.image : [UIImage imageWithContentsOfFile:model.fileLocalPath];
         }
         else {
             self.imageView.image = model.thumbnailImage;
             [self.activityIndicator startAnimating];
-            [[EMClient sharedClient].chatManager downloadMessageAttachment:model.message progress:nil completion:^(EMMessage *message, EMError *error) {
-                if (!error && [self.model.messageId isEqualToString:message.messageId]) {
-                    NSString *localPath = [(EMImageMessageBody *)message.body localPath];
-                    self.imageView.image = [UIImage imageWithContentsOfFile:localPath];
-                }
-                [self.activityIndicator stopAnimating];
-            }];
+            __weak NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+            __weak typeof(self) weakSelf = self;
+            // 图片正在下载
+            if (downloadStatus == EMDownloadStatusDownloading) {
+                id __block observer = [center addObserverForName:BRImageMessageDownloadResultNotification object:model.message queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+                    [weakSelf.activityIndicator stopAnimating];
+                    EMError *error = note.userInfo[@"error"];
+                    if (error) {
+                        weakSelf.hud = [MBProgressHUD showHUDAddedTo:weakSelf.contentView animated:YES];
+                        weakSelf.hud.mode = MBProgressHUDModeText;
+                        weakSelf.hud.label.text = [NSString stringWithFormat:@"ERROR\n%@", error.errorDescription];
+                        [weakSelf.hud hideAnimated:YES afterDelay:2.0];
+                    }
+                    else {
+                        NSString *localPath = note.userInfo[@"path"];
+                        weakSelf.imageView.image = [UIImage imageWithContentsOfFile:localPath];
+                    }
+                    [center removeObserver:observer];
+                }];
+            }
+            // 图片准备下载或者下载失败
+            else {
+                [[EMClient sharedClient].chatManager downloadMessageAttachment:model.message progress:^(int progress) {
+                    
+                } completion:^(EMMessage *message, EMError *error) {
+                    if (!error) {
+                        NSString *localPath = [(EMImageMessageBody *)message.body localPath];
+                        [center postNotificationName:BRImageMessageDownloadResultNotification object:message userInfo:@{@"path":localPath}];
+                        if ([weakSelf.model.messageId isEqualToString:message.messageId]) {
+                            weakSelf.imageView.image = [UIImage imageWithContentsOfFile:localPath];
+                        }
+                    }
+                    else {
+                        [center postNotificationName:BRImageMessageDownloadResultNotification object:message userInfo:@{@"error":error}];
+                        weakSelf.hud = [MBProgressHUD showHUDAddedTo:weakSelf.contentView animated:YES];
+                        weakSelf.hud.mode = MBProgressHUDModeText;
+                        weakSelf.hud.label.text = [NSString stringWithFormat:@"ERROR\n%@", error.errorDescription];
+                        [weakSelf.hud hideAnimated:YES afterDelay:2.0];
+                    }
+                    [weakSelf.activityIndicator stopAnimating];
+                }];
+            }
         }
     }
     else if (model.bodyType == EMMessageBodyTypeVideo) {
@@ -126,31 +162,62 @@
         
         self.videoView.image = model.thumbnailImage;
         EMDownloadStatus downloadStatus = ((EMVideoMessageBody *)model.message.body).downloadStatus;
+        // 视频已经下载成功
         if (downloadStatus == EMDownloadStatusSucceed) {
             self.videoView.image = nil;
             self.videoView.videoLocalPath = [(EMVideoMessageBody *)model.message.body localPath];
         }
         else {
-            [self.activityIndicator startAnimating];
+            __weak NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+            __weak typeof(self) weakSelf = self;
+            // 视频正在下载
             if (downloadStatus == EMDownloadStatusDownloading) {
-                
+                self.videoView.showDownloadProcess = YES;
+                self.videoObserver = [center addObserverForName:BRVideoMessageDownloadResultNotification object:model.message queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+                    EMError *error = note.userInfo[@"error"];
+                    if (error) {
+                        weakSelf.hud = [MBProgressHUD showHUDAddedTo:weakSelf.contentView animated:YES];
+                        weakSelf.hud.mode = MBProgressHUDModeText;
+                        weakSelf.hud.label.text = [NSString stringWithFormat:@"ERROR\n%@", error.errorDescription];
+                        [weakSelf.hud hideAnimated:YES afterDelay:2.0];
+                    }
+                    else {
+                        NSNumber *progressNumber = note.userInfo[@"progress"];
+                        if (progressNumber) {
+                            weakSelf.videoView.downloadProgress = [progressNumber doubleValue];
+                        }
+                        else {
+                            weakSelf.videoView.image = nil;
+                            weakSelf.videoView.showDownloadProcess = NO;
+                            NSString *localPath = note.userInfo[@"path"];
+                            weakSelf.videoView.videoLocalPath = localPath;
+                        }
+                    }
+                }];
             }
+            // 视频准备下载或者下载失败
             else if (downloadStatus == EMDownloadStatusPending || downloadStatus == EMDownloadStatusFailed) {
+                self.videoView.showDownloadProcess = YES;
                 [[EMClient sharedClient].chatManager downloadMessageAttachment:model.message progress:^(int progress) {
-                    
+                    weakSelf.videoView.downloadProgress = progress/100.0;
+                    [center postNotificationName:BRVideoMessageDownloadResultNotification object:model.message userInfo:@{@"progress":@(progress/100.0)}];
+                    NSLog(@"下载进度 - %d", progress);
                 } completion:^(EMMessage *message, EMError *error) {
-                    [self.activityIndicator stopAnimating];
-                    self.videoView.image = nil;
+                    weakSelf.videoView.image = nil;
+                    weakSelf.videoView.showDownloadProcess = NO;
                     if (!error) {
-                        if ([self.model.messageId isEqualToString:message.messageId]) {
-                            self.videoView.videoLocalPath = [(EMVideoMessageBody *)message.body localPath];
+                        NSString *localPath = [(EMVideoMessageBody *)message.body localPath];
+                        [center postNotificationName:BRVideoMessageDownloadResultNotification object:message userInfo:@{@"path":localPath}];
+                        if ([weakSelf.model.messageId isEqualToString:message.messageId]) {
+                            weakSelf.videoView.videoLocalPath = localPath;
                         }
                     }
                     else {
-                        hud = [MBProgressHUD showHUDAddedTo:self.contentView animated:YES];
-                        hud.mode = MBProgressHUDModeText;
-                        hud.label.text = error.errorDescription;
-                        [hud hideAnimated:YES afterDelay:2.0];
+                        [center postNotificationName:BRVideoMessageDownloadResultNotification object:message userInfo:@{@"error":error}];
+                        weakSelf.hud = [MBProgressHUD showHUDAddedTo:weakSelf.contentView animated:YES];
+                        weakSelf.hud.mode = MBProgressHUDModeText;
+                        weakSelf.hud.label.text = [NSString stringWithFormat:@"ERROR\n%@", error.errorDescription];
+                        [weakSelf.hud hideAnimated:YES afterDelay:2.0];
                     }
                 }];
             }
@@ -163,6 +230,10 @@
     if (_delegate && [_delegate respondsToSelector:@selector(mediaCell:didClickBackButton:)]) {
         [_delegate mediaCell:self didClickBackButton:button];
     }
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self.videoObserver];
 }
 
 @end

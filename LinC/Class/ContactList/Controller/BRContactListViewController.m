@@ -33,6 +33,8 @@
 @property (nonatomic, copy) NSString *friendUserID;
 @property (nonatomic, copy) NSString *friendMessage;
 
+@property (nonatomic, strong) NSDate *lastUpdateTime;
+
 @end
 
 @implementation BRContactListViewController
@@ -282,6 +284,15 @@ static NSString * const cellIdentifier = @"ContactListCell";
 {
     [self updateFriendRequestCell];
     
+    NSDate *currentTime = [NSDate dateWithTimeIntervalSinceNow:0];
+    if (self.lastUpdateTime) {
+        NSTimeInterval interval = [currentTime timeIntervalSinceDate:self.lastUpdateTime];
+        if ((int)interval/60%60 < 1) {
+            return;
+        }
+    }
+    self.lastUpdateTime = currentTime;
+    
     __weak typeof(self) weakself = self;
     [[EMClient sharedClient].contactManager getContactsFromServerWithCompletion:^(NSArray *aList, EMError *aError) {
         
@@ -320,7 +331,6 @@ static NSString * const cellIdentifier = @"ContactListCell";
                 [hud hideAnimated:YES afterDelay:1.5];
             }];
         } else {
-            NSLog(@"%@", aError.errorDescription);
             hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             hud.mode = MBProgressHUDModeText;
             hud.label.text = aError.errorDescription;
