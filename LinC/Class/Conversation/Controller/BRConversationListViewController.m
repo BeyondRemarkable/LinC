@@ -387,7 +387,7 @@
         
         unreadCount = [self.tabBarItem.badgeValue integerValue];
         unreadCount -= diff;
-        self.tabBarItem.badgeValue = unreadCount ? [NSString stringWithFormat:@"%ld", unreadCount] : nil;
+        self.tabBarItem.badgeValue = unreadCount ? [NSString stringWithFormat:@"%ld", (long)unreadCount] : nil;
     }
     
 }

@@ -75,7 +75,7 @@
         totalUnreadCount += conversation.unreadMessagesCount;
     }
     if (totalUnreadCount) {
-        self.tabBar.items[1].badgeValue = [NSString stringWithFormat:@"%ld", totalUnreadCount];
+        self.tabBar.items[1].badgeValue = [NSString stringWithFormat:@"%ld", (long)totalUnreadCount];
     }
     
     // 获取未处理好友请求数，设置badge
@@ -83,7 +83,7 @@
     NSString *groupBadgeCount = [BRFileWithNewRequestData countForNewRequestFromFile:newGroupRequestFile];
     NSInteger friendRequestCount = [friendsBadgeCount integerValue] + [groupBadgeCount integerValue];
     if (friendRequestCount) {
-        self.tabBar.items[2].badgeValue = [NSString stringWithFormat:@"%ld", friendRequestCount];
+        self.tabBar.items[2].badgeValue = [NSString stringWithFormat:@"%ld", (long)friendRequestCount];
     }
 }
 

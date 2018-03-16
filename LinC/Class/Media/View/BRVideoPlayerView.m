@@ -275,7 +275,7 @@
 - (NSString *)formatTimeFromDuration:(NSTimeInterval)duration {
     NSInteger minute = duration / 60;
     NSInteger second = (NSInteger)duration % 60;
-    return [NSString stringWithFormat:@"%02ld:%02ld", minute, second];
+    return [NSString stringWithFormat:@"%02ld:%02ld", (long)minute, (long)second];
 }
 
 - (void)removeNotificationFromPlayerItem {
