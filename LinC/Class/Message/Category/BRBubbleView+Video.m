@@ -36,9 +36,9 @@
     
     [self addConstraint:[NSLayoutConstraint constraintWithItem:self.videoTagView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.videoImageView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
     
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:self.videoTagView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.videoImageView attribute:NSLayoutAttributeWidth multiplier:0.5 constant:0]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:self.videoTagView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:40.0]];
     
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:self.videoTagView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.videoTagView attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:self.videoTagView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:40.0]];
 }
 
 #pragma mark - public
@@ -48,6 +48,7 @@
     self.videoImageView = [[UIImageView alloc] init];
     self.videoImageView.translatesAutoresizingMaskIntoConstraints = NO;
     self.videoImageView.backgroundColor = [UIColor clearColor];
+    self.videoImageView.contentMode = UIViewContentModeScaleAspectFit;
     [self.backgroundImageView addSubview:self.videoImageView];
     
     self.videoTagView = [[UIImageView alloc] init];

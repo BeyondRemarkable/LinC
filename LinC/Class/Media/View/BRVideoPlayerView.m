@@ -10,7 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <MBProgressHUD.h>
 
-#define controlPanelPadding 15
+#define controlPanelPadding 10
 
 @interface BRVideoPlayerView ()
 
@@ -54,14 +54,15 @@
         [self addSubview:_playButton];
         
         // 添加控制台
+        CGFloat controlH = 34;
         CGFloat controlPanelW = self.bounds.size.width;
-        CGFloat controlPanelH = 34;
+        CGFloat controlPanelH = controlH + 20 + iPhoneX_BOTTOM_HEIGHT;
         CGFloat controlPanelX = 0;
-        CGFloat controlPanelY = self.bounds.size.height - controlPanelH - iPhoneX_BOTTOM_HEIGHT;
+        CGFloat controlPanelY = self.bounds.size.height - controlPanelH;
         _controlPanel = [[UIView alloc] initWithFrame:CGRectMake(controlPanelX, controlPanelY, controlPanelW, controlPanelH)];
-        _controlPanel.backgroundColor = [UIColor colorWithWhite:0.5 alpha:0.8];
+        _controlPanel.backgroundColor = [UIColor colorWithWhite:0.5 alpha:0.3];
         
-        _playButtonSmall = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, controlPanelH, controlPanelH)];
+        _playButtonSmall = [[UIButton alloc] initWithFrame:CGRectMake(0, 10, controlH, controlH)];
         [_playButtonSmall setImage:[UIImage imageNamed:@"play"] forState:UIControlStateNormal];
         [_playButtonSmall setImage:[UIImage imageNamed:@"pause"] forState:UIControlStateSelected];
         [_playButtonSmall addTarget:self action:@selector(clickPlayButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -69,7 +70,7 @@
         
         CGFloat currentTimeLabelX = CGRectGetMaxX(_playButtonSmall.frame);
         CGFloat currentTimeLabelW = 44;
-        _currentTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(currentTimeLabelX, 0, currentTimeLabelW, controlPanelH)];
+        _currentTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(currentTimeLabelX, 10, currentTimeLabelW, controlH)];
         [_currentTimeLabel setTextColor:[UIColor whiteColor]];
         [_currentTimeLabel setFont:[UIFont systemFontOfSize:14.0]];
         [_currentTimeLabel setText:@"00:00"];
@@ -77,7 +78,10 @@
         
         CGFloat progressSliderX = CGRectGetMaxX(_currentTimeLabel.frame);
         CGFloat progressSliderW = controlPanelW - _playButtonSmall.bounds.size.width - 2 * currentTimeLabelW - controlPanelPadding;
-        _progressSlider = [[UISlider alloc] initWithFrame:CGRectMake(progressSliderX, 0, progressSliderW, controlPanelH)];
+        _progressSlider = [[UISlider alloc] initWithFrame:CGRectMake(progressSliderX, 10, progressSliderW, controlH)];
+        [_progressSlider setMinimumTrackTintColor:[UIColor whiteColor]];
+        [_progressSlider setMaximumTrackTintColor:[UIColor blackColor]];
+        [_progressSlider setThumbImage:[UIImage imageNamed:@"slider_thumb"] forState:UIControlStateNormal];
         [_progressSlider addTarget:self action:@selector(sliderTouchDown) forControlEvents:UIControlEventTouchDown];
         [_progressSlider addTarget:self action:@selector(sliderTouchUp) forControlEvents:UIControlEventTouchUpInside];
         [_progressSlider addTarget:self action:@selector(dragSlider:) forControlEvents:UIControlEventValueChanged];
@@ -87,7 +91,7 @@
         [_controlPanel addSubview:_progressSlider];
         
         CGFloat restTimeLabelX = CGRectGetMaxX(_progressSlider.frame) + 5;
-        _restTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(restTimeLabelX, 0, currentTimeLabelW, controlPanelH)];
+        _restTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(restTimeLabelX, 10, currentTimeLabelW, controlH)];
         [_restTimeLabel setTextColor:[UIColor whiteColor]];
         [_restTimeLabel setFont:[UIFont systemFontOfSize:14.0]];
         [_restTimeLabel setText:@"00:00"];
@@ -331,7 +335,7 @@
         //        hud.progress = timeInterval / totalDuration;
     }
     else if ([keyPath isEqualToString:@"playbackBufferEmpty"]) {
-        NSLog(@"开始缓存");
+        
     }
     else if ([keyPath isEqualToString:@"playbackLikelyToKeepUp"]) {
         

@@ -22,13 +22,18 @@ static NSString * const reuseIdentifier = @"BRMediaCell";
 
 - (instancetype)initWithModelArray:(NSArray *)modelArray {
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-//    layout.minimumLineSpacing = 0;
-//    layout.minimumInteritemSpacing = 0;
-//    layout.itemSize = CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT);
+    layout.minimumLineSpacing = 0;
+    layout.minimumInteritemSpacing = 0;
+    layout.itemSize = [UIScreen mainScreen].bounds.size;
 //    if (@available(iOS 11.0, *)) {
 //        layout.sectionInsetReference = UICollectionViewFlowLayoutSectionInsetFromContentInset;
 //    }
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    if (@available(iOS 11.0, *)) {
+        layout.sectionInsetReference = UICollectionViewFlowLayoutSectionInsetFromContentInset;
+    } else {
+        // Fallback on earlier versions
+    }
     if (self = [super initWithCollectionViewLayout:layout]) {
         self.modelArray = modelArray;
     }
@@ -39,11 +44,10 @@ static NSString * const reuseIdentifier = @"BRMediaCell";
     [super viewDidLoad];
     
     self.collectionView.pagingEnabled = YES;
-    self.collectionView.contentMode = UIViewContentModeCenter;
     self.collectionView.alwaysBounceHorizontal = YES;
     self.collectionView.showsHorizontalScrollIndicator = NO;
     self.collectionView.showsVerticalScrollIndicator = NO;
-    
+    self.automaticallyAdjustsScrollViewInsets = NO;
     // Register cell classes
     [self.collectionView registerClass:[BRMediaCell class] forCellWithReuseIdentifier:reuseIdentifier];
 }
@@ -70,20 +74,6 @@ static NSString * const reuseIdentifier = @"BRMediaCell";
     cell.model = model;
     
     return cell;
-}
-
-#pragma mark - UICollectionViewDelegateFlowLayout
-
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT);;
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-    return 0;
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
-    return 0;
 }
 
 #pragma mark - BRMediaCell delegate

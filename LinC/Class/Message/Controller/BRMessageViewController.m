@@ -617,10 +617,10 @@ typedef enum : NSUInteger {
         }
         else
         {
-            hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            hud.mode = MBProgressHUDModeText;
-            hud.label.text = NSLocalizedString(@"message.thumImageFail", @"thumbnail for failure!");
-            [hud hideAnimated:YES afterDelay:1.5];
+//            hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//            hud.mode = MBProgressHUDModeText;
+//            hud.label.text = NSLocalizedString(@"message.thumImageFail", @"thumbnail for failure!");
+//            [hud hideAnimated:YES afterDelay:1.5];
         }
     };
     
@@ -671,8 +671,8 @@ typedef enum : NSUInteger {
                             [weakSelf _reloadTableViewDataWithMessage:message];
                         }
                         else {
-                            hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                            hud.label.text = NSLocalizedString(@"message.voiceFail", @"voice for failure!");
+//                            hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//                            hud.label.text = NSLocalizedString(@"message.voiceFail", @"voice for failure!");
                         }
                     }];
                 }
@@ -831,7 +831,7 @@ typedef enum : NSUInteger {
     UIImage *image = [UIImage imageWithContentsOfFile:videoBody.thumbnailLocalPath];
 
     self.oldFrame = [messageCell.bubbleView convertRect:messageCell.bubbleView.videoImageView.frame toView:self.view];
-    CGRect newFrame = CGRectMake(0, 5, SCREEN_WIDTH, SCREEN_HEIGHT);
+    CGRect newFrame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     self.transitionView = [[UIImageView alloc] initWithFrame:self.oldFrame];
     self.transitionView.image = image;
     self.transitionView.contentMode = UIViewContentModeScaleAspectFit;
@@ -869,7 +869,7 @@ typedef enum : NSUInteger {
                 image = model.thumbnailImage;
             }
             self.oldFrame = [messageCell.bubbleView convertRect:messageCell.bubbleView.imageView.frame toView:self.view];
-            CGRect newFrame = CGRectMake(0, 5, SCREEN_WIDTH, SCREEN_HEIGHT);
+            CGRect newFrame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
             self.transitionView = [[UIImageView alloc] initWithFrame:self.oldFrame];
             self.transitionView.image = image;
             self.transitionView.contentMode = UIViewContentModeScaleAspectFit;
@@ -1925,7 +1925,7 @@ typedef enum : NSUInteger {
         }
         else{
             model = [[BRMessageModel alloc] initWithMessage:message];
-            model.failImageName = @"imageDownloadFail";
+            model.failImageName = @"image_download_fail";
         }
         
         if (model) {

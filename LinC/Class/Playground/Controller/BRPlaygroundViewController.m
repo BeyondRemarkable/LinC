@@ -80,18 +80,18 @@
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    return self.dataArray.count;
-    return 1;
+    return self.dataArray.count;
+//    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     BRLectureVideoCell *cell = [tableView dequeueReusableCellWithIdentifier:[BRLectureVideoCell reuseIdentifier] forIndexPath:indexPath];
-//    cell.model = self.dataArray[indexPath.row];
-    BRLectureVideoModel *model = [[BRLectureVideoModel alloc] init];
-    model.title = @"Financial Meeting Interview";
-    model.instructor = @"Michael Jiang";
-    model.detail = @"Test video. Try everything to avoid a bug!";
-    cell.model = model;
+    cell.model = self.dataArray[indexPath.row];
+//    BRLectureVideoModel *model = [[BRLectureVideoModel alloc] init];
+//    model.title = @"Financial Meeting Interview";
+//    model.instructor = @"Michael Jiang";
+//    model.detail = @"Test video. Try everything to avoid a bug!";
+//    cell.model = model;
 
     return cell;
 }
