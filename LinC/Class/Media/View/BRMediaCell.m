@@ -201,7 +201,6 @@
                 [[EMClient sharedClient].chatManager downloadMessageAttachment:model.message progress:^(int progress) {
                     weakSelf.videoView.downloadProgress = progress/100.0;
                     [center postNotificationName:BRVideoMessageDownloadResultNotification object:model.message userInfo:@{@"progress":@(progress/100.0)}];
-                    NSLog(@"下载进度 - %d", progress);
                 } completion:^(EMMessage *message, EMError *error) {
                     weakSelf.videoView.image = nil;
                     weakSelf.videoView.showDownloadProcess = NO;
