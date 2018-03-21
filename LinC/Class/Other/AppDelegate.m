@@ -170,10 +170,7 @@
             [[UIApplication sharedApplication] scheduleLocalNotification:notification];
             [[NSNotificationCenter defaultCenter] postNotificationName:kBRGroupRequestExtKey object:message];
             return;
-        } //else if (<#expression#>) {
-//            [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_CALL object:@{@"chatter":self.conversation.conversationId, @"type":[NSNumber numberWithInt:0]}];
-//        }
-//        [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_CALL object:@{@"chatter":self.conversation.conversationId, @"type":[NSNumber numberWithInt:0]}];
+        }
     }
 
         EMMessageBody *messageBody = message.body;

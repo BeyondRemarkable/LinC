@@ -1,16 +1,14 @@
  //
-//  DemoCallManager.m
-//  ChatDemo-UI3.0
+//  BRAudioCallManager.m
+//  LinC
 //
-//  Created by XieYajie on 22/11/2016.
-//  Copyright © 2016 XieYajie. All rights reserved.
+//  Created by zhe wu on 3/14/18.
+//  Copyright © 2017 BeyondRemarkable. All rights reserved.
 //
 
 #import "BRAudioCallManager.h"
 #import "BRSDKHelper.h"
-//#import "EMVideoRecorderPlugin.h"
-//#import "MainViewController.h"
-#import "EMCallViewController.h"
+#import "BRCallViewController.h"
 
 static BRAudioCallManager *callManager = nil;
 
@@ -22,7 +20,7 @@ static BRAudioCallManager *callManager = nil;
 
 @property (strong, nonatomic) EMCallSession *currentSession;
 
-@property (strong, nonatomic) EMCallViewController *currentController;
+@property (strong, nonatomic) BRCallViewController *currentController;
 
 @end
 
@@ -104,8 +102,10 @@ static BRAudioCallManager *callManager = nil;
 {
     [self hangupCallWithReason:EMCallEndReasonNoResponse];
     
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"call.autoHangup", @"No response and Hang up") delegate:self cancelButtonTitle:NSLocalizedString(@"ok", @"OK") otherButtonTitles:nil, nil];
-    [alertView show];
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:NSLocalizedString(@"No response and Hang up.", nil) preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *action = [UIAlertAction actionWithTitle:NSLocalizedString(@"ok", @"OK") style:UIAlertActionStyleDefault handler:nil];
+    [alertVC addAction:action];
+    [self pushAlertView:alertVC];
 }
 
 - (void)_startCallTimer
@@ -131,6 +131,14 @@ static BRAudioCallManager *callManager = nil;
         return ;
     }
     
+    if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateBackground) {
+        UILocalNotification *notification = [[UILocalNotification alloc] init];
+        notification.alertBody = [@"You have a incoming call from " stringByAppendingString: aSession.remoteName];
+        notification.alertAction = @"Open";
+        notification.soundName = UILocalNotificationDefaultSoundName;
+        [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
+    }
+    
     if ([BRSDKHelper shareHelper].isShowingimagePicker) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"hideImagePicker" object:nil];
     }
@@ -145,7 +153,7 @@ static BRAudioCallManager *callManager = nil;
         [self _startCallTimer];
         
         self.currentSession = aSession;
-        self.currentController = [[EMCallViewController alloc] initWithCallSession:self.currentSession];
+        self.currentController = [[BRCallViewController alloc] initWithCallSession:self.currentSession];
         self.currentController.modalPresentationStyle = UIModalPresentationOverFullScreen;
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -195,47 +203,50 @@ static BRAudioCallManager *callManager = nil;
             switch (aReason) {
                 case EMCallEndReasonNoResponse:
                 {
-                    reasonStr = NSLocalizedString(@"NO response.", nil);
+                    reasonStr = NSLocalizedString(@"No response.", nil);
                 }
                     break;
                 case EMCallEndReasonDecline:
                 {
-                    reasonStr = NSLocalizedString(@"Reject the call", nil);
+                    reasonStr = [aSession.remoteName stringByAppendingString:NSLocalizedString(@" reject your call.", nil)];
                 }
                     break;
                 case EMCallEndReasonBusy:
                 {
-                    reasonStr = NSLocalizedString(@"In the call...", nil);
+                    reasonStr = [aSession.remoteName stringByAppendingString:NSLocalizedString(@" in the call...", nil)];
                 }
                     break;
                 case EMCallEndReasonFailed:
                 {
-                    reasonStr = NSLocalizedString(@"Connect failed", nil);
+                    reasonStr = NSLocalizedString(@"Connect failed.", nil);
                 }
                     break;
                 case EMCallEndReasonUnsupported:
                 {
-                    reasonStr = NSLocalizedString(@"Unsupported", nil);
+                    reasonStr = NSLocalizedString(@"Unsupported.", nil);
                 }
                     break;
                 case EMCallEndReasonRemoteOffline:
                 {
-            
-                    reasonStr = NSLocalizedString(@"Remote offline", nil);
+                    reasonStr = [aSession.remoteName stringByAppendingString:NSLocalizedString(@" offline.", nil)];
                 }
                     break;
                 default:
                     break;
             }
-            
+            UIAlertController *alertVC = nil;
+            UIAlertAction *alertAction = nil;
             if (aError) {
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:aError.errorDescription delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", @"OK") otherButtonTitles:nil, nil];
-                [alertView show];
+                alertVC = [UIAlertController alertControllerWithTitle:@"Error" message:aError.errorDescription preferredStyle:UIAlertControllerStyleAlert];
+                alertAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"ok", @"OK") style:UIAlertActionStyleDefault handler:nil];
+                [alertVC addAction:alertAction];
             }
             else{
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:reasonStr delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", @"OK") otherButtonTitles:nil, nil];
-                [alertView show];
+                alertVC = [UIAlertController alertControllerWithTitle:nil message:reasonStr preferredStyle:UIAlertControllerStyleAlert];
+                alertAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"ok", @"OK") style:UIAlertActionStyleDefault handler:nil];
+                [alertVC addAction:alertAction];
             }
+            [self pushAlertView:alertVC];
         }
     }
 }
@@ -260,7 +271,7 @@ static BRAudioCallManager *callManager = nil;
 
 - (void)callRemoteOffline:(NSString *)aRemoteName
 {
-    NSString *text = [[EMClient sharedClient].callManager getCallOptions].offlineMessageText;
+    NSString *text = NSLocalizedString(@"Audio call", nil);
     EMTextMessageBody *body = [[EMTextMessageBody alloc] initWithText:text];
     NSString *fromStr = [EMClient sharedClient].currentUsername;
     EMMessage *message = [[EMMessage alloc] initWithConversationID:aRemoteName from:fromStr to:aRemoteName body:body ext:@{@"em_apns_ext":@{@"em_push_title":text}}];
@@ -279,20 +290,20 @@ static BRAudioCallManager *callManager = nil;
     
     EMCallType type = (EMCallType)[[notify.object objectForKey:@"type"] integerValue];
     if (type == EMCallTypeVideo) {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-        
-        UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"title.conference.default", @"Default") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [self makeCallWithUsername:[notify.object valueForKey:@"chatter"] type:type isCustomVideoData:NO];
-        }];
-        [alertController addAction:defaultAction];
-        
-        UIAlertAction *customAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"title.conference.custom", @"Custom") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [self makeCallWithUsername:[notify.object valueForKey:@"chatter"] type:type isCustomVideoData:YES];
-        }];
-        [alertController addAction:customAction];
-        
-        [alertController addAction: [UIAlertAction actionWithTitle:NSLocalizedString(@"cancel", @"Cancel") style: UIAlertActionStyleCancel handler:nil]];
-        
+//        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+//
+//        UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"title.conference.default", @"Default") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//            [self makeCallWithUsername:[notify.object valueForKey:@"chatter"] type:type isCustomVideoData:NO];
+//        }];
+//        [alertController addAction:defaultAction];
+//
+//        UIAlertAction *customAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"title.conference.custom", @"Custom") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//            [self makeCallWithUsername:[notify.object valueForKey:@"chatter"] type:type isCustomVideoData:YES];
+//        }];
+//        [alertController addAction:customAction];
+//
+//        [alertController addAction: [UIAlertAction actionWithTitle:NSLocalizedString(@"cancel", @"Cancel") style: UIAlertActionStyleCancel handler:nil]];
+//        [self pushAlertView:alertController];
 //        [self.mainController.navigationController presentViewController:alertController animated:YES completion:nil];
     } else {
         [self makeCallWithUsername:[notify.object valueForKey:@"chatter"] type:type isCustomVideoData:NO];
@@ -321,8 +332,10 @@ static BRAudioCallManager *callManager = nil;
         BRAudioCallManager *strongSelf = weakSelf;
         if (strongSelf) {
             if (aError || aCallSession == nil) {
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"call.initFailed", @"Establish call failure") message:aError.errorDescription delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", @"OK") otherButtonTitles:nil, nil];
-                [alertView show];
+                UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"Error" message:aError.errorDescription preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *action = [UIAlertAction actionWithTitle:NSLocalizedString(@"ok", @"OK") style:UIAlertActionStyleDefault handler:nil];
+                [alertVC addAction:action];
+                [self pushAlertView:alertVC];
                 return;
             }
             
@@ -331,9 +344,9 @@ static BRAudioCallManager *callManager = nil;
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if (aType == EMCallTypeVideo) {
-                        strongSelf.currentController = [[EMCallViewController alloc] initWithCallSession:strongSelf.currentSession isCustomData:aIsCustomVideo];
+                        strongSelf.currentController = [[BRCallViewController alloc] initWithCallSession:strongSelf.currentSession isCustomData:aIsCustomVideo];
                     } else {
-                        strongSelf.currentController = [[EMCallViewController alloc] initWithCallSession:strongSelf.currentSession];
+                        strongSelf.currentController = [[BRCallViewController alloc] initWithCallSession:strongSelf.currentSession];
                     }
                     
                     if (strongSelf.currentController) {
@@ -373,8 +386,11 @@ static BRAudioCallManager *callManager = nil;
         if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (error.code == EMErrorNetworkUnavailable) {
-                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"network.disconnection", @"Network disconnection") delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", @"OK") otherButtonTitles:nil, nil];
-                    [alertView show];
+                    
+                    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:NSLocalizedString(@"Network disconnection error.", nil) preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *action = [UIAlertAction actionWithTitle:NSLocalizedString(@"ok", @"OK") style:UIAlertActionStyleDefault handler:nil];
+                    [alertVC addAction:action];
+                    [self pushAlertView:alertVC];
                 }
                 else{
                     [weakSelf hangupCallWithReason:EMCallEndReasonFailed];
@@ -397,6 +413,25 @@ static BRAudioCallManager *callManager = nil;
     }
     
     [self _clearCurrentCallViewAndData];
+}
+
+
+/**
+ 弹出alert view
+
+ @param alertController alertView
+ */
+- (void)pushAlertView:(UIAlertController *)alertController {
+    id rootViewController = [UIApplication sharedApplication].delegate.window.rootViewController;
+    if([rootViewController isKindOfClass:[UINavigationController class]])
+    {
+        rootViewController = ((UINavigationController *)rootViewController).viewControllers.firstObject;
+    }
+    if([rootViewController isKindOfClass:[UITabBarController class]])
+    {
+        rootViewController = ((UITabBarController *)rootViewController).selectedViewController;
+    }
+    [rootViewController presentViewController:alertController animated:YES completion:nil];
 }
 
 @end

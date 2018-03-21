@@ -1,9 +1,9 @@
 //
-//  DemoCallManager.h
-//  ChatDemo-UI3.0
+//  BRAudioCallManager.h
+//  LinC
 //
-//  Created by XieYajie on 22/11/2016.
-//  Copyright © 2016 XieYajie. All rights reserved.
+//  Created by zhe wu on 3/14/18.
+//  Copyright © 2017 BeyondRemarkable. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		270BD1191F9835C000266E6A /* Location.plist in Resources */ = {isa = PBXBuildFile; fileRef = 270BD1181F9835C000266E6A /* Location.plist */; };
 		270BD11C1FA27B2700266E6A /* BRAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 270BD11B1FA27B2700266E6A /* BRAboutViewController.m */; };
+		273A66BA2051FEBF006C2A94 /* BRPlaygroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 273A66B92051FEBF006C2A94 /* BRPlaygroundViewController.m */; };
 		2744C4651FB68B2B007C5095 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2744C4631FB68B2A007C5095 /* LaunchScreen.storyboard */; };
 		2744C4681FB68B83007C5095 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2744C46A1FB68B83007C5095 /* Localizable.strings */; };
 		2744C4741FC377FC007C5095 /* BRBlackListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2744C4721FC377FC007C5095 /* BRBlackListViewController.m */; };
@@ -143,24 +144,10 @@
 		E9CC14211F7C4E3C0070E4AC /* BRGroupListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CC14201F7C4E3C0070E4AC /* BRGroupListTableViewController.m */; };
 		E9F29BB11F7EE59E0061252D /* BRGroupMemberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F29BAF1F7EE59E0061252D /* BRGroupMemberTableViewCell.m */; };
 		E9F29BB21F7EE59E0061252D /* BRGroupMemberTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9F29BB01F7EE59E0061252D /* BRGroupMemberTableViewCell.xib */; };
-		E9F3BC812044B865005B2F02 /* ChatDemoHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F3BC802044B864005B2F02 /* ChatDemoHelper.m */; };
-		E9F3BCE42044BC6D005B2F02 /* CallResolutionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F3BC852044BC6D005B2F02 /* CallResolutionViewController.m */; };
-		E9F3BCE52044BC6D005B2F02 /* CallSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F3BC872044BC6D005B2F02 /* CallSettingViewController.m */; };
 		E9F3BCE62044BC6D005B2F02 /* BRAudioCallManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F3BC892044BC6D005B2F02 /* BRAudioCallManager.m */; };
 		E9F3BCE72044BC6D005B2F02 /* EMCallOptions+NSCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F3BC8B2044BC6D005B2F02 /* EMCallOptions+NSCoding.m */; };
-		E9F3BCE82044BC6D005B2F02 /* EMCallViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = E9F3BC8D2044BC6D005B2F02 /* EMCallViewController.mm */; };
-		E9F3BCE92044BC6D005B2F02 /* EMCallViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9F3BC8E2044BC6D005B2F02 /* EMCallViewController.xib */; };
-		E9F3BCEA2044BC6D005B2F02 /* EMVideoInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F3BC902044BC6D005B2F02 /* EMVideoInfoViewController.m */; };
-		E9F3BCEB2044BC6D005B2F02 /* EMVideoInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9F3BC912044BC6D005B2F02 /* EMVideoInfoViewController.xib */; };
-		E9F3BCEC2044BC6D005B2F02 /* ConferenceViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = E9F3BC942044BC6D005B2F02 /* ConferenceViewController.mm */; };
-		E9F3BCED2044BC6D005B2F02 /* ConferenceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9F3BC952044BC6D005B2F02 /* ConferenceViewController.xib */; };
-		E9F3BCEE2044BC6D005B2F02 /* DemoConfManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F3BC972044BC6D005B2F02 /* DemoConfManager.m */; };
-		E9F3BCEF2044BC6D005B2F02 /* EMConfUserSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F3BC992044BC6D005B2F02 /* EMConfUserSelectionViewController.m */; };
-		E9F3BCF02044BC6D005B2F02 /* EMConfAddUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F3BC9C2044BC6D005B2F02 /* EMConfAddUserCell.m */; };
-		E9F3BCF12044BC6D005B2F02 /* EMConfAddUserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9F3BC9D2044BC6D005B2F02 /* EMConfAddUserCell.xib */; };
-		E9F3BCF22044BC6D005B2F02 /* EMConfSelectionUserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9F3BC9E2044BC6D005B2F02 /* EMConfSelectionUserView.xib */; };
-		E9F3BCF32044BC6D005B2F02 /* EMConfUserVideoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9F3BC9F2044BC6D005B2F02 /* EMConfUserVideoView.xib */; };
-		E9F3BCF42044BC6D005B2F02 /* EMConfUserVoiceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9F3BCA02044BC6D005B2F02 /* EMConfUserVoiceView.xib */; };
+		E9F3BCE82044BC6D005B2F02 /* BRCallViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = E9F3BC8D2044BC6D005B2F02 /* BRCallViewController.mm */; };
+		E9F3BCE92044BC6D005B2F02 /* BRCallViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9F3BC8E2044BC6D005B2F02 /* BRCallViewController.xib */; };
 		E9F3BCF52044BC6D005B2F02 /* Button_Answer.png in Resources */ = {isa = PBXBuildFile; fileRef = E9F3BCA22044BC6D005B2F02 /* Button_Answer.png */; };
 		E9F3BCF62044BC6D005B2F02 /* Button_Answer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9F3BCA32044BC6D005B2F02 /* Button_Answer@2x.png */; };
 		E9F3BCF72044BC6D005B2F02 /* Button_Answer@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9F3BCA42044BC6D005B2F02 /* Button_Answer@3x.png */; };
@@ -224,7 +211,6 @@
 		E9F3BD312044BC6D005B2F02 /* conf_uncheck@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9F3BCDE2044BC6D005B2F02 /* conf_uncheck@2x.png */; };
 		E9F3BD322044BC6D005B2F02 /* conf_uncheck@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9F3BCDF2044BC6D005B2F02 /* conf_uncheck@3x.png */; };
 		E9F3BD332044BC6D005B2F02 /* default_avatar.png in Resources */ = {isa = PBXBuildFile; fileRef = E9F3BCE02044BC6D005B2F02 /* default_avatar.png */; };
-		E9F3BD352044C7AD005B2F02 /* ChatDemoHelper.h in Sources */ = {isa = PBXBuildFile; fileRef = E9F3BC7F2044B864005B2F02 /* ChatDemoHelper.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -248,6 +234,8 @@
 		270BD1181F9835C000266E6A /* Location.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Location.plist; sourceTree = "<group>"; };
 		270BD11A1FA27B2700266E6A /* BRAboutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRAboutViewController.h; sourceTree = "<group>"; };
 		270BD11B1FA27B2700266E6A /* BRAboutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BRAboutViewController.m; sourceTree = "<group>"; };
+		273A66B82051FEBF006C2A94 /* BRPlaygroundViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRPlaygroundViewController.h; sourceTree = "<group>"; };
+		273A66B92051FEBF006C2A94 /* BRPlaygroundViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BRPlaygroundViewController.m; sourceTree = "<group>"; };
 		2744C4641FB68B2A007C5095 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2744C4661FB68B4B007C5095 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		2744C4671FB68B55007C5095 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
@@ -504,35 +492,13 @@
 		E9F29BAF1F7EE59E0061252D /* BRGroupMemberTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRGroupMemberTableViewCell.m; sourceTree = "<group>"; };
 		E9F29BB01F7EE59E0061252D /* BRGroupMemberTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRGroupMemberTableViewCell.xib; sourceTree = "<group>"; };
 		E9F29BB31F7EF31A0061252D /* BRContactListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRContactListViewController.h; sourceTree = "<group>"; };
-		E9F3BC7F2044B864005B2F02 /* ChatDemoHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatDemoHelper.h; sourceTree = "<group>"; };
-		E9F3BC802044B864005B2F02 /* ChatDemoHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatDemoHelper.m; sourceTree = "<group>"; };
-		E9F3BC842044BC6D005B2F02 /* CallResolutionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallResolutionViewController.h; sourceTree = "<group>"; };
-		E9F3BC852044BC6D005B2F02 /* CallResolutionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallResolutionViewController.m; sourceTree = "<group>"; };
-		E9F3BC862044BC6D005B2F02 /* CallSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallSettingViewController.h; sourceTree = "<group>"; };
-		E9F3BC872044BC6D005B2F02 /* CallSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallSettingViewController.m; sourceTree = "<group>"; };
 		E9F3BC882044BC6D005B2F02 /* BRAudioCallManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRAudioCallManager.h; sourceTree = "<group>"; };
 		E9F3BC892044BC6D005B2F02 /* BRAudioCallManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRAudioCallManager.m; sourceTree = "<group>"; };
 		E9F3BC8A2044BC6D005B2F02 /* EMCallOptions+NSCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EMCallOptions+NSCoding.h"; sourceTree = "<group>"; };
 		E9F3BC8B2044BC6D005B2F02 /* EMCallOptions+NSCoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EMCallOptions+NSCoding.m"; sourceTree = "<group>"; };
-		E9F3BC8C2044BC6D005B2F02 /* EMCallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMCallViewController.h; sourceTree = "<group>"; };
-		E9F3BC8D2044BC6D005B2F02 /* EMCallViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EMCallViewController.mm; sourceTree = "<group>"; };
-		E9F3BC8E2044BC6D005B2F02 /* EMCallViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EMCallViewController.xib; sourceTree = "<group>"; };
-		E9F3BC8F2044BC6D005B2F02 /* EMVideoInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMVideoInfoViewController.h; sourceTree = "<group>"; };
-		E9F3BC902044BC6D005B2F02 /* EMVideoInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMVideoInfoViewController.m; sourceTree = "<group>"; };
-		E9F3BC912044BC6D005B2F02 /* EMVideoInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EMVideoInfoViewController.xib; sourceTree = "<group>"; };
-		E9F3BC932044BC6D005B2F02 /* ConferenceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConferenceViewController.h; sourceTree = "<group>"; };
-		E9F3BC942044BC6D005B2F02 /* ConferenceViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ConferenceViewController.mm; sourceTree = "<group>"; };
-		E9F3BC952044BC6D005B2F02 /* ConferenceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConferenceViewController.xib; sourceTree = "<group>"; };
-		E9F3BC962044BC6D005B2F02 /* DemoConfManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoConfManager.h; sourceTree = "<group>"; };
-		E9F3BC972044BC6D005B2F02 /* DemoConfManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoConfManager.m; sourceTree = "<group>"; };
-		E9F3BC982044BC6D005B2F02 /* EMConfUserSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMConfUserSelectionViewController.h; sourceTree = "<group>"; };
-		E9F3BC992044BC6D005B2F02 /* EMConfUserSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMConfUserSelectionViewController.m; sourceTree = "<group>"; };
-		E9F3BC9B2044BC6D005B2F02 /* EMConfAddUserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMConfAddUserCell.h; sourceTree = "<group>"; };
-		E9F3BC9C2044BC6D005B2F02 /* EMConfAddUserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMConfAddUserCell.m; sourceTree = "<group>"; };
-		E9F3BC9D2044BC6D005B2F02 /* EMConfAddUserCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EMConfAddUserCell.xib; sourceTree = "<group>"; };
-		E9F3BC9E2044BC6D005B2F02 /* EMConfSelectionUserView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EMConfSelectionUserView.xib; sourceTree = "<group>"; };
-		E9F3BC9F2044BC6D005B2F02 /* EMConfUserVideoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EMConfUserVideoView.xib; sourceTree = "<group>"; };
-		E9F3BCA02044BC6D005B2F02 /* EMConfUserVoiceView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EMConfUserVoiceView.xib; sourceTree = "<group>"; };
+		E9F3BC8C2044BC6D005B2F02 /* BRCallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRCallViewController.h; sourceTree = "<group>"; };
+		E9F3BC8D2044BC6D005B2F02 /* BRCallViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BRCallViewController.mm; sourceTree = "<group>"; };
+		E9F3BC8E2044BC6D005B2F02 /* BRCallViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRCallViewController.xib; sourceTree = "<group>"; };
 		E9F3BCA22044BC6D005B2F02 /* Button_Answer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Button_Answer.png; sourceTree = "<group>"; };
 		E9F3BCA32044BC6D005B2F02 /* Button_Answer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Button_Answer@2x.png"; sourceTree = "<group>"; };
 		E9F3BCA42044BC6D005B2F02 /* Button_Answer@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Button_Answer@3x.png"; sourceTree = "<group>"; };
@@ -596,7 +562,6 @@
 		E9F3BCDE2044BC6D005B2F02 /* conf_uncheck@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "conf_uncheck@2x.png"; sourceTree = "<group>"; };
 		E9F3BCDF2044BC6D005B2F02 /* conf_uncheck@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "conf_uncheck@3x.png"; sourceTree = "<group>"; };
 		E9F3BCE02044BC6D005B2F02 /* default_avatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default_avatar.png; sourceTree = "<group>"; };
-		E9F3BCE22044BC6D005B2F02 /* EMVideoRecorderPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMVideoRecorderPlugin.h; sourceTree = "<group>"; };
 		E9F903DB20222C5E00F7248C /* BRGroupIconGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRGroupIconGenerator.h; sourceTree = "<group>"; };
 		E9F903DC20222C5E00F7248C /* BRGroupIconGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BRGroupIconGenerator.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -659,6 +624,23 @@
 				94F6AAD2F8CDC6DB43F6386A /* Pods-LinC.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		273A66B62051F77B006C2A94 /* Playground */ = {
+			isa = PBXGroup;
+			children = (
+				273A66B72051F8D8006C2A94 /* Controller */,
+			);
+			path = Playground;
+			sourceTree = "<group>";
+		};
+		273A66B72051F8D8006C2A94 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				273A66B82051FEBF006C2A94 /* BRPlaygroundViewController.h */,
+				273A66B92051FEBF006C2A94 /* BRPlaygroundViewController.m */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		27A094CC20327A6A00F9F846 /* Controller */ = {
@@ -797,8 +779,7 @@
 			isa = PBXGroup;
 			children = (
 				E9F3BC822044BC6D005B2F02 /* Call */,
-				E9F3BC7F2044B864005B2F02 /* ChatDemoHelper.h */,
-				E9F3BC802044B864005B2F02 /* ChatDemoHelper.m */,
+				273A66B62051F77B006C2A94 /* Playground */,
 				E96C7B521F85C8B100C0DC7E /* CoreData */,
 				E90F7AA51F670DC300333382 /* Account */,
 				E90F7AB11F670DC300333382 /* ContactList */,
@@ -1243,9 +1224,7 @@
 			isa = PBXGroup;
 			children = (
 				E9F3BC832044BC6D005B2F02 /* 1v1call */,
-				E9F3BC922044BC6D005B2F02 /* Conference */,
 				E9F3BCA12044BC6D005B2F02 /* imgs */,
-				E9F3BCE12044BC6D005B2F02 /* plugin */,
 			);
 			path = Call;
 			sourceTree = "<group>";
@@ -1253,50 +1232,15 @@
 		E9F3BC832044BC6D005B2F02 /* 1v1call */ = {
 			isa = PBXGroup;
 			children = (
-				E9F3BC842044BC6D005B2F02 /* CallResolutionViewController.h */,
-				E9F3BC852044BC6D005B2F02 /* CallResolutionViewController.m */,
-				E9F3BC862044BC6D005B2F02 /* CallSettingViewController.h */,
-				E9F3BC872044BC6D005B2F02 /* CallSettingViewController.m */,
 				E9F3BC882044BC6D005B2F02 /* BRAudioCallManager.h */,
 				E9F3BC892044BC6D005B2F02 /* BRAudioCallManager.m */,
 				E9F3BC8A2044BC6D005B2F02 /* EMCallOptions+NSCoding.h */,
 				E9F3BC8B2044BC6D005B2F02 /* EMCallOptions+NSCoding.m */,
-				E9F3BC8C2044BC6D005B2F02 /* EMCallViewController.h */,
-				E9F3BC8D2044BC6D005B2F02 /* EMCallViewController.mm */,
-				E9F3BC8E2044BC6D005B2F02 /* EMCallViewController.xib */,
-				E9F3BC8F2044BC6D005B2F02 /* EMVideoInfoViewController.h */,
-				E9F3BC902044BC6D005B2F02 /* EMVideoInfoViewController.m */,
-				E9F3BC912044BC6D005B2F02 /* EMVideoInfoViewController.xib */,
+				E9F3BC8C2044BC6D005B2F02 /* BRCallViewController.h */,
+				E9F3BC8D2044BC6D005B2F02 /* BRCallViewController.mm */,
+				E9F3BC8E2044BC6D005B2F02 /* BRCallViewController.xib */,
 			);
 			path = 1v1call;
-			sourceTree = "<group>";
-		};
-		E9F3BC922044BC6D005B2F02 /* Conference */ = {
-			isa = PBXGroup;
-			children = (
-				E9F3BC932044BC6D005B2F02 /* ConferenceViewController.h */,
-				E9F3BC942044BC6D005B2F02 /* ConferenceViewController.mm */,
-				E9F3BC952044BC6D005B2F02 /* ConferenceViewController.xib */,
-				E9F3BC962044BC6D005B2F02 /* DemoConfManager.h */,
-				E9F3BC972044BC6D005B2F02 /* DemoConfManager.m */,
-				E9F3BC982044BC6D005B2F02 /* EMConfUserSelectionViewController.h */,
-				E9F3BC992044BC6D005B2F02 /* EMConfUserSelectionViewController.m */,
-				E9F3BC9A2044BC6D005B2F02 /* Views */,
-			);
-			path = Conference;
-			sourceTree = "<group>";
-		};
-		E9F3BC9A2044BC6D005B2F02 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				E9F3BC9B2044BC6D005B2F02 /* EMConfAddUserCell.h */,
-				E9F3BC9C2044BC6D005B2F02 /* EMConfAddUserCell.m */,
-				E9F3BC9D2044BC6D005B2F02 /* EMConfAddUserCell.xib */,
-				E9F3BC9E2044BC6D005B2F02 /* EMConfSelectionUserView.xib */,
-				E9F3BC9F2044BC6D005B2F02 /* EMConfUserVideoView.xib */,
-				E9F3BCA02044BC6D005B2F02 /* EMConfUserVoiceView.xib */,
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		E9F3BCA12044BC6D005B2F02 /* imgs */ = {
@@ -1367,14 +1311,6 @@
 				E9F3BCE02044BC6D005B2F02 /* default_avatar.png */,
 			);
 			path = imgs;
-			sourceTree = "<group>";
-		};
-		E9F3BCE12044BC6D005B2F02 /* plugin */ = {
-			isa = PBXGroup;
-			children = (
-				E9F3BCE22044BC6D005B2F02 /* EMVideoRecorderPlugin.h */,
-			);
-			path = plugin;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1503,11 +1439,10 @@
 				27A094CF20327B2100F9F846 /* Area Code.plist in Resources */,
 				E90F7B791F670DC300333382 /* Account.storyboard in Resources */,
 				E90F7BC61F670DC400333382 /* BRMediaBrowserViewController.xib in Resources */,
-				E9F3BCE92044BC6D005B2F02 /* EMCallViewController.xib in Resources */,
+				E9F3BCE92044BC6D005B2F02 /* BRCallViewController.xib in Resources */,
 				E9F3BD272044BC6D005B2F02 /* conf_check@2x.png in Resources */,
 				E9F3BD122044BC6D005B2F02 /* Button_Mute_active@3x.png in Resources */,
 				E9F3BD1B2044BC6D005B2F02 /* Button_Speaker_active@3x.png in Resources */,
-				E9F3BCF32044BC6D005B2F02 /* EMConfUserVideoView.xib in Resources */,
 				E9F3BD1A2044BC6D005B2F02 /* Button_Speaker_active@2x.png in Resources */,
 				E9F3BD002044BC6D005B2F02 /* Button_Camera_disabled@3x.png in Resources */,
 				E9F3BD242044BC6D005B2F02 /* Button_Stats_disabled@3x.png in Resources */,
@@ -1524,9 +1459,7 @@
 				E9F3BD1F2044BC6D005B2F02 /* Button_Stats.png in Resources */,
 				E9F3BD062044BC6D005B2F02 /* Button_End@3x.png in Resources */,
 				E9F3BD042044BC6D005B2F02 /* Button_End.png in Resources */,
-				E9F3BCED2044BC6D005B2F02 /* ConferenceViewController.xib in Resources */,
 				E9F3BD0A2044BC6D005B2F02 /* Button_Minimize_disabled.png in Resources */,
-				E9F3BCEB2044BC6D005B2F02 /* EMVideoInfoViewController.xib in Resources */,
 				E9F3BD102044BC6D005B2F02 /* Button_Mute_active.png in Resources */,
 				E9F3BD282044BC6D005B2F02 /* conf_check@3x.png in Resources */,
 				E9F3BD032044BC6D005B2F02 /* Button_Cancel_Call@3x.png in Resources */,
@@ -1542,7 +1475,6 @@
 				E9F29BB21F7EE59E0061252D /* BRGroupMemberTableViewCell.xib in Resources */,
 				E9F3BCF52044BC6D005B2F02 /* Button_Answer.png in Resources */,
 				E9F3BD132044BC6D005B2F02 /* Button_Mute_disabled.png in Resources */,
-				E9F3BCF12044BC6D005B2F02 /* EMConfAddUserCell.xib in Resources */,
 				E9F3BD052044BC6D005B2F02 /* Button_End@2x.png in Resources */,
 				E9F3BD012044BC6D005B2F02 /* Button_Cancel_Call.png in Resources */,
 				E9F3BD2E2044BC6D005B2F02 /* conf_plus@3x.png in Resources */,
@@ -1569,7 +1501,6 @@
 				E9F3BD152044BC6D005B2F02 /* Button_Mute_disabled@3x.png in Resources */,
 				E90F7BCA1F670DC400333382 /* ProvincesAndCities.plist in Resources */,
 				E9F3BD322044BC6D005B2F02 /* conf_uncheck@3x.png in Resources */,
-				E9F3BCF22044BC6D005B2F02 /* EMConfSelectionUserView.xib in Resources */,
 				E90F7B8F1F670DC300333382 /* BRConversationCell.xib in Resources */,
 				E9F3BD072044BC6D005B2F02 /* Button_Minimize.png in Resources */,
 				E9F3BD1C2044BC6D005B2F02 /* Button_Speaker_disabled.png in Resources */,
@@ -1581,7 +1512,6 @@
 				E9F3BCF72044BC6D005B2F02 /* Button_Answer@3x.png in Resources */,
 				E9F3BD1E2044BC6D005B2F02 /* Button_Speaker_disabled@3x.png in Resources */,
 				E998915A1FDB0ECB0005EE36 /* BRConversation.storyboard in Resources */,
-				E9F3BCF42044BC6D005B2F02 /* EMConfUserVoiceView.xib in Resources */,
 				E9F3BCFA2044BC6D005B2F02 /* Button_Camera@3x.png in Resources */,
 				E9F3BCFE2044BC6D005B2F02 /* Button_Camera_disabled.png in Resources */,
 				E9F3BD312044BC6D005B2F02 /* conf_uncheck@2x.png in Resources */,
@@ -1669,10 +1599,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				E90AE49D20474F5F00939518 /* libffmpeg-ios-full.a in Sources */,
-				E9F3BD352044C7AD005B2F02 /* ChatDemoHelper.h in Sources */,
 				27760F98202F592300BD082D /* BRGroupIconGenerator.h in Sources */,
 				27760F99202F592300BD082D /* BRGroupIconGenerator.m in Sources */,
-				E9F3BCEE2044BC6D005B2F02 /* DemoConfManager.m in Sources */,
 				27760F9A202F592300BD082D /* BRGroupModel.h in Sources */,
 				27760F9B202F592300BD082D /* BRGroupModel.m in Sources */,
 				E90F7BD51F670DC400333382 /* BRUserSettingTableViewController.m in Sources */,
@@ -1693,7 +1621,7 @@
 				E95FA8CB1F7065C50023BB1C /* BRRequestMessageTableViewController.m in Sources */,
 				E90F7B811F670DC300333382 /* BRContactListViewController.m in Sources */,
 				E90F7BC41F670DC400333382 /* Common.m in Sources */,
-				E9F3BCE82044BC6D005B2F02 /* EMCallViewController.mm in Sources */,
+				E9F3BCE82044BC6D005B2F02 /* BRCallViewController.mm in Sources */,
 				E90F7BAF1F670DC400333382 /* BREmojiEmoticons.m in Sources */,
 				E90F7BAC1F670DC300333382 /* BRChatToolbarItem.m in Sources */,
 				E90F7BCF1F670DC400333382 /* BRQRCodeViewController.m in Sources */,
@@ -1717,19 +1645,18 @@
 				2744C4741FC377FC007C5095 /* BRBlackListViewController.m in Sources */,
 				E90F7BA41F670DC300333382 /* BRCDDeviceManager+ProximitySensor.m in Sources */,
 				E90F7BB41F670DC400333382 /* BRVoiceConverter.mm in Sources */,
-				E9F3BCEF2044BC6D005B2F02 /* EMConfUserSelectionViewController.m in Sources */,
 				E96C7B6A1F87E0B400C0DC7E /* BRCoreDataManager.m in Sources */,
 				270BD11C1FA27B2700266E6A /* BRAboutViewController.m in Sources */,
 				E90F7BBD1F670DC400333382 /* BRFaceView.m in Sources */,
 				E90F7BA61F670DC300333382 /* BRLocationViewController.m in Sources */,
 				E90F7BD61F670DC400333382 /* BRWhatsUpViewController.m in Sources */,
+				273A66BA2051FEBF006C2A94 /* BRPlaygroundViewController.m in Sources */,
 				E90F7B961F670DC300333382 /* BRNavigationController.m in Sources */,
 				276398FD2022650500222875 /* UIView+NavigationBar.m in Sources */,
 				E90F7BD31F670DC400333382 /* BRUserInfoViewController.m in Sources */,
 				E90F7B9C1F670DC300333382 /* BRBubbleView+Gif.m in Sources */,
 				E90F7BD91F67368200333382 /* UIView+Animation.m in Sources */,
 				E90F7BB51F670DC400333382 /* wav.mm in Sources */,
-				E9F3BCE52044BC6D005B2F02 /* CallSettingViewController.m in Sources */,
 				E996231D1F794B5A00A90FD2 /* BRFileWithNewRequestData.m in Sources */,
 				E90F7BBB1F670DC400333382 /* BRChatToolbar.m in Sources */,
 				E90F7B831F670DC300333382 /* BRFriendInfoTableViewController.m in Sources */,
@@ -1747,12 +1674,10 @@
 				E90F7B891F670DC300333382 /* BRConversationListViewController.m in Sources */,
 				E90F7BB31F670DC400333382 /* BRMessageReadManager.m in Sources */,
 				2744C4771FC37A1E007C5095 /* BRGeneralSettingViewController.m in Sources */,
-				E9F3BC812044B865005B2F02 /* ChatDemoHelper.m in Sources */,
 				E90F7BA31F670DC300333382 /* BRCDDeviceManager+Microphone.m in Sources */,
 				E90F7BC31F670DC400333382 /* AppDelegate.m in Sources */,
 				E99891601FDB2DE20005EE36 /* BRCreateGroupChatTableViewController.m in Sources */,
 				E90F7BB61F670DC400333382 /* BRBaseMessageCell.m in Sources */,
-				E9F3BCF02044BC6D005B2F02 /* EMConfAddUserCell.m in Sources */,
 				E90F7BA11F670DC300333382 /* BRBubbleView+Voice.m in Sources */,
 				E90F7B861F670DC300333382 /* BRContactListModel.m in Sources */,
 				E90F7BA81F670DC300333382 /* amrFileCodec.mm in Sources */,
@@ -1769,18 +1694,15 @@
 				E9C5F3F81F75AE6D0073A86E /* BRNewFriendTableViewController.m in Sources */,
 				E96C7B671F87E09A00C0DC7E /* BRCoreDataStack.m in Sources */,
 				E90F7BA51F670DC300333382 /* BRCDDeviceManager+Remind.m in Sources */,
-				E9F3BCE42044BC6D005B2F02 /* CallResolutionViewController.m in Sources */,
 				E90F7BBF1F670DC400333382 /* BRMessageCell.m in Sources */,
 				27A094CB20322E6F00F9F846 /* BRRegisterMethodViewController.m in Sources */,
 				E90F7BC11F670DC400333382 /* BRRecordView.m in Sources */,
 				E90F7BA71F670DC300333382 /* BRMessageViewController.m in Sources */,
 				E90F7B7F1F670DC300333382 /* BRSearchFriendViewController.m in Sources */,
-				E9F3BCEA2044BC6D005B2F02 /* EMVideoInfoViewController.m in Sources */,
 				E90F7BB01F670DC400333382 /* BREmotionEscape.m in Sources */,
 				E90F7BA21F670DC300333382 /* BRCDDeviceManager+Media.m in Sources */,
 				E90F7B9B1F670DC300333382 /* BRBubbleView+File.m in Sources */,
 				E90F7B941F670DC300333382 /* NSString+Helper.m in Sources */,
-				E9F3BCEC2044BC6D005B2F02 /* ConferenceViewController.mm in Sources */,
 				E90F7BBC1F670DC400333382 /* BRCustomMessageCell.m in Sources */,
 				E90F7BC91F670DC400333382 /* BRMedia.m in Sources */,
 				E90F7BB11F670DC400333382 /* BREmotionManager.m in Sources */,
