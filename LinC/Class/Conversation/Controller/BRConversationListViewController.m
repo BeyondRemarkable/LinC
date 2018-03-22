@@ -26,7 +26,7 @@
 #import <MBProgressHUD.h>
 #import "BRFriendInfoTableViewController.h"
 #import "BRGroupChatSettingTableViewController.h"
-#import <Photos/PHPhotoLibrary.h>
+#import "UIImagePickerController+Open.h"
 
 @interface BRConversationListViewController () <EMClientDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 {
@@ -159,11 +159,12 @@
  点击相机扫描按钮
  */
 - (void)scanQRCodeBtnTapped {
-    
-    BRScannerViewController *vc = [[BRScannerViewController alloc] initWithNibName:@"BRScannerViewController" bundle:nil];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-    nav.toolbarHidden = YES;
-    [self presentViewController:nav animated:YES completion:nil];
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        BRScannerViewController *vc = [[BRScannerViewController alloc] initWithNibName:@"BRScannerViewController" bundle:nil];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+        nav.toolbarHidden = YES;
+        [self presentViewController:nav animated:YES completion:nil];
+    }
 }
 
 
@@ -171,23 +172,20 @@
  打开用户手机相册
  */
 - (void)readQRCodeFromAlbum {
-    // 判断相册是否可以打开
-    PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
-    if (status == PHAuthorizationStatusRestricted || status == PHAuthorizationStatusDenied) {
-        [self showAuthorizationAlert];
-    } else {
-        UIImagePickerController *ipc = [[UIImagePickerController alloc] init];
-        ipc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        ipc.delegate = self;
+    UIImagePickerController *ipc = [[UIImagePickerController alloc] init];
+    ipc.delegate = self;
+    [ipc openAlbumWithSuccess:^{
         [self presentViewController:ipc animated:YES completion:nil];
-    }
+    } failure:^{
+        [self showAlbumAuthorizationAlert];
+    }];
 }
 
 
 /**
  提示开启相册权限设置
  */
-- (void)showAuthorizationAlert
+- (void)showAlbumAuthorizationAlert
 {
     
     UIAlertController *actionSheet =[UIAlertController alertControllerWithTitle:NSLocalizedString(@"Unable to access album.", nil) message:nil preferredStyle:UIAlertControllerStyleAlert];

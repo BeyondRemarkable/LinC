@@ -16,6 +16,7 @@
 #import <SAMKeychain.h>
 #import "BRClientManager.h"
 #import "BRGroupChatSettingTableViewController.h"
+#import "UIImagePickerController+Open.h"
 
 
 @interface BRSearchFriendViewController () <UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
@@ -155,13 +156,13 @@
 
 
 - (void)readQRCodeFromAlbum {
-    // 判断相册是否可以打开
-    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) return;
-    
     UIImagePickerController *ipc = [[UIImagePickerController alloc] init];
-    ipc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     ipc.delegate = self;
-    [self presentViewController:ipc animated:YES completion:nil];
+    [ipc openAlbumWithSuccess:^{
+        [self presentViewController:ipc animated:YES completion:nil];
+    } failure:^{
+        
+    }];
 }
 
 #pragma mark -- <UIImagePickerControllerDelegate>
@@ -173,7 +174,7 @@
  */
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
 {
-    [picker dismissViewControllerAnimated:YES completion:nil];
+    [picker.presentingViewController dismissViewControllerAnimated:YES completion:nil];
     
     UIImage *qrImage = info[UIImagePickerControllerOriginalImage];
     CIDetector *detector = [CIDetector detectorOfType:CIDetectorTypeQRCode context:nil options:@{CIDetectorAccuracy: CIDetectorAccuracyLow}];

@@ -6,11 +6,10 @@
 //  Copyright © 2017 BeyondRemarkable. All rights reserved.
 //
 
-#import <AVFoundation/AVFoundation.h>
-#import <AVKit/AVKit.h>
 #import <Photos/Photos.h>
-#import <AssetsLibrary/AssetsLibrary.h>
 #import <MobileCoreServices/MobileCoreServices.h>
+#import <SDWebImage/UIImage+GIF.h>
+#import <MBProgressHUD.h>
 #import "NSDate+Category.h"
 #import "BRMessageViewController.h"
 #import "BRCustomMessageCell.h"
@@ -19,15 +18,13 @@
 #import "BREmotionManager.h"
 #import "BRCDDeviceManager.h"
 #import "BRMessageReadManager.h"
-#import <MBProgressHUD.h>
-#import <SDWebImage/UIImage+GIF.h>
 #import "BRCoreDataManager.h"
 #import "BRUserInfo+CoreDataClass.h"
 #import "BRFriendsInfo+CoreDataClass.h"
 #import "BRConversation+CoreDataClass.h"
 #import "BRGroupChatSettingTableViewController.h"
 #import "UIView+NavigationBar.h"
-#import <Photos/PHPhotoLibrary.h>
+#import "UIImagePickerController+Open.h"
 
 #define KHintAdjustY    50
 #define KTransitionDuration 0.2
@@ -1286,7 +1283,7 @@ typedef enum : NSUInteger {
         }
     }
     
-    [picker dismissViewControllerAnimated:YES completion:nil];
+    [picker.presentingViewController dismissViewControllerAnimated:YES completion:nil];
     
     self.isViewDidAppear = YES;
     [[BRSDKHelper shareHelper] setIsShowingimagePicker:NO];
@@ -1294,7 +1291,7 @@ typedef enum : NSUInteger {
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
-    [self.imagePicker dismissViewControllerAnimated:YES completion:nil];
+    [self.imagePicker.presentingViewController dismissViewControllerAnimated:YES completion:nil];
     
     self.isViewDidAppear = YES;
     [[BRSDKHelper shareHelper] setIsShowingimagePicker:NO];
@@ -1348,7 +1345,7 @@ typedef enum : NSUInteger {
     }
 }
 
-- (void)statusButtonSelcted:(id<IMessageModel>)model withMessageCell:(BRMessageCell*)messageCell
+- (void)statusButtonSelected:(id<IMessageModel>)model withMessageCell:(BRMessageCell*)messageCell
 {
     if ((model.messageStatus != EMMessageStatusFailed) && (model.messageStatus != EMMessageStatusPending))
     {
@@ -1608,36 +1605,13 @@ typedef enum : NSUInteger {
     // Hide the keyboard
     [self.chatToolbar endEditing:YES];
     
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
-        void (^authorizedBlock)(void) = ^() {
-            // Pop image picker
-            self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-            self.imagePicker.mediaTypes = @[(NSString *)kUTTypeImage, (NSString *)kUTTypeMovie];
-            [self presentViewController:self.imagePicker animated:YES completion:NULL];
-            
-            self.isViewDidAppear = NO;
-            [[BRSDKHelper shareHelper] setIsShowingimagePicker:YES];
-        };
-        PHAuthorizationStatus authStatus = [PHPhotoLibrary authorizationStatus];
-        if (authStatus == PHAuthorizationStatusNotDetermined) {
-            [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
-                switch (status) {
-                    case PHAuthorizationStatusAuthorized:
-                        authorizedBlock();
-                        break;
-                        
-                    default:
-                        break;
-                }
-            }];
-        }
-        else if (authStatus == PHAuthorizationStatusAuthorized) {
-            authorizedBlock();
-        }
-        else if (authStatus == PHAuthorizationStatusRestricted || authStatus == PHAuthorizationStatusDenied) {
-            [self showAuthorizationAlertWithType:@"album"];
-        }
-    }
+    [self.imagePicker openAlbumWithSuccess:^{
+        self.isViewDidAppear = NO;
+        [[BRSDKHelper shareHelper] setIsShowingimagePicker:YES];
+        [self presentViewController:self.imagePicker animated:YES completion:NULL];
+    } failure:^{
+        [self showAuthorizationAlertWithType:@"album"];
+    }];
 }
 
 - (void)moreViewTakePicAction:(BRChatBarMoreView *)moreView
@@ -1645,31 +1619,13 @@ typedef enum : NSUInteger {
     // Hide the keyboard
     [self.chatToolbar endEditing:YES];
     
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        void (^authorizedBlock)(void) = ^() {
-            self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-            self.imagePicker.mediaTypes = @[(NSString *)kUTTypeImage,(NSString *)kUTTypeMovie];
-            [self presentViewController:self.imagePicker animated:YES completion:NULL];
-            
-            self.isViewDidAppear = NO;
-            [[BRSDKHelper shareHelper] setIsShowingimagePicker:YES];
-        };
-        
-        AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
-        if (authStatus == AVAuthorizationStatusNotDetermined) {
-            [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
-                if (granted) {
-                    authorizedBlock();
-                }
-            }];
-        }
-        else if (authStatus == AVAuthorizationStatusAuthorized) {
-            authorizedBlock();
-        }
-        else if (authStatus == AVAuthorizationStatusRestricted || authStatus == AVAuthorizationStatusDenied) {
-            [self showAuthorizationAlertWithType:@"camera"];
-        }
-    }
+    [self.imagePicker openCameraWithSuccess:^{
+        self.isViewDidAppear = NO;
+        [[BRSDKHelper shareHelper] setIsShowingimagePicker:YES];
+        [self presentViewController:self.imagePicker animated:YES completion:NULL];
+    } failure:^{
+        [self showAuthorizationAlertWithType:@"camera"];
+    }];
 }
 
 - (void)moreViewLocationAction:(BRChatBarMoreView *)moreView

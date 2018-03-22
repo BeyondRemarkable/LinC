@@ -618,8 +618,8 @@ NSString *const BRMessageCellIdentifierSendFile = @"BRMessageCellSendFile";
  */
 - (void)statusAction
 {
-    if ([_delegate respondsToSelector:@selector(statusButtonSelcted:withMessageCell:)]) {
-        [_delegate statusButtonSelcted:_model withMessageCell:self];
+    if (_delegate && [_delegate respondsToSelector:@selector(statusButtonSelected:withMessageCell:)]) {
+        [_delegate statusButtonSelected:_model withMessageCell:self];
     }
 }
 

@@ -10,7 +10,7 @@
 #import "BRClientManager.h"
 #import <MBProgressHUD.h>
 #import "UIView+NavigationBar.h"
-#import <Photos/PHPhotoLibrary.h>
+#import "UIImagePickerController+Open.h"
 
 @interface BRUserImageViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 {
@@ -57,28 +57,51 @@
 }
 
 - (void)openImagePickerControllerWithType:(UIImagePickerControllerSourceType)type {
-    PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
-    if (status == PHAuthorizationStatusRestricted || status == PHAuthorizationStatusDenied) {
-        [self showAuthorizationAlert];
-    } else {
-        UIImagePickerController *ipc = [[UIImagePickerController alloc] init];
-        ipc.sourceType = type;
-        ipc.delegate = self;
-        ipc.allowsEditing = YES;
-        [self presentViewController:ipc animated:YES completion:nil];
+    UIImagePickerController *ipc = [[UIImagePickerController alloc] init];
+    ipc.delegate = self;
+    ipc.allowsEditing = YES;
+    switch (type) {
+        case UIImagePickerControllerSourceTypeCamera:
+        {
+            [ipc openCameraWithSuccess:^{
+                [self presentViewController:ipc animated:YES completion:nil];
+            } failure:^{
+                [self showAuthorizationAlertWithType:type];
+            }];
+        }
+            break;
+            
+        case UIImagePickerControllerSourceTypePhotoLibrary:
+        {
+            [ipc openAlbumWithSuccess:^{
+                [self presentViewController:ipc animated:YES completion:nil];
+            } failure:^{
+                
+            }];
+        }
+            break;
+        default:
+            break;
     }
 }
 
 /**
- 提示开启相册权限设置
+ 提示开启相机相册权限设置
  */
-- (void)showAuthorizationAlert
+- (void)showAuthorizationAlertWithType:(UIImagePickerControllerSourceType)type
 {
-    
-    UIAlertController *actionSheet =[UIAlertController alertControllerWithTitle:NSLocalizedString(@"Unable to access album.", nil) message:nil preferredStyle:UIAlertControllerStyleAlert];
+    NSString *typeString;
+    if (type == UIImagePickerControllerSourceTypeCamera) {
+        typeString = @"camera";
+    }
+    else if (type == UIImagePickerControllerSourceTypePhotoLibrary) {
+        typeString = @"album";
+    }
+    NSString *title = [NSString stringWithFormat:@"Unable to access %@", typeString];
+    UIAlertController *actionSheet =[UIAlertController alertControllerWithTitle:NSLocalizedString(title, nil) message:nil preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *open = [UIAlertAction actionWithTitle:NSLocalizedString(@"Open", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        if ([[UIApplication sharedApplication]openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]]) {
-            [[UIApplication sharedApplication]openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+        if ([[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]]) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
         }
     }];
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)  style:UIAlertActionStyleDestructive handler:nil];

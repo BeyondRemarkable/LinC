@@ -16,6 +16,7 @@
 		2744C4771FC37A1E007C5095 /* BRGeneralSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2744C4761FC37A1E007C5095 /* BRGeneralSettingViewController.m */; };
 		274F21AB20582269008F6078 /* BRVideoPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 274F21AA20582269008F6078 /* BRVideoPlayerView.m */; };
 		274F21B42060D668008F6078 /* BRVideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 274F21B32060D667008F6078 /* BRVideoPlayerViewController.m */; };
+		275BFA2B206442FC0010EE41 /* UIImagePickerController+Open.m in Sources */ = {isa = PBXBuildFile; fileRef = 275BFA2A206442FC0010EE41 /* UIImagePickerController+Open.m */; };
 		27617B7D1FCDF0EC004A245D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 27617B7F1FCDF0EC004A245D /* InfoPlist.strings */; };
 		276398FD2022650500222875 /* UIView+NavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 276398FC2022650500222875 /* UIView+NavigationBar.m */; };
 		276E756A1F3E2B0200D5A917 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E75691F3E2B0200D5A917 /* AVFoundation.framework */; };
@@ -180,6 +181,8 @@
 		274F21AA20582269008F6078 /* BRVideoPlayerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BRVideoPlayerView.m; sourceTree = "<group>"; };
 		274F21B22060D667008F6078 /* BRVideoPlayerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRVideoPlayerViewController.h; sourceTree = "<group>"; };
 		274F21B32060D667008F6078 /* BRVideoPlayerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BRVideoPlayerViewController.m; sourceTree = "<group>"; };
+		275BFA29206442FB0010EE41 /* UIImagePickerController+Open.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImagePickerController+Open.h"; sourceTree = "<group>"; };
+		275BFA2A206442FC0010EE41 /* UIImagePickerController+Open.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImagePickerController+Open.m"; sourceTree = "<group>"; };
 		27617B7E1FCDF0EC004A245D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		27617B801FCDF0F1004A245D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		276398FB2022650500222875 /* UIView+NavigationBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+NavigationBar.h"; sourceTree = "<group>"; };
@@ -810,6 +813,8 @@
 				E90F7BD81F67368200333382 /* UIView+Animation.m */,
 				276398FB2022650500222875 /* UIView+NavigationBar.h */,
 				276398FC2022650500222875 /* UIView+NavigationBar.m */,
+				275BFA29206442FB0010EE41 /* UIImagePickerController+Open.h */,
+				275BFA2A206442FC0010EE41 /* UIImagePickerController+Open.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1247,7 +1252,8 @@
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SAMKeychain.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1360,6 +1366,7 @@
 				E90F7B8A1F670DC300333382 /* BRDropDownViewController.m in Sources */,
 				27FC23F51F6C4C2C001148D7 /* BRClientManager.m in Sources */,
 				E90F7B921F670DC300333382 /* NSDate+Category.m in Sources */,
+				275BFA2B206442FC0010EE41 /* UIImagePickerController+Open.m in Sources */,
 				E90F7BCB1F670DC400333382 /* BRMediaCell.m in Sources */,
 				E90F7BD11F670DC400333382 /* BRUserImageViewController.m in Sources */,
 				E90F7BAA1F670DC300333382 /* BRAudioRecorderUtil.m in Sources */,
