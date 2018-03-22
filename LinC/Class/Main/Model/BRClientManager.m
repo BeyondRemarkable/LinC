@@ -16,6 +16,13 @@
 #import "BRLoginViewController.h"
 #import "BRGroupModel.h"
 #import "BRGroupIconGenerator.h"
+#import "BRLectureVideoModel.h"
+
+@interface BRClientManager ()
+
+@property (nonatomic, strong) NSMutableDictionary *groupUpdateTimeDict;
+
+@end
 
 @implementation BRClientManager
 
@@ -27,6 +34,13 @@
     });
     
     return _clientManager;
+}
+
+- (NSMutableDictionary *)groupUpdateTimeDict {
+    if (_groupUpdateTimeDict == nil) {
+        _groupUpdateTimeDict = [NSMutableDictionary dictionary];
+    }
+    return _groupUpdateTimeDict;
 }
 
 // 正式登录
@@ -503,4 +517,121 @@
         });
     });
 }
+
+/**
+ 根据群ID更新群信息
+ */
+- (void)updateGroupInformationWithIDs:(NSSet *)idSet {
+    NSBlockOperation *updateOperation = [NSBlockOperation blockOperationWithBlock:^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:BRDataUpdateNotification object:nil];
+    }];
+    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    NSEnumerator *enumerator = [idSet objectEnumerator];
+    NSString *valueID;
+    while (valueID = [enumerator nextObject]) {
+        // 计算时间差判断是否需要更新
+        NSDate *lastUpdateTime = nil;
+        NSDate *currentTime = [NSDate dateWithTimeIntervalSinceNow:0];
+        if ((lastUpdateTime = self.groupUpdateTimeDict[valueID])) {
+            NSTimeInterval interval = [currentTime timeIntervalSinceDate:lastUpdateTime];
+            // 时间间隔五分钟
+            if ((int)interval/60%60 < 5) {
+                continue;
+            }
+        }
+        self.groupUpdateTimeDict[valueID] = currentTime;
+        
+        NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
+            EMGroup *group = [[EMClient sharedClient].groupManager getGroupSpecificationFromServerWithId:valueID error:nil];
+            if (group && group.subject && group.subject.length != 0) {
+                BRGroupModel *groupModel = [[BRGroupModel alloc] init];
+                groupModel.groupID = group.groupId;
+                groupModel.groupDescription = group.description;
+                groupModel.groupName = group.subject;
+                groupModel.groupOwner = group.owner;
+                groupModel.groupMembers = [NSMutableArray arrayWithArray:group.memberList];
+                groupModel.groupStyle = group.setting.style;
+                
+                [[BRCoreDataManager sharedInstance] saveGroupToCoreData:@[groupModel]];
+            }
+        }];
+        [updateOperation addDependency:operation];
+        [queue addOperation:operation];
+    }
+    [[NSOperationQueue mainQueue] addOperation:updateOperation];
+}
+
+- (void)getVideoListWithNumberOfPages:(NSUInteger)numberOfPages numberOfVideosPerPage:(NSUInteger)numberPerPage after:(NSDate *)date success:(void (^)(NSArray *))successBlock failure:(void (^)(EMError *))failureBlock {
+    NSString *pageString = numberOfPages?[NSString stringWithFormat:@"%lu", (unsigned long)numberOfPages]:nil;
+    NSString *perPageString = numberPerPage?[NSString stringWithFormat:@"%lu", numberPerPage]:nil;
+    NSMutableString *timeStamp;
+    if (date) {
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSS"];
+        timeStamp = [NSMutableString stringWithString:[formatter stringFromDate:date]];
+        [timeStamp appendString:@"Z"];
+        [timeStamp replaceCharactersInRange:NSMakeRange(10, 1) withString:@"T"];
+    }
+    
+    BRHTTPSessionManager *manager = [BRHTTPSessionManager manager];
+    NSString *url = [kBaseURL stringByAppendingPathComponent:@"/api/v1/videos/"];
+    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:pageString,@"page",perPageString,@"perPage",timeStamp,@"timestamp", nil];
+    NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
+    NSString *token = [SAMKeychain passwordForService:kLoginTokenKey account:username];
+    [manager.requestSerializer setValue:[@"Bearer " stringByAppendingString:token]  forHTTPHeaderField:@"Authorization"];
+    [manager GET:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *dict = (NSDictionary *)responseObject;
+        if ([dict[@"status"] isEqualToString:@"success"]) {
+            NSArray *videoInfoArray = dict[@"data"];
+            NSMutableArray *videoModelArray = [NSMutableArray array];
+            for (NSDictionary *infoDict in videoInfoArray) {
+                BRLectureVideoModel *model = [[BRLectureVideoModel alloc] init];
+                model.identifier = infoDict[@"_id"];
+                model.title = infoDict[@"title"];
+                model.instructor = infoDict[@"instructor_name"];
+                model.thumbnailURL = [kBaseURL stringByAppendingPathComponent:infoDict[@"cover"]];
+                model.detail = infoDict[@"description"];
+                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSS"];
+                NSMutableString *dateString = [NSMutableString stringWithString:infoDict[@"created_at"]];
+                [dateString deleteCharactersInRange:NSMakeRange(dateString.length - 1, 1)];
+                [dateString replaceCharactersInRange:NSMakeRange(10, 1) withString:@" "];
+                model.createTime = [formatter dateFromString:dateString];
+                dateString = [NSMutableString stringWithString:infoDict[@"updated_at"]];
+                [dateString deleteCharactersInRange:NSMakeRange(dateString.length - 1, 1)];
+                [dateString replaceCharactersInRange:NSMakeRange(10, 1) withString:@" "];
+                model.updateTime = [formatter dateFromString:dateString];
+                
+                [videoModelArray addObject:model];
+            }
+            successBlock(videoModelArray);
+        }
+        else {
+            EMError *error = [EMError errorWithDescription:dict[@"message"] code:EMErrorGeneral];
+            failureBlock(error);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        EMError *aError = [EMError errorWithDescription:error.localizedDescription code:EMErrorServerTimeout];
+        failureBlock(aError);
+    }];
+}
+
+- (void)getVideoURLWithID:(NSString *)videoID success:(void (^)(NSString *))successBlock failure:(void (^)(EMError *))failureBlock {
+    BRHTTPSessionManager *manager = [BRHTTPSessionManager manager];
+    NSString *url = [kBaseURL stringByAppendingPathComponent:[NSString stringWithFormat:@"/api/v1/videos/%@/watch", videoID]];
+    [manager GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *dict = (NSDictionary *)responseObject;
+        if ([dict[@"status"] isEqualToString:@"success"]) {
+            successBlock(dict[@"data"][@"url"]);
+        }
+        else {
+            EMError *error = [EMError errorWithDescription:dict[@"message"] code:EMErrorGeneral];
+            failureBlock(error);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        EMError *aError = [EMError errorWithDescription:error.localizedDescription code:EMErrorGeneral];
+        failureBlock(aError);
+    }];
+}
+
 @end

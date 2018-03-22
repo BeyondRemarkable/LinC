@@ -46,7 +46,7 @@
 {
     [_bubbleView setupGifBubbleView];
     
-    _bubbleView.imageView.image = [UIImage imageNamed:@"imageDownloadFail"];
+    _bubbleView.imageView.image = [UIImage imageNamed:@"image_download_fail"];
 }
 
 - (void)updateCustomBubbleViewMargin:(UIEdgeInsets)bubbleMargin model:(id<IMessageModel>)model

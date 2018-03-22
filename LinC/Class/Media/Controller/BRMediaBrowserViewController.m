@@ -10,7 +10,7 @@
 #import "BRMediaCell.h"
 #import "IMessageModel.h"
 
-@interface BRMediaBrowserViewController () <BRMediaCellDelegate>
+@interface BRMediaBrowserViewController () <BRMediaCellDelegate, UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, strong) NSArray *modelArray;
 
@@ -24,11 +24,16 @@ static NSString * const reuseIdentifier = @"BRMediaCell";
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.minimumLineSpacing = 0;
     layout.minimumInteritemSpacing = 0;
-    layout.itemSize = CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT);
+    layout.itemSize = [UIScreen mainScreen].bounds.size;
 //    if (@available(iOS 11.0, *)) {
 //        layout.sectionInsetReference = UICollectionViewFlowLayoutSectionInsetFromContentInset;
 //    }
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    if (@available(iOS 11.0, *)) {
+        layout.sectionInsetReference = UICollectionViewFlowLayoutSectionInsetFromContentInset;
+    } else {
+        // Fallback on earlier versions
+    }
     if (self = [super initWithCollectionViewLayout:layout]) {
         self.modelArray = modelArray;
     }
@@ -39,11 +44,10 @@ static NSString * const reuseIdentifier = @"BRMediaCell";
     [super viewDidLoad];
     
     self.collectionView.pagingEnabled = YES;
-    self.collectionView.contentMode = UIViewContentModeCenter;
     self.collectionView.alwaysBounceHorizontal = YES;
     self.collectionView.showsHorizontalScrollIndicator = NO;
     self.collectionView.showsVerticalScrollIndicator = NO;
-    
+    self.automaticallyAdjustsScrollViewInsets = NO;
     // Register cell classes
     [self.collectionView registerClass:[BRMediaCell class] forCellWithReuseIdentifier:reuseIdentifier];
 }
@@ -52,7 +56,7 @@ static NSString * const reuseIdentifier = @"BRMediaCell";
     return YES;
 }
 
-#pragma mark <UICollectionViewDataSource>
+#pragma mark - UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;

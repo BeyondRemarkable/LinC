@@ -35,7 +35,7 @@
     UIBarButtonItem *saveBtn = [[UIBarButtonItem alloc] initWithTitle:@"save" style:UIBarButtonItemStylePlain target:self action:@selector(saveBtn)];
     self.navigationItem.rightBarButtonItem = saveBtn;
     
-    self.countLabel.text = [NSString stringWithFormat:@"%ld",MAX(0,MAX_LIMIT_NUMS - self.whatsUpTextView.text.length)];
+    self.countLabel.text = [NSString stringWithFormat:@"%ld", MAX(0, (long)(MAX_LIMIT_NUMS - self.whatsUpTextView.text.length))];
 
 }
 
@@ -156,7 +156,7 @@
     }
     
     //不让显示负数 
-    self.countLabel.text = [NSString stringWithFormat:@"%ld",MAX(0,MAX_LIMIT_NUMS - existTextNum)];
+    self.countLabel.text = [NSString stringWithFormat:@"%ld", MAX(0, (long)(MAX_LIMIT_NUMS - existTextNum))];
 }
 
 

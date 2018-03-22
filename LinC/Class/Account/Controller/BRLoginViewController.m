@@ -112,7 +112,18 @@
 
 #pragma mark - UITextField delegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [self login];
+    if (textField.text.length == 0) {
+        return YES;
+    }
+    if (self.userNameTextField.text.length && self.passwordTextField.text.length) {
+        [self login];
+    }
+    else if (textField == self.userNameTextField) {
+        [self.passwordTextField becomeFirstResponder];
+    }
+    else if (textField == self.passwordTextField) {
+        [self.userNameTextField becomeFirstResponder];
+    }
     return YES;
 }
 

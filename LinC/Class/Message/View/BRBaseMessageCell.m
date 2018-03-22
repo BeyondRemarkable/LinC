@@ -85,6 +85,7 @@
         }
             break;
         case EMMessageBodyTypeImage:
+        case EMMessageBodyTypeVideo:
         {
             CGSize retSize = self.model.thumbnailImageSize;
             if (retSize.width == 0 || retSize.height == 0) {
@@ -118,10 +119,6 @@
             [self removeConstraint:self.bubbleWithImageConstraint];
             self.bubbleWithImageConstraint = [NSLayoutConstraint constraintWithItem:self.bubbleView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:[BRMessageCell appearance].voiceCellWidth];
             [self addConstraint:self.bubbleWithImageConstraint];
-        }
-            break;
-        case EMMessageBodyTypeVideo:
-        {
         }
             break;
         case EMMessageBodyTypeFile:

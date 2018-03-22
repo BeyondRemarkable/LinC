@@ -66,12 +66,4 @@ typedef enum{
  */
 - (void)moreViewVideoCallAction:(BRChatBarMoreView *)moreView;
 
-/*!
- @method
- @brief 自定义功能
- @param moreView    功能view
- @param index       按钮索引
- */
-- (void)moreView:(BRChatBarMoreView *)moreView didItemInMoreViewAtIndex:(NSInteger)index;
-
 @end

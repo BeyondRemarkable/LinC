@@ -34,26 +34,10 @@
 }
 
 @property (nonatomic, strong) BRDropDownViewController *dropDownVC;
-@property (nonatomic, strong) NSMutableSet *groupIDSet;
-@property (nonatomic, strong) NSMutableDictionary *updateTimeDict;
 
 @end
 
 @implementation BRConversationListViewController
-
-- (NSMutableSet *)groupIDSet {
-    if (_groupIDSet == nil) {
-        _groupIDSet = [NSMutableSet set];
-    }
-    return _groupIDSet;
-}
-
-- (NSMutableDictionary *)updateTimeDict {
-    if (_updateTimeDict == nil) {
-        _updateTimeDict = [NSMutableDictionary dictionary];
-    }
-    return _updateTimeDict;
-}
 
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -68,21 +52,10 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     [self.tableView registerNib:[UINib nibWithNibName:@"BRConversationCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:[BRConversationCell cellIdentifierWithModel:nil]];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkRefreshMessage) name:UIApplicationDidBecomeActiveNotification object:nil];
     [self registerNotifications];
     [self setUpNavigationBarItem];
     
-    self.navigationItem.title = @"LinC";
-    [[EMClient sharedClient] addDelegate:self delegateQueue:dispatch_get_main_queue()];
-}
-
-- (void)checkRefreshMessage {
-    BOOL hasMessage = [[NSUserDefaults standardUserDefaults] boolForKey:@"receivedMessage"];
-    if (hasMessage) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-        });
-    }
+    self.navigationItem.title = [EMClient sharedClient].isConnected ? @"LinC" : @"Disconnected";
 }
 
 - (void)setUpNavigationBarItem {
@@ -397,7 +370,7 @@
         
         unreadCount = [self.tabBarItem.badgeValue integerValue];
         unreadCount -= diff;
-        self.tabBarItem.badgeValue = unreadCount ? [NSString stringWithFormat:@"%ld", unreadCount] : nil;
+        self.tabBarItem.badgeValue = unreadCount ? [NSString stringWithFormat:@"%ld", (long)unreadCount] : nil;
     }
     
 }
@@ -475,12 +448,14 @@
 
 #pragma mark - registerNotifications
 -(void)registerNotifications{
+    [[EMClient sharedClient] addDelegate:self delegateQueue:dispatch_get_main_queue()];
     [[EMClient sharedClient].chatManager addDelegate:self delegateQueue:dispatch_get_main_queue()];
     [[EMClient sharedClient].groupManager addDelegate:self delegateQueue:dispatch_get_main_queue()];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFromNotification:) name:BRDataUpdateNotification object:nil];
 }
 
 -(void)unregisterNotifications{
+    [[EMClient sharedClient] removeDelegate:self];
     [[EMClient sharedClient].chatManager removeDelegate:self];
     [[EMClient sharedClient].groupManager removeDelegate:self];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -557,51 +532,14 @@
 #pragma mark - ChatManagerDelegate
 
 - (void)messagesDidReceive:(NSArray *)aMessages {
-    NSInvocationOperation *updateOperation = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(tableViewDidTriggerHeaderRefresh) object:nil];
     NSMutableSet *idSet = [NSMutableSet set];
     for (EMMessage *message in aMessages) {
         if (message.chatType == EMChatTypeGroupChat) {
-            if (![self.groupIDSet containsObject:message.conversationId]) {
-                [idSet addObject:message.conversationId];
-                [self.groupIDSet addObject:message.conversationId];
-            }
+            [idSet addObject:message.conversationId];
         }
     }
     
-    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-    NSEnumerator *enumerator = [idSet objectEnumerator];
-    NSString *valueID;
-    while (valueID = [enumerator nextObject]) {
-        // 计算时间差判断是否需要更新
-        NSDate *lastUpdateTime = nil;
-        NSDate *currentTime = [NSDate dateWithTimeIntervalSinceNow:0];
-        if ((lastUpdateTime = self.updateTimeDict[valueID])) {
-            NSTimeInterval interval = [currentTime timeIntervalSinceDate:lastUpdateTime];
-            // 时间间隔五分钟
-            if ((int)interval/60%60 < 5) {
-                continue;
-            }
-        }
-        self.updateTimeDict[valueID] = currentTime;
-        
-        NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
-            EMGroup *group = [[EMClient sharedClient].groupManager getGroupSpecificationFromServerWithId:valueID error:nil];
-            if (group && group.subject && group.subject.length != 0) {
-                BRGroupModel *groupModel = [[BRGroupModel alloc] init];
-                groupModel.groupID = group.groupId;
-                groupModel.groupDescription = group.description;
-                groupModel.groupName = group.subject;
-                groupModel.groupOwner = group.owner;
-                groupModel.groupMembers = [NSMutableArray arrayWithArray:group.memberList];
-                groupModel.groupStyle = group.setting.style;
-                
-                [[BRCoreDataManager sharedInstance] saveGroupToCoreData:@[groupModel]];
-            }
-        }];
-        [updateOperation addDependency:operation];
-        [queue addOperation:operation];
-    }
-    [[NSOperationQueue mainQueue] addOperation:updateOperation];
+    [[BRClientManager sharedManager] updateGroupInformationWithIDs:idSet];
 }
 
 

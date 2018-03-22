@@ -26,7 +26,7 @@
     if (![fileManager fileExistsAtPath: path]) {
         path = [documentsDirectory stringByAppendingPathComponent: file];
     }
-    NSLog(@"path=%@", path);
+//    NSLog(@"path=%@", path);
     return path;
 }
 
@@ -39,7 +39,7 @@
 + (void)savedToFileName:(NSString *)fileName withData:(NSDictionary *)dictData
 {
     NSString *path = [self getPathWithFileName:fileName];
-    NSLog(@"path==%@", path);
+//    NSLog(@"path==%@", path);
     // Write data to file
     NSMutableArray *newRequestData = [[NSMutableArray alloc] initWithContentsOfFile: path];
     if (newRequestData.count == 0) {

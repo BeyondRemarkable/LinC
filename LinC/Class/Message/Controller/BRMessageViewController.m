@@ -120,7 +120,7 @@ typedef enum : NSUInteger {
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor colorWithRed:248 / 255.0 green:248 / 255.0 blue:248 / 255.0 alpha:1.0];
+    self.view.backgroundColor = BRColor(248, 248, 248);
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideImagePicker) name:@"hideImagePicker" object:nil];
@@ -617,10 +617,10 @@ typedef enum : NSUInteger {
         }
         else
         {
-            hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            hud.mode = MBProgressHUDModeText;
-            hud.label.text = NSLocalizedString(@"message.thumImageFail", @"thumbnail for failure!");
-            [hud hideAnimated:YES afterDelay:1.5];
+//            hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//            hud.mode = MBProgressHUDModeText;
+//            hud.label.text = NSLocalizedString(@"message.thumImageFail", @"thumbnail for failure!");
+//            [hud hideAnimated:YES afterDelay:1.5];
         }
     };
     
@@ -671,8 +671,8 @@ typedef enum : NSUInteger {
                             [weakSelf _reloadTableViewDataWithMessage:message];
                         }
                         else {
-                            hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                            hud.label.text = NSLocalizedString(@"message.voiceFail", @"voice for failure!");
+//                            hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//                            hud.label.text = NSLocalizedString(@"message.voiceFail", @"voice for failure!");
                         }
                     }];
                 }
@@ -813,13 +813,16 @@ typedef enum : NSUInteger {
         }
     };
     
-    if (videoBody.thumbnailDownloadStatus == EMDownloadStatusFailed || ![[NSFileManager defaultManager] fileExistsAtPath:videoBody.thumbnailLocalPath]) {
+    if (videoBody.thumbnailDownloadStatus == EMDownloadStatusFailed || videoBody.thumbnailDownloadStatus == EMDownloadStatusDownloading || ![[NSFileManager defaultManager] fileExistsAtPath:videoBody.thumbnailLocalPath]) {
         hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.label.text = @"begin downloading thumbnail image, click later";
-        if (isCustomDownload) {
-            [self _customDownloadMessageFile:model.message];
-        } else {
-            [[EMClient sharedClient].chatManager downloadMessageThumbnail:model.message progress:nil completion:completion];
+        hud.label.text = @"Downloading thumbnail image, try later";
+        [hud hideAnimated:YES afterDelay:1.5];
+        if (videoBody.thumbnailDownloadStatus != EMDownloadStatusDownloading) {
+            if (isCustomDownload) {
+                [self _customDownloadMessageFile:model.message];
+            } else {
+                [[EMClient sharedClient].chatManager downloadMessageThumbnail:model.message progress:nil completion:completion];
+            }
         }
         return;
     }
@@ -828,7 +831,7 @@ typedef enum : NSUInteger {
     UIImage *image = [UIImage imageWithContentsOfFile:videoBody.thumbnailLocalPath];
 
     self.oldFrame = [messageCell.bubbleView convertRect:messageCell.bubbleView.videoImageView.frame toView:self.view];
-    CGRect newFrame = CGRectMake(0, 5, SCREEN_WIDTH, SCREEN_HEIGHT);
+    CGRect newFrame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     self.transitionView = [[UIImageView alloc] initWithFrame:self.oldFrame];
     self.transitionView.image = image;
     self.transitionView.contentMode = UIViewContentModeScaleAspectFit;
@@ -841,36 +844,6 @@ typedef enum : NSUInteger {
         // 弹出图片浏览器
         [[BRMessageReadManager defaultManager] showBrowserWithModels:@[model] animated:NO];
     }];
-//    dispatch_block_t block = ^{
-//        //send the acknowledgement
-//        [self _sendHasReadResponseForMessages:@[model.message]
-//                                       isRead:YES];
-//
-//        [[BRMessageReadManager defaultManager] showBrowserWithModels:@[model] animated:YES];
-//    };
-//
-//    if (videoBody.downloadStatus == EMDownloadStatusSuccessed && [[NSFileManager defaultManager] fileExistsAtPath:localPath])
-//    {
-//        block();
-//        return;
-//    }
-//
-//    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-//    hud.label.text = NSLocalizedString(@"message.downloadingVideo", @"downloading video...");
-//    if (isCustomDownload) {
-//        [self _customDownloadMessageFile:model.message];
-//    } else {
-//        [[EMClient sharedClient].chatManager downloadMessageAttachment:model.message progress:nil completion:^(EMMessage *message, EMError *error) {
-//            if (!error) {
-//                [hud hideAnimated:YES];
-//                block();
-//            }else{
-//                hud.mode = MBProgressHUDModeText;
-//                hud.label.text = NSLocalizedString(@"message.videoFail", @"video for failure!");
-//                [hud hideAnimated:YES afterDelay:1.5];
-//            }
-//        }];
-//    }
 }
 
 /*!
@@ -896,7 +869,7 @@ typedef enum : NSUInteger {
                 image = model.thumbnailImage;
             }
             self.oldFrame = [messageCell.bubbleView convertRect:messageCell.bubbleView.imageView.frame toView:self.view];
-            CGRect newFrame = CGRectMake(0, 5, SCREEN_WIDTH, SCREEN_HEIGHT);
+            CGRect newFrame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
             self.transitionView = [[UIImageView alloc] initWithFrame:self.oldFrame];
             self.transitionView.image = image;
             self.transitionView.contentMode = UIViewContentModeScaleAspectFit;
@@ -1289,7 +1262,8 @@ typedef enum : NSUInteger {
         }
         [self sendVideoMessageWithURL:mp4];
         
-    }else{
+    }
+    else {
         
         NSURL *url = info[UIImagePickerControllerReferenceURL];
         if (url == nil) {
@@ -1629,31 +1603,40 @@ typedef enum : NSUInteger {
 
 #pragma mark - BRChatBarMoreViewDelegate
 
-- (void)moreView:(BRChatBarMoreView *)moreView didItemInMoreViewAtIndex:(NSInteger)index
-{
-    if ([self.delegate respondsToSelector:@selector(messageViewController:didSelectMoreView:AtIndex:)]) {
-        [self.delegate messageViewController:self didSelectMoreView:moreView AtIndex:index];
-        return;
-    }
-}
-
 - (void)moreViewPhotoAction:(BRChatBarMoreView *)moreView
 {
     // Hide the keyboard
     [self.chatToolbar endEditing:YES];
     
-    // 判断相册是否可以打开
-    PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
-    if (status == PHAuthorizationStatusRestricted || status == PHAuthorizationStatusDenied) {
-        [self showAuthorizationAlertWithType:@"album"];
-    } else {
-        // Pop image picker
-        self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        self.imagePicker.mediaTypes = @[(NSString *)kUTTypeImage];
-        [self presentViewController:self.imagePicker animated:YES completion:NULL];
-        
-        self.isViewDidAppear = NO;
-        [[BRSDKHelper shareHelper] setIsShowingimagePicker:YES];
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
+        void (^authorizedBlock)(void) = ^() {
+            // Pop image picker
+            self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            self.imagePicker.mediaTypes = @[(NSString *)kUTTypeImage, (NSString *)kUTTypeMovie];
+            [self presentViewController:self.imagePicker animated:YES completion:NULL];
+            
+            self.isViewDidAppear = NO;
+            [[BRSDKHelper shareHelper] setIsShowingimagePicker:YES];
+        };
+        PHAuthorizationStatus authStatus = [PHPhotoLibrary authorizationStatus];
+        if (authStatus == PHAuthorizationStatusNotDetermined) {
+            [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+                switch (status) {
+                    case PHAuthorizationStatusAuthorized:
+                        authorizedBlock();
+                        break;
+                        
+                    default:
+                        break;
+                }
+            }];
+        }
+        else if (authStatus == PHAuthorizationStatusAuthorized) {
+            authorizedBlock();
+        }
+        else if (authStatus == PHAuthorizationStatusRestricted || authStatus == PHAuthorizationStatusDenied) {
+            [self showAuthorizationAlertWithType:@"album"];
+        }
     }
 }
 
@@ -1662,23 +1645,31 @@ typedef enum : NSUInteger {
     // Hide the keyboard
     [self.chatToolbar endEditing:YES];
     
-#if TARGET_IPHONE_SIMULATOR
-    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.label.text = NSLocalizedString(@"message.simulatorNotSupportCamera", @"simulator does not support taking picture");
-#elif TARGET_OS_IPHONE
-    
-    AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
-    if (status == AVAuthorizationStatusRestricted || status == AVAuthorizationStatusDenied){
-        [self showAuthorizationAlertWithType:@"camera."];
-    } else {
-        self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        self.imagePicker.mediaTypes = @[(NSString *)kUTTypeImage,(NSString *)kUTTypeMovie];
-        [self presentViewController:self.imagePicker animated:YES completion:NULL];
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        void (^authorizedBlock)(void) = ^() {
+            self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+            self.imagePicker.mediaTypes = @[(NSString *)kUTTypeImage,(NSString *)kUTTypeMovie];
+            [self presentViewController:self.imagePicker animated:YES completion:NULL];
+            
+            self.isViewDidAppear = NO;
+            [[BRSDKHelper shareHelper] setIsShowingimagePicker:YES];
+        };
         
-        self.isViewDidAppear = NO;
-        [[BRSDKHelper shareHelper] setIsShowingimagePicker:YES];
+        AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+        if (authStatus == AVAuthorizationStatusNotDetermined) {
+            [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+                if (granted) {
+                    authorizedBlock();
+                }
+            }];
+        }
+        else if (authStatus == AVAuthorizationStatusAuthorized) {
+            authorizedBlock();
+        }
+        else if (authStatus == AVAuthorizationStatusRestricted || authStatus == AVAuthorizationStatusDenied) {
+            [self showAuthorizationAlertWithType:@"camera"];
+        }
     }
-#endif
 }
 
 - (void)moreViewLocationAction:(BRChatBarMoreView *)moreView
@@ -1832,7 +1823,10 @@ typedef enum : NSUInteger {
         }
         
     }else{
-        
+        hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.label.text = error.errorDescription;
+        [hud hideAnimated:YES afterDelay:1.5];
     }
 }
 
@@ -1931,7 +1925,7 @@ typedef enum : NSUInteger {
         }
         else{
             model = [[BRMessageModel alloc] initWithMessage:message];
-            model.failImageName = @"imageDownloadFail";
+            model.failImageName = @"image_download_fail";
         }
         
         if (model) {
@@ -1961,7 +1955,6 @@ typedef enum : NSUInteger {
                     // 从数据库中获取成员信息
                     
                     BRFriendsInfo *info = [[[BRCoreDataManager sharedInstance] fetchGroupMembersByGroupID:_conversation.conversationId andGroupMemberUserNameArray:[NSArray arrayWithObject:model.username]] firstObject];
-//                    BRFriendsInfo *info = [[[BRCoreDataManager sharedInstance] fetchGroupMembersByGroupID:_conversation.conversationId andGroupMemberUserName:model.username] firstObject];
                     if (info) {
                         model.username = info.nickname ? info.nickname : info.username;
                         UIImage *avatarImage = [UIImage imageWithData:info.avatar];
@@ -2092,6 +2085,7 @@ typedef enum : NSUInteger {
     
     BRCoreDataManager *manager = [BRCoreDataManager sharedInstance];
     [manager insertConversationToCoreData:message];
+    [[NSNotificationCenter defaultCenter] postNotificationName:BRDataUpdateNotification object:nil];
     
     __weak typeof(self) weakself = self;
     if (!([EMClient sharedClient].options.isAutoTransferMessageAttachments) && isUploadFile) {
@@ -2260,20 +2254,18 @@ typedef enum : NSUInteger {
         for (int i = 0; i < self.dataArray.count; i ++) {
             id object = [self.dataArray objectAtIndex:i];
             if ([object isKindOfClass:[BRMessageModel class]]) {
-                id<IMessageModel> model = object;
-                if ([message.messageId isEqualToString:model.messageId]) {
-                    id<IMessageModel> model = nil;
+                BRMessageModel *oldModel = object;
+                if ([message.messageId isEqualToString:oldModel.messageId]) {
+                    BRMessageModel *newModel = nil;
                     if (self.dataSource && [self.dataSource respondsToSelector:@selector(messageViewController:modelForMessage:)]) {
-                        model = [self.dataSource messageViewController:self modelForMessage:message];
+                        newModel = [self.dataSource messageViewController:self modelForMessage:message];
                     }
                     else{
-                        model = [[BRMessageModel alloc] initWithMessage:message];
-                        model.avatarImage = [UIImage imageNamed:@"user_default"];
-                        model.failImageName = @"imageDownloadFail";
+                        newModel = [self formatMessages:@[message]].firstObject;
                     }
                     
                     [self.tableView beginUpdates];
-                    [self.dataArray replaceObjectAtIndex:i withObject:model];
+                    [self.dataArray replaceObjectAtIndex:i withObject:newModel];
                     [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:i inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
                     [self.tableView endUpdates];
                     break;
@@ -2292,9 +2284,7 @@ typedef enum : NSUInteger {
             model = [_dataSource messageViewController:self modelForMessage:aMessage];
         }
         else{
-            model = [[BRMessageModel alloc] initWithMessage:aMessage];
-            model.avatarImage = [UIImage imageNamed:@"user_default"];
-            model.failImageName = @"imageDownloadFail";
+            model = [self formatMessages:@[aMessage]].firstObject;
         }
         if (model) {
             __block NSUInteger index = NSNotFound;

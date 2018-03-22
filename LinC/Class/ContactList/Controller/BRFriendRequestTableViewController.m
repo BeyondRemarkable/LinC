@@ -48,7 +48,7 @@
     
     [[BRClientManager sharedManager] getUserInfoWithUsernames:[NSArray arrayWithObject:self.searchID] andSaveFlag:NO success:^(NSMutableArray *aList) {
         BRContactListModel *friendInfo = (BRContactListModel *)[aList firstObject];
-        self.userIcon.image = friendInfo.avatarImage;
+        self.userIcon.image = friendInfo.avatarImage ? friendInfo.avatarImage : [UIImage imageNamed:@"user_default"];
         self.userGender.text = friendInfo.gender;
         self.userWhatUp.text = friendInfo.whatsUp;
         self.userLocation.text = friendInfo.location;
@@ -83,16 +83,32 @@
         // 同意群申请
         [BRFileWithNewRequestData deleteRequestFromFile:newGroupRequestFile byID:self.searchID];
         [[EMClient sharedClient].groupManager approveJoinGroupRequest: self.requestDic[@"groupID"] sender: self.requestDic[@"userID"] completion:^(EMGroup *aGroup, EMError *aError) {
-            [hud hideAnimated:YES];
-            [self.navigationController popToRootViewControllerAnimated:YES];
+            if (!aError) {
+                [hud hideAnimated:YES];
+                [[NSNotificationCenter defaultCenter] postNotificationName:BRFriendRequestUpdateNotification object:nil];
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            }
+            else {
+                hud.mode = MBProgressHUDModeText;
+                hud.label.text = aError.errorDescription;
+                [hud hideAnimated:YES afterDelay:1.5];
+            }
         }];
     } else {
         // 同意好友申请
         [BRFileWithNewRequestData deleteRequestFromFile:newFirendRequestFile byID:self.searchID];
         [[EMClient sharedClient].contactManager acceptInvitationForUsername:self.searchID];
         [[EMClient sharedClient].contactManager approveFriendRequestFromUser:self.searchID completion:^(NSString *aUsername, EMError *aError) {
-            [hud hideAnimated:YES];
-            [self.navigationController popToRootViewControllerAnimated:YES];
+            if (!aError) {
+                [hud hideAnimated:YES];
+                [[NSNotificationCenter defaultCenter] postNotificationName:BRFriendRequestUpdateNotification object:nil];
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            }
+            else {
+                hud.mode = MBProgressHUDModeText;
+                hud.label.text = aError.errorDescription;
+                [hud hideAnimated:YES afterDelay:1.5];
+            }
         }];
     }
 }
@@ -103,16 +119,17 @@
  */
 - (IBAction)refuseBtn {
     hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [[NSNotificationCenter defaultCenter] postNotificationName:BRFriendRequestUpdateNotification object:nil];
     if (self.doesJoinGroup) {
         // 拒绝群申请
         [BRFileWithNewRequestData deleteRequestFromFile:newGroupRequestFile byID:self.searchID];
         [hud hideAnimated:YES];
-         [self.navigationController popToRootViewControllerAnimated:YES];
+        [self.navigationController popToRootViewControllerAnimated:YES];
     } else {
         // 拒绝好友申请
         [BRFileWithNewRequestData deleteRequestFromFile:newFirendRequestFile byID:self.searchID];
         [hud hideAnimated:YES];
-         [self.navigationController popToRootViewControllerAnimated:YES];
+        [self.navigationController popToRootViewControllerAnimated:YES];
     }
 }
 

@@ -49,14 +49,13 @@
     NSString *url =  [kBaseURL stringByAppendingPathComponent:@"/api/v1/password/reset"];
     NSDictionary *parameters = @{@"email" : email};
     hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeText;
     
     [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
         if ([responseObject isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dict = (NSDictionary *)responseObject;
-            hud.mode = MBProgressHUDModeText;
             hud.label.text = dict[@"message"];
-            NSLog(@"%@", hud.label.text);
 
             if ([dict[@"status"] isEqualToString:@"success"]) {
             
@@ -67,8 +66,8 @@
         }
 
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [hud hideAnimated:YES afterDelay:1.0];
-        NSLog(@"%@", error.localizedDescription);
+        hud.label.text = error.localizedDescription;
+        [hud hideAnimated:YES afterDelay:1.5];
     }];
 
 }
