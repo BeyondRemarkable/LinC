@@ -14,6 +14,7 @@
 #import "BRUserInfoViewController.h"
 #import "BRSDKHelper.h"
 #import "BRFileWithNewRequestData.h"
+#import "BRClientManager.h"
 
 
 @interface BRTabBarController () <EMChatManagerDelegate, EMContactManagerDelegate>
@@ -35,7 +36,7 @@
         
         // Add playground view controller
         BRPlaygroundViewController *playgroundVc = [[BRPlaygroundViewController alloc] initWithStyle:UITableViewStylePlain];
-        [self setupChildVc:playgroundVc title:NSLocalizedString(@"Playground", nil) imageName:@"tabbar_profile" selectedImageName:@"tabbar_profile_selected"];
+        [self setupChildVc:playgroundVc title:NSLocalizedString(@"Playground", nil) imageName:@"tabbar_playground" selectedImageName:@"tabbar_playground_selected"];
         
         // Add conversation list view controller
         BRConversationListViewController *chatsVc = [[BRConversationListViewController alloc] initWithStyle:UITableViewStylePlain];
@@ -68,12 +69,17 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    // 获取未读消息数，设置badge
     NSArray *conversations = [[EMClient sharedClient].chatManager getAllConversations];
+    // 获取未读消息数，设置badge，并更新群信息
+    NSMutableSet *idSet = [NSMutableSet set];
     NSInteger totalUnreadCount = 0;
     for (EMConversation *conversation in conversations) {
         totalUnreadCount += conversation.unreadMessagesCount;
+        if (conversation.type == EMConversationTypeGroupChat) {
+            [idSet addObject:conversation.conversationId];
+        }
     }
+    [[BRClientManager sharedManager] updateGroupInformationWithIDs:idSet];
     if (totalUnreadCount) {
         self.tabBar.items[1].badgeValue = [NSString stringWithFormat:@"%ld", (long)totalUnreadCount];
     }

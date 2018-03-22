@@ -9,10 +9,17 @@
 #import <UIKit/UIKit.h>
 @class BRVideoPlayerView;
 
+typedef enum {
+    BRVideoPlayerViewOrientationNormal,
+    BRVideoPlayerViewOrientationFullScreen
+} BRVideoPlayerViewOrientation;
+
 @protocol BRVideoPlayerViewDelegate <NSObject>
 
 @optional
-- (void)videoPlayerView:(BRVideoPlayerView *)view didClickBackButton:(UIButton *)button;
+- (void)videoPlayerViewIsTapped:(BRVideoPlayerView *)view;
+
+- (void)videoPlayerView:(BRVideoPlayerView *)view didChangeToOrientation:(BRVideoPlayerViewOrientation)orientation;
 
 @end
 
@@ -24,8 +31,18 @@
 
 @property (nonatomic, assign) double downloadProgress;
 
+@property (nonatomic, assign) BOOL fullScreenEnabled;
+
+@property (nonatomic, assign) BOOL rotateWithDevice;
+
+@property (nonatomic, assign) BOOL autoPlayWhenReady;
+
 
 @property (nonatomic, copy) NSString *videoLocalPath;
+@property (nonatomic, copy) NSString *videoRemotePath;
+
+@property (nonatomic, assign) BRVideoPlayerViewOrientation orientation;
+
 
 @property (nonatomic, weak) id<BRVideoPlayerViewDelegate> delegate;
 

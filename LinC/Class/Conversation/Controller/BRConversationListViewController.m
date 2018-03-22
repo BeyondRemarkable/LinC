@@ -34,39 +34,14 @@
 }
 
 @property (nonatomic, strong) BRDropDownViewController *dropDownVC;
-@property (nonatomic, strong) NSMutableSet *groupIDSet;
-@property (nonatomic, strong) NSMutableDictionary *updateTimeDict;
 
 @end
 
 @implementation BRConversationListViewController
 
-- (NSMutableSet *)groupIDSet {
-    if (_groupIDSet == nil) {
-        _groupIDSet = [NSMutableSet set];
-    }
-    return _groupIDSet;
-}
-
-- (NSMutableDictionary *)updateTimeDict {
-    if (_updateTimeDict == nil) {
-        _updateTimeDict = [NSMutableDictionary dictionary];
-    }
-    return _updateTimeDict;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self tableViewDidTriggerHeaderRefresh];
-    // 更新一次群信息
-    NSMutableSet *idSet = [NSMutableSet set];
-    NSArray *conversations = [[EMClient sharedClient].chatManager getAllConversations];
-    for (EMConversation *conversation in conversations) {
-        if (conversation.type == EMConversationTypeGroupChat) {
-            [idSet addObject:conversation.conversationId];
-        }
-    }
-    [self updateGroupInformationWithIDs:idSet];
 
     self.view.backgroundColor = [UIColor whiteColor];
     [self.tableView registerNib:[UINib nibWithNibName:@"BRConversationCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:[BRConversationCell cellIdentifierWithModel:nil]];
@@ -441,44 +416,6 @@
     [self tableViewDidFinishRefresh:BRRefreshTableViewWidgetHeader reload:YES];
 }
 
-- (void)updateGroupInformationWithIDs:(NSSet *)idSet {
-    NSInvocationOperation *updateOperation = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(tableViewDidTriggerHeaderRefresh) object:nil];
-    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-    NSEnumerator *enumerator = [idSet objectEnumerator];
-    NSString *valueID;
-    while (valueID = [enumerator nextObject]) {
-        // 计算时间差判断是否需要更新
-        NSDate *lastUpdateTime = nil;
-        NSDate *currentTime = [NSDate dateWithTimeIntervalSinceNow:0];
-        if ((lastUpdateTime = self.updateTimeDict[valueID])) {
-            NSTimeInterval interval = [currentTime timeIntervalSinceDate:lastUpdateTime];
-            // 时间间隔五分钟
-            if ((int)interval/60%60 < 5) {
-                continue;
-            }
-        }
-        self.updateTimeDict[valueID] = currentTime;
-        
-        NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
-            EMGroup *group = [[EMClient sharedClient].groupManager getGroupSpecificationFromServerWithId:valueID error:nil];
-            if (group && group.subject && group.subject.length != 0) {
-                BRGroupModel *groupModel = [[BRGroupModel alloc] init];
-                groupModel.groupID = group.groupId;
-                groupModel.groupDescription = group.description;
-                groupModel.groupName = group.subject;
-                groupModel.groupOwner = group.owner;
-                groupModel.groupMembers = [NSMutableArray arrayWithArray:group.memberList];
-                groupModel.groupStyle = group.setting.style;
-                
-                [[BRCoreDataManager sharedInstance] saveGroupToCoreData:@[groupModel]];
-            }
-        }];
-        [updateOperation addDependency:operation];
-        [queue addOperation:operation];
-    }
-    [[NSOperationQueue mainQueue] addOperation:updateOperation];
-}
-
 - (void)updateFromNotification:(NSNotification *)notification {
     [self tableViewDidTriggerHeaderRefresh];
 }
@@ -590,14 +527,11 @@
     NSMutableSet *idSet = [NSMutableSet set];
     for (EMMessage *message in aMessages) {
         if (message.chatType == EMChatTypeGroupChat) {
-            if (![self.groupIDSet containsObject:message.conversationId]) {
-                [idSet addObject:message.conversationId];
-                [self.groupIDSet addObject:message.conversationId];
-            }
+            [idSet addObject:message.conversationId];
         }
     }
     
-    [self updateGroupInformationWithIDs:idSet];
+    [[BRClientManager sharedManager] updateGroupInformationWithIDs:idSet];
 }
 
 

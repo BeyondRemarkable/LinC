@@ -11,14 +11,15 @@
 #import <MBProgressHUD.h>
 
 #define controlPanelPadding 10
+#define controlPanelHeight 34
 
 @interface BRVideoPlayerView ()
 
 @property (nonatomic, strong) AVPlayer *player;
 @property (nonatomic, strong) AVPlayerItem *playerItem;
 @property (nonatomic, strong) AVPlayerLayer *playerLayer;
+@property (nonatomic, strong) UIButton *fullScreenButton;
 @property (nonatomic, strong) UIView *controlPanel;
-@property (nonatomic, strong) UIButton *backButton;
 @property (nonatomic, strong) UIButton *playButton;
 @property (nonatomic, strong) UIButton *playButtonSmall;
 @property (nonatomic, strong) UISlider *progressSlider;
@@ -32,84 +33,144 @@
 
 @property (nonatomic, strong) MBProgressHUD *hud;
 
+@property (nonatomic, strong) UIView *originSuperView;
+@property (nonatomic, strong) NSLayoutConstraint *centerXConstraint;
+@property (nonatomic, strong) NSLayoutConstraint *centerYConstraint;
+@property (nonatomic, strong) NSLayoutConstraint *widthConstraint;
+@property (nonatomic, strong) NSLayoutConstraint *heightConstraint;
+@property (nonatomic, strong) NSLayoutConstraint *playButtonSmallLeadingConstraint;
+@property (nonatomic, strong) NSLayoutConstraint *restTimeLabelTrailingConstraint;
+@property (nonatomic, strong) NSLayoutConstraint *controlPanelHeightConstraint;
+
 @end
 
 @implementation BRVideoPlayerView
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        
-        // 添加手势
-        self.userInteractionEnabled = YES;
-        _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapVideo:)];
-        [self addGestureRecognizer:_tapGesture];
-        
-        // 添加playButton
-        _playButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
-        _playButton.center = self.center;
-        [_playButton setImage:[UIImage imageNamed:@"play_big"] forState:UIControlStateNormal];
-        [_playButton setImage:[UIImage imageNamed:@"pause_big"] forState:UIControlStateSelected];
-        [_playButton addTarget:self action:@selector(clickPlayButton:) forControlEvents:UIControlEventTouchUpInside];
-        [_playButton setHidden:YES];
-        [self addSubview:_playButton];
-        
-        // 添加控制台
-        CGFloat controlH = 34;
-        CGFloat controlPanelW = self.bounds.size.width;
-        CGFloat controlPanelH = controlH + 20 + iPhoneX_BOTTOM_HEIGHT;
-        CGFloat controlPanelX = 0;
-        CGFloat controlPanelY = self.bounds.size.height - controlPanelH;
-        _controlPanel = [[UIView alloc] initWithFrame:CGRectMake(controlPanelX, controlPanelY, controlPanelW, controlPanelH)];
-        _controlPanel.backgroundColor = [UIColor colorWithWhite:0.5 alpha:0.3];
-        
-        _playButtonSmall = [[UIButton alloc] initWithFrame:CGRectMake(0, 10, controlH, controlH)];
-        [_playButtonSmall setImage:[UIImage imageNamed:@"play"] forState:UIControlStateNormal];
-        [_playButtonSmall setImage:[UIImage imageNamed:@"pause"] forState:UIControlStateSelected];
-        [_playButtonSmall addTarget:self action:@selector(clickPlayButton:) forControlEvents:UIControlEventTouchUpInside];
-        [_controlPanel addSubview:_playButtonSmall];
-        
-        CGFloat currentTimeLabelX = CGRectGetMaxX(_playButtonSmall.frame);
-        CGFloat currentTimeLabelW = 44;
-        _currentTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(currentTimeLabelX, 10, currentTimeLabelW, controlH)];
-        [_currentTimeLabel setTextColor:[UIColor whiteColor]];
-        [_currentTimeLabel setFont:[UIFont systemFontOfSize:14.0]];
-        [_currentTimeLabel setText:@"00:00"];
-        [_controlPanel addSubview:_currentTimeLabel];
-        
-        CGFloat progressSliderX = CGRectGetMaxX(_currentTimeLabel.frame);
-        CGFloat progressSliderW = controlPanelW - _playButtonSmall.bounds.size.width - 2 * currentTimeLabelW - controlPanelPadding;
-        _progressSlider = [[UISlider alloc] initWithFrame:CGRectMake(progressSliderX, 10, progressSliderW, controlH)];
-        [_progressSlider setMinimumTrackTintColor:[UIColor whiteColor]];
-        [_progressSlider setMaximumTrackTintColor:[UIColor blackColor]];
-        [_progressSlider setThumbImage:[UIImage imageNamed:@"slider_thumb"] forState:UIControlStateNormal];
-        [_progressSlider addTarget:self action:@selector(sliderTouchDown) forControlEvents:UIControlEventTouchDown];
-        [_progressSlider addTarget:self action:@selector(sliderTouchUp) forControlEvents:UIControlEventTouchUpInside];
-        [_progressSlider addTarget:self action:@selector(dragSlider:) forControlEvents:UIControlEventValueChanged];
-        // 添加进度条点击手势
-        UITapGestureRecognizer *sliderTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapSlider:)];
-        [_progressSlider addGestureRecognizer:sliderTapGesture];
-        [_controlPanel addSubview:_progressSlider];
-        
-        CGFloat restTimeLabelX = CGRectGetMaxX(_progressSlider.frame) + 5;
-        _restTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(restTimeLabelX, 10, currentTimeLabelW, controlH)];
-        [_restTimeLabel setTextColor:[UIColor whiteColor]];
-        [_restTimeLabel setFont:[UIFont systemFontOfSize:14.0]];
-        [_restTimeLabel setText:@"00:00"];
-        [_controlPanel addSubview:_restTimeLabel];
-        
-        [self addSubview:_controlPanel];
-        
-        // 添加backButton
-        _backButton = [[UIButton alloc] initWithFrame:CGRectMake(30, 30, 30, 30)];
-        [_backButton setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
-        [_backButton setImage:[UIImage imageNamed:@"close_highlighted"] forState:UIControlStateHighlighted];
-        [_backButton addTarget:self action:@selector(clickBackButton:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:_backButton];
-        
-        
-        _isShowDownloadProcess = NO;
+        [self initSubviews];
+        [self setupDefaultProperties];
     }
     return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    if (self = [super initWithCoder:aDecoder]) {
+        [self initSubviews];
+        [self setupDefaultProperties];
+    }
+    return self;
+}
+
+- (void)initSubviews {
+    self.backgroundColor = [UIColor blackColor];
+    // 添加手势
+    self.userInteractionEnabled = YES;
+    _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapVideo:)];
+    [self addGestureRecognizer:_tapGesture];
+    
+    // 添加playButton
+    _playButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_playButton setImage:[UIImage imageNamed:@"play_big"] forState:UIControlStateNormal];
+    [_playButton setImage:[UIImage imageNamed:@"pause_big"] forState:UIControlStateSelected];
+    [_playButton addTarget:self action:@selector(clickPlayButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:_playButton];
+    _playButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [_playButton.widthAnchor constraintEqualToConstant:100].active = YES;
+    [_playButton.heightAnchor constraintEqualToAnchor:_playButton.widthAnchor].active = YES;
+    [_playButton.centerXAnchor constraintEqualToAnchor:self.centerXAnchor].active = YES;
+    [_playButton.centerYAnchor constraintEqualToAnchor:self.centerYAnchor].active = YES;
+    
+    // 添加控制台
+    _controlPanel = [[UIView alloc] init];
+    _controlPanel.backgroundColor = [UIColor colorWithWhite:0.5 alpha:0.3];
+    
+    // 添加小播放按钮
+    _playButtonSmall = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_playButtonSmall setImage:[UIImage imageNamed:@"play"] forState:UIControlStateNormal];
+    [_playButtonSmall setImage:[UIImage imageNamed:@"pause"] forState:UIControlStateSelected];
+    [_playButtonSmall addTarget:self action:@selector(clickPlayButton:) forControlEvents:UIControlEventTouchUpInside];
+    [_controlPanel addSubview:_playButtonSmall];
+    _playButtonSmall.translatesAutoresizingMaskIntoConstraints = NO;
+    [_playButtonSmall.topAnchor constraintEqualToAnchor:_controlPanel.topAnchor constant:controlPanelPadding].active = YES;
+    _playButtonSmallLeadingConstraint = [_playButtonSmall.leadingAnchor constraintEqualToAnchor:_controlPanel.leadingAnchor];
+    _playButtonSmallLeadingConstraint.active = YES;
+    [_playButtonSmall.widthAnchor constraintEqualToConstant:controlPanelHeight].active = YES;
+    [_playButtonSmall.heightAnchor constraintEqualToAnchor:_playButtonSmall.widthAnchor].active = YES;
+    
+    // 添加已经播放的时间
+    CGFloat timeLabelW = 35;
+    _currentTimeLabel = [[UILabel alloc] init];
+    [_currentTimeLabel setTextColor:[UIColor whiteColor]];
+    [_currentTimeLabel setFont:[UIFont systemFontOfSize:14.0]];
+    _currentTimeLabel.adjustsFontSizeToFitWidth = YES;
+    [_currentTimeLabel setText:@"00:00"];
+    [_controlPanel addSubview:_currentTimeLabel];
+    _currentTimeLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [_currentTimeLabel.topAnchor constraintEqualToAnchor:_controlPanel.topAnchor constant:controlPanelPadding].active = YES;
+    [_currentTimeLabel.leadingAnchor constraintEqualToAnchor:_playButtonSmall.trailingAnchor].active = YES;
+    [_currentTimeLabel.widthAnchor constraintEqualToConstant:timeLabelW].active = YES;
+    [_currentTimeLabel.heightAnchor constraintEqualToConstant:controlPanelHeight].active = YES;
+    
+    // 添加播放的剩余时间
+    _restTimeLabel = [[UILabel alloc] init];
+    [_restTimeLabel setTextColor:[UIColor whiteColor]];
+    [_restTimeLabel setFont:[UIFont systemFontOfSize:14.0]];
+    _restTimeLabel.adjustsFontSizeToFitWidth = YES;
+    [_restTimeLabel setText:@"00:00"];
+    [_controlPanel addSubview:_restTimeLabel];
+    _restTimeLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [_restTimeLabel.topAnchor constraintEqualToAnchor:_controlPanel.topAnchor constant:controlPanelPadding].active = YES;
+    _restTimeLabelTrailingConstraint = [_restTimeLabel.trailingAnchor constraintEqualToAnchor:_controlPanel.trailingAnchor constant:-controlPanelPadding];
+    _restTimeLabelTrailingConstraint.active = YES;
+    [_restTimeLabel.widthAnchor constraintEqualToConstant:timeLabelW].active = YES;
+    [_restTimeLabel.heightAnchor constraintEqualToConstant:controlPanelHeight].active = YES;
+    
+    // 添加进度条
+    _progressSlider = [[UISlider alloc] init];
+    [_progressSlider setMinimumTrackTintColor:[UIColor whiteColor]];
+    [_progressSlider setMaximumTrackTintColor:[UIColor blackColor]];
+    [_progressSlider setThumbImage:[UIImage imageNamed:@"slider_thumb"] forState:UIControlStateNormal];
+    [_progressSlider addTarget:self action:@selector(sliderTouchDown) forControlEvents:UIControlEventTouchDown];
+    [_progressSlider addTarget:self action:@selector(sliderTouchUp) forControlEvents:UIControlEventTouchUpInside];
+    [_progressSlider addTarget:self action:@selector(dragSlider:) forControlEvents:UIControlEventValueChanged];
+    // 添加进度条点击手势
+    UITapGestureRecognizer *sliderTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapSlider:)];
+    [_progressSlider addGestureRecognizer:sliderTapGesture];
+    [_controlPanel addSubview:_progressSlider];
+    _progressSlider.translatesAutoresizingMaskIntoConstraints = NO;
+    [_progressSlider.leadingAnchor constraintEqualToAnchor:_currentTimeLabel.trailingAnchor constant:controlPanelPadding].active = YES;
+    [_progressSlider.trailingAnchor constraintEqualToAnchor:_restTimeLabel.leadingAnchor constant:-controlPanelPadding].active = YES;
+    [_progressSlider.heightAnchor constraintEqualToConstant:controlPanelHeight].active = YES;
+    [_progressSlider.centerYAnchor constraintEqualToAnchor:_currentTimeLabel.centerYAnchor].active = YES;
+    
+    [self addSubview:_controlPanel];
+    _controlPanel.translatesAutoresizingMaskIntoConstraints = NO;
+    [_controlPanel.leadingAnchor constraintEqualToAnchor:self.leadingAnchor].active = YES;
+    [_controlPanel.trailingAnchor constraintEqualToAnchor:self.trailingAnchor].active = YES;
+    [_controlPanel.bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = YES;
+    _controlPanelHeightConstraint = [_controlPanel.heightAnchor constraintEqualToConstant:controlPanelHeight + 2 * controlPanelPadding];
+    _controlPanelHeightConstraint.active = YES;
+}
+
+- (void)setupDefaultProperties {
+    _isShowDownloadProcess = NO;
+    _fullScreenEnabled = NO;
+    _rotateWithDevice = NO;
+    _autoPlayWhenReady = NO;
+    _orientation = BRVideoPlayerViewOrientationNormal;
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
+    self.playerLayer.frame = self.bounds;
+    if (self.bounds.size.height != 812) {
+        self.controlPanelHeightConstraint.constant = controlPanelHeight + 2 * controlPanelPadding;
+    }
+    else {
+        self.controlPanelHeightConstraint.constant = controlPanelHeight + 2 * controlPanelPadding + iPhoneX_BOTTOM_HEIGHT;
+    }
 }
 
 #pragma mark - getter
@@ -148,19 +209,90 @@
     }
 }
 
+- (void)setFullScreenEnabled:(BOOL)fullScreenEnabled {
+    _fullScreenEnabled = fullScreenEnabled;
+    
+    // 添加全屏按钮
+    _fullScreenButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_fullScreenButton setBackgroundImage:[UIImage imageNamed:@"full_screen"] forState:UIControlStateNormal];
+    [_fullScreenButton setBackgroundImage:[UIImage imageNamed:@"exit_full_screen"] forState:UIControlStateSelected];
+    [_fullScreenButton addTarget:self action:@selector(fullScreenAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:_fullScreenButton];
+    _fullScreenButton.translatesAutoresizingMaskIntoConstraints = NO;
+    CGFloat padding = 30.0;
+    CGFloat width = 30.0;
+    [_fullScreenButton.topAnchor constraintEqualToAnchor:self.topAnchor constant:padding].active = YES;
+    [_fullScreenButton.trailingAnchor constraintEqualToAnchor:self.trailingAnchor constant:-padding].active = YES;
+    [_fullScreenButton.widthAnchor constraintEqualToConstant:width].active = YES;
+    [_fullScreenButton.heightAnchor constraintEqualToAnchor:_fullScreenButton.widthAnchor].active = YES;
+}
+
+- (void)setAutoPlayWhenReady:(BOOL)autoPlayWhenReady {
+    _autoPlayWhenReady = autoPlayWhenReady;
+    
+    if (autoPlayWhenReady && self.playButton.state == UIControlStateNormal) {
+        self.playButton.hidden = YES;
+    }
+}
+
 #pragma mark - Action
 
 - (void)tapVideo:(UITapGestureRecognizer *)tap {
+    if (_delegate && [_delegate respondsToSelector:@selector(videoPlayerViewIsTapped:)]) {
+        [_delegate videoPlayerViewIsTapped:self];
+    }
     [UIView animateWithDuration:0.3 animations:^{
-        if (self.backButton.alpha) {
-            self.backButton.alpha = 0;
+        if (self.controlPanel.alpha) {
             self.controlPanel.alpha = 0;
+            self.fullScreenButton.alpha = 0;
         }
         else {
-            self.backButton.alpha = 1;
             self.controlPanel.alpha = 1;
+            self.fullScreenButton.alpha = 1;
         }
     }];
+}
+
+- (void)fullScreenAction:(UIButton *)button {
+    if (self.orientation == BRVideoPlayerViewOrientationNormal) {
+        self.orientation = BRVideoPlayerViewOrientationFullScreen;
+        [button setSelected:YES];
+        self.originSuperView = self.superview;
+        
+        if (_delegate && [_delegate respondsToSelector:@selector(videoPlayerView:didChangeToOrientation:)]) {
+            [_delegate videoPlayerView:self didChangeToOrientation:self.orientation];
+        }
+        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+        [window addSubview:self];
+        self.centerXConstraint = [self.centerXAnchor constraintEqualToAnchor:window.centerXAnchor];
+        self.centerYConstraint = [self.centerYAnchor constraintEqualToAnchor:window.centerYAnchor];
+        self.widthConstraint = [self.widthAnchor constraintEqualToConstant:window.bounds.size.height];
+        self.heightConstraint = [self.heightAnchor constraintEqualToConstant:window.bounds.size.width];
+        [UIView animateWithDuration:0.3 animations:^{
+            self.centerXConstraint.active = YES;
+            self.centerYConstraint.active = YES;
+            self.widthConstraint.active = YES;
+            self.heightConstraint.active = YES;
+            self.playButtonSmallLeadingConstraint.constant = controlPanelPadding;
+            self.restTimeLabelTrailingConstraint.constant = - 2 * controlPanelPadding;
+            self.transform = CGAffineTransformMakeRotation(M_PI / 2);
+        }];
+    }
+    else if (self.orientation == BRVideoPlayerViewOrientationFullScreen) {
+        self.orientation = BRVideoPlayerViewOrientationNormal;
+        [button setSelected:NO];
+        
+        [self removeConstraints:@[self.centerXConstraint, self.centerYConstraint, self.widthConstraint, self.heightConstraint]];
+        [self.originSuperView addSubview:self];
+        if (_delegate && [_delegate respondsToSelector:@selector(videoPlayerView:didChangeToOrientation:)]) {
+            [_delegate videoPlayerView:self didChangeToOrientation:self.orientation];
+        }
+        [UIView animateWithDuration:0.3 animations:^{
+            self.playButtonSmallLeadingConstraint.constant = 0;
+            self.restTimeLabelTrailingConstraint.constant = - controlPanelPadding;
+            self.transform = CGAffineTransformIdentity;
+        }];
+    }
 }
 
 - (void)dragSlider:(UISlider *)slider {
@@ -197,19 +329,15 @@
     self.image = nil;
 
     [self setupPlayerWithURL:[NSURL fileURLWithPath:videoLocalPath]];
-    [self.layer insertSublayer:self.playerLayer atIndex:0];
-    
-    __weak typeof(self) weakSelf = self;
-    // 添加视频播放进度监听
-    self.timeObserverToken = [self.player addPeriodicTimeObserverForInterval:CMTimeMake(1, 1) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
-        NSTimeInterval currentTime = CMTimeGetSeconds(time);
-        NSTimeInterval totalTime = CMTimeGetSeconds(weakSelf.playerItem.duration);
-        weakSelf.progressSlider.value = currentTime / totalTime;
-        weakSelf.currentTimeLabel.text = [weakSelf formatTimeFromDuration:currentTime];
-        weakSelf.restTimeLabel.text = [weakSelf formatTimeFromDuration:totalTime - currentTime];
-    }];
+}
 
+- (void)setVideoRemotePath:(NSString *)videoRemotePath {
+    _videoRemotePath = videoRemotePath;
     
+    self.image = nil;
+    [MBProgressHUD showHUDAddedTo:self animated:YES];
+    
+    [self setupPlayerWithURL:[NSURL URLWithString:videoRemotePath]];
 }
 
 // 设置AVPlayer
@@ -236,6 +364,17 @@
     self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.player];
     self.playerLayer.frame = self.frame;
     self.playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
+    [self.layer insertSublayer:self.playerLayer atIndex:0];
+    
+    __weak typeof(self) weakSelf = self;
+    // 添加视频播放进度监听
+    self.timeObserverToken = [self.player addPeriodicTimeObserverForInterval:CMTimeMake(1, 10) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
+        NSTimeInterval currentTime = CMTimeGetSeconds(time);
+        NSTimeInterval totalTime = CMTimeGetSeconds(weakSelf.playerItem.duration);
+        weakSelf.progressSlider.value = currentTime / totalTime;
+        weakSelf.currentTimeLabel.text = [weakSelf formatTimeFromDuration:currentTime];
+        weakSelf.restTimeLabel.text = [weakSelf formatTimeFromDuration:totalTime - currentTime];
+    }];
 }
 
 - (void)playerDidFinishPlaying:(NSNotification *)notification {
@@ -261,14 +400,6 @@
     }
     else if (self.player.rate == 1.0) {
         [self.player pause];
-    }
-}
-
-- (void)clickBackButton:(UIButton *)button {
-    [self cleanUp];
-
-    if (_delegate && [_delegate respondsToSelector:@selector(videoPlayerView:didClickBackButton:)]) {
-        [_delegate videoPlayerView:self didClickBackButton:button];
     }
 }
 
@@ -315,7 +446,10 @@
     if ([keyPath isEqualToString:@"status"]) {
         AVPlayerStatus status = [[change objectForKey:@"new"] intValue];
         if (status == AVPlayerStatusReadyToPlay) {
-            [self clickPlayButton:self.playButton];
+            [MBProgressHUD hideHUDForView:self animated:YES];
+            if (self.autoPlayWhenReady) {
+                [self clickPlayButton:self.playButton];
+            }
         }
         else if (status == AVPlayerStatusFailed) {
             
@@ -340,6 +474,10 @@
     else if ([keyPath isEqualToString:@"playbackLikelyToKeepUp"]) {
         
     }
+}
+
+- (void)dealloc {
+    [self cleanUp];
 }
 
 @end

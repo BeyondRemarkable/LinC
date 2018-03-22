@@ -7,6 +7,7 @@
 //
 
 #import "BRLectureVideoCell.h"
+#import <UIImageView+WebCache.h>
 
 @interface BRLectureVideoCell ()
 
@@ -39,13 +40,12 @@
     UILayoutGuide *marginGuide = self.contentView.layoutMarginsGuide;
     
     _thumbnailImageView = [[UIImageView alloc] init];
-    _thumbnailImageView.backgroundColor = [UIColor redColor];
+    _thumbnailImageView.contentMode = UIViewContentModeScaleAspectFit;
     [self.contentView addSubview:_thumbnailImageView];
     _thumbnailImageView.translatesAutoresizingMaskIntoConstraints = NO;
     [_thumbnailImageView.topAnchor constraintEqualToAnchor:marginGuide.topAnchor].active = YES;
     [_thumbnailImageView.leadingAnchor constraintEqualToAnchor:marginGuide.leadingAnchor].active = YES;
     [_thumbnailImageView.bottomAnchor constraintEqualToAnchor:marginGuide.bottomAnchor].active = YES;
-    [_thumbnailImageView.heightAnchor constraintEqualToConstant:[[self class] defaultCellHeight]].active = YES;
     [_thumbnailImageView.widthAnchor constraintEqualToAnchor:_thumbnailImageView.heightAnchor].active = YES;
     
     _purchaseButton = [[UIButton alloc] init];
@@ -70,6 +70,7 @@
     [_titleLabel.topAnchor constraintEqualToAnchor:_thumbnailImageView.topAnchor].active = YES;
     [_titleLabel.leadingAnchor constraintEqualToAnchor:_thumbnailImageView.trailingAnchor constant:5].active = YES;
     [_titleLabel.trailingAnchor constraintEqualToAnchor:marginGuide.trailingAnchor].active = YES;
+    [_titleLabel.heightAnchor constraintEqualToConstant:25].active = YES;
     
     _instructorLabel = [[UILabel alloc] init];
     _instructorLabel.font = [UIFont systemFontOfSize:14.0];
@@ -78,7 +79,8 @@
     _instructorLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [_instructorLabel.topAnchor constraintEqualToAnchor:_titleLabel.bottomAnchor constant:3.0].active = YES;
     [_instructorLabel.leadingAnchor constraintEqualToAnchor:_titleLabel.leadingAnchor].active = YES;
-    [_instructorLabel.trailingAnchor constraintEqualToAnchor:_purchaseButton.leadingAnchor constant:5.0].active = YES;
+    [_instructorLabel.trailingAnchor constraintEqualToAnchor:_purchaseButton.leadingAnchor constant:-5.0].active = YES;
+    [_instructorLabel.heightAnchor constraintEqualToConstant:18].active = YES;
     
     _detailLabel = [[UILabel alloc] init];
     _detailLabel.font = [UIFont systemFontOfSize:13.0];
@@ -96,9 +98,12 @@
     _model = model;
     self.titleLabel.text = model.title;
     self.instructorLabel.text = model.instructor;
+    [self.thumbnailImageView sd_setImageWithURL:[NSURL URLWithString:model.thumbnailURL] placeholderImage:[UIImage imageNamed:@"video_placeholder"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+        model.thumbnailImage = image;
+    }];
     self.detailLabel.text = model.detail;
-    if (model.price) {
-        [self.purchaseButton setTitle:model.price forState:UIControlStateNormal];
+    if (model.price != 0) {
+        [self.purchaseButton setTitle:[NSString stringWithFormat:@"￥%.1f", model.price] forState:UIControlStateNormal];
         self.purchaseButton.enabled = YES;
     }
     else {

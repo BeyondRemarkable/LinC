@@ -53,6 +53,16 @@
 /** 更新当前用户的密码 */
 - (void)updatePasswordWithCurrentPassword:(NSString *)currentPassword newPassword:(NSString *)newPassword success:(void (^)(NSString *message))successBlock failure:(void (^)(EMError *error))failureBlock;
 
-- (void)getGroupInfoWithSuccess:(void (^)(NSMutableArray *groupInfoArray))successBlock failure:(void (^)(EMError *))failureBlock;
+/** 从服务器获取所有群信息 */
+- (void)getGroupInfoWithSuccess:(void (^)(NSMutableArray *groupInfoArray))successBlock failure:(void (^)(EMError *error))failureBlock;
+
+/** 根据传入的群ID获取群详情 */
+- (void)updateGroupInformationWithIDs:(NSSet *)idSet;
+
+/** 从服务器获取视频列表 */
+- (void)getVideoListWithNumberOfPages:(NSUInteger)numberOfPages numberOfVideosPerPage:(NSUInteger)numberPerPage after:(NSDate *)date success:(void (^)(NSArray *videoModelArray))successBlock failure:(void (^)(EMError *error))failureBlock;
+
+/** 获取视频的播放地址 */
+- (void)getVideoURLWithID:(NSString *)videoID success:(void (^)(NSString *urlString))successBlock failure:(void (^)(EMError *error))failureBlock;
 
 @end

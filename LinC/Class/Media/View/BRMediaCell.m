@@ -17,6 +17,7 @@
 @property (nonatomic, strong) UIScrollView *imageScrollView;
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) BRVideoPlayerView *videoView;
+@property (nonatomic, strong) UIButton *closeButton;
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
 
 @property (nonatomic, strong) id<NSObject> videoObserver;
@@ -68,13 +69,24 @@
 - (BRVideoPlayerView *)videoView {
     if (_videoView == nil) {
         _videoView = [[BRVideoPlayerView alloc] initWithFrame:self.bounds];
+        _videoView.autoPlayWhenReady = YES;
         _videoView.delegate = self;
         [self.contentView addSubview:_videoView];
         
         // 添加菊花
         self.activityIndicator.center = _videoView.center;
         [_videoView addSubview:self.activityIndicator];
-        
+        // 添加关闭按钮
+        self.closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_videoView addSubview:self.closeButton];
+        self.closeButton.translatesAutoresizingMaskIntoConstraints = NO;
+        [self.closeButton.topAnchor constraintEqualToAnchor:_videoView.topAnchor constant:30].active = YES;
+        [self.closeButton.leadingAnchor constraintEqualToAnchor:_videoView.leadingAnchor constant:30].active = YES;
+        [self.closeButton.widthAnchor constraintEqualToConstant:30].active = YES;
+        [self.closeButton.heightAnchor constraintEqualToAnchor:self.closeButton.widthAnchor].active = YES;
+        [self.closeButton setBackgroundImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
+        [self.closeButton setBackgroundImage:[UIImage imageNamed:@"close_highlighted"] forState:UIControlStateHighlighted];
+        [self.closeButton addTarget:self action:@selector(closeAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _videoView;
 }
@@ -84,6 +96,12 @@
 - (void)tapImage:(UITapGestureRecognizer *)tap {
     if (_delegate && [_delegate respondsToSelector:@selector(mediaCell:didTapImage:)]) {
         [_delegate mediaCell:self didTapImage:self.image];
+    }
+}
+
+- (void)closeAction:(UIButton *)button {
+    if (_delegate && [_delegate respondsToSelector:@selector(mediaCell:didClickBackButton:)]) {
+        [_delegate mediaCell:self didClickBackButton:button];
     }
 }
 
@@ -225,10 +243,16 @@
 }
 
 #pragma mark - BRVideoPlayerViewDelegate
-- (void)videoPlayerView:(BRVideoPlayerView *)view didClickBackButton:(UIButton *)button {
-    if (_delegate && [_delegate respondsToSelector:@selector(mediaCell:didClickBackButton:)]) {
-        [_delegate mediaCell:self didClickBackButton:button];
-    }
+
+- (void)videoPlayerViewIsTapped:(BRVideoPlayerView *)view {
+    [UIView animateWithDuration:0.3 animations:^{
+        if (self.closeButton.alpha) {
+            self.closeButton.alpha = 0;
+        }
+        else {
+            self.closeButton.alpha = 1;
+        }
+    }];
 }
 
 - (void)dealloc {

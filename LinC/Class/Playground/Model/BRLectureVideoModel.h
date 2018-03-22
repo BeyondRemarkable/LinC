@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface BRLectureVideoModel : NSObject
 
@@ -14,7 +15,10 @@
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *instructor;
 @property (nonatomic, copy) NSString *detail;
-@property (nonatomic, copy) NSString *price;
+@property (nonatomic, assign) double price;
+@property (nonatomic, copy) NSString *category;
+@property (nonatomic, copy) NSString *thumbnailURL;
+@property (nonatomic, strong) UIImage *thumbnailImage;
 @property (nonatomic, strong) NSDate *createTime;
 @property (nonatomic, strong) NSDate *updateTime;
 

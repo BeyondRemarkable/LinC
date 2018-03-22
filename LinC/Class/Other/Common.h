@@ -25,6 +25,7 @@
 #define BRFriendRequestUpdateNotification @"FriendRequestUpdate"
 #define BRImageMessageDownloadResultNotification @"ImageMessageDownloadResult"
 #define BRVideoMessageDownloadResultNotification @"VideoMessageDownloadResult"
+#define kTestBaseURL @"http://linc.reactivetesting.online"
 
 extern NSString *const GroupNameChangeNotificationName;
 // 定义系统偏好的键值
@@ -36,5 +37,6 @@ extern NSString *const kServiceName;
 extern NSString *const kServiceToken;
 
 extern NSString *const kBaseURL;
+extern NSString *const kVideoBaseURL;
 
 #endif /* Common_h */

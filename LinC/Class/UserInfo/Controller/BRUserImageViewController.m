@@ -56,22 +56,17 @@
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
-- (void)openImagePickerControllerWithType:(UIImagePickerControllerSourceType) type {
+- (void)openImagePickerControllerWithType:(UIImagePickerControllerSourceType)type {
     PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
     if (status == PHAuthorizationStatusRestricted || status == PHAuthorizationStatusDenied) {
         [self showAuthorizationAlert];
     } else {
         UIImagePickerController *ipc = [[UIImagePickerController alloc] init];
-        ipc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        ipc.sourceType = type;
         ipc.delegate = self;
+        ipc.allowsEditing = YES;
         [self presentViewController:ipc animated:YES completion:nil];
     }
-    
-    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
-    imagePicker.sourceType = type;
-    imagePicker.allowsEditing = YES;
-    imagePicker.delegate = self;
-    [self presentViewController:imagePicker animated:YES completion:nil];
 }
 
 /**
