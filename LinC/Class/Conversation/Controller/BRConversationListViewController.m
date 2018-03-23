@@ -418,6 +418,15 @@
         totalUnreadCount += conversation.unreadMessagesCount;
     }
     
+    // 获取群头像
+    [[BRClientManager sharedManager] getGroupInfoWithSuccess:^(NSMutableArray *groupInfoArray) {
+        [self.tableView reloadData];
+    } failure:^(EMError *aError) {
+        hud.mode = MBProgressHUDModeText;
+        hud.label.text = aError.errorDescription;
+        [hud hideAnimated:YES afterDelay:1.5];
+    }];
+    
     self.tabBarItem.badgeValue = totalUnreadCount ? [NSString stringWithFormat:@"%lu", (long)totalUnreadCount] : nil;
     [UIApplication sharedApplication].applicationIconBadgeNumber = totalUnreadCount;
     

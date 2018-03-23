@@ -20,6 +20,7 @@
     if (self) {
         _conversation = conversation;
         _conversationID = conversation.conversationId;
+        _chatType = conversation.type;
         if (_conversation.type == EMConversationTypeChat) {
             [self setupConversationTypeChat:conversation];
         }
