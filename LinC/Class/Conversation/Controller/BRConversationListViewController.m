@@ -360,7 +360,9 @@
     
     EMConversation *updatedConversation = [[EMClient sharedClient].chatManager getConversation:model.conversationID type:model.chatType createIfNotExist:NO];
     self.dataArray[indexPath.row] = [[BRConversationModel alloc] initWithConversation:updatedConversation];
+    [self.tableView beginUpdates];
     [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    [self.tableView endUpdates];
     
     if (diff) {
         NSInteger unreadCount = [UIApplication sharedApplication].applicationIconBadgeNumber;
