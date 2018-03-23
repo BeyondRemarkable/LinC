@@ -39,7 +39,12 @@
 }
 
 - (void)tableViewDidTriggerHeaderRefresh {
-    [[BRClientManager sharedManager] getVideoListWithNumberOfPages:0 numberOfVideosPerPage:0 after:nil success:^(NSArray *videoModelArray) {
+    NSDate *date = nil;
+    if (self.dataArray.count != 0) {
+        BRLectureVideoModel *model = [self.dataArray firstObject];
+        date = model.updateTime;
+    }
+    [[BRClientManager sharedManager] getVideoListWithNumberOfPages:0 numberOfVideosPerPage:0 after:date success:^(NSArray *videoModelArray) {
         [self.dataArray addObjectsFromArray:videoModelArray];
         [self tableViewDidFinishRefresh:BRRefreshTableViewWidgetHeader reload:YES];
     } failure:^(EMError *error) {

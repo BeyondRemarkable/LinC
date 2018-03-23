@@ -575,7 +575,10 @@
     
     BRHTTPSessionManager *manager = [BRHTTPSessionManager manager];
     NSString *url = [kBaseURL stringByAppendingPathComponent:@"/api/v1/videos/"];
-    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:pageString,@"page",perPageString,@"perPage",timeStamp,@"timestamp", nil];
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    parameters[@"page"] = pageString;
+    parameters[@"perPage"] = perPageString;
+    parameters[@"timestamp"] = timeStamp;
     NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
     NSString *token = [SAMKeychain passwordForService:kLoginTokenKey account:username];
     [manager.requestSerializer setValue:[@"Bearer " stringByAppendingString:token]  forHTTPHeaderField:@"Authorization"];

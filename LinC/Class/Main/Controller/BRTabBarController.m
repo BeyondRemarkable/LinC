@@ -85,12 +85,7 @@
     }
     
     // 获取未处理好友请求数，设置badge
-    NSString *friendsBadgeCount = [BRFileWithNewRequestData countForNewRequestFromFile:newFirendRequestFile];
-    NSString *groupBadgeCount = [BRFileWithNewRequestData countForNewRequestFromFile:newGroupRequestFile];
-    NSInteger friendRequestCount = [friendsBadgeCount integerValue] + [groupBadgeCount integerValue];
-    if (friendRequestCount) {
-        self.tabBar.items[2].badgeValue = [NSString stringWithFormat:@"%ld", (long)friendRequestCount];
-    }
+    [self updateContactsBadge];
 }
 
 - (void)receivedNewFriendRequest:(NSNotification *)notification {
@@ -101,6 +96,15 @@
 - (void)updateFriendRequest:(NSNotification *)notification {
     UITabBarItem *contactItem = self.tabBar.items[2];
     [self addBadgeBy:-1 inItem:contactItem];
+}
+
+- (void)updateContactsBadge {
+    NSString *friendsBadgeCount = [BRFileWithNewRequestData countForNewRequestFromFile:newFirendRequestFile];
+    NSString *groupBadgeCount = [BRFileWithNewRequestData countForNewRequestFromFile:newGroupRequestFile];
+    NSInteger requestCount = [friendsBadgeCount integerValue] + [groupBadgeCount integerValue];
+    if (requestCount) {
+        self.tabBar.items[2].badgeValue = [NSString stringWithFormat:@"%ld", (long)requestCount];
+    }
 }
 
 #pragma mark - private methods

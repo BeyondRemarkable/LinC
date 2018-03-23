@@ -41,6 +41,7 @@
 @property (nonatomic, strong) NSLayoutConstraint *playButtonSmallLeadingConstraint;
 @property (nonatomic, strong) NSLayoutConstraint *restTimeLabelTrailingConstraint;
 @property (nonatomic, strong) NSLayoutConstraint *controlPanelHeightConstraint;
+@property (nonatomic, strong) NSLayoutConstraint *fullScreenButtonTopConstraint;
 
 @end
 
@@ -154,6 +155,7 @@
 }
 
 - (void)setupDefaultProperties {
+    self.contentMode = UIViewContentModeScaleAspectFit;
     _isShowDownloadProcess = NO;
     _fullScreenEnabled = NO;
     _rotateWithDevice = NO;
@@ -167,9 +169,11 @@
     self.playerLayer.frame = self.bounds;
     if (self.bounds.size.height != 812) {
         self.controlPanelHeightConstraint.constant = controlPanelHeight + 2 * controlPanelPadding;
+        self.fullScreenButtonTopConstraint.constant = 20;
     }
     else {
         self.controlPanelHeightConstraint.constant = controlPanelHeight + 2 * controlPanelPadding + iPhoneX_BOTTOM_HEIGHT;
+        self.fullScreenButtonTopConstraint.constant = 30;
     }
 }
 
@@ -221,7 +225,8 @@
     _fullScreenButton.translatesAutoresizingMaskIntoConstraints = NO;
     CGFloat padding = 30.0;
     CGFloat width = 30.0;
-    [_fullScreenButton.topAnchor constraintEqualToAnchor:self.topAnchor constant:padding].active = YES;
+    _fullScreenButtonTopConstraint = [_fullScreenButton.topAnchor constraintEqualToAnchor:self.topAnchor constant:padding];
+    _fullScreenButtonTopConstraint.active = YES;
     [_fullScreenButton.trailingAnchor constraintEqualToAnchor:self.trailingAnchor constant:-padding].active = YES;
     [_fullScreenButton.widthAnchor constraintEqualToConstant:width].active = YES;
     [_fullScreenButton.heightAnchor constraintEqualToAnchor:_fullScreenButton.widthAnchor].active = YES;
