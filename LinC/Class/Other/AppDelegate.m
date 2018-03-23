@@ -139,35 +139,39 @@
         // 好友请求
         if ([kBRFriendRequestExtKey isEqualToString:reqFlag]) {
             NSDictionary *friendDict = [NSDictionary dictionaryWithObjectsAndKeys:((EMTextMessageBody *)message.body).text, @"message", message.from, @"userID", username, @"loginUser", nil];
-            [BRFileWithNewRequestData savedToFileName:newFirendRequestFile withData:friendDict];
-            UILocalNotification *notification = [[UILocalNotification alloc] init];
-            
-            notification.alertTitle = [@"Friend request from:" stringByAppendingString: message.from];
-            notification.fireDate = [NSDate date];
-            notification.alertAction = NSLocalizedString(@"open", @"Open");
-            notification.alertBody = [friendDict valueForKey:@"message"];
-            notification.timeZone = [NSTimeZone defaultTimeZone];
-            [UIApplication sharedApplication].applicationIconBadgeNumber +=1;
-            
-            [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-            [[NSNotificationCenter defaultCenter] postNotificationName:kBRFriendRequestExtKey object:message];
+            BOOL fetchResult = [BRFileWithNewRequestData savedToFileName:newFirendRequestFile withData:friendDict];
+            if (fetchResult) {
+                UILocalNotification *notification = [[UILocalNotification alloc] init];
+                
+                notification.alertTitle = [@"Friend request from:" stringByAppendingString: message.from];
+                notification.fireDate = [NSDate date];
+                notification.alertAction = NSLocalizedString(@"open", @"Open");
+                notification.alertBody = [friendDict valueForKey:@"message"];
+                notification.timeZone = [NSTimeZone defaultTimeZone];
+                [UIApplication sharedApplication].applicationIconBadgeNumber +=1;
+                
+                [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kBRFriendRequestExtKey object:message];
+            }
             return;
         } else if ([reqFlag hasPrefix: kBRGroupRequestExtKey]) {
             // 群请求
             NSString *groupID = [reqFlag componentsSeparatedByString:@":"][1];
             NSDictionary *groupRequestDict = [NSDictionary dictionaryWithObjectsAndKeys:((EMTextMessageBody *)message.body).text, @"message", message.from, @"userID", groupID, @"groupID",username, @"loginUser", nil];
-            [BRFileWithNewRequestData savedToFileName:newGroupRequestFile withData:groupRequestDict];
-            UILocalNotification *notification = [[UILocalNotification alloc] init];
-            
-            notification.alertTitle = [@"Group request from:" stringByAppendingString: message.from];
-            notification.fireDate = [NSDate date];
-            notification.alertAction = NSLocalizedString(@"open", @"Open");
-            notification.alertBody = [groupRequestDict valueForKey:@"message"];
-            notification.timeZone = [NSTimeZone defaultTimeZone];
-            [UIApplication sharedApplication].applicationIconBadgeNumber +=1;
-            
-            [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-            [[NSNotificationCenter defaultCenter] postNotificationName:kBRGroupRequestExtKey object:message];
+            BOOL fetchResult = [BRFileWithNewRequestData savedToFileName:newGroupRequestFile withData:groupRequestDict];
+            if (fetchResult) {
+                UILocalNotification *notification = [[UILocalNotification alloc] init];
+                
+                notification.alertTitle = [@"Group request from:" stringByAppendingString: message.from];
+                notification.fireDate = [NSDate date];
+                notification.alertAction = NSLocalizedString(@"open", @"Open");
+                notification.alertBody = [groupRequestDict valueForKey:@"message"];
+                notification.timeZone = [NSTimeZone defaultTimeZone];
+                [UIApplication sharedApplication].applicationIconBadgeNumber +=1;
+                
+                [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kBRGroupRequestExtKey object:message];
+            }
             return;
         }
     }

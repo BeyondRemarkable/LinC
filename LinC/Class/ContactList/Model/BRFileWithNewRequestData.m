@@ -30,31 +30,34 @@
     return path;
 }
 
-
 /**
-    保存新的请求数据到plist文件
+ 保存新的请求数据到plist文件
 
- @param dictData dictData
+ @param fileName 需要保存的信息文件名(好友或群)
+ @param dictData 申请信息字典数据
+ @return YES 保存成功，NO 申请已经存在，不保存
  */
-+ (void)savedToFileName:(NSString *)fileName withData:(NSDictionary *)dictData
++ (BOOL)savedToFileName:(NSString *)fileName withData:(NSDictionary *)dictData
 {
     NSString *path = [self getPathWithFileName:fileName];
-//    NSLog(@"path==%@", path);
+
     // Write data to file
     NSMutableArray *newRequestData = [[NSMutableArray alloc] initWithContentsOfFile: path];
     if (newRequestData.count == 0) {
         newRequestData = [NSMutableArray array];
         [newRequestData addObject:dictData];
         [newRequestData writeToFile:path atomically:YES];
-        
+        return YES;
     } else {
         NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
         for (NSDictionary *dict in newRequestData) {
             if ([dictData[@"loginUser"] isEqualToString:username] && ![[dict allValues] containsObject:dictData[@"userID"]]) {
                 [newRequestData addObject:dictData];
                 [newRequestData writeToFile:path atomically:YES];
+                return YES;
             }
         }
+        return NO;
     }
 }
 
