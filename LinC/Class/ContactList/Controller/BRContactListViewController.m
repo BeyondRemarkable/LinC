@@ -72,9 +72,12 @@ static NSString * const cellIdentifier = @"ContactListCell";
 }
 
 - (void)updateFriendRequestCell {
-    [self.tableView beginUpdates];
-    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-    [self.tableView endUpdates];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    if ([self.tableView cellForRowAtIndexPath:indexPath]) {
+        [self.tableView beginUpdates];
+        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        [self.tableView endUpdates];
+    }
 }
 
 - (void)receivedNewFriendRequest:(NSNotification *)notification {
