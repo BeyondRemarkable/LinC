@@ -48,8 +48,6 @@
     
     CIFilter *filter = [CIFilter filterWithName:@"CIQRCodeGenerator"];
     
-    //    NSLog(@"filterAttributes:%@", filter.attributes);
-    
     [filter setDefaults];
     
     NSData *data = [self.username dataUsingEncoding:NSUTF8StringEncoding];

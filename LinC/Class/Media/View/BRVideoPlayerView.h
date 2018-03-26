@@ -46,4 +46,6 @@ typedef enum {
 
 @property (nonatomic, weak) id<BRVideoPlayerViewDelegate> delegate;
 
+- (void)destroyPlayer;
+
 @end

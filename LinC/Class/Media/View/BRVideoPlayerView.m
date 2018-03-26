@@ -161,6 +161,8 @@
     _rotateWithDevice = NO;
     _autoPlayWhenReady = NO;
     _orientation = BRVideoPlayerViewOrientationNormal;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
 }
 
 - (void)layoutSubviews {
@@ -240,6 +242,23 @@
     }
 }
 
+- (void)setVideoLocalPath:(NSString *)videoLocalPath {
+    _videoLocalPath = videoLocalPath;
+    
+    self.image = nil;
+    
+    [self setupPlayerWithURL:[NSURL fileURLWithPath:videoLocalPath]];
+}
+
+- (void)setVideoRemotePath:(NSString *)videoRemotePath {
+    _videoRemotePath = videoRemotePath;
+    
+    self.image = nil;
+    [MBProgressHUD showHUDAddedTo:self animated:YES];
+    
+    [self setupPlayerWithURL:[NSURL URLWithString:videoRemotePath]];
+}
+
 #pragma mark - Action
 
 - (void)tapVideo:(UITapGestureRecognizer *)tap {
@@ -258,7 +277,24 @@
     }];
 }
 
+- (void)clickPlayButton:(UIButton *)button {
+    BOOL isPlaying = button.isSelected;
+    [self.playButton setSelected:!isPlaying];
+    [self.playButtonSmall setSelected:!isPlaying];
+    if (button.isSelected) {
+        [self.playButton setHidden:YES];
+    }
+    
+    if (self.player.rate == 0) {
+        [self.player play];
+    }
+    else if (self.player.rate == 1.0) {
+        [self.player pause];
+    }
+}
+
 - (void)fullScreenAction:(UIButton *)button {
+    // 普通转全屏
     if (self.orientation == BRVideoPlayerViewOrientationNormal) {
         self.orientation = BRVideoPlayerViewOrientationFullScreen;
         [button setSelected:YES];
@@ -283,6 +319,7 @@
             self.transform = CGAffineTransformMakeRotation(M_PI / 2);
         }];
     }
+    // 全屏转普通
     else if (self.orientation == BRVideoPlayerViewOrientationFullScreen) {
         self.orientation = BRVideoPlayerViewOrientationNormal;
         [button setSelected:NO];
@@ -326,24 +363,7 @@
     self.tapGesture.enabled = YES;
 }
 
-#pragma mark - setter
-
-- (void)setVideoLocalPath:(NSString *)videoLocalPath {
-    _videoLocalPath = videoLocalPath;
-    
-    self.image = nil;
-
-    [self setupPlayerWithURL:[NSURL fileURLWithPath:videoLocalPath]];
-}
-
-- (void)setVideoRemotePath:(NSString *)videoRemotePath {
-    _videoRemotePath = videoRemotePath;
-    
-    self.image = nil;
-    [MBProgressHUD showHUDAddedTo:self animated:YES];
-    
-    [self setupPlayerWithURL:[NSURL URLWithString:videoRemotePath]];
-}
+#pragma mark - private methods
 
 // 设置AVPlayer
 - (void)setupPlayerWithURL:(NSURL *)videoURL {
@@ -392,22 +412,6 @@
     }];
 }
 
-- (void)clickPlayButton:(UIButton *)button {
-    BOOL isPlaying = button.isSelected;
-    [self.playButton setSelected:!isPlaying];
-    [self.playButtonSmall setSelected:!isPlaying];
-    if (button.isSelected) {
-        [self.playButton setHidden:YES];
-    }
-    
-    if (self.player.rate == 0) {
-        [self.player play];
-    }
-    else if (self.player.rate == 1.0) {
-        [self.player pause];
-    }
-}
-
 - (NSString *)formatTimeFromDuration:(NSTimeInterval)duration {
     NSInteger minute = duration / 60;
     NSInteger second = (NSInteger)duration % 60;
@@ -425,7 +429,7 @@
     [self.playerItem removeObserver:self forKeyPath:@"playbackLikelyToKeepUp"];
 }
 
-- (void)cleanUp {
+- (void)destroyPlayer {
     [self removeNotificationFromPlayerItem];
     [self removeObserverFromPlayerItem];
     
@@ -443,6 +447,7 @@
         self.timer = nil;
     }
     
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - 监听方法
@@ -460,7 +465,7 @@
             
         }
         else {
-            NSLog(@"AVPlayerStatusUnknown");
+            
         }
     }
     else if ([keyPath isEqualToString:@"loadedTimeRanges"]) {
@@ -481,8 +486,14 @@
     }
 }
 
+- (void)willResignActive:(NSNotification *)notification {
+    if (self.player.rate == 1.0) {
+        [self clickPlayButton:self.playButtonSmall];
+    }
+}
+
 - (void)dealloc {
-    [self cleanUp];
+    [self destroyPlayer];
 }
 
 @end

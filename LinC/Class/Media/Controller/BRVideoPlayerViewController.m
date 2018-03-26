@@ -50,16 +50,16 @@
     
     CGFloat labelH = 30;
     _titleLabel = [[UILabel alloc] init];
-    _titleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
+    _titleLabel.font = [UIFont boldSystemFontOfSize:20.0];
     [self.view addSubview:_titleLabel];
     _titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [_titleLabel.topAnchor constraintEqualToAnchor:margin.topAnchor constant:padding].active = YES;
+    [_titleLabel.topAnchor constraintEqualToAnchor:self.topLayoutGuide.bottomAnchor constant:padding].active = YES;
     [_titleLabel.leadingAnchor constraintEqualToAnchor:margin.leadingAnchor].active = YES;
     [_titleLabel.trailingAnchor constraintEqualToAnchor:margin.trailingAnchor].active = YES;
     [_titleLabel.heightAnchor constraintEqualToConstant:labelH].active = YES;
     
     _instructorLabel = [[UILabel alloc] init];
-    _instructorLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
+    _instructorLabel.font = [UIFont systemFontOfSize:17.0];
     [self.view addSubview:_instructorLabel];
     _instructorLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [_instructorLabel.topAnchor constraintEqualToAnchor:_titleLabel.bottomAnchor].active = YES;
@@ -84,7 +84,7 @@
     [_detailLabel.topAnchor constraintEqualToAnchor:_instructorLabel.bottomAnchor constant:SCREEN_WIDTH].active = YES;
     [_detailLabel.leadingAnchor constraintEqualToAnchor:margin.leadingAnchor].active = YES;
     [_detailLabel.trailingAnchor constraintEqualToAnchor:margin.trailingAnchor].active = YES;
-    [_detailLabel.bottomAnchor constraintLessThanOrEqualToAnchor:margin.bottomAnchor constant:-padding].active = YES;
+    [_detailLabel.bottomAnchor constraintLessThanOrEqualToAnchor:self.bottomLayoutGuide.topAnchor constant:-padding].active = YES;
 }
 
 - (void)setupVideoViewConstraint {
@@ -186,6 +186,10 @@
 
 - (BOOL)prefersStatusBarHidden {
     return self.statusBarHidden;
+}
+
+- (void)dealloc {
+    [self.videoView destroyPlayer];
 }
 
 @end

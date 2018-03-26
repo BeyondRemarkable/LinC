@@ -329,7 +329,6 @@ static NSString * const cellIdentifier = @"ContactListCell";
                 
                 [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:BRDataUpdateNotification object:nil]];
             } failure:^(EMError *aError) {
-                NSLog(@"%@", aError.errorDescription);
                 hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
                 hud.mode = MBProgressHUDModeText;
                 hud.label.text = aError.description;

@@ -114,7 +114,6 @@
 
 #pragma mark - UIImagePickerController delegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
-    NSLog(@"%@", info);
     hud = [MBProgressHUD showHUDAddedTo:picker.view animated:YES];
     // 获取选择的图片
     UIImage *image = info[UIImagePickerControllerEditedImage];

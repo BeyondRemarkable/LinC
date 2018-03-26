@@ -101,7 +101,7 @@
 
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(nonnull NSDictionary *)userInfo fetchCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHandler {
-    NSLog(@"userInfo--%@", userInfo);
+    
 }
 
 //监听环信在线推送消息
@@ -230,7 +230,7 @@
 
 //注册deviceToken失败
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error{
-    NSLog(@"deviceToken--error -- %@",error);
+    
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
@@ -275,8 +275,6 @@
             [[BRClientManager sharedManager] loginWithUsername:username password:password success:^(NSString *message) {
                 [self showStoryboardWithName:@"Main" identifier:@"BRTabBarController"];
             } failure:^(EMError *error) {
-                NSLog(@"error.errorDescription--%@", error.errorDescription);
-                
                [self showStoryboardWithName:@"Account" identifier:@"BRLoginViewController"];
             }];
         } else {

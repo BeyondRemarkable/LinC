@@ -26,7 +26,6 @@
     if (![fileManager fileExistsAtPath: path]) {
         path = [documentsDirectory stringByAppendingPathComponent: file];
     }
-//    NSLog(@"path=%@", path);
     return path;
 }
 

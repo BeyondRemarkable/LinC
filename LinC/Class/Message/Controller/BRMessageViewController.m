@@ -1512,7 +1512,6 @@ typedef enum : NSUInteger {
                 [[BRCDDeviceManager sharedInstance] asyncStartRecordingWithFileName:fileName completion:^(NSError *error)
                  {
                      if (error) {
-                         NSLog(@"%@",NSLocalizedString(@"message.startRecordFail", @"failure to start recording"));
                          _isRecording = NO;
                      }
                  }];
