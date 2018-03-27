@@ -563,7 +563,7 @@
 
 - (void)getVideoListWithNumberOfPages:(NSUInteger)numberOfPages numberOfVideosPerPage:(NSUInteger)numberPerPage after:(NSDate *)date success:(void (^)(NSArray *))successBlock failure:(void (^)(EMError *))failureBlock {
     NSString *pageString = numberOfPages?[NSString stringWithFormat:@"%lu", (unsigned long)numberOfPages]:nil;
-    NSString *perPageString = numberPerPage?[NSString stringWithFormat:@"%lu", numberPerPage]:nil;
+    NSString *perPageString = numberPerPage?[NSString stringWithFormat:@"%lu", (unsigned long)numberPerPage]:nil;
     NSMutableString *timeStamp;
     if (date) {
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
