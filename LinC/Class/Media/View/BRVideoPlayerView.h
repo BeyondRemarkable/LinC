@@ -37,6 +37,8 @@ typedef enum {
 
 @property (nonatomic, assign) BOOL autoPlayWhenReady;
 
+@property (nonatomic, assign) NSTimeInterval controlPanelDisappearTime;
+
 
 @property (nonatomic, copy) NSString *videoLocalPath;
 @property (nonatomic, copy) NSString *videoRemotePath;

@@ -17,6 +17,7 @@
 		274F21AB20582269008F6078 /* BRVideoPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 274F21AA20582269008F6078 /* BRVideoPlayerView.m */; };
 		274F21B42060D668008F6078 /* BRVideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 274F21B32060D667008F6078 /* BRVideoPlayerViewController.m */; };
 		275BFA2B206442FC0010EE41 /* UIImagePickerController+Open.m in Sources */ = {isa = PBXBuildFile; fileRef = 275BFA2A206442FC0010EE41 /* UIImagePickerController+Open.m */; };
+		275BFA34206B14C20010EE41 /* BRVideoControlPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 275BFA33206B14C20010EE41 /* BRVideoControlPanel.m */; };
 		27617B7D1FCDF0EC004A245D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 27617B7F1FCDF0EC004A245D /* InfoPlist.strings */; };
 		276398FD2022650500222875 /* UIView+NavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 276398FC2022650500222875 /* UIView+NavigationBar.m */; };
 		276E756A1F3E2B0200D5A917 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E75691F3E2B0200D5A917 /* AVFoundation.framework */; };
@@ -183,6 +184,8 @@
 		274F21B32060D667008F6078 /* BRVideoPlayerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BRVideoPlayerViewController.m; sourceTree = "<group>"; };
 		275BFA29206442FB0010EE41 /* UIImagePickerController+Open.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImagePickerController+Open.h"; sourceTree = "<group>"; };
 		275BFA2A206442FC0010EE41 /* UIImagePickerController+Open.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImagePickerController+Open.m"; sourceTree = "<group>"; };
+		275BFA32206B14C20010EE41 /* BRVideoControlPanel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRVideoControlPanel.h; sourceTree = "<group>"; };
+		275BFA33206B14C20010EE41 /* BRVideoControlPanel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BRVideoControlPanel.m; sourceTree = "<group>"; };
 		27617B7E1FCDF0EC004A245D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		27617B801FCDF0F1004A245D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		276398FB2022650500222875 /* UIView+NavigationBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+NavigationBar.h"; sourceTree = "<group>"; };
@@ -1002,6 +1005,8 @@
 				E90F7B5F1F670DC300333382 /* BRMediaCell.m */,
 				274F21A920582269008F6078 /* BRVideoPlayerView.h */,
 				274F21AA20582269008F6078 /* BRVideoPlayerView.m */,
+				275BFA32206B14C20010EE41 /* BRVideoControlPanel.h */,
+				275BFA33206B14C20010EE41 /* BRVideoControlPanel.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1407,6 +1412,7 @@
 				E90F7BA21F670DC300333382 /* BRCDDeviceManager+Media.m in Sources */,
 				E90F7B9B1F670DC300333382 /* BRBubbleView+File.m in Sources */,
 				E90F7B941F670DC300333382 /* NSString+Helper.m in Sources */,
+				275BFA34206B14C20010EE41 /* BRVideoControlPanel.m in Sources */,
 				E90F7BBC1F670DC400333382 /* BRCustomMessageCell.m in Sources */,
 				E90F7BC91F670DC400333382 /* BRMedia.m in Sources */,
 				E90F7BB11F670DC400333382 /* BREmotionManager.m in Sources */,
