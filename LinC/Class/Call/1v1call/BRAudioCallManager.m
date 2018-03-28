@@ -9,6 +9,7 @@
 #import "BRAudioCallManager.h"
 #import "BRSDKHelper.h"
 #import "BRCallViewController.h"
+#import <MBProgressHUD.h>
 
 static BRAudioCallManager *callManager = nil;
 
@@ -26,8 +27,9 @@ static BRAudioCallManager *callManager = nil;
 
 
 @implementation BRAudioCallManager
-
-
+{
+    MBProgressHUD *hud;
+}
 - (instancetype)init
 {
     self = [super init];
@@ -111,6 +113,7 @@ static BRAudioCallManager *callManager = nil;
 - (void)_startCallTimer
 {
     self.timer = [NSTimer scheduledTimerWithTimeInterval:50 target:self selector:@selector(_timeoutBeforeCallAnswered) userInfo:nil repeats:NO];
+    
 }
 
 - (void)_stopCallTimer
@@ -247,6 +250,11 @@ static BRAudioCallManager *callManager = nil;
                 [alertVC addAction:alertAction];
             }
             [self pushAlertView:alertVC];
+        } else {
+            hud = [MBProgressHUD showHUDAddedTo: [UIApplication sharedApplication].keyWindow animated:YES];
+            hud.mode = MBProgressHUDModeText;
+            hud.label.text = [aSession.remoteName stringByAppendingString:NSLocalizedString(@" hang up your call.", nil)] ;
+            [hud hideAnimated:YES afterDelay:1.5];
         }
     }
 }

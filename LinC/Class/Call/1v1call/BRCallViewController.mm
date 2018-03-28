@@ -97,6 +97,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self _layoutSubviews];
+    
+    [[UIDevice currentDevice] setProximityMonitoringEnabled:YES];
+    if ([UIDevice currentDevice].proximityMonitoringEnabled == YES) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(proximitySensorChange) name:UIDeviceProximityStateDidChangeNotification object:nil];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -224,6 +229,7 @@
 //    }
 //}
 
+
 - (void)_stopRing
 {
     [self.ringPlayer stop];
@@ -238,15 +244,7 @@
     int m = (self.timeLength - hour * 3600) / 60;
     int s = self.timeLength - hour * 3600 - m * 60;
     
-    if (hour > 0) {
-        self.timeLabel.text = [NSString stringWithFormat:@"%i:%i:%i", hour, m, s];
-    }
-    else if(m > 0){
-        self.timeLabel.text = [NSString stringWithFormat:@"%i:%i", m, s];
-    }
-    else{
-        self.timeLabel.text = [NSString stringWithFormat:@"00:%i", s];
-    }
+    self.timeLabel.text = [NSString stringWithFormat:@"%02d:%02d:%02d", hour, m, s];
 }
 
 - (void)_startTimeTimer
@@ -443,6 +441,12 @@
     
     [self _stopTimeTimer];
     [self _stopRing];
+    
+    if ([UIDevice currentDevice].proximityMonitoringEnabled == YES) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceProximityStateDidChangeNotification object:nil];
+        [[UIDevice currentDevice] setProximityMonitoringEnabled:NO];
+    }
+
 }
 
 #pragma mark - 3.3.9 new 自定义视频数据
@@ -547,5 +551,12 @@
 //    }
 //}
 
+- (void)proximitySensorChange {
+    if ([[UIDevice currentDevice] proximityState] == YES) {
+        [[UIScreen mainScreen] setWantsSoftwareDimming:NO];
+    }else{
+        [[UIScreen mainScreen] setWantsSoftwareDimming:YES];
+    }
+}
 
 @end
