@@ -16,6 +16,7 @@
 #import "BRCoreDataManager.h"
 #import "BRFriendsInfo+CoreDataClass.h"
 #import "BRFileWithNewRequestData.h"
+@import Firebase;
 
 @interface AppDelegate () <EMClientDelegate, EMChatManagerDelegate>
 
@@ -95,7 +96,8 @@
 
     //添加监听在线推送消息
     [[EMClient sharedClient].chatManager addDelegate: self delegateQueue:dispatch_get_main_queue()];
-
+    [FIRApp configure];
+    
     return YES;
 }
 

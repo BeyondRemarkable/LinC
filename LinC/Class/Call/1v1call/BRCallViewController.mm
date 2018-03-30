@@ -97,11 +97,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self _layoutSubviews];
-    
-    [[UIDevice currentDevice] setProximityMonitoringEnabled:YES];
-    if ([UIDevice currentDevice].proximityMonitoringEnabled == YES) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(proximitySensorChange) name:UIDeviceProximityStateDidChangeNotification object:nil];
-    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -125,6 +120,10 @@
     }
     
     [super viewDidAppear:animated];
+    [[UIDevice currentDevice] setProximityMonitoringEnabled:YES];
+    if ([UIDevice currentDevice].proximityMonitoringEnabled == YES) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(proximitySensorChange) name:UIDeviceProximityStateDidChangeNotification object:nil];
+    }
 }
 
 #pragma mark - private
@@ -446,7 +445,6 @@
         [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceProximityStateDidChangeNotification object:nil];
         [[UIDevice currentDevice] setProximityMonitoringEnabled:NO];
     }
-
 }
 
 #pragma mark - 3.3.9 new 自定义视频数据
@@ -552,6 +550,7 @@
 //}
 
 - (void)proximitySensorChange {
+    NSLog(@"sds");
     if ([[UIDevice currentDevice] proximityState] == YES) {
         [[UIScreen mainScreen] setWantsSoftwareDimming:NO];
     }else{

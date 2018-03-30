@@ -16,6 +16,7 @@
 #import <MBProgressHUD.h>
 #import <SAMKeychain.h>
 #import <MessageUI/MFMailComposeViewController.h>
+#import <Crashlytics/Crashlytics.h>
 
 @interface BRUserSettingTableViewController () <MFMailComposeViewControllerDelegate>
 {
@@ -102,10 +103,10 @@ typedef enum NSUInteger {
             }
         }
         else if (indexPath.row == SettingAboutUs) {
-            BRAboutViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRAboutViewController"];
-            [self.navigationController pushViewController:vc animated:YES];
+             [[Crashlytics sharedInstance] crash];
+//            BRAboutViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRAboutViewController"];
+//            [self.navigationController pushViewController:vc animated:YES];
         }
-        
     }
     else if (indexPath.section == TableViewSectionTwo) {
         if (indexPath.row == SettingLogout) {
