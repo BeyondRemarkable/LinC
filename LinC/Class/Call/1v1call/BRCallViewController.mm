@@ -10,7 +10,7 @@
 //#import "EMVideoRecorderPlugin.h"
 #import "BRAudioCallManager.h"
 //#import "EMVideoInfoViewController.h"
-
+#import "BRCDDeviceManagerBase.h"
 //3.3.9 new 自定义视频数据
 //#import "VideoCustomCamera.h"
 
@@ -120,6 +120,8 @@
     }
     
     [super viewDidAppear:animated];
+    [[BRCDDeviceManager sharedInstance] unregisterNotifications];
+    
     [[UIDevice currentDevice] setProximityMonitoringEnabled:YES];
     if ([UIDevice currentDevice].proximityMonitoringEnabled == YES) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(proximitySensorChange) name:UIDeviceProximityStateDidChangeNotification object:nil];
@@ -243,7 +245,11 @@
     int m = (self.timeLength - hour * 3600) / 60;
     int s = self.timeLength - hour * 3600 - m * 60;
     
-    self.timeLabel.text = [NSString stringWithFormat:@"%02d:%02d:%02d", hour, m, s];
+    if (hour > 0) {
+        self.timeLabel.text = [NSString stringWithFormat:@"%02d:%02d:%02d", hour, m, s];
+    } else{
+        self.timeLabel.text = [NSString stringWithFormat:@"%02d:%02d", m, s];
+    }
 }
 
 - (void)_startTimeTimer
@@ -445,6 +451,7 @@
         [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceProximityStateDidChangeNotification object:nil];
         [[UIDevice currentDevice] setProximityMonitoringEnabled:NO];
     }
+    [[BRCDDeviceManager sharedInstance] registerNotifications];
 }
 
 #pragma mark - 3.3.9 new 自定义视频数据
@@ -550,7 +557,6 @@
 //}
 
 - (void)proximitySensorChange {
-    NSLog(@"sds");
     if ([[UIDevice currentDevice] proximityState] == YES) {
         [[UIScreen mainScreen] setWantsSoftwareDimming:NO];
     }else{

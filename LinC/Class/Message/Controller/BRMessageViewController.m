@@ -271,6 +271,7 @@ typedef enum : NSUInteger {
     [super viewWillDisappear:animated];
     
     self.isViewDidAppear = NO;
+    
     [[BRCDDeviceManager sharedInstance] disableProximitySensor];
 }
 
@@ -1698,6 +1699,7 @@ typedef enum : NSUInteger {
 //                break;
             case BRCanRecord:
             {
+                
                 [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_CALL object:@{@"chatter":self.conversation.conversationId, @"type":[NSNumber numberWithInt:0]}];
             }
                 break;

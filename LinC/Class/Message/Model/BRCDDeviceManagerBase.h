@@ -25,5 +25,6 @@ BOOL _isCloseToUser;
 @property (nonatomic, assign) id <BRCDDeviceManagerDelegate> delegate;
 
 +(BRCDDeviceManager *)sharedInstance;
-
+- (void)registerNotifications;
+- (void)unregisterNotifications;
 @end
