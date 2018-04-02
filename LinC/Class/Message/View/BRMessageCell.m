@@ -167,7 +167,7 @@ NSString *const BRMessageCellIdentifierSendFile = @"BRMessageCellSendFile";
             {
                 [_bubbleView setupImageBubbleView];
                 
-                _bubbleView.imageView.image = [UIImage imageNamed:@"EaseUIResource.bundle/imageDownloadFail"];
+                _bubbleView.imageView.image = [UIImage imageNamed:@"image_download_fail"];
             }
                 break;
             case EMMessageBodyTypeLocation:
@@ -374,11 +374,11 @@ NSString *const BRMessageCellIdentifierSendFile = @"BRMessageCellSendFile";
                 break;
             case EMMessageBodyTypeVideo:
             {
-                UIImage *image = _model.isSender ? _model.image : _model.thumbnailImage;
+                UIImage *image = _model.thumbnailImage;
                 if (!image) {
                     image = _model.image;
                     if (!image) {
-                        [_bubbleView.videoImageView sd_setImageWithURL:[NSURL URLWithString:_model.fileURLPath] placeholderImage:[UIImage imageNamed:_model.failImageName]];
+                        [_bubbleView.videoImageView sd_setImageWithURL:[NSURL URLWithString:_model.thumbnailFileURLPath] placeholderImage:[UIImage imageNamed:_model.failImageName]];
                     } else {
                         _bubbleView.videoImageView.image = image;
                     }
@@ -618,8 +618,8 @@ NSString *const BRMessageCellIdentifierSendFile = @"BRMessageCellSendFile";
  */
 - (void)statusAction
 {
-    if ([_delegate respondsToSelector:@selector(statusButtonSelcted:withMessageCell:)]) {
-        [_delegate statusButtonSelcted:_model withMessageCell:self];
+    if (_delegate && [_delegate respondsToSelector:@selector(statusButtonSelected:withMessageCell:)]) {
+        [_delegate statusButtonSelected:_model withMessageCell:self];
     }
 }
 

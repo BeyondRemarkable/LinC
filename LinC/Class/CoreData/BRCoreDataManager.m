@@ -37,7 +37,6 @@ BRUserInfo *userInfoDic = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         NSURL *dbURL = [[[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject] URLByAppendingPathComponent:@"BRCoreData.sqlite"];
-        NSLog(@"%@", dbURL);
         gCoreDataStack = [[BRCoreDataStack alloc] initWithURL:dbURL modelName:@"BRCoreData"];
         moc = [gCoreDataStack managedObjectContext];
     });

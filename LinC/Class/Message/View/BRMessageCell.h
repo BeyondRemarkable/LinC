@@ -203,7 +203,7 @@ typedef enum{
  *  @param  消息model
  *  @param  当前cell
  */
-- (void)statusButtonSelcted:(id<IMessageModel>)model withMessageCell:(BRMessageCell *)messageCell;
+- (void)statusButtonSelected:(id<IMessageModel>)model withMessageCell:(BRMessageCell *)messageCell;
 
 /*
  *  头像点击回调

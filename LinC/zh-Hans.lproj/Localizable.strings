@@ -82,20 +82,24 @@
 "saveSuccess" = "图片保存成功";
 "message.thumImageFail" = "获取缩略图失败";
 "message.downloadingImage" = "正在加载图片";
-"saveSuccess" = "图片保存成功。";
-
 
 // Video
 "Shared video" = "[视频]";
 
 // Friend
 "No new friend request" = "没有新的好友请求";
+
+// Tabbar
+"Playground" = "知识广场";
+"Messages" = "消息";
+"Contacts" = "联系人";
+"Me" = "我";
+
 // Authorization
-"Unable to access camera." = "打开相机权限未开启。";
-"Unable to access album." = "打开相册权限未开启。";
-"Unable to access microphone." = "麦克风权限未开启";
-"Unable to access GPS." = "定位权限未开启";
-"Shared video" = "[视频]";
+"Unable to access camera" = "相机权限未开启";
+"Unable to access album" = "相册权限未开启";
+"Unable to access microphone" = "麦克风权限未开启";
+"Unable to access GPS" = "定位权限未开启";
 
 // Friend
 "No new friend request" = "没有新的好友请求";

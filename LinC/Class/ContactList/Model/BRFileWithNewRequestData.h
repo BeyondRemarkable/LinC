@@ -10,7 +10,7 @@
 
 @interface BRFileWithNewRequestData : NSObject
 
-+ (void)savedToFileName:(NSString *)fileName withData:(NSDictionary *)dictData;
++ (BOOL)savedToFileName:(NSString *)fileName withData:(NSDictionary *)dictData;
 + (NSString *)countForNewRequestFromFile:(NSString *)filePath;
 + (NSMutableArray *)getAllNewRequestDataFromFile:(NSString *)fileName;
 + (BOOL)deleteRequestFromFile:(NSString *)filePath byID:(NSString *)deleteID;

@@ -94,7 +94,6 @@ typedef enum : NSInteger {
             hud.mode = MBProgressHUDModeText;
             hud.label.text = aError.errorDescription;
             [hud hideAnimated:YES afterDelay:1.5];
-            NSLog(@"创建失败 -- %@", aError.errorDescription);
         }
     }];
 }

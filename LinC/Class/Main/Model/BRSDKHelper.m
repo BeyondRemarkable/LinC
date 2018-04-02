@@ -82,7 +82,9 @@ static BRSDKHelper *helper = nil;
         [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert completionHandler:^(BOOL granted, NSError *error) {
             if (granted) {
 #if !TARGET_IPHONE_SIMULATOR
-                [application registerForRemoteNotifications];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [application registerForRemoteNotifications];
+                });
 #endif
             }
         }];
@@ -99,7 +101,7 @@ static BRSDKHelper *helper = nil;
 #if !TARGET_IPHONE_SIMULATOR
     if ([application respondsToSelector:@selector(registerForRemoteNotifications)]) {
         [application registerForRemoteNotifications];
-    }else{
+    }else {
         UIRemoteNotificationType notificationTypes = UIRemoteNotificationTypeBadge |
         UIRemoteNotificationTypeSound |
         UIRemoteNotificationTypeAlert;

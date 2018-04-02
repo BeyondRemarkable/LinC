@@ -16,9 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [self.navigationBar setBarTintColor:[UIColor clearColor]];
     [[UINavigationBar appearance] setTintColor:[UIColor darkGrayColor]];
-//    [self.navigationBar setBackgroundColor:[UIColor blueColor]];
     
 }
 
@@ -28,6 +26,10 @@
     }
 
     [super pushViewController:viewController animated:animated];
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return self.topViewController.prefersStatusBarHidden;
 }
 
 @end

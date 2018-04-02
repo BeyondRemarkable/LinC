@@ -72,11 +72,6 @@ static NSString * const cellIdentifier = @"groupCell";
     [self setUpGroupInfo];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 // 设置群信息
 - (void)setUpGroupInfo {
     
@@ -147,7 +142,7 @@ static NSString * const cellIdentifier = @"groupCell";
         model.gender = groupMember.gender;
         model.whatsUp = groupMember.whatsUp;
         model.location = groupMember.location;
-        model.avatarImage = groupMember.avatar ? [UIImage imageWithData:groupMember.avatar] : [UIImage imageNamed:@"user_default"];
+        model.avatarImage = [UIImage imageWithData:groupMember.avatar];
         [groupMembersArray addObject:model];
         [self.groupMembersName addObject:model.username];
     }
@@ -409,7 +404,6 @@ static NSString * const cellIdentifier = @"groupCell";
         return [super tableView:tableView cellForRowAtIndexPath:indexPath];
     } else {
         BRGroupMemberTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-        //        cell.textLabel.text = self.dataArray[indexPath.row];
         cell.model = self.dataArray[indexPath.row];
         return cell;
     }

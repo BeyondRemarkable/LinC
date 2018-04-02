@@ -26,7 +26,7 @@
 
 - (void)setModel:(BRContactListModel *)model {
     _model = model;
-    self.grounpIcon.image = model.avatarImage;
+    self.grounpIcon.image = model.avatarImage ? model.avatarImage : [UIImage imageNamed:@"user_default"];
     if (model.nickname.length != 0) {
         self.grounpName.text = model.nickname;
     } else {

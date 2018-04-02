@@ -14,6 +14,10 @@
 		2744C4681FB68B83007C5095 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2744C46A1FB68B83007C5095 /* Localizable.strings */; };
 		2744C4741FC377FC007C5095 /* BRBlackListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2744C4721FC377FC007C5095 /* BRBlackListViewController.m */; };
 		2744C4771FC37A1E007C5095 /* BRGeneralSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2744C4761FC37A1E007C5095 /* BRGeneralSettingViewController.m */; };
+		274F21AB20582269008F6078 /* BRVideoPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 274F21AA20582269008F6078 /* BRVideoPlayerView.m */; };
+		274F21B42060D668008F6078 /* BRVideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 274F21B32060D667008F6078 /* BRVideoPlayerViewController.m */; };
+		275BFA2B206442FC0010EE41 /* UIImagePickerController+Open.m in Sources */ = {isa = PBXBuildFile; fileRef = 275BFA2A206442FC0010EE41 /* UIImagePickerController+Open.m */; };
+		275BFA34206B14C20010EE41 /* BRVideoControlPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 275BFA33206B14C20010EE41 /* BRVideoControlPanel.m */; };
 		27617B7D1FCDF0EC004A245D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 27617B7F1FCDF0EC004A245D /* InfoPlist.strings */; };
 		276398FD2022650500222875 /* UIView+NavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 276398FC2022650500222875 /* UIView+NavigationBar.m */; };
 		276E756A1F3E2B0200D5A917 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E75691F3E2B0200D5A917 /* AVFoundation.framework */; };
@@ -30,6 +34,8 @@
 		27CA03B11F38F21600D0F132 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CA03B01F38F21600D0F132 /* main.m */; };
 		27CA03CA1F38F21600D0F132 /* LinCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CA03C91F38F21600D0F132 /* LinCTests.m */; };
 		27CA03D51F38F21600D0F132 /* LinCUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27CA03D41F38F21600D0F132 /* LinCUITests.m */; };
+		27FA8FC02052EA4D0036DF0A /* BRLectureVideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FA8FBF2052EA4D0036DF0A /* BRLectureVideoCell.m */; };
+		27FA8FC32054AFCA0036DF0A /* BRLectureVideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FA8FC22054AFCA0036DF0A /* BRLectureVideoModel.m */; };
 		27FC23F11F6C4A9F001148D7 /* BRHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FC23EE1F6C4A9F001148D7 /* BRHTTPSessionManager.m */; };
 		27FC23F21F6C4A9F001148D7 /* BRSDKHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FC23F01F6C4A9F001148D7 /* BRSDKHelper.m */; };
 		27FC23F51F6C4C2C001148D7 /* BRClientManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FC23F41F6C4C2C001148D7 /* BRClientManager.m */; };
@@ -112,7 +118,6 @@
 		E90F7BC31F670DC400333382 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B4E1F670DC300333382 /* AppDelegate.m */; };
 		E90F7BC41F670DC400333382 /* Common.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B501F670DC300333382 /* Common.m */; };
 		E90F7BC51F670DC400333382 /* BRMediaBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B531F670DC300333382 /* BRMediaBrowserViewController.m */; };
-		E90F7BC61F670DC400333382 /* BRMediaBrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E90F7B541F670DC300333382 /* BRMediaBrowserViewController.xib */; };
 		E90F7BC71F670DC400333382 /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E90F7B561F670DC300333382 /* libopencore-amrnb.a */; };
 		E90F7BC81F670DC400333382 /* libopencore-amrwb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E90F7B571F670DC300333382 /* libopencore-amrwb.a */; };
 		E90F7BC91F670DC400333382 /* BRMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F7B5B1F670DC300333382 /* BRMedia.m */; };
@@ -246,6 +251,14 @@
 		2744C4731FC377FC007C5095 /* BRBlackListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRBlackListViewController.h; sourceTree = "<group>"; };
 		2744C4751FC37A1E007C5095 /* BRGeneralSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRGeneralSettingViewController.h; sourceTree = "<group>"; };
 		2744C4761FC37A1E007C5095 /* BRGeneralSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRGeneralSettingViewController.m; sourceTree = "<group>"; };
+		274F21A920582269008F6078 /* BRVideoPlayerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRVideoPlayerView.h; sourceTree = "<group>"; };
+		274F21AA20582269008F6078 /* BRVideoPlayerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BRVideoPlayerView.m; sourceTree = "<group>"; };
+		274F21B22060D667008F6078 /* BRVideoPlayerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRVideoPlayerViewController.h; sourceTree = "<group>"; };
+		274F21B32060D667008F6078 /* BRVideoPlayerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BRVideoPlayerViewController.m; sourceTree = "<group>"; };
+		275BFA29206442FB0010EE41 /* UIImagePickerController+Open.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImagePickerController+Open.h"; sourceTree = "<group>"; };
+		275BFA2A206442FC0010EE41 /* UIImagePickerController+Open.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImagePickerController+Open.m"; sourceTree = "<group>"; };
+		275BFA32206B14C20010EE41 /* BRVideoControlPanel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRVideoControlPanel.h; sourceTree = "<group>"; };
+		275BFA33206B14C20010EE41 /* BRVideoControlPanel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BRVideoControlPanel.m; sourceTree = "<group>"; };
 		27617B7E1FCDF0EC004A245D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		27617B801FCDF0F1004A245D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		276398FB2022650500222875 /* UIView+NavigationBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+NavigationBar.h"; sourceTree = "<group>"; };
@@ -269,6 +282,10 @@
 		27CA03D01F38F21600D0F132 /* LinCUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LinCUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		27CA03D41F38F21600D0F132 /* LinCUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LinCUITests.m; sourceTree = "<group>"; };
 		27CA03D61F38F21600D0F132 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		27FA8FBE2052EA4D0036DF0A /* BRLectureVideoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRLectureVideoCell.h; sourceTree = "<group>"; };
+		27FA8FBF2052EA4D0036DF0A /* BRLectureVideoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BRLectureVideoCell.m; sourceTree = "<group>"; };
+		27FA8FC12054AFCA0036DF0A /* BRLectureVideoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRLectureVideoModel.h; sourceTree = "<group>"; };
+		27FA8FC22054AFCA0036DF0A /* BRLectureVideoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BRLectureVideoModel.m; sourceTree = "<group>"; };
 		27FC23ED1F6C4A9F001148D7 /* BRHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRHTTPSessionManager.h; sourceTree = "<group>"; };
 		27FC23EE1F6C4A9F001148D7 /* BRHTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRHTTPSessionManager.m; sourceTree = "<group>"; };
 		27FC23EF1F6C4A9F001148D7 /* BRSDKHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRSDKHelper.h; sourceTree = "<group>"; };
@@ -430,7 +447,6 @@
 		E90F7B501F670DC300333382 /* Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Common.m; sourceTree = "<group>"; };
 		E90F7B521F670DC300333382 /* BRMediaBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRMediaBrowserViewController.h; sourceTree = "<group>"; };
 		E90F7B531F670DC300333382 /* BRMediaBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRMediaBrowserViewController.m; sourceTree = "<group>"; };
-		E90F7B541F670DC300333382 /* BRMediaBrowserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRMediaBrowserViewController.xib; sourceTree = "<group>"; };
 		E90F7B551F670DC300333382 /* DemoErrorCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoErrorCode.h; sourceTree = "<group>"; };
 		E90F7B561F670DC300333382 /* libopencore-amrnb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrnb.a"; sourceTree = "<group>"; };
 		E90F7B571F670DC300333382 /* libopencore-amrwb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrwb.a"; sourceTree = "<group>"; };
@@ -631,6 +647,8 @@
 		273A66B62051F77B006C2A94 /* Playground */ = {
 			isa = PBXGroup;
 			children = (
+				27FA8FBD2052E9C50036DF0A /* Model */,
+				27FA8FBC2052E9B10036DF0A /* View */,
 				273A66B72051F8D8006C2A94 /* Controller */,
 			);
 			path = Playground;
@@ -643,6 +661,16 @@
 				273A66B92051FEBF006C2A94 /* BRPlaygroundViewController.m */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		274F21A82057966D008F6078 /* Media */ = {
+			isa = PBXGroup;
+			children = (
+				E90F7B591F670DC300333382 /* Model */,
+				E90F7B5D1F670DC300333382 /* View */,
+				E90F7B511F670DC300333382 /* Controller */,
+			);
+			path = Media;
 			sourceTree = "<group>";
 		};
 		27A094CC20327A6A00F9F846 /* Controller */ = {
@@ -738,6 +766,24 @@
 			path = LinCUITests;
 			sourceTree = "<group>";
 		};
+		27FA8FBC2052E9B10036DF0A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				27FA8FBE2052EA4D0036DF0A /* BRLectureVideoCell.h */,
+				27FA8FBF2052EA4D0036DF0A /* BRLectureVideoCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		27FA8FBD2052E9C50036DF0A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				27FA8FC12054AFCA0036DF0A /* BRLectureVideoModel.h */,
+				27FA8FC22054AFCA0036DF0A /* BRLectureVideoModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		27FC23EC1F6C4A56001148D7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -786,8 +832,8 @@
 				E90F7AA51F670DC300333382 /* Account */,
 				E90F7AB11F670DC300333382 /* ContactList */,
 				E90F7AC61F670DC300333382 /* Conversation */,
-				E90F7AD71F670DC300333382 /* Main */,
 				E90F7AF01F670DC300333382 /* Message */,
+				274F21A82057966D008F6078 /* Media */,
 				E90F7B4C1F670DC300333382 /* Other */,
 				E90F7B601F670DC300333382 /* UserInfo */,
 			);
@@ -927,7 +973,6 @@
 				27FC23EC1F6C4A56001148D7 /* Model */,
 				E90F7ADC1F670DC300333382 /* Category */,
 				E90F7AE51F670DC300333382 /* Controller */,
-				E90F7AED1F670DC300333382 /* View */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -947,6 +992,8 @@
 				E90F7BD81F67368200333382 /* UIView+Animation.m */,
 				276398FB2022650500222875 /* UIView+NavigationBar.h */,
 				276398FC2022650500222875 /* UIView+NavigationBar.m */,
+				275BFA29206442FB0010EE41 /* UIImagePickerController+Open.h */,
+				275BFA2A206442FC0010EE41 /* UIImagePickerController+Open.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -963,13 +1010,6 @@
 				27FC23F71F7025D6001148D7 /* Main.storyboard */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		E90F7AED1F670DC300333382 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		E90F7AF01F670DC300333382 /* Message */ = {
@@ -1101,9 +1141,6 @@
 		E90F7B4C1F670DC300333382 /* Other */ = {
 			isa = PBXGroup;
 			children = (
-				E90F7B591F670DC300333382 /* Model */,
-				E90F7B5D1F670DC300333382 /* View */,
-				E90F7B511F670DC300333382 /* Controller */,
 				E90F7B4D1F670DC300333382 /* AppDelegate.h */,
 				E90F7B4E1F670DC300333382 /* AppDelegate.m */,
 				E90F7B4F1F670DC300333382 /* Common.h */,
@@ -1124,7 +1161,8 @@
 			children = (
 				E90F7B521F670DC300333382 /* BRMediaBrowserViewController.h */,
 				E90F7B531F670DC300333382 /* BRMediaBrowserViewController.m */,
-				E90F7B541F670DC300333382 /* BRMediaBrowserViewController.xib */,
+				274F21B22060D667008F6078 /* BRVideoPlayerViewController.h */,
+				274F21B32060D667008F6078 /* BRVideoPlayerViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1143,6 +1181,10 @@
 			children = (
 				E90F7B5E1F670DC300333382 /* BRMediaCell.h */,
 				E90F7B5F1F670DC300333382 /* BRMediaCell.m */,
+				274F21A920582269008F6078 /* BRVideoPlayerView.h */,
+				274F21AA20582269008F6078 /* BRVideoPlayerView.m */,
+				275BFA32206B14C20010EE41 /* BRVideoControlPanel.h */,
+				275BFA33206B14C20010EE41 /* BRVideoControlPanel.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1644,6 +1686,7 @@
 				E90F7BAF1F670DC400333382 /* BREmojiEmoticons.m in Sources */,
 				E90F7BAC1F670DC300333382 /* BRChatToolbarItem.m in Sources */,
 				E90F7BCF1F670DC400333382 /* BRQRCodeViewController.m in Sources */,
+				27FA8FC02052EA4D0036DF0A /* BRLectureVideoCell.m in Sources */,
 				E90F7BB91F670DC400333382 /* BRChatBarMoreViewCell.m in Sources */,
 				E90C2F171F88230B004D2116 /* BRCoreData.xcdatamodeld in Sources */,
 				E90F7BB71F670DC400333382 /* BRBubbleView.m in Sources */,
@@ -1662,6 +1705,7 @@
 				E90F7B931F670DC300333382 /* NSDateFormatter+Category.m in Sources */,
 				E90F7BB81F670DC400333382 /* BRChatBarMoreView.m in Sources */,
 				2744C4741FC377FC007C5095 /* BRBlackListViewController.m in Sources */,
+				274F21B42060D668008F6078 /* BRVideoPlayerViewController.m in Sources */,
 				E90F7BA41F670DC300333382 /* BRCDDeviceManager+ProximitySensor.m in Sources */,
 				E90F7BB41F670DC400333382 /* BRVoiceConverter.mm in Sources */,
 				E96C7B6A1F87E0B400C0DC7E /* BRCoreDataManager.m in Sources */,
@@ -1669,6 +1713,7 @@
 				E90F7BBD1F670DC400333382 /* BRFaceView.m in Sources */,
 				E90F7BA61F670DC300333382 /* BRLocationViewController.m in Sources */,
 				E90F7BD61F670DC400333382 /* BRWhatsUpViewController.m in Sources */,
+				27FA8FC32054AFCA0036DF0A /* BRLectureVideoModel.m in Sources */,
 				273A66BA2051FEBF006C2A94 /* BRPlaygroundViewController.m in Sources */,
 				E90F7B961F670DC300333382 /* BRNavigationController.m in Sources */,
 				276398FD2022650500222875 /* UIView+NavigationBar.m in Sources */,
@@ -1682,6 +1727,7 @@
 				E90F7B8A1F670DC300333382 /* BRDropDownViewController.m in Sources */,
 				27FC23F51F6C4C2C001148D7 /* BRClientManager.m in Sources */,
 				E90F7B921F670DC300333382 /* NSDate+Category.m in Sources */,
+				275BFA2B206442FC0010EE41 /* UIImagePickerController+Open.m in Sources */,
 				E90F7BCB1F670DC400333382 /* BRMediaCell.m in Sources */,
 				E90F7BD11F670DC400333382 /* BRUserImageViewController.m in Sources */,
 				E90F7BAA1F670DC300333382 /* BRAudioRecorderUtil.m in Sources */,
@@ -1713,6 +1759,7 @@
 				E9C5F3F81F75AE6D0073A86E /* BRNewFriendTableViewController.m in Sources */,
 				E96C7B671F87E09A00C0DC7E /* BRCoreDataStack.m in Sources */,
 				E90F7BA51F670DC300333382 /* BRCDDeviceManager+Remind.m in Sources */,
+				274F21AB20582269008F6078 /* BRVideoPlayerView.m in Sources */,
 				E90F7BBF1F670DC400333382 /* BRMessageCell.m in Sources */,
 				27A094CB20322E6F00F9F846 /* BRRegisterMethodViewController.m in Sources */,
 				E90F7BC11F670DC400333382 /* BRRecordView.m in Sources */,
@@ -1722,6 +1769,7 @@
 				E90F7BA21F670DC300333382 /* BRCDDeviceManager+Media.m in Sources */,
 				E90F7B9B1F670DC300333382 /* BRBubbleView+File.m in Sources */,
 				E90F7B941F670DC300333382 /* NSString+Helper.m in Sources */,
+				275BFA34206B14C20010EE41 /* BRVideoControlPanel.m in Sources */,
 				E90F7BBC1F670DC400333382 /* BRCustomMessageCell.m in Sources */,
 				E90F7BC91F670DC400333382 /* BRMedia.m in Sources */,
 				E90F7BB11F670DC400333382 /* BREmotionManager.m in Sources */,

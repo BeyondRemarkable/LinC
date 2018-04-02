@@ -103,7 +103,7 @@
 
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(nonnull NSDictionary *)userInfo fetchCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHandler {
-    NSLog(@"userInfo--%@", userInfo);
+    
 }
 
 //监听环信在线推送消息
@@ -113,8 +113,7 @@
     if (aMessages.count == 0) {
         return ;
     }
-    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-    [userDefault setBool:YES forKey:@"receivedMessage"];
+
     for (EMMessage *message in aMessages) {
         UIApplicationState state =[[UIApplication sharedApplication] applicationState];
         switch (state) {
@@ -142,35 +141,35 @@
         // 好友请求
         if ([kBRFriendRequestExtKey isEqualToString:reqFlag]) {
             NSDictionary *friendDict = [NSDictionary dictionaryWithObjectsAndKeys:((EMTextMessageBody *)message.body).text, @"message", message.from, @"userID", username, @"loginUser", nil];
-            [BRFileWithNewRequestData savedToFileName:newFirendRequestFile withData:friendDict];
+            BOOL fetchResult = [BRFileWithNewRequestData savedToFileName:newFirendRequestFile withData:friendDict];
+            if (fetchResult) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:kBRFriendRequestExtKey object:message];
+            }
             UILocalNotification *notification = [[UILocalNotification alloc] init];
-            
             notification.alertTitle = [@"Friend request from:" stringByAppendingString: message.from];
             notification.fireDate = [NSDate date];
             notification.alertAction = NSLocalizedString(@"open", @"Open");
             notification.alertBody = [friendDict valueForKey:@"message"];
             notification.timeZone = [NSTimeZone defaultTimeZone];
             [UIApplication sharedApplication].applicationIconBadgeNumber +=1;
-            
             [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-            [[NSNotificationCenter defaultCenter] postNotificationName:kBRFriendRequestExtKey object:message];
             return;
         } else if ([reqFlag hasPrefix: kBRGroupRequestExtKey]) {
             // 群请求
             NSString *groupID = [reqFlag componentsSeparatedByString:@":"][1];
             NSDictionary *groupRequestDict = [NSDictionary dictionaryWithObjectsAndKeys:((EMTextMessageBody *)message.body).text, @"message", message.from, @"userID", groupID, @"groupID",username, @"loginUser", nil];
-            [BRFileWithNewRequestData savedToFileName:newGroupRequestFile withData:groupRequestDict];
+            BOOL fetchResult = [BRFileWithNewRequestData savedToFileName:newGroupRequestFile withData:groupRequestDict];
+            if (fetchResult) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:kBRGroupRequestExtKey object:message];
+            }
             UILocalNotification *notification = [[UILocalNotification alloc] init];
-            
             notification.alertTitle = [@"Group request from:" stringByAppendingString: message.from];
             notification.fireDate = [NSDate date];
             notification.alertAction = NSLocalizedString(@"open", @"Open");
             notification.alertBody = [groupRequestDict valueForKey:@"message"];
             notification.timeZone = [NSTimeZone defaultTimeZone];
             [UIApplication sharedApplication].applicationIconBadgeNumber +=1;
-            
             [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-            [[NSNotificationCenter defaultCenter] postNotificationName:kBRGroupRequestExtKey object:message];
             return;
         }
     }
@@ -233,7 +232,7 @@
 
 //注册deviceToken失败
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error{
-    NSLog(@"deviceToken--error -- %@",error);
+    
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
@@ -278,8 +277,6 @@
             [[BRClientManager sharedManager] loginWithUsername:username password:password success:^(NSString *message) {
                 [self showStoryboardWithName:@"Main" identifier:@"BRTabBarController"];
             } failure:^(EMError *error) {
-                NSLog(@"error.errorDescription--%@", error.errorDescription);
-                
                [self showStoryboardWithName:@"Account" identifier:@"BRLoginViewController"];
             }];
         } else {

@@ -27,7 +27,6 @@
     
     // 读取需要好友请求JSON数据， 更新tableview
     self.dataArray = [BRFileWithNewRequestData getAllNewRequestDataFromFile:newFirendRequestFile];
-    NSLog(@"self.dataArray--%@", self.dataArray);
     [self.tableView reloadData];
 }
 

@@ -8,14 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
-NSString *const GroupNameChangeNotificationName = @"GroupNameChangeNotification";
 // 用此种方式，保证内存中有且仅有一个地址
+NSString *const GroupNameChangeNotificationName = @"GroupNameChangeNotification";
 NSString *const kLoginUserNameKey = @"loginUserName";
 NSString *const kLoginPasswordKey = @"loginPassword";
 NSString *const kLoginTokenKey = @"loginToken";
 NSString *const kLoginStatusKey = @"loginStatus";
 
 NSString *const kBaseURL = @"https://linc.beyondremarkable.com";
+NSString *const kVideoBaseURL = @"https://s3-ap-northeast-1.amazonaws.com/linc-app";
 
 NSString *const kServiceName = @"com.BeyondRemarkable.LinC";
 

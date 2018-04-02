@@ -98,7 +98,6 @@ typedef enum NSUInteger {
                 hud.mode = MBProgressHUDModeText;
                 hud.label.text = @"Please login your mail account.";
                 [hud hideAnimated:YES afterDelay:1.5];
-                NSLog(@"This device cannot send email");
             }
         }
         else if (indexPath.row == SettingAboutUs) {
