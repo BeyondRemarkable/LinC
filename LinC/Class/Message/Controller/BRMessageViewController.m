@@ -1619,17 +1619,13 @@ typedef enum : NSUInteger {
     // Hide the keyboard
     [self.chatToolbar endEditing:YES];
     
-    AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
-    if (status == AVAuthorizationStatusRestricted || status == AVAuthorizationStatusDenied){
-        [self showAuthorizationAlertWithType:@"camera."];
-    } else {
-        self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        self.imagePicker.mediaTypes = @[(NSString *)kUTTypeImage,(NSString *)kUTTypeMovie];
-        [self presentViewController:self.imagePicker animated:YES completion:NULL];
-        
+    [self.imagePicker openCameraWithSuccess:^{
         self.isViewDidAppear = NO;
         [[BRSDKHelper shareHelper] setIsShowingimagePicker:YES];
-    }
+        [self presentViewController:self.imagePicker animated:YES completion:NULL];
+    } failure:^{
+        [self showAuthorizationAlertWithType:@"camera"];
+    }];
 }
 
 - (void)moreViewLocationAction:(BRChatBarMoreView *)moreView

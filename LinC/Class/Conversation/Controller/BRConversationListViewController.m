@@ -26,6 +26,8 @@
 #import <MBProgressHUD.h>
 #import "BRFriendInfoTableViewController.h"
 #import "BRGroupChatSettingTableViewController.h"
+#import "UIImagePickerController+Open.h"
+
 #import <Photos/PHPhotoLibrary.h>
 #import "BRCallViewController.h"
 @interface BRConversationListViewController () <EMClientDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>

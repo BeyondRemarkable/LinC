@@ -14,6 +14,7 @@
 #import "BRUserInfoViewController.h"
 #import "BRSDKHelper.h"
 #import "BRFileWithNewRequestData.h"
+#import "BRClientManager.h"
 #import "BRAudioCallManager.h"
 
 @interface BRTabBarController () <EMChatManagerDelegate, EMContactManagerDelegate>
@@ -61,29 +62,8 @@
 //    MainTabBar *tabBar = [[MainTabBar alloc] init];
 //    [self setValue:tabBar forKey:@"tabBar"];
 //    [self.tabBar setBackgroundImage:[UIImage imageNamed:@"tabbar_background"]];
-//    
-//    // 设置代理
-//    [self.chatsVc setDelegate:self];
-    [[EMClient sharedClient].contactManager addDelegate:self delegateQueue:dispatch_get_main_queue()];
-    [BRAudioCallManager sharedManager];
-//
-//    // 获取未读消息数，设置badge
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedNewFriendRequest:)
-                                                     name:kBRFriendRequestExtKey object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedNewFriendRequest:)
-                                                     name:kBRGroupRequestExtKey object:nil];
-        NSArray *conversations = [[EMClient sharedClient].chatManager getAllConversations];
-        
-        NSInteger totalUnreadCount = 0;
-        for (EMConversation *conversation in conversations) {
-            totalUnreadCount += conversation.unreadMessagesCount;
-        }
-        if (totalUnreadCount) {
-            self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%lu", totalUnreadCount];
-        }
-    });
+    
+    [self registerNotification];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
