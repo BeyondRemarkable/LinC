@@ -11,4 +11,6 @@
 
 #import "Common.h"
 
+#import <Hyphenate/Hyphenate.h>
+
 #endif /* LinC_pch */

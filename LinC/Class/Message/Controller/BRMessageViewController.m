@@ -271,6 +271,7 @@ typedef enum : NSUInteger {
     [super viewWillDisappear:animated];
     
     self.isViewDidAppear = NO;
+    
     [[BRCDDeviceManager sharedInstance] disableProximitySensor];
 }
 
@@ -1662,11 +1663,6 @@ typedef enum : NSUInteger {
     // Hide the keyboard
     [self.chatToolbar endEditing:YES];
     
-#if TARGET_IPHONE_SIMULATOR
-    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.label.text = NSLocalizedString(@"message.simulatorNotSupportCamera", @"simulator does not support taking picture");
-#elif TARGET_OS_IPHONE
-    
     AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
     if (status == AVAuthorizationStatusRestricted || status == AVAuthorizationStatusDenied){
         [self showAuthorizationAlertWithType:@"camera."];
@@ -1678,7 +1674,6 @@ typedef enum : NSUInteger {
         self.isViewDidAppear = NO;
         [[BRSDKHelper shareHelper] setIsShowingimagePicker:YES];
     }
-#endif
 }
 
 - (void)moreViewLocationAction:(BRChatBarMoreView *)moreView
@@ -1698,13 +1693,25 @@ typedef enum : NSUInteger {
 
 - (void)moreViewAudioCallAction:(BRChatBarMoreView *)moreView
 {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Prompt", nil) message:NSLocalizedString(@"The function is in the process of development", nil) preferredStyle:UIAlertControllerStyleAlert];
-    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleDefault handler:nil]];
-    [self presentViewController:alertController animated:YES completion:nil];
-    // Hide the keyboard
-    [self.chatToolbar endEditing:YES];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_CALL object:@{@"chatter":self.conversation.conversationId, @"type":[NSNumber numberWithInt:0]}];
+    [self _canRecordCompletion:^(BRRecordResponse recordResponse) {
+        switch (recordResponse) {
+            case BRRequestRecord:
+//                break;
+            case BRCanRecord:
+            {
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_CALL object:@{@"chatter":self.conversation.conversationId, @"type":[NSNumber numberWithInt:0]}];
+            }
+                break;
+            case BRCanNotRecord:
+            {
+                [self showAuthorizationAlertWithType:@"microphone"];
+            }
+                break;
+            default:
+                break;
+        }
+    }];
 }
 
 - (void)moreViewVideoCallAction:(BRChatBarMoreView *)moreView

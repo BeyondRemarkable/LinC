@@ -13,7 +13,7 @@
 #import "BRUserInfoViewController.h"
 #import "BRSDKHelper.h"
 #import "BRFileWithNewRequestData.h"
-
+#import "BRAudioCallManager.h"
 
 @interface BRTabBarController () <EMChatManagerDelegate, EMContactManagerDelegate>
 
@@ -58,6 +58,7 @@
 //    // 设置代理
 //    [self.chatsVc setDelegate:self];
     [[EMClient sharedClient].contactManager addDelegate:self delegateQueue:dispatch_get_main_queue()];
+    [BRAudioCallManager sharedManager];
 //
 //    // 获取未读消息数，设置badge
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
