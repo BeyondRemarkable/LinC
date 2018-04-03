@@ -62,7 +62,7 @@
 //    MainTabBar *tabBar = [[MainTabBar alloc] init];
 //    [self setValue:tabBar forKey:@"tabBar"];
 //    [self.tabBar setBackgroundImage:[UIImage imageNamed:@"tabbar_background"]];
-    
+    [BRAudioCallManager sharedManager];
     [self registerNotification];
 }
 
