@@ -104,7 +104,6 @@ typedef enum NSUInteger {
             BRAboutViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRAboutViewController"];
             [self.navigationController pushViewController:vc animated:YES];
         }
-        
     }
     else if (indexPath.section == TableViewSectionTwo) {
         if (indexPath.row == SettingLogout) {

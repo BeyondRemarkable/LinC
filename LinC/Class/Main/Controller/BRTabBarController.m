@@ -15,7 +15,7 @@
 #import "BRSDKHelper.h"
 #import "BRFileWithNewRequestData.h"
 #import "BRClientManager.h"
-
+#import "BRAudioCallManager.h"
 
 @interface BRTabBarController () <EMChatManagerDelegate, EMContactManagerDelegate>
 
@@ -62,7 +62,7 @@
 //    MainTabBar *tabBar = [[MainTabBar alloc] init];
 //    [self setValue:tabBar forKey:@"tabBar"];
 //    [self.tabBar setBackgroundImage:[UIImage imageNamed:@"tabbar_background"]];
-    
+    [BRAudioCallManager sharedManager];
     [self registerNotification];
 }
 

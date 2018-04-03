@@ -101,3 +101,18 @@
 "Unable to access microphone" = "麦克风权限未开启";
 "Unable to access GPS" = "定位权限未开启";
 
+// Friend
+"No new friend request" = "没有新的好友请求";
+
+// Audio call
+"No response." = "无人接听。";
+" reject your call." = " 拒绝接听。";
+" in the call..." = " 正在通话中。";
+"Connect failed." = "连接失败。";
+"Unsupported." = "不支持语音通话。";
+" offline." = " 不在线。";
+"Network disconnection" = "连接中断。";
+"No response and Hang up." = "无人接听并挂断。";
+"Audio call" = "语音通话。";
+"Network status unstable" = "网络不稳定。";
+" hang up your call." = "已挂断。";
