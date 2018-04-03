@@ -53,6 +53,10 @@
 - (void)saveGroupMembersToCoreData:(NSArray *)groupMembers toGroup:(NSString *)groupID;
 /** 获取群成员数据 */
 - (NSArray *)fetchGroupMembersByGroupID:(NSString *)groupID andGroupMemberUserNameArray:(NSArray *)groupMemberUserNameArray;
+/** 插入视频数据 */
+- (void)insertVideosToCoreData:(NSArray *)videoArray;
+/** 获取视频数据 */
+- (NSArray *)fetchVideosWithNumber:(NSUInteger)numberOfVideos before:(NSDate *)time;
 /** 保存到core data */
 - (BOOL)saveData;
 @end

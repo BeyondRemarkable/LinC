@@ -423,8 +423,6 @@
     [self.player seekToTime:seekTime completionHandler:^(BOOL finished) {
         if (self.playButton.isSelected) {
             [self.player play];
-            // controlPanel定时消失
-            self.timer = [NSTimer scheduledTimerWithTimeInterval:self.controlPanelDisappearTime target:self selector:@selector(tapVideo:) userInfo:nil repeats:NO];
         }
     }];
 }
@@ -439,6 +437,9 @@
 
 - (void)controlPanelSliderDidTouchUp:(BRVideoControlPanel *)controlPanel {
     self.tapGesture.enabled = YES;
+    if (self.playButton.isSelected) {
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:self.controlPanelDisappearTime target:self selector:@selector(tapVideo:) userInfo:nil repeats:NO];
+    }
 }
 
 - (void)dealloc {

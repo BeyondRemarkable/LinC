@@ -16,6 +16,9 @@
 #import "BRLectureVideoCell.h"
 #import "BRClientManager.h"
 #import "BRVideoPlayerViewController.h"
+#import "BRCoreDataManager.h"
+
+#define NumberOfVideosFromCoreData 1
 
 @interface BRPlaygroundViewController ()
 {
@@ -35,7 +38,13 @@
     [self.tableView registerClass:[BRLectureVideoCell class] forCellReuseIdentifier:[BRLectureVideoCell reuseIdentifier]];
     self.tableView.rowHeight = [BRLectureVideoCell defaultCellHeight];
     
+    [self loadVideosFromCoreData];
     [self.tableView.mj_header beginRefreshing];
+}
+
+- (void)loadVideosFromCoreData {
+    NSArray *fetchedVideos = [[BRCoreDataManager sharedInstance] fetchVideosWithNumber:NumberOfVideosFromCoreData before:[NSDate dateWithTimeIntervalSinceNow:0]];
+    [self.dataArray addObjectsFromArray:fetchedVideos];
 }
 
 - (void)tableViewDidTriggerHeaderRefresh {
@@ -45,7 +54,14 @@
         date = model.updateTime;
     }
     [[BRClientManager sharedManager] getVideoListWithNumberOfPages:0 numberOfVideosPerPage:0 after:date success:^(NSArray *videoModelArray) {
-        [self.dataArray addObjectsFromArray:videoModelArray];
+        [[BRCoreDataManager sharedInstance] insertVideosToCoreData:videoModelArray];
+        NSArray *fetchedVideos = [[BRCoreDataManager sharedInstance] fetchVideosWithNumber:(videoModelArray.count + self.dataArray.count) before:[NSDate dateWithTimeIntervalSinceNow:0]];
+        if (self.dataArray.count) {
+            self.dataArray = [NSMutableArray arrayWithArray:fetchedVideos];
+        }
+        else {
+            [self.dataArray addObjectsFromArray:videoModelArray];
+        }
         [self tableViewDidFinishRefresh:BRRefreshTableViewWidgetHeader reload:YES];
     } failure:^(EMError *error) {
         [self tableViewDidFinishRefresh:BRRefreshTableViewWidgetHeader reload:NO];
@@ -57,26 +73,26 @@
 }
 
 - (void)tableViewDidTriggerFooterRefresh {
-    [self tableViewDidFinishRefresh:BRRefreshTableViewWidgetFooter reload:NO];
+    if (self.dataArray.count) {
+        BRLectureVideoModel *model = [self.dataArray lastObject];
+        NSArray *fetchedVideos = [[BRCoreDataManager sharedInstance] fetchVideosWithNumber:NumberOfVideosFromCoreData before:model.updateTime];
+        [self.dataArray addObjectsFromArray:fetchedVideos];
+        [self tableViewDidFinishRefresh:BRRefreshTableViewWidgetFooter reload:YES];
+    }
+    else {
+        [self tableViewDidFinishRefresh:BRRefreshTableViewWidgetFooter reload:NO];
+    }
 }
 
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.dataArray.count;
-//    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     BRLectureVideoCell *cell = [tableView dequeueReusableCellWithIdentifier:[BRLectureVideoCell reuseIdentifier] forIndexPath:indexPath];
     cell.model = self.dataArray[indexPath.row];
-//    BRLectureVideoModel *model = [[BRLectureVideoModel alloc] init];
-//    model.identifier = @"5aaed698483692550a74a8b6";
-//    model.title = @"Financial Meeting Interview";
-//    model.instructor = @"Michael Jiang";
-//    model.detail = @"Test video. Try everything to avoid a bug!";
-//    model.price = 0;
-//    cell.model = model;
 
     return cell;
 }
