@@ -173,7 +173,6 @@ BRUserInfo *userInfoDic = nil;
  */
 - (void)saveFriendsInfoToCoreData:(NSMutableArray*)dataArray
 {
-
     BRUserInfo *userInfo = [self getUserInfo];
     NSMutableArray *friendsUsernameArray = [NSMutableArray array];
     // 判断好友是否已经已经保存在数据库
@@ -619,35 +618,37 @@ BRUserInfo *userInfoDic = nil;
  */
 - (void)insertVideosToCoreData:(NSArray *)videoArray {
     NSManagedObjectContext *context = [self managedObjectContext];
-    NSEntityDescription *entity = [NSEntityDescription entityForName: @"BRVideoCoreDataObject" inManagedObjectContext:context];
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    [request setEntity:entity];
+    BRUserInfo *userInfo = [self getUserInfo];
     for (BRLectureVideoModel *videoModel in videoArray) {
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"identifier = %@", videoModel.identifier];
-        request.predicate = predicate;
-        if (entity) {
-            BRVideoCoreDataObject *videoObject = [[context executeFetchRequest:request error:nil] firstObject];
-            if (videoObject) {
-                videoObject.title = videoModel.title;
-                videoObject.instructor = videoModel.instructor;
-                videoObject.detail = videoModel.detail;
-                videoObject.price = videoModel.price;
-                videoObject.thumbnailURL = videoModel.thumbnailURL;
-                videoObject.thumbnailImage = UIImagePNGRepresentation(videoModel.thumbnailImage);
-                videoObject.updatedTime = videoModel.updateTime;
+        BRVideoCoreDataObject *videoObject = [[userInfo.videos filteredSetUsingPredicate:predicate] anyObject];
+        if (videoObject) {
+            videoObject.title = videoModel.title;
+            videoObject.instructor = videoModel.instructor;
+            videoObject.detail = videoModel.detail;
+            videoObject.price = videoModel.price;
+            videoObject.thumbnailURL = videoModel.thumbnailURL;
+            videoObject.thumbnailImage = UIImagePNGRepresentation(videoModel.thumbnailImage);
+            videoObject.updatedTime = videoModel.updateTime;
+        }
+        else {
+            BRVideoCoreDataObject *newVideoObject = [NSEntityDescription insertNewObjectForEntityForName:@"BRVideoCoreDataObject" inManagedObjectContext:context];
+            newVideoObject.identifier = videoModel.identifier;
+            newVideoObject.title = videoModel.title;
+            newVideoObject.instructor = videoModel.instructor;
+            newVideoObject.detail = videoModel.detail;
+            newVideoObject.price = videoModel.price;
+            if (videoModel.price == 0) {
+                newVideoObject.isBought = YES;
             }
             else {
-                BRVideoCoreDataObject *newVideoObject = [NSEntityDescription insertNewObjectForEntityForName:@"BRVideoCoreDataObject" inManagedObjectContext:context];
-                newVideoObject.identifier = videoModel.identifier;
-                newVideoObject.title = videoModel.title;
-                newVideoObject.instructor = videoModel.instructor;
-                newVideoObject.detail = videoModel.detail;
-                newVideoObject.price = videoModel.price;
-                newVideoObject.thumbnailURL = videoModel.thumbnailURL;
-                newVideoObject.thumbnailImage = UIImagePNGRepresentation(videoModel.thumbnailImage);
-                newVideoObject.createdTime = videoModel.createTime;
-                newVideoObject.updatedTime = videoModel.updateTime;
+                newVideoObject.isBought  = NO;
             }
+            newVideoObject.thumbnailURL = videoModel.thumbnailURL;
+            newVideoObject.thumbnailImage = UIImagePNGRepresentation(videoModel.thumbnailImage);
+            newVideoObject.createdTime = videoModel.createTime;
+            newVideoObject.updatedTime = videoModel.updateTime;
+            [userInfo addVideosObject:newVideoObject];
         }
     }
     [self saveData];
@@ -656,46 +657,43 @@ BRUserInfo *userInfoDic = nil;
 /**
  从数据库获取视频
  @param numberOfVideos 需要取的视频数量
- @param time 获取的视频将早于这个时间，nil则时间为当前时间
+ @param time 获取的视频将早(晚)于这个时间，nil则时间为当前时间
  */
-
-- (NSArray *)fetchVideosWithNumber:(NSUInteger)numberOfVideos before:(NSDate *)time {
-    NSManagedObjectContext *context = [self managedObjectContext];
-    NSEntityDescription *entity = [NSEntityDescription entityForName: @"BRVideoCoreDataObject" inManagedObjectContext:context];
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+- (NSArray *)fetchVideosWithNumber:(NSUInteger)numberOfVideos isBefore:(BOOL)isBefore time:(NSDate *)time {
+    BRUserInfo *userInfo = [self getUserInfo];
     if (time == nil) {
         time = [NSDate dateWithTimeIntervalSinceNow:0];
     }
-    NSPredicate *fetchPredicate= [NSPredicate predicateWithFormat:@"updatedTime < %@", time];
-    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"updatedTime" ascending:NO];
-    [fetchRequest setPredicate:fetchPredicate];
-    [fetchRequest setSortDescriptors:@[sortDescriptor]];
-    if (numberOfVideos > 0) {
-        [fetchRequest setFetchLimit:numberOfVideos];
+    NSPredicate *predicate = nil;
+    if (isBefore) {
+        predicate = [NSPredicate predicateWithFormat:@"updatedTime < %@", time];
     }
-    [fetchRequest setEntity:entity];
+    else {
+        predicate = [NSPredicate predicateWithFormat:@"updatedTime >= %@", time];
+    }
+    NSSet *videoSet = [userInfo.videos filteredSetUsingPredicate:predicate];
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"updatedTime" ascending:NO];
+    NSArray *videoArray = [videoSet sortedArrayUsingDescriptors:@[sortDescriptor]];
+    if (numberOfVideos > 0) {
+        numberOfVideos = MIN(videoArray.count, numberOfVideos);
+        videoArray = [videoArray subarrayWithRange:NSMakeRange(0, numberOfVideos)];
+    }
     
-    NSError *error;
     NSMutableArray *result = [NSMutableArray array];
-    if (entity) {
-        NSArray *fetchedObjects = [context executeFetchRequest: fetchRequest error:&error];
-        
-        if (!error) {
-            for (BRVideoCoreDataObject *videoObject in fetchedObjects) {
-                BRLectureVideoModel *model = [[BRLectureVideoModel alloc] init];
-                model.identifier = videoObject.identifier;
-                model.title = videoObject.title;
-                model.instructor = videoObject.instructor;
-                model.detail = videoObject.detail;
-                model.price = videoObject.price;
-                model.category = videoObject.category;
-                model.thumbnailURL = videoObject.thumbnailURL;
-                model.thumbnailImage = [UIImage imageWithData:videoObject.thumbnailImage];
-                model.createTime = videoObject.createdTime;
-                model.updateTime = videoObject.updatedTime;
-                [result addObject:model];
-            }
-        }
+    for (BRVideoCoreDataObject *videoObject in videoArray) {
+        BRLectureVideoModel *model = [[BRLectureVideoModel alloc] init];
+        model.identifier = videoObject.identifier;
+        model.title = videoObject.title;
+        model.instructor = videoObject.instructor;
+        model.detail = videoObject.detail;
+        model.price = videoObject.price;
+        model.isBought = videoObject.isBought;
+        model.category = videoObject.category;
+        model.thumbnailURL = videoObject.thumbnailURL;
+        model.thumbnailImage = [UIImage imageWithData:videoObject.thumbnailImage];
+        model.createTime = videoObject.createdTime;
+        model.updateTime = videoObject.updatedTime;
+        [result addObject:model];
     }
     return result;
 }

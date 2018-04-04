@@ -114,7 +114,7 @@
     if (self.videoView) {
         self.buttonHUD = [MBProgressHUD showHUDAddedTo:self.videoView animated:NO];
         self.buttonHUD.mode = MBProgressHUDModeText;
-        if (self.model.price != 0) {
+        if (!self.model.isBought) {
             [self.buttonHUD.button setTitle:NSLocalizedString(@"Purchase", nil) forState:UIControlStateNormal];
             [self.buttonHUD.button addTarget:self action:@selector(purchaseAction) forControlEvents:UIControlEventTouchUpInside];
             self.buttonHUD.label.text = [NSString stringWithFormat:@"￥%.1f", self.model.price];

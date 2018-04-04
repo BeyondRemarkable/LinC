@@ -50,10 +50,10 @@
         <attribute name="updated" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="username" attributeType="String" syncable="YES"/>
         <attribute name="whatsUp" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="boughtVideos" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BRVideoCoreDataObject" inverseName="owner" inverseEntity="BRVideoCoreDataObject" syncable="YES"/>
         <relationship name="conversation" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="BRConversation" inverseName="userInfo" inverseEntity="BRConversation" syncable="YES"/>
         <relationship name="friendsInfo" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="BRFriendsInfo" inverseName="userInfo" inverseEntity="BRFriendsInfo" syncable="YES"/>
         <relationship name="group" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="BRGroup" inverseName="userInfo" inverseEntity="BRGroup" syncable="YES"/>
+        <relationship name="videos" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="BRVideoCoreDataObject" inverseName="owner" inverseEntity="BRVideoCoreDataObject" syncable="YES"/>
     </entity>
     <entity name="BRVideoCoreDataObject" representedClassName="BRVideoCoreDataObject" syncable="YES" codeGenerationType="class">
         <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
@@ -61,18 +61,19 @@
         <attribute name="detail" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="instructor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isBought" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="price" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="thumbnailImage" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="thumbnailURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="updatedTime" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <relationship name="owner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BRUserInfo" inverseName="boughtVideos" inverseEntity="BRUserInfo" syncable="YES"/>
+        <relationship name="owner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BRUserInfo" inverseName="videos" inverseEntity="BRUserInfo" syncable="YES"/>
     </entity>
     <elements>
         <element name="BRConversation" positionX="-16614" positionY="-1930" width="146" height="238"/>
         <element name="BRFriendsInfo" positionX="-16218" positionY="-2016" width="128" height="223"/>
         <element name="BRGroup" positionX="-16020" positionY="-1920" width="128" height="163"/>
         <element name="BRUserInfo" positionX="-16391" positionY="-1926" width="128" height="253"/>
-        <element name="BRVideoCoreDataObject" positionX="-16389" positionY="-1645" width="128" height="208"/>
+        <element name="BRVideoCoreDataObject" positionX="-16389" positionY="-1612" width="128" height="223"/>
     </elements>
 </model>

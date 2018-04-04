@@ -7,6 +7,7 @@
 //
 
 #import "BRAboutViewController.h"
+#import <SAMKeychain.h>
 
 @interface BRAboutViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *appVersionLabel;
@@ -22,6 +23,13 @@
     NSString *appVersion = infoDict[@"CFBundleShortVersionString"];
     NSString *appBuildVersion = infoDict[@"CFBundleVersion"];
     self.appVersionLabel.text = [NSString stringWithFormat:@"LinC %@.%@", appVersion, appBuildVersion];
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *username = [userDefaults objectForKey:kLoginUserNameKey];
+    NSString *token = [SAMKeychain passwordForService:kLoginTokenKey account:username];
+    NSLog(@"token: %@", token);
 }
 
 

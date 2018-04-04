@@ -11,14 +11,13 @@
 #import <AVKit/AVKit.h>
 #import <AVFoundation/AVFoundation.h>
 #import "BRPlaygroundViewController.h"
-#import "BRHTTPSessionManager.h"
 #import "BRLectureVideoModel.h"
 #import "BRLectureVideoCell.h"
 #import "BRClientManager.h"
 #import "BRVideoPlayerViewController.h"
 #import "BRCoreDataManager.h"
 
-#define NumberOfVideosFromCoreData 1
+#define NumberOfVideosFromCoreData 15
 
 @interface BRPlaygroundViewController ()
 {
@@ -43,7 +42,7 @@
 }
 
 - (void)loadVideosFromCoreData {
-    NSArray *fetchedVideos = [[BRCoreDataManager sharedInstance] fetchVideosWithNumber:NumberOfVideosFromCoreData before:[NSDate dateWithTimeIntervalSinceNow:0]];
+    NSArray *fetchedVideos = [[BRCoreDataManager sharedInstance] fetchVideosWithNumber:NumberOfVideosFromCoreData isBefore:YES time:[NSDate dateWithTimeIntervalSinceNow:0]];
     [self.dataArray addObjectsFromArray:fetchedVideos];
 }
 
@@ -55,13 +54,9 @@
     }
     [[BRClientManager sharedManager] getVideoListWithNumberOfPages:0 numberOfVideosPerPage:0 after:date success:^(NSArray *videoModelArray) {
         [[BRCoreDataManager sharedInstance] insertVideosToCoreData:videoModelArray];
-        NSArray *fetchedVideos = [[BRCoreDataManager sharedInstance] fetchVideosWithNumber:(videoModelArray.count + self.dataArray.count) before:[NSDate dateWithTimeIntervalSinceNow:0]];
-        if (self.dataArray.count) {
-            self.dataArray = [NSMutableArray arrayWithArray:fetchedVideos];
-        }
-        else {
-            [self.dataArray addObjectsFromArray:videoModelArray];
-        }
+        BRLectureVideoModel *model = [self.dataArray lastObject];
+        NSArray *fetchedVideos = [[BRCoreDataManager sharedInstance] fetchVideosWithNumber:-1 isBefore:NO time:model.updateTime];
+        self.dataArray = [NSMutableArray arrayWithArray:model?fetchedVideos:videoModelArray];
         [self tableViewDidFinishRefresh:BRRefreshTableViewWidgetHeader reload:YES];
     } failure:^(EMError *error) {
         [self tableViewDidFinishRefresh:BRRefreshTableViewWidgetHeader reload:NO];
@@ -75,7 +70,7 @@
 - (void)tableViewDidTriggerFooterRefresh {
     if (self.dataArray.count) {
         BRLectureVideoModel *model = [self.dataArray lastObject];
-        NSArray *fetchedVideos = [[BRCoreDataManager sharedInstance] fetchVideosWithNumber:NumberOfVideosFromCoreData before:model.updateTime];
+        NSArray *fetchedVideos = [[BRCoreDataManager sharedInstance] fetchVideosWithNumber:NumberOfVideosFromCoreData isBefore:YES time:model.updateTime];
         [self.dataArray addObjectsFromArray:fetchedVideos];
         [self tableViewDidFinishRefresh:BRRefreshTableViewWidgetFooter reload:YES];
     }

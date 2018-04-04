@@ -592,8 +592,15 @@
                 model.identifier = infoDict[@"_id"];
                 model.title = infoDict[@"title"];
                 model.instructor = infoDict[@"instructor_name"];
-                model.thumbnailURL = [kBaseURL stringByAppendingPathComponent:infoDict[@"cover"]];
                 model.detail = infoDict[@"description"];
+                model.price = [infoDict[@"price"] doubleValue];
+                if (model.price == 0) {
+                    model.isBought = YES;
+                }
+                else {
+                    model.isBought = NO;
+                }
+                model.thumbnailURL = [kBaseURL stringByAppendingPathComponent:infoDict[@"cover"]];
                 NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
                 [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSS"];
                 NSMutableString *dateString = [NSMutableString stringWithString:infoDict[@"created_at"]];

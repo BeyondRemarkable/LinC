@@ -16,6 +16,7 @@
 @property (nonatomic, copy) NSString *instructor;
 @property (nonatomic, copy) NSString *detail;
 @property (nonatomic, assign) double price;
+@property (nonatomic, assign) BOOL isBought;
 @property (nonatomic, copy) NSString *category;
 @property (nonatomic, copy) NSString *thumbnailURL;
 @property (nonatomic, strong) UIImage *thumbnailImage;
