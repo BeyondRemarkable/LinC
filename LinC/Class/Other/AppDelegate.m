@@ -55,8 +55,8 @@
         }
     }
     NSString *appkey = @"1153170608178531#linc-dev";
-//    NSString *apnsCertName = @"pushCertificates";
-    NSString *apnsCertName = @"developCertificates";
+    NSString *apnsCertName = @"pushCertificates";
+//    NSString *apnsCertName = @"developCertificates";
     [[BRSDKHelper shareHelper] hyphenateApplication:application
                       didFinishLaunchingWithOptions:launchOptions
                                              appkey:appkey
