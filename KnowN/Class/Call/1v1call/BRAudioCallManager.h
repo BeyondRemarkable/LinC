@@ -20,7 +20,8 @@
 + (instancetype)sharedManager;
 - (void)saveCallOptions;
 - (void)makeCallWithUsername:(NSString *)aUsername
-                        type:(EMCallType)aType;
+                        type:(EMCallType)aType
+           isCustomVideoData:(BOOL)aIsCustomVideo;
 - (void)answerCall:(NSString *)aCallId;
 - (void)hangupCallWithReason:(EMCallEndReason)aReason;
 

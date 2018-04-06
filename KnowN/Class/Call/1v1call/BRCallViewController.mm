@@ -74,19 +74,19 @@
 }
 
 //3.3.9 new 自定义视频数据
-//- (instancetype)initWithCallSession:(EMCallSession *)aCallSession
-//                       isCustomData:(BOOL)aIsCustom
-//{
-//    self = [self initWithCallSession:aCallSession];
-//    if (self) {
+- (instancetype)initWithCallSession:(EMCallSession *)aCallSession
+                       isCustomData:(BOOL)aIsCustom
+{
+    self = [self initWithCallSession:aCallSession];
+    if (self) {
 //        _videoModel = VIDEO_INPUT_MODE_NONE;
 //        if (aIsCustom) {
 //            _videoModel = VIDEO_INPUT_MODE_SAMPLE_BUFFER;
 //        }
-//    }
-//
-//    return self;
-//}
+    }
+
+    return self;
+}
 
 
 - (void)viewDidLoad {

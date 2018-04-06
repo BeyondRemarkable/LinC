@@ -22,9 +22,7 @@
 		276E757F1F3E2F1E00D5A917 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E757E1F3E2F1E00D5A917 /* AudioToolbox.framework */; };
 		276E75901F3E390100D5A917 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E758F1F3E390100D5A917 /* UserNotifications.framework */; };
 		276E75971F3E5AA600D5A917 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276E75961F3E5AA600D5A917 /* AVKit.framework */; };
-		27760F98202F592300BD082D /* BRGroupIconGenerator.h in Sources */ = {isa = PBXBuildFile; fileRef = E9F903DB20222C5E00F7248C /* BRGroupIconGenerator.h */; };
 		27760F99202F592300BD082D /* BRGroupIconGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F903DC20222C5E00F7248C /* BRGroupIconGenerator.m */; };
-		27760F9A202F592300BD082D /* BRGroupModel.h in Sources */ = {isa = PBXBuildFile; fileRef = E942AD5620250807000C91DD /* BRGroupModel.h */; };
 		27760F9B202F592300BD082D /* BRGroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E942AD5720250807000C91DD /* BRGroupModel.m */; };
 		278CD94C1F549192008D6BD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 278CD94B1F549192008D6BD1 /* Assets.xcassets */; };
 		27A094CB20322E6F00F9F846 /* BRRegisterMethodViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27A094CA20322E6F00F9F846 /* BRRegisterMethodViewController.m */; };
@@ -36,7 +34,6 @@
 		27FA8FC32054AFCA0036DF0A /* BRLectureVideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FA8FC22054AFCA0036DF0A /* BRLectureVideoModel.m */; };
 		27FC23FB1F7986D7001148D7 /* BRCreateChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27FC23FA1F7986D7001148D7 /* BRCreateChatViewController.m */; };
 		777EE2E01DE2D56D25A06FA2 /* libPods-KnowN.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7644E4D020BABDE5A91405CF /* libPods-KnowN.a */; };
-		E90AE49D20474F5F00939518 /* libffmpeg-ios-full.a in Sources */ = {isa = PBXBuildFile; fileRef = E936525320474BCE00F8810A /* libffmpeg-ios-full.a */; };
 		E90AE49F20474FCF00939518 /* libiconv.2.4.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E90AE49E20474FCF00939518 /* libiconv.2.4.0.tbd */; };
 		E90AE4A42049B20900939518 /* Hyphenate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E90AE4A32049B1DA00939518 /* Hyphenate.framework */; };
 		E90C2F171F88230B004D2116 /* BRCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E96C7B531F85C8B100C0DC7E /* BRCoreData.xcdatamodeld */; };
@@ -1631,7 +1628,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-KnowN/Pods-KnowN-frameworks.sh",
-				"${PODS_ROOT}/Hyphenate/iOS_IM_SDK_V3.3.9/HyphenateFullSDK/Hyphenate.framework",
+				"${PODS_ROOT}/Hyphenate/iOS_IM_SDK_V3.4.0/HyphenateFullSDK/Hyphenate.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -1662,10 +1659,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E90AE49D20474F5F00939518 /* libffmpeg-ios-full.a in Sources */,
-				27760F98202F592300BD082D /* BRGroupIconGenerator.h in Sources */,
 				27760F99202F592300BD082D /* BRGroupIconGenerator.m in Sources */,
-				27760F9A202F592300BD082D /* BRGroupModel.h in Sources */,
 				27760F9B202F592300BD082D /* BRGroupModel.m in Sources */,
 				E9874DCF2072DE4F00C8F8BD /* BRNavigationController.m in Sources */,
 				E90F7BD51F670DC400333382 /* BRUserSettingTableViewController.m in Sources */,
@@ -1960,10 +1954,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AEKJ6LE54T;
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Pods/Hyphenate/iOS_IM_SDK_V3.3.9/HyphenateFullSDK",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/KnowN/Class/Other/KnowN.pch";
 				INFOPLIST_FILE = KnowN/Info.plist;
@@ -1972,7 +1963,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/KnowN/Class/Other",
-					"$(PROJECT_DIR)/KnowN/Class/Call/plugin",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -2024,10 +2014,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AEKJ6LE54T;
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Pods/Hyphenate/iOS_IM_SDK_V3.3.9/HyphenateFullSDK",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/KnowN/Class/Other/KnowN.pch";
 				INFOPLIST_FILE = KnowN/Info.plist;
@@ -2036,7 +2023,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/KnowN/Class/Other",
-					"$(PROJECT_DIR)/KnowN/Class/Call/plugin",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
