@@ -15,7 +15,7 @@ NSString *const kLoginPasswordKey = @"loginPassword";
 NSString *const kLoginTokenKey = @"loginToken";
 NSString *const kLoginStatusKey = @"loginStatus";
 
-NSString *const kBaseURL = @"https://linc.beyondremarkable.com";
+NSString *const kBaseURL = @"https://known.beyondremarkable.com";
 NSString *const kVideoBaseURL = @"https://s3-ap-northeast-1.amazonaws.com/linc-app";
 
 NSString *const kServiceName = @"com.BeyondRemarkable.LinC";
