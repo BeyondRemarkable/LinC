@@ -1,7 +1,8 @@
+platform :ios, '9.0'
 
 inhibit_all_warnings!
 
-target 'LinC' do
+target 'KnowN' do
 
 pod 'Hyphenate' 
 pod 'MJRefresh'

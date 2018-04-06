@@ -1,0 +1,99 @@
+/* 
+  Localizable.strings
+  KnowN
+
+  Created by Yingwei Fan on 11/10/17.
+  Copyright © 2017 BeyondRemarkable. All rights reserved.
+*/
+
+// Basic setting
+"Cancel" = "Cancel";
+"Done" = "Done";
+"ok" = "OK";
+"OK" = "OK";
+"delete" = "Delete";
+"copy" = "Copy";
+"prompt" = "Prompt";
+"Save" = "Save";
+"NSDateCategory.text1" = "second";
+"NSDateCategory.text2" = "minute";
+"NSDateCategory.text3" = "hour";
+"NSDateCategory.text4" = "day";
+"NSDateCategory.text5" = "";
+"message.simulatorNotSupportCamera" = "simulator does not support opening camera";
+
+// Account
+"Password does not match" = "Password and confirm password don't match";
+"Password not strong message" = "Password is not strong enough";
+
+// Chat
+"Location" = "Location";
+"Camera" = "Camera";
+"Album" = "Album";
+"Voice" = "Voice";
+"Video" = "Video";
+"message.toolBar.record.touch" = "Hold to talk";
+"message.toolBar.record.send" = "Release to send";
+"message.toolBar.record.upCancel" = "Slide up to cancel";
+"message.toolBar.record.loosenCancel" = "Release to cancel";
+"message.downloadingAudio" = "downloading voice, click later";
+"message.downloadingVideo" = "downloading video...";
+"message.smallerImage" = "The image size is too large, please choose another one";
+"message.startRecordFail" = "fail to start recording";
+"message.thumImageFail" = "thumbnail for failure";
+"message.voiceFail" = "voice for failure";
+"message.videoFail" = "video for failure";
+"send" = "Send";
+"hasRead" = "Read";
+"receiveCmd" = "receive cmd message";
+"group.atAll" = "all";
+
+// Network
+"Not Reachable" = "Not Reachable";
+"Reachable via WWAN" = "Reachable via WWAN";
+
+// Conversation
+"message.image1" = "[image]";
+"message.voice1" = "[voice]";
+"message.location1" = "[location]";
+"message.vodeo1" = "[video]";
+"message.file1" = "[file]";
+
+// Location
+"Shared location" = "[location]";
+"location.messageType" = "location message";
+"location.ongoing" = "locating...";
+
+// Audio
+"Voice message" = "[voice]";
+"error.notFound" = "File path not exist";
+"error.initPlayerFail" = "Failed to initialize AVAudioPlayer";
+"error.initPlayFail" = "Play failuer";
+
+// Image
+"Save Image" = "Save Image";
+"Scan QR code" = "Scan QR code";
+"Take Photo" = "Take Photo";
+"Choose from Album" = "Choose from Album";
+"Image Received" = "[image]";
+"saveFail" = "Try again later";
+"saveSuccess" = "Image saved";
+"message.thumImageFail" = "Fail to get thumbnail image";
+
+// Video
+"Shared video" = "[video]";
+
+// Friend
+"No new friend request" = "No new friend request";
+
+// Tabbar
+"Playground" = "Playground";
+"Messages" = "Messages";
+"Contacts" = "Contacts";
+"Me" = "Me";
+
+// Authorization
+"Unable to access camera" = "Camera is not authorized";
+"Unable to access album" = "Album is not authorized";
+"Unable to access microphone" = "Microphone is not authorized";
+"Unable to access GPS" = "Location service is not authorized";

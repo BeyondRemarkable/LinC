@@ -1,4 +1,3 @@
-# LinC
-Connect customers and mentors together
+# KnowN
+Connect customers and mentors together. Mentors can provide their online lectures through videos and customers are able to watch them in the app.
 
-1. Add Hyphenate SDK to implement IM functionalities
