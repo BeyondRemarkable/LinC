@@ -13,6 +13,8 @@
 #import "BRCDDeviceManagerBase.h"
 //3.3.9 new 自定义视频数据
 //#import "VideoCustomCamera.h"
+#import "BRCoreDataManager.h"
+#import "BRFriendsInfo+CoreDataClass.h"
 
 @interface BRCallViewController () //<AVCaptureVideoDataOutputSampleBufferDelegate>
 
@@ -33,6 +35,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *answerButton;
 @property (weak, nonatomic) IBOutlet UIButton *switchCameraButton;
 @property (weak, nonatomic) IBOutlet UIButton *showVideoInfoButton;
+@property (weak, nonatomic) IBOutlet UIImageView *iconImage;
 
 @property (strong, nonatomic) AVAudioPlayer *ringPlayer;
 @property (nonatomic) int timeLength;
@@ -136,7 +139,14 @@
     [self.silenceButton setImage:[UIImage imageNamed:@"Button_Mute_active"] forState:UIControlStateSelected];
     self.timeLabel.hidden = YES;
     self.remoteNameLabel.text = self.callSession.remoteName;
-    
+    if (self.callSession.remoteName) {
+        BRFriendsInfo *friendInfo = [[BRCoreDataManager sharedInstance] fetchFriendInfoBy:self.callSession.remoteName];
+        if (friendInfo.imageIcon) {
+            self.iconImage.image = [UIImage imageWithData:friendInfo.imageIcon];
+        } else {
+            self.iconImage.image = [UIImage imageNamed: @"nickname"];
+        }
+    }
     BOOL isCaller = self.callSession.isCaller;
     switch (self.callSession.type) {
         case EMCallTypeVoice:
