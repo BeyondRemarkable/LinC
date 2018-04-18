@@ -62,12 +62,13 @@
 //    MainTabBar *tabBar = [[MainTabBar alloc] init];
 //    [self setValue:tabBar forKey:@"tabBar"];
 //    [self.tabBar setBackgroundImage:[UIImage imageNamed:@"tabbar_background"]];
-    [BRAudioCallManager sharedManager];
-    [self registerNotification];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
+    [BRAudioCallManager sharedManager];
+    [self registerNotification];
     
     NSArray *conversations = [[EMClient sharedClient].chatManager getAllConversations];
     // 获取未读消息数，设置badge，并更新群信息
@@ -134,7 +135,7 @@
     
     // 设置tabBarItem的文字颜色属性
     [childVc.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:BRColor(94, 94, 94)} forState:UIControlStateNormal];
-    [childVc.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:BRColor(22, 117, 179)} forState:UIControlStateSelected];
+    [childVc.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:BRColor(247, 106, 45)} forState:UIControlStateSelected];
     
     BRNavigationController *navigationVc = [[BRNavigationController alloc] initWithRootViewController:childVc];
     [self addChildViewController:navigationVc];

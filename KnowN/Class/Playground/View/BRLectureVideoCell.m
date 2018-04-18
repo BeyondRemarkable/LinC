@@ -49,11 +49,13 @@
     [_thumbnailImageView.widthAnchor constraintEqualToAnchor:_thumbnailImageView.heightAnchor].active = YES;
     
     _purchaseButton = [[UIButton alloc] init];
-    [_purchaseButton setBackgroundImage:[UIImage imageNamed:@"background_blue"] forState:UIControlStateNormal];
-    [_purchaseButton setBackgroundImage:[UIImage imageNamed:@"background_blue_highlighted"] forState:UIControlStateHighlighted];
+    [_purchaseButton setBackgroundImage:[UIImage imageNamed:@"background_orange"] forState:UIControlStateNormal];
+    [_purchaseButton setBackgroundImage:[UIImage imageNamed:@"background_orange_highlighted"] forState:UIControlStateHighlighted];
     [_purchaseButton setTitle:NSLocalizedString(@"Buy", nil) forState:UIControlStateNormal];
     _purchaseButton.titleLabel.font = [UIFont systemFontOfSize:12.0];
     _purchaseButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+    _purchaseButton.layer.cornerRadius = 5.0;
+    _purchaseButton.layer.masksToBounds = YES;
     [self.contentView addSubview:_purchaseButton];
     _purchaseButton.translatesAutoresizingMaskIntoConstraints = NO;
     [_purchaseButton.trailingAnchor constraintEqualToAnchor:marginGuide.trailingAnchor].active = YES;
@@ -107,7 +109,7 @@
         self.purchaseButton.enabled = YES;
     }
     else {
-        [self.purchaseButton setTitle:@"FREE" forState:UIControlStateNormal];
+        [self.purchaseButton setTitle:@"Free" forState:UIControlStateNormal];
         self.purchaseButton.enabled = NO;
     }
 }
