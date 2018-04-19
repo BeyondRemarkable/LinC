@@ -17,9 +17,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [[UINavigationBar appearance] setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-    [UINavigationBar appearance].shadowImage = [UIImage new];
-    [UINavigationBar appearance].translucent = YES;
+//    [[UINavigationBar appearance] setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+//    [UINavigationBar appearance].shadowImage = [UIImage new];
+//    [UINavigationBar appearance].translucent = YES;
     
 }
 

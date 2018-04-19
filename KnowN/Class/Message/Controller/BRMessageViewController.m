@@ -2051,8 +2051,6 @@ typedef enum : NSUInteger {
         message.chatType = EMChatTypeChatRoom;
     }
     
-    BRCoreDataManager *manager = [BRCoreDataManager sharedInstance];
-    [manager insertConversationToCoreData:message];
     [[NSNotificationCenter defaultCenter] postNotificationName:BRDataUpdateNotification object:nil];
     
     __weak typeof(self) weakself = self;

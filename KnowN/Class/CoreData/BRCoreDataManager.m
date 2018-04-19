@@ -318,41 +318,41 @@ BRUserInfo *userInfoDic = nil;
     
     BOOL isContains = NO;
     for (BRConversation *conversation in userInfo.conversation) {
-        
-        if (conversation.conversationId && [conversation.conversationId containsString: message.conversationId]) {
+        if (conversation.conversationId && [conversation.conversationId isEqualToString: message.conversationId]) {
             isContains = YES;
+            break;
         }
     }
-        //数据库中没有会话模型数据， 直接保存
-        if (!isContains) {
-            BRConversation *conversation =  [NSEntityDescription insertNewObjectForEntityForName:@"BRConversation" inManagedObjectContext:context];
-            conversation.conversationId = message.conversationId;
-//            conversation.chatType = message.chatType;
-//            conversation.latestMessageTitle = [NSString stringWithFormat:@"%@", message.body];
-//            conversation.latestMessageTime = message.timestamp;
-//            conversation.from = message.from;
-//            conversation.to = message.to;
-//            conversation.direction = message.direction;
-//            conversation.status = message.status;
-            
-            [userInfo addConversationObject:conversation];
-            [self saveData];
-        } else {
-            //已经保存会话模型，更新数据
-            for (BRConversation *conversation in userInfo.conversation) {
-                if ([conversation.conversationId isEqualToString:message.conversationId]) {
-                    conversation.conversationId = message.conversationId;
-//                    conversation.chatType = message.chatType;
-//                    conversation.latestMessageTitle = [NSString stringWithFormat:@"%@", message.body];
-//                    conversation.latestMessageTime = message.timestamp;
-//                    conversation.from = message.from;
-//                    conversation.to = message.to;
-//                    conversation.direction = message.direction;
-//                    conversation.status = message.status;
-                    [self saveData];
-                }
+    //数据库中没有会话模型数据， 直接保存
+    if (!isContains) {
+        BRConversation *conversation =  [NSEntityDescription insertNewObjectForEntityForName:@"BRConversation" inManagedObjectContext:context];
+        conversation.conversationId = message.conversationId;
+//        conversation.chatType = message.chatType;
+//        conversation.latestMessageTitle = [NSString stringWithFormat:@"%@", message.body];
+//        conversation.latestMessageTime = message.timestamp;
+//        conversation.from = message.from;
+//        conversation.to = message.to;
+//        conversation.direction = message.direction;
+//        conversation.status = message.status;
+        
+        [userInfo addConversationObject:conversation];
+        [self saveData];
+    } else {
+        //已经保存会话模型，更新数据
+        for (BRConversation *conversation in userInfo.conversation) {
+            if ([conversation.conversationId isEqualToString:message.conversationId]) {
+                conversation.conversationId = message.conversationId;
+//                conversation.chatType = message.chatType;
+//                conversation.latestMessageTitle = [NSString stringWithFormat:@"%@", message.body];
+//                conversation.latestMessageTime = message.timestamp;
+//                conversation.from = message.from;
+//                conversation.to = message.to;
+//                conversation.direction = message.direction;
+//                conversation.status = message.status;
+                [self saveData];
             }
         }
+    }
     
 }
 
