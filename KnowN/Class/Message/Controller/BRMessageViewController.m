@@ -1949,7 +1949,7 @@ typedef enum : NSUInteger {
         NSArray *usernameArray = [usernameSet allObjects];
         
         // 从服务器获取成员信息
-        [[BRClientManager sharedManager] getUserInfoWithUsernames:usernameArray andSaveFlag:NO success:^(NSMutableArray *modelArray) {
+        [[BRClientManager sharedManager] getFriendInfoWithUsernames:usernameArray andSaveFlag:NO success:^(NSMutableArray *modelArray) {
             for (BRContactListModel *userModel in modelArray) {
                 self.dict[userModel.username] = userModel;
             }

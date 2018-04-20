@@ -27,6 +27,8 @@
 - (BRUserInfo *)fetchUserInfoBy:(NSString *)userName;
 /** 更新登录用户模型 */
 - (void)updateUserInfoWithKeys:(NSArray *)keyArray andValue: (NSArray *)valueArray;
+/** 获取所有好友模型数据 */
+- (NSMutableArray *)fetchAllFriends;
 /** 保存好友数据到Core data */
 - (void)saveFriendsInfoToCoreData:(NSMutableArray*)dataArray;
 /** 获取好友模型数据 */

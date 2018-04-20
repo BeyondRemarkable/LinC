@@ -46,7 +46,7 @@
     
     self.userID.text = self.searchID;
     
-    [[BRClientManager sharedManager] getUserInfoWithUsernames:[NSArray arrayWithObject:self.searchID] andSaveFlag:NO success:^(NSMutableArray *aList) {
+    [[BRClientManager sharedManager] getFriendInfoWithUsernames:[NSArray arrayWithObject:self.searchID] andSaveFlag:NO success:^(NSMutableArray *aList) {
         BRContactListModel *friendInfo = (BRContactListModel *)[aList firstObject];
         self.userIcon.image = friendInfo.avatarImage ? friendInfo.avatarImage : [UIImage imageNamed:@"user_default"];
         self.userGender.text = friendInfo.gender;

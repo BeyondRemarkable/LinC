@@ -157,7 +157,7 @@
 - (void)searchFriendWithUserID:(NSString *)searchID {
     NSArray *userIDArr = [NSArray arrayWithObject:searchID];
     hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[BRClientManager sharedManager] getUserInfoWithUsernames:userIDArr andSaveFlag:NO
+    [[BRClientManager sharedManager] getFriendInfoWithUsernames:userIDArr andSaveFlag:NO
     success:^(NSMutableArray *aList) {
         [hud hideAnimated:YES];
         

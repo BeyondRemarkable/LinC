@@ -42,7 +42,7 @@
 /**
  查询用户详情
  */
-- (void)getUserInfoWithUsernames:(NSArray *)usernameList andSaveFlag:(BOOL)saveFlag success:(void (^)(NSMutableArray *modelArray))successBlock failure:(void (^)(EMError *error))failureBlock;
+- (void)getFriendInfoWithUsernames:(NSArray *)usernameList andSaveFlag:(BOOL)saveFlag success:(void (^)(NSMutableArray *modelArray))successBlock failure:(void (^)(EMError *error))failureBlock;
 
 /** 异步查询当前用户信息 */
 - (void)getSelfInfoWithSuccess:(void (^)(BRContactListModel *model))successBlock failure:(void (^)(EMError *error))failureBlock;

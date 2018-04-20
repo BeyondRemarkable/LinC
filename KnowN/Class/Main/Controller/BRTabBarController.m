@@ -43,7 +43,7 @@
         [self setupChildVc:chatsVc title:NSLocalizedString(@"Messages", nil) imageName:@"tabbar_conversationlist" selectedImageName:@"tabbar_conversationlist_selected"];
 
         // Add contact list view controller
-        BRContactListViewController *contactListVC = [[BRContactListViewController alloc] initWithStyle:UITableViewStyleGrouped];
+        BRContactListViewController *contactListVC = [[BRContactListViewController alloc] initWithStyle:UITableViewStylePlain];
         [self setupChildVc:contactListVC title:NSLocalizedString(@"Contacts", nil) imageName:@"tabbar_contactlist" selectedImageName:@"tabbar_contactlist_selected"];
         
         // Add user infromation view controller

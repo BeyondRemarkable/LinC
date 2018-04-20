@@ -174,7 +174,7 @@ static NSString * const cellIdentifier = @"groupCell";
                 groupMembersArray = [[aResult.list mutableCopy] arrayByAddingObject:group.groupOwner];
             }
             // 获取群成员信息
-            [[BRClientManager sharedManager] getUserInfoWithUsernames:groupMembersArray andSaveFlag:NO success:^(NSMutableArray *groupMembersInfoArray) {
+            [[BRClientManager sharedManager] getFriendInfoWithUsernames:groupMembersArray andSaveFlag:NO success:^(NSMutableArray *groupMembersInfoArray) {
                 [groupMembersInfoArray sortUsingComparator:^NSComparisonResult(BRContactListModel *left, BRContactListModel *right) {
                     return [left.nickname compare: right.nickname];
                 }];

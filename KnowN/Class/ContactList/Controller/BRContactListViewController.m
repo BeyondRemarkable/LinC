@@ -140,25 +140,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
       从core data加载已经保存的好友数据
  */
 - (void)loadFriendsInfoFromCoreData {
-
-    BRUserInfo *userInfo = [[BRCoreDataManager sharedInstance] getUserInfo];
-    NSMutableArray *friendsModelArray = [NSMutableArray array];
-    for (BRFriendsInfo *friendsInfo in userInfo.friendsInfo) {
-        
-        BRContactListModel *contactModel = [[BRContactListModel alloc] init];
-        contactModel.username = friendsInfo.username;
-        contactModel.nickname = friendsInfo.nickname;
-        UIImage *avatar = [UIImage imageWithData: friendsInfo.avatar];
-        contactModel.avatarImage = avatar ? avatar : [UIImage imageNamed:@"user_default"];
-        contactModel.whatsUp = friendsInfo.whatsUp;
-        contactModel.gender = friendsInfo.gender;
-       
-        [friendsModelArray addObject:contactModel];
-    }
-    [friendsModelArray sortUsingComparator:^NSComparisonResult(BRContactListModel *left, BRContactListModel *right) {
-        return [left.username compare: right.username];
-    }];
-    self.dataArray = friendsModelArray;
+    self.dataArray = [[BRCoreDataManager sharedInstance] fetchAllFriends];
     [self tableViewDidFinishRefresh:BRRefreshTableViewWidgetHeader reload:YES];
 }
 
@@ -231,16 +213,14 @@ static NSString * const cellIdentifier = @"ContactListCell";
 
 #pragma mark - UITableViewDelegate
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 20;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    return [[UIView alloc] init];
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 0.1;
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return nil;
+    }
+    else if (section == 1) {
+        return @"Friends";
+    }
+    return nil;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -302,16 +282,14 @@ static NSString * const cellIdentifier = @"ContactListCell";
     
     __weak typeof(self) weakself = self;
     [[EMClient sharedClient].contactManager getContactsFromServerWithCompletion:^(NSArray *aList, EMError *aError) {
-        
         if (!aError) {
-            
-            // 服务器返回好友列表为空 但是本地好友列表不为空，删除全部好友
-            if (aList.count == 0 && self.dataArray.count != 0 ) {
-                [[BRCoreDataManager sharedInstance] deleteFriendByID:nil];
-                [self.dataArray removeAllObjects];
-                [self.tableView reloadData];
-                return;
-            }
+//             服务器返回好友列表为空 但是本地好友列表不为空，删除全部好友
+//            if (aList.count == 0 && self.dataArray.count != 0 ) {
+//                [[BRCoreDataManager sharedInstance] deleteFriendByID:nil];
+//                [self.dataArray removeAllObjects];
+//                [self.tableView reloadData];
+//                return;
+//            }
             NSMutableArray *contactsSource = [NSMutableArray array];
             
             // remove the contact that is currently in the black list
@@ -324,7 +302,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
                 }
             }
             
-            [[BRClientManager sharedManager] getUserInfoWithUsernames:contactsSource andSaveFlag:YES success:^(NSMutableArray *aList) {
+            [[BRClientManager sharedManager] getFriendInfoWithUsernames:contactsSource andSaveFlag:YES success:^(NSMutableArray *aList) {
                 [weakself.dataArray removeAllObjects];
                 [weakself.dataArray addObjectsFromArray:aList];
                 [weakself tableViewDidFinishRefresh:BRRefreshTableViewWidgetHeader reload:YES];

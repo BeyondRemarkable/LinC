@@ -166,6 +166,34 @@ BRUserInfo *userInfoDic = nil;
 }
 
 /**
+ 获取所有的好友模型数据
+ 
+ 返回数据包含的数据类型为BRContactListModel
+ */
+- (NSMutableArray *)fetchAllFriends {
+    BRUserInfo *userInfo = [self getUserInfo];
+    NSMutableArray *friendsModelArray = [NSMutableArray array];
+    for (BRFriendsInfo *friendsInfo in userInfo.friendsInfo) {
+        
+        BRContactListModel *contactModel = [[BRContactListModel alloc] init];
+        contactModel.username = friendsInfo.username;
+        contactModel.nickname = friendsInfo.nickname;
+        UIImage *avatar = [UIImage imageWithData: friendsInfo.avatar];
+        contactModel.avatarImage = avatar ? avatar : [UIImage imageNamed:@"user_default"];
+        contactModel.whatsUp = friendsInfo.whatsUp;
+        contactModel.gender = friendsInfo.gender;
+        
+        [friendsModelArray addObject:contactModel];
+    }
+    [friendsModelArray sortUsingComparator:^NSComparisonResult(BRContactListModel *firstModel, BRContactListModel *secondModel) {
+        NSString *firstStr = firstModel.nickname?firstModel.nickname:firstModel.username;
+        NSString *secondStr = secondModel.nickname?secondModel.nickname:secondModel.username;
+        return [firstStr compare: secondStr];
+    }];
+    return friendsModelArray;
+}
+
+/**
  检查好友列表 如何数据不存在，插入数据，并保存
  如果数据存在，检查是否需要更新
  
