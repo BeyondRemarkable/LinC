@@ -164,8 +164,10 @@ static NSString * const cellIdentifier = @"ContactListCell";
     self.tableView.sectionIndexColor = [UIColor grayColor];
     self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
     
-    //Set up header
-    self.tableView.tableHeaderView = self.searchController.searchBar;
+    //设置搜索headerView，使用一层UIView使得搜索框不会被sectionIndex挤压
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.width, self.searchController.searchBar.height)];
+    [headerView addSubview:self.searchController.searchBar];
+    self.tableView.tableHeaderView = headerView;
     //Register reuseable tableview cell
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([BRContactListTableViewCell class]) bundle:nil] forCellReuseIdentifier:cellIdentifier];
     
@@ -480,8 +482,18 @@ static NSString * const cellIdentifier = @"ContactListCell";
     self.tabBarController.tabBar.hidden = YES;
 }
 
-- (void)willDismissSearchController:(UISearchController *)searchController {
-    self.tabBarController.tabBar.hidden = NO;
+- (void)didDismissSearchController:(UISearchController *)searchController {
+    UITabBar *tabBar = self.tabBarController.tabBar;
+    tabBar.hidden = NO;
+    
+    // 适配iPhoneX的tabBar挤压问题
+    if (@available(iOS 11.0, *)) {
+        CGFloat bottomInset = tabBar.safeAreaInsets.bottom;
+        if (bottomInset > 0 && tabBar.height < 50 && (tabBar.height + bottomInset < 90)) {
+            tabBar.height += bottomInset;
+            tabBar.y -= bottomInset;
+        }
+    }
 }
 
 - (void)dealloc {

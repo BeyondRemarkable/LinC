@@ -27,7 +27,7 @@
     self.tableView.tableFooterView = [[UIView alloc] init];
     [self.tableView registerClass:[BRSearchResultCell class] forCellReuseIdentifier:[BRSearchResultCell identifier]];
     
-//    self.automaticallyAdjustsScrollViewInsets = NO;//不加的话，table会下移
+    self.automaticallyAdjustsScrollViewInsets = NO;//不加的话，table会下移
     self.edgesForExtendedLayout = UIRectEdgeNone;//不加的话，UISearchBar返回后会上移，键盘不会弹出
 }
 
