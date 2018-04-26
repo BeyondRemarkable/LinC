@@ -16,7 +16,11 @@ NSString *const kLoginTokenKey = @"loginToken";
 NSString *const kLoginStatusKey = @"loginStatus";
 
 NSString *const kEaseMobAppKey = @"1153170608178531#linc-dev";
+#ifdef DEBUG
+NSString *const kApnsCertName = @"developCertificates";
+#else
 NSString *const kApnsCertName = @"pushCertificates";
+#endif
 
 NSString *const kBaseURL = @"https://known.beyondremarkable.com";
 NSString *const kVideoBaseURL = @"https://s3-ap-northeast-1.amazonaws.com/linc-app";

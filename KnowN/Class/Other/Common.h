@@ -23,9 +23,11 @@
 #define GroupIDLength 14
 
 #define BRDataUpdateNotification @"DataUpdate"
+#define BRContactUpdateNotification @"ContactUpdate"
 #define BRFriendRequestUpdateNotification @"FriendRequestUpdate"
 #define BRImageMessageDownloadResultNotification @"ImageMessageDownloadResult"
 #define BRVideoMessageDownloadResultNotification @"VideoMessageDownloadResult"
+
 #define kTestBaseURL @"http://KnowN.reactivetesting.online"
 
 extern NSString *const GroupNameChangeNotificationName;

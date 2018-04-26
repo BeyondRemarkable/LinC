@@ -70,11 +70,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
     [self loadFriendsInfoFromCoreData];
     [self setUpTableView];
     [self setUpNavigationBarItem];
-    // 注册通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedNewFriendRequest:)
-                                                 name:kBRFriendRequestExtKey object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedNewFriendRequest:)
-                                                 name:kBRGroupRequestExtKey object:nil];
+    [self setupNotifications];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -195,6 +191,15 @@ static NSString * const cellIdentifier = @"ContactListCell";
     [self tableViewDidFinishRefresh:BRRefreshTableViewWidgetHeader reload:YES];
 }
 
+- (void)setupNotifications {
+    // 注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedNewFriendRequest:)
+                                                 name:kBRFriendRequestExtKey object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedNewFriendRequest:)
+                                                 name:kBRGroupRequestExtKey object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactList:) name:BRContactUpdateNotification object:nil];
+}
+
 #pragma mark - button action
 -(void)clickAddNewFriend {
     
@@ -292,12 +297,10 @@ static NSString * const cellIdentifier = @"ContactListCell";
         }
         // 如果有好友请求，显示好友添加数量label
         else if (indexPath.row == TableViewNewFriend) {
-            BRContactListTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
             
             NSUInteger friendRequestCount = [[BRFileWithNewRequestData countForNewRequestFromFile:newFirendRequestFile] integerValue];
             
             if (friendRequestCount) {
-                cell.badgeLabel.text = [NSString stringWithFormat:@"%lu",(unsigned long)friendRequestCount];
                 BRNewFriendTableViewController *vc = [[BRNewFriendTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
                 [self.navigationController pushViewController:vc animated:YES];
             } else {
@@ -323,6 +326,18 @@ static NSString * const cellIdentifier = @"ContactListCell";
     }
 }
 
+#pragma mark - Notification
+
+- (void)updateContactList:(NSNotification *)notification {
+    [self.dataArray removeObject:notification.object];
+    [self sectionalizeContacts:self.dataArray];
+    [self tableViewDidFinishRefresh:BRRefreshTableViewWidgetHeader reload:YES];
+}
+
+- (void)receivedNewFriendRequest:(NSNotification *)notification {
+    [self updateFriendRequestCell];
+}
+
 #pragma mark - private
 
 - (void)updateFriendRequestCell {
@@ -332,10 +347,6 @@ static NSString * const cellIdentifier = @"ContactListCell";
         [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
         [self.tableView endUpdates];
     }
-}
-
-- (void)receivedNewFriendRequest:(NSNotification *)notification {
-    [self updateFriendRequestCell];
 }
 
 - (void)tableViewDidTriggerHeaderRefresh
@@ -469,11 +480,17 @@ static NSString * const cellIdentifier = @"ContactListCell";
 
 //删除好友时，双方都会收到的回调
 - (void)friendshipDidRemoveByUser:(NSString *)aUsername {
-    if (aUsername.length == 0 || [aUsername isKindOfClass:[NSNull class]]) {
+    if (aUsername == nil || aUsername.length == 0 || [aUsername isEqualToString:[EMClient sharedClient].currentUsername]) {
         return;
     }
     [[BRCoreDataManager sharedInstance] deleteFriendByID: [NSArray arrayWithObject:aUsername]];
-    [self tableViewDidTriggerHeaderRefresh];
+    for (BRContactListModel *model in self.dataArray) {
+        if ([model.username isEqualToString:aUsername]) {
+            NSNotification *notification = [NSNotification notificationWithName:BRContactUpdateNotification object:model];
+            [self updateContactList:notification];
+            break;
+        }
+    }
 }
 
 #pragma mark - UISearchControllerDelegate

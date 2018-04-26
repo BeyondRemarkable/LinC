@@ -48,7 +48,6 @@
 "send" = "发送";
 "hasRead" = "已读";
 "receiveCmd" = "收到cmd消息";
-"group.atAll" = "所有人";
 
 // Network
 "Not Reachable" = "无法连接";
@@ -86,8 +85,15 @@
 // Video
 "Shared video" = "[视频]";
 
-// Friend
+// Contact
 "No new friend request" = "没有新的好友请求";
+"Contact.delete confirm" = "确认删除";
+"Contact.delete success" = "删除成功";
+
+// Group
+"Group.remove confirm" = "确认移除";
+"Group.remove success" = "移除成功";
+"Group.at all" = "所有人";
 
 // Tabbar
 "Playground" = "知识广场";
@@ -100,9 +106,6 @@
 "Unable to access album" = "相册权限未开启";
 "Unable to access microphone" = "麦克风权限未开启";
 "Unable to access GPS" = "定位权限未开启";
-
-// Friend
-"No new friend request" = "没有新的好友请求";
 
 // Audio call
 "Audio call.notification" = "语音通话来自";

@@ -2284,7 +2284,7 @@ typedef enum : NSUInteger {
         if ([splits count]) {
             for (NSString *split in splits) {
                 if (split.length) {
-                    NSString *atALl = NSLocalizedString(@"group.atAll", @"all");
+                    NSString *atALl = NSLocalizedString(@"group.at all", nil);
                     if (split.length >= atALl.length && [split compare:atALl options:NSCaseInsensitiveSearch range:NSMakeRange(0, atALl.length)] == NSOrderedSame) {
                         [targets removeAllObjects];
                         [targets addObject:kGroupMessageAtAll];

@@ -141,21 +141,26 @@
 - (IBAction)clickDeleteFriend:(id)sender {
     UIAlertController *actionSheet =[UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
-    UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Confirm Delete" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *delete = [UIAlertAction actionWithTitle:NSLocalizedString(@"Contact.delete confirm", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         [[EMClient sharedClient].contactManager deleteContact:self.contactListModel.username isDeleteConversation:YES completion:^(NSString *aUsername, EMError *aError) {
             hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             hud.mode = MBProgressHUDModeText;
             if (!aError) {
-                hud.label.text = @"Deleted Successfully.";
+                hud.label.text = NSLocalizedString(@"Contact.delete success", nil);
                 // 从core data中 删除好友数据
                 NSArray *deleteArr = [NSArray arrayWithObject:self.contactListModel.username];
                 if (deleteArr.count != 0) {
                     [[BRCoreDataManager sharedInstance] deleteFriendByID: deleteArr];
                 }
-                [self performSelector:@selector(dismissVC) withObject:nil afterDelay:1.0];
+                // 发送本地通知，联系人界面更新
+                [[NSNotificationCenter defaultCenter] postNotificationName:BRContactUpdateNotification object:self.contactListModel userInfo:@{@"Operation":@"delete"}];
+                
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self.navigationController popToRootViewControllerAnimated:YES];
+                });
             } else {
-                [hud hideAnimated:YES afterDelay:1.5];
                 hud.label.text = aError.errorDescription;
+                [hud hideAnimated:YES afterDelay:1.5];
             }
         }];
       
@@ -179,12 +184,14 @@
 - (IBAction)clickRemoveGroup {
     UIAlertController *actionSheet =[UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
-    UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Confirm Remove" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *delete = [UIAlertAction actionWithTitle:NSLocalizedString(@"Group.remove confirm", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         [[EMClient sharedClient].groupManager removeMembers:[NSArray arrayWithObject:self.contactListModel.username] fromGroup:self.group.groupID completion:^(EMGroup *aGroup, EMError *aError) {
             if (!aError) {
-                hud.label.text = @"Deleted Successfully.";
-                [self performSelector:@selector(popVC) withObject:nil afterDelay:1.0];
+                hud.label.text = NSLocalizedString(@"Group.remove success", nil);
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self.navigationController popViewControllerAnimated:YES];
+                });
             } else {
                 hud.label.text = aError.errorDescription;
                 [hud hideAnimated:YES afterDelay:1.5];
@@ -200,15 +207,6 @@
     [actionSheet addAction:cancel];
     
     [self presentViewController:actionSheet animated:YES completion:nil];
-}
-
-
-- (void)dismissVC {
-    [self.navigationController popToRootViewControllerAnimated:YES];
-}
-
-- (void)popVC {
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)clickChat:(id)sender {
