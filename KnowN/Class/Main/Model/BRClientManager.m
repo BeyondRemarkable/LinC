@@ -278,12 +278,6 @@
                 if (saveFlag) {
                     [[BRCoreDataManager sharedInstance] saveFriendsInfoToCoreData:friendModelArray];
                 }
-                //将数组中的Model进行排序
-                [friendModelArray sortUsingComparator:^NSComparisonResult(BRContactListModel*  _Nonnull model1, BRContactListModel*  _Nonnull model2) {
-                    NSString *str1 = model1.nickname?model1.nickname:model1.username;
-                    NSString *str2 = model2.nickname?model2.nickname:model2.username;
-                    return [str1 compare:str2];
-                }];
                 successBlock(friendModelArray);
             });
         }

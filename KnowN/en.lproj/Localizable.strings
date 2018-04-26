@@ -20,7 +20,7 @@
 "NSDateCategory.text3" = "hour";
 "NSDateCategory.text4" = "day";
 "NSDateCategory.text5" = "";
-"message.simulatorNotSupportCamera" = "simulator does not support opening camera";
+"message.simulatorNotSupportCamera" = "Simulator does not support opening camera";
 
 // Account
 "Password does not match" = "Password and confirm password don't match";
@@ -97,3 +97,20 @@
 "Unable to access album" = "Album is not authorized";
 "Unable to access microphone" = "Microphone is not authorized";
 "Unable to access GPS" = "Location service is not authorized";
+
+// Audio call
+"Audio call.notification" = "Incoming call from ";
+"Audio call.no response" = "No anwser";
+"Audio call.reject" = "Call rejected";
+"Audio call.calling..." = "Calling...";
+"Audio call.connection failed" = "Connection failed";
+"Audio call.unsupported" = "Audio call unsupported";
+"Audio call.offline" = "User is offline";
+"Audio call.network disconnection" = "Network desconnected";
+"Audio call.no response and hang up" = "No response and hang up";
+"Audio call" = "Audio Call";
+"Audio call.network status unstable" = "Network status unstable";
+"Audio call.hang up" = "The other has hung up";
+
+// Search
+"Search Friend" = "Search Friend";

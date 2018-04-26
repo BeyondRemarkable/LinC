@@ -21,7 +21,7 @@
 }
 
 -(void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated{
-    if (self.childViewControllers.count == 1) {
+    if (self.viewControllers.count) {
         viewController.hidesBottomBarWhenPushed = YES; //viewController是将要被push的控制器
     }
 

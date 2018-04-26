@@ -185,11 +185,7 @@ BRUserInfo *userInfoDic = nil;
         
         [friendsModelArray addObject:contactModel];
     }
-    [friendsModelArray sortUsingComparator:^NSComparisonResult(BRContactListModel *firstModel, BRContactListModel *secondModel) {
-        NSString *firstStr = firstModel.nickname?firstModel.nickname:firstModel.username;
-        NSString *secondStr = secondModel.nickname?secondModel.nickname:secondModel.username;
-        return [firstStr compare: secondStr];
-    }];
+    
     return friendsModelArray;
 }
 

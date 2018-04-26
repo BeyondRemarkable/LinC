@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		270BD1191F9835C000266E6A /* Location.plist in Resources */ = {isa = PBXBuildFile; fileRef = 270BD1181F9835C000266E6A /* Location.plist */; };
 		270BD11C1FA27B2700266E6A /* BRAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 270BD11B1FA27B2700266E6A /* BRAboutViewController.m */; };
+		2729936D20903E950035FA44 /* BRSearchResultTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2729936C20903E950035FA44 /* BRSearchResultTableViewController.m */; };
+		27299371209136130035FA44 /* BRSearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 27299370209136130035FA44 /* BRSearchResultCell.m */; };
+		27299377209181260035FA44 /* BRSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27299376209181260035FA44 /* BRSearchController.m */; };
 		273A66BA2051FEBF006C2A94 /* BRPlaygroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 273A66B92051FEBF006C2A94 /* BRPlaygroundViewController.m */; };
 		2744C4651FB68B2B007C5095 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2744C4631FB68B2A007C5095 /* LaunchScreen.storyboard */; };
 		2744C4681FB68B83007C5095 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2744C46A1FB68B83007C5095 /* Localizable.strings */; };
@@ -237,6 +240,12 @@
 		270BD1181F9835C000266E6A /* Location.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Location.plist; sourceTree = "<group>"; };
 		270BD11A1FA27B2700266E6A /* BRAboutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRAboutViewController.h; sourceTree = "<group>"; };
 		270BD11B1FA27B2700266E6A /* BRAboutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BRAboutViewController.m; sourceTree = "<group>"; };
+		2729936B20903E950035FA44 /* BRSearchResultTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRSearchResultTableViewController.h; sourceTree = "<group>"; };
+		2729936C20903E950035FA44 /* BRSearchResultTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BRSearchResultTableViewController.m; sourceTree = "<group>"; };
+		2729936F209136130035FA44 /* BRSearchResultCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRSearchResultCell.h; sourceTree = "<group>"; };
+		27299370209136130035FA44 /* BRSearchResultCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BRSearchResultCell.m; sourceTree = "<group>"; };
+		27299375209181260035FA44 /* BRSearchController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRSearchController.h; sourceTree = "<group>"; };
+		27299376209181260035FA44 /* BRSearchController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BRSearchController.m; sourceTree = "<group>"; };
 		273A66B82051FEBF006C2A94 /* BRPlaygroundViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRPlaygroundViewController.h; sourceTree = "<group>"; };
 		273A66B92051FEBF006C2A94 /* BRPlaygroundViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BRPlaygroundViewController.m; sourceTree = "<group>"; };
 		2744C4641FB68B2A007C5095 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -639,6 +648,15 @@
 				94F6AAD2F8CDC6DB43F6386A /* Pods-KnowN.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		2729936E209135D90035FA44 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2729936F209136130035FA44 /* BRSearchResultCell.h */,
+				27299370209136130035FA44 /* BRSearchResultCell.m */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		273A66B62051F77B006C2A94 /* Playground */ = {
@@ -1207,6 +1225,7 @@
 		E9874DA52072DE4E00C8F8BD /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				2729936E209135D90035FA44 /* View */,
 				E9874DA62072DE4E00C8F8BD /* Category */,
 				E9874DB52072DE4F00C8F8BD /* Controller */,
 				E9874DBD2072DE4F00C8F8BD /* Model */,
@@ -1245,6 +1264,10 @@
 				E9874DBA2072DE4F00C8F8BD /* BRNavigationController.m */,
 				E9874DBB2072DE4F00C8F8BD /* BRRefreshTableViewController.h */,
 				E9874DBC2072DE4F00C8F8BD /* BRTabBarController.h */,
+				2729936B20903E950035FA44 /* BRSearchResultTableViewController.h */,
+				2729936C20903E950035FA44 /* BRSearchResultTableViewController.m */,
+				27299375209181260035FA44 /* BRSearchController.h */,
+				27299376209181260035FA44 /* BRSearchController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1757,6 +1780,7 @@
 				E90F7BA51F670DC300333382 /* BRCDDeviceManager+Remind.m in Sources */,
 				274F21AB20582269008F6078 /* BRVideoPlayerView.m in Sources */,
 				E90F7BBF1F670DC400333382 /* BRMessageCell.m in Sources */,
+				27299377209181260035FA44 /* BRSearchController.m in Sources */,
 				E9874DCD2072DE4F00C8F8BD /* BRTabBarController.m in Sources */,
 				27A094CB20322E6F00F9F846 /* BRRegisterMethodViewController.m in Sources */,
 				E90F7BC11F670DC400333382 /* BRRecordView.m in Sources */,
@@ -1766,9 +1790,11 @@
 				E90F7BA21F670DC300333382 /* BRCDDeviceManager+Media.m in Sources */,
 				E90F7B9B1F670DC300333382 /* BRBubbleView+File.m in Sources */,
 				275BFA34206B14C20010EE41 /* BRVideoControlPanel.m in Sources */,
+				27299371209136130035FA44 /* BRSearchResultCell.m in Sources */,
 				E90F7BBC1F670DC400333382 /* BRCustomMessageCell.m in Sources */,
 				E90F7BC91F670DC400333382 /* BRMedia.m in Sources */,
 				E90F7BB11F670DC400333382 /* BREmotionManager.m in Sources */,
+				2729936D20903E950035FA44 /* BRSearchResultTableViewController.m in Sources */,
 				E9874DC52072DE4F00C8F8BD /* NSString+Helper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
