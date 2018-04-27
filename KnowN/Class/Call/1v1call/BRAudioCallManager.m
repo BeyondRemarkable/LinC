@@ -133,7 +133,6 @@ static BRAudioCallManager *callManager = nil;
     if (!aSession || [aSession.callId length] == 0) {
         return ;
     }
-    
     if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateBackground) {
         UILocalNotification *notification = [[UILocalNotification alloc] init];
         notification.alertBody = [@"You have a incoming call from " stringByAppendingString: aSession.remoteName];

@@ -58,6 +58,9 @@ static NSString * const cellIdentifier = @"ContactListCell";
     [self loadFriendsInfoFromCoreData];
     [self setUpTableView];
     [self setUpNavigationBarItem];
+    
+    [[EMClient sharedClient].contactManager addDelegate:self delegateQueue:nil];
+    
     // 注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedNewFriendRequest:)
                                                  name:kBRFriendRequestExtKey object:nil];
@@ -301,6 +304,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
     self.lastUpdateTime = currentTime;
     
     __weak typeof(self) weakself = self;
+    
     [[EMClient sharedClient].contactManager getContactsFromServerWithCompletion:^(NSArray *aList, EMError *aError) {
         
         if (!aError) {

@@ -27,8 +27,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     NSDictionary *requestData = [launchOptions valueForKey: UIApplicationLaunchOptionsRemoteNotificationKey];
+    NSLog(@"requestData---%@", requestData);
     NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
-    
     if (requestData) {
         NSString *findRequestFlat = [requestData valueForKey:@"e"];
         if (findRequestFlat && [findRequestFlat isEqualToString: kBRFriendRequestExtKey]) {
@@ -101,12 +101,11 @@
 
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(nonnull NSDictionary *)userInfo fetchCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHandler {
-    
+    NSLog(@"userInfo--%@", userInfo);
 }
 
 //监听环信在线推送消息
 -(void)didReceiveMessages:(NSArray *)aMessages{
-    
     //判断是不是后台，如果是后台就发推送
     if (aMessages.count == 0) {
         return ;

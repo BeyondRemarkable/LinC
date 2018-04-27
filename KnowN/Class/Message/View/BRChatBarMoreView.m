@@ -105,7 +105,7 @@
         return 5;
     }
     else if (_type == BRChatToolbarTypeGroup) {
-        return 3;
+        return 4;
     }
     return 4;
 }

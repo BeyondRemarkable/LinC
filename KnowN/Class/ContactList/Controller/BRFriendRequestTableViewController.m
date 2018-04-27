@@ -95,10 +95,11 @@
         }];
     } else {
         // 同意好友申请
-        [BRFileWithNewRequestData deleteRequestFromFile:newFirendRequestFile byID:self.searchID];
-        [[EMClient sharedClient].contactManager acceptInvitationForUsername:self.searchID];
+        
+       
         [[EMClient sharedClient].contactManager approveFriendRequestFromUser:self.searchID completion:^(NSString *aUsername, EMError *aError) {
             if (!aError) {
+                [BRFileWithNewRequestData deleteRequestFromFile:newFirendRequestFile byID:self.searchID];
                 [hud hideAnimated:YES];
                 [[NSNotificationCenter defaultCenter] postNotificationName:BRFriendRequestUpdateNotification object:nil];
                 [self.navigationController popToRootViewControllerAnimated:YES];

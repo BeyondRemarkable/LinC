@@ -25,7 +25,8 @@
 #import "BRGroupChatSettingTableViewController.h"
 #import "UIView+NavigationBar.h"
 #import "UIImagePickerController+Open.h"
-
+#import "BRConfManager.h"
+#import "BRConfUserSelectionViewController.h"
 #define KHintAdjustY    50
 #define KTransitionDuration 0.2
 #define IOS_VERSION [[UIDevice currentDevice] systemVersion]>=9.0
@@ -1651,8 +1652,15 @@ typedef enum : NSUInteger {
 //                break;
             case BRCanRecord:
             {
-                
-                [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_CALL object:@{@"chatter":self.conversation.conversationId, @"type":[NSNumber numberWithInt:0]}];
+                if (self.conversation.type == EMConversationTypeGroupChat) {
+                    NSArray *friendsInfoArray = [[BRCoreDataManager sharedInstance] fetchGroupMembersByGroupID:self.conversation.conversationId andGroupMemberUserNameArray:nil];
+                    
+                    BRConfUserSelectionViewController *controller = [[BRConfUserSelectionViewController alloc] initWithDataSource:friendsInfoArray selectedUsers:nil andCreateCon:YES];
+                    [self.navigationController pushViewController:controller animated:YES];
+                } else {
+
+                    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_CALL object:@{@"chatter":self.conversation.conversationId, @"type":[NSNumber numberWithInt:0]}];
+                }
             }
                 break;
             case BRCanNotRecord:
