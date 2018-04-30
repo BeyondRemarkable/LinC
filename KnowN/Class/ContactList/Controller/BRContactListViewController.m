@@ -192,11 +192,13 @@ static NSString * const cellIdentifier = @"ContactListCell";
 }
 
 - (void)setupNotifications {
+    [[EMClient sharedClient].contactManager addDelegate:self delegateQueue:dispatch_get_main_queue()];
     // 注册通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedNewFriendRequest:)
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFriendRequest:)
                                                  name:kBRFriendRequestExtKey object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedNewFriendRequest:)
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFriendRequest:)
                                                  name:kBRGroupRequestExtKey object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFriendRequest:) name:BRFriendRequestUpdateNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactList:) name:BRContactUpdateNotification object:nil];
 }
 
@@ -262,6 +264,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
         
         id<IUserModel> contactListModel = [self.contactSectionArray[indexPath.section] objectAtIndex:indexPath.row];
         cell.contactListModel = contactListModel;
+        cell.badgeLabel.hidden = YES;
 
         return cell;
     }
@@ -329,12 +332,21 @@ static NSString * const cellIdentifier = @"ContactListCell";
 #pragma mark - Notification
 
 - (void)updateContactList:(NSNotification *)notification {
-    [self.dataArray removeObject:notification.object];
-    [self sectionalizeContacts:self.dataArray];
-    [self tableViewDidFinishRefresh:BRRefreshTableViewWidgetHeader reload:YES];
+    BRContactListModel *model = notification.object;
+    if (model) {
+        NSString *operation = notification.userInfo[@"Operation"];
+        if ([operation isEqualToString:@"delete"]) {
+            [self.dataArray removeObject:model];
+        }
+        else if ([operation isEqualToString:@"add"]) {
+            [self.dataArray addObject:model];
+        }
+        [self sectionalizeContacts:self.dataArray];
+        [self tableViewDidFinishRefresh:BRRefreshTableViewWidgetHeader reload:YES];
+    }
 }
 
-- (void)receivedNewFriendRequest:(NSNotification *)notification {
+- (void)updateFriendRequest:(NSNotification *)notification {
     [self updateFriendRequestCell];
 }
 
@@ -365,13 +377,6 @@ static NSString * const cellIdentifier = @"ContactListCell";
     __weak typeof(self) weakself = self;
     [[EMClient sharedClient].contactManager getContactsFromServerWithCompletion:^(NSArray *aList, EMError *aError) {
         if (!aError) {
-//             服务器返回好友列表为空 但是本地好友列表不为空，删除全部好友
-//            if (aList.count == 0 && self.dataArray.count != 0 ) {
-//                [[BRCoreDataManager sharedInstance] deleteFriendByID:nil];
-//                [self.dataArray removeAllObjects];
-//                [self.tableView reloadData];
-//                return;
-//            }
             NSMutableArray *contactsSource = [NSMutableArray array];
             
             // remove the contact that is currently in the black list
@@ -409,7 +414,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
 /**
  将好友根据首字母分组
  */
-- (void)sectionalizeContacts:(NSArray *)contactArray {
+- (NSArray *)sectionalizeContacts:(NSArray *)contactArray {
     UILocalizedIndexedCollation *collation = [UILocalizedIndexedCollation currentCollation];
     NSArray *allSectionTitles = [collation sectionTitles];
     NSUInteger sectionTitlesCount = [allSectionTitles count];
@@ -448,37 +453,44 @@ static NSString * const cellIdentifier = @"ContactListCell";
             [self.contactSectionArray addObject:array];
         }
     }
+    return self.contactSectionArray;
 }
 
 #pragma mark - EMContactManager delegate
 
 // 好友请求时的回调
-- (void)friendRequestDidReceiveFromUser:(NSString *)aUsername message:(NSString *)aMessage {
-    
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    
-    BRContactListTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-    
-    // 收到有效的邀请
-    if ((aUsername || aMessage) ) {
-        NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
-        NSDictionary *dataDict = [NSDictionary dictionaryWithObjectsAndKeys:aUsername, @"userID", aMessage, @"message",username, @"loginUser", nil];
-        [BRFileWithNewRequestData savedToFileName:newFirendRequestFile withData:dataDict];
-        
-    }
-    NSString *badgeCount = [BRFileWithNewRequestData countForNewRequestFromFile:newFirendRequestFile];
-    cell.badgeLabel.text = badgeCount;
-    cell.showBadge = YES;
-    [self.tableView reloadData];
-    self.tabBarItem.badgeValue = badgeCount;
-}
+//- (void)friendRequestDidReceiveFromUser:(NSString *)aUsername message:(NSString *)aMessage {
+//
+//    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+//
+//    BRContactListTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+//
+//    // 收到有效的邀请
+//    if ((aUsername || aMessage) ) {
+//        NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
+//        NSDictionary *dataDict = [NSDictionary dictionaryWithObjectsAndKeys:aUsername, @"userID", aMessage, @"message",username, @"loginUser", nil];
+//        [BRFileWithNewRequestData savedToFileName:newFirendRequestFile withData:dataDict];
+//
+//    }
+//    NSString *badgeCount = [BRFileWithNewRequestData countForNewRequestFromFile:newFirendRequestFile];
+//    cell.badgeLabel.text = badgeCount;
+//    cell.showBadge = YES;
+//    [self.tableView reloadData];
+//    self.tabBarItem.badgeValue = badgeCount;
+//}
 
 // 好友通过邀请时的回调， 通过服务器加载好友列表
 - (void)friendshipDidAddByUser:(NSString *)aUsername {
-    [self tableViewDidTriggerHeaderRefresh];
+    [[BRClientManager sharedManager] getFriendInfoWithUsernames:@[aUsername] andSaveFlag:YES success:^(NSMutableArray *modelArray) {
+        BRContactListModel *model = modelArray.firstObject;
+        NSNotification *notification = [NSNotification notificationWithName:BRContactUpdateNotification object:model userInfo:@{@"Operation":@"add"}];
+        [self updateContactList:notification];
+    } failure:^(EMError *error) {
+        
+    }];
 }
 
-//删除好友时，双方都会收到的回调
+// 删除好友时，双方都会收到的回调
 - (void)friendshipDidRemoveByUser:(NSString *)aUsername {
     if (aUsername == nil || aUsername.length == 0 || [aUsername isEqualToString:[EMClient sharedClient].currentUsername]) {
         return;
@@ -486,7 +498,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
     [[BRCoreDataManager sharedInstance] deleteFriendByID: [NSArray arrayWithObject:aUsername]];
     for (BRContactListModel *model in self.dataArray) {
         if ([model.username isEqualToString:aUsername]) {
-            NSNotification *notification = [NSNotification notificationWithName:BRContactUpdateNotification object:model];
+            NSNotification *notification = [NSNotification notificationWithName:BRContactUpdateNotification object:model userInfo:@{@"Operation":@"delete"}];
             [self updateContactList:notification];
             break;
         }

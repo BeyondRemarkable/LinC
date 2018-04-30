@@ -81,7 +81,7 @@
     if (self.doesJoinGroup) {
         // 同意群申请
         [BRFileWithNewRequestData deleteRequestFromFile:newGroupRequestFile byID:self.searchID];
-        [[EMClient sharedClient].groupManager approveJoinGroupRequest: self.requestDic[@"groupID"] sender: self.requestDic[@"userID"] completion:^(EMGroup *aGroup, EMError *aError) {
+        [[EMClient sharedClient].groupManager approveJoinGroupRequest:self.requestDic[@"groupID"] sender:self.requestDic[@"userID"] completion:^(EMGroup *aGroup, EMError *aError) {
             if (!aError) {
                 [hud hideAnimated:YES];
                 [[NSNotificationCenter defaultCenter] postNotificationName:BRFriendRequestUpdateNotification object:nil];
@@ -95,12 +95,11 @@
         }];
     } else {
         // 同意好友申请
-        [BRFileWithNewRequestData deleteRequestFromFile:newFirendRequestFile byID:self.searchID];
-        [[EMClient sharedClient].contactManager acceptInvitationForUsername:self.searchID];
         [[EMClient sharedClient].contactManager approveFriendRequestFromUser:self.searchID completion:^(NSString *aUsername, EMError *aError) {
             if (!aError) {
-                [hud hideAnimated:YES];
+                [BRFileWithNewRequestData deleteRequestFromFile:newFirendRequestFile byID:self.searchID];
                 [[NSNotificationCenter defaultCenter] postNotificationName:BRFriendRequestUpdateNotification object:nil];
+                [hud hideAnimated:YES];
                 [self.navigationController popToRootViewControllerAnimated:YES];
             }
             else {
@@ -121,14 +120,18 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:BRFriendRequestUpdateNotification object:nil];
     if (self.doesJoinGroup) {
         // 拒绝群申请
-        [BRFileWithNewRequestData deleteRequestFromFile:newGroupRequestFile byID:self.searchID];
-        [hud hideAnimated:YES];
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        [[EMClient sharedClient].groupManager declineJoinGroupRequest:self.requestDic[@"groupID"] sender:self.requestDic[@"userID"] reason:@"" completion:^(EMGroup *aGroup, EMError *aError) {
+            [BRFileWithNewRequestData deleteRequestFromFile:newGroupRequestFile byID:self.searchID];
+            [hud hideAnimated:YES];
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        }];
     } else {
         // 拒绝好友申请
-        [BRFileWithNewRequestData deleteRequestFromFile:newFirendRequestFile byID:self.searchID];
-        [hud hideAnimated:YES];
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        [[EMClient sharedClient].contactManager declineFriendRequestFromUser:self.searchID completion:^(NSString *aUsername, EMError *aError) {
+            [BRFileWithNewRequestData deleteRequestFromFile:newFirendRequestFile byID:self.searchID];
+            [hud hideAnimated:YES];
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        }];
     }
 }
 

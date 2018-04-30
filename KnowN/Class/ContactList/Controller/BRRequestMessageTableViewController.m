@@ -27,11 +27,6 @@
     [self setUpNavigationBarItem];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 // Add save and cancel buttons to navigation bar
 - (void)setUpNavigationBarItem {
     
@@ -77,13 +72,21 @@
     }
     
     [[EMClient sharedClient].chatManager sendMessage:message progress:nil completion:^(EMMessage *aMessage, EMError *aError) {
-        hud.mode = MBProgressHUDModeText;
-        if (aError) {
-            hud.label.text = aError.errorDescription;
+        if (!aError) {
+            [[EMClient sharedClient].contactManager addContact:self.searchID message:self.userMessage.text completion:^(NSString *aUsername, EMError *aError) {
+                hud.mode = MBProgressHUDModeText;
+                if (!aError) {
+                    hud.label.text = @"Send Successfully";
+                    [self performSelector:@selector(dismissVC) withObject:nil afterDelay:1.5];
+                }
+                else {
+                    hud.label.text = aError.errorDescription;
+                }
+            }];
         }
         else {
-            hud.label.text = @"Send Successfully";
-            [self performSelector:@selector(dismissVC) withObject:nil afterDelay:1.5];
+            hud.mode = MBProgressHUDModeText;
+            hud.label.text = aError.errorDescription;
         }
         [hud hideAnimated:YES afterDelay:1.5];
     }];
@@ -92,8 +95,12 @@
 }
 
 - (void)dismissVC {
-    [self.navigationController popViewControllerAnimated:YES];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if (self.presentingViewController) {
+        [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    }
+    else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (void)cancelBtn {
