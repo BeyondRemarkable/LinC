@@ -143,10 +143,10 @@
     
     UIAlertAction *delete = [UIAlertAction actionWithTitle:NSLocalizedString(@"Contact.delete confirm", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         [[EMClient sharedClient].contactManager deleteContact:self.contactListModel.username isDeleteConversation:YES completion:^(NSString *aUsername, EMError *aError) {
-            hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            hud.mode = MBProgressHUDModeText;
+            self->hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            self->hud.mode = MBProgressHUDModeText;
             if (!aError) {
-                hud.label.text = NSLocalizedString(@"Contact.delete success", nil);
+                self->hud.label.text = NSLocalizedString(@"Contact.delete success", nil);
                 // 从core data中 删除好友数据
                 NSArray *deleteArr = [NSArray arrayWithObject:self.contactListModel.username];
                 if (deleteArr.count != 0) {
@@ -159,8 +159,8 @@
                     [self.navigationController popToRootViewControllerAnimated:YES];
                 });
             } else {
-                hud.label.text = aError.errorDescription;
-                [hud hideAnimated:YES afterDelay:1.5];
+                self->hud.label.text = aError.errorDescription;
+                [self->hud hideAnimated:YES afterDelay:1.5];
             }
         }];
       
@@ -185,16 +185,16 @@
     UIAlertController *actionSheet =[UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
     UIAlertAction *delete = [UIAlertAction actionWithTitle:NSLocalizedString(@"Group.remove confirm", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        self->hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         [[EMClient sharedClient].groupManager removeMembers:[NSArray arrayWithObject:self.contactListModel.username] fromGroup:self.group.groupID completion:^(EMGroup *aGroup, EMError *aError) {
             if (!aError) {
-                hud.label.text = NSLocalizedString(@"Group.remove success", nil);
+                self->hud.label.text = NSLocalizedString(@"Group.remove success", nil);
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [self.navigationController popViewControllerAnimated:YES];
                 });
             } else {
-                hud.label.text = aError.errorDescription;
-                [hud hideAnimated:YES afterDelay:1.5];
+                self->hud.label.text = aError.errorDescription;
+                [self->hud hideAnimated:YES afterDelay:1.5];
             }
         }];
     }];

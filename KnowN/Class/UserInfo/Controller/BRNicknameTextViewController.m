@@ -39,15 +39,15 @@
     [self.nicknameTextField resignFirstResponder];
     hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [[BRClientManager sharedManager] updateSelfInfoWithKeys:@[@"nickname"] values:@[self.nicknameTextField.text] success:^(NSString *message) {
-        [hud hideAnimated:YES];
-        if (_delegate && [_delegate respondsToSelector:@selector(nicknameDidChangeTo:)]) {
-            [_delegate nicknameDidChangeTo:[self.nicknameTextField.text trimString]];
+        [self->hud hideAnimated:YES];
+        if (self.delegate && [self.delegate respondsToSelector:@selector(nicknameDidChangeTo:)]) {
+            [self.delegate nicknameDidChangeTo:[self.nicknameTextField.text trimString]];
         }
         [self.navigationController popViewControllerAnimated:YES];
     } failure:^(EMError *error) {
-        hud.mode = MBProgressHUDModeText;
-        hud.label.text = error.errorDescription;
-        [hud hideAnimated:YES afterDelay:1.5];
+        self->hud.mode = MBProgressHUDModeText;
+        self->hud.label.text = error.errorDescription;
+        [self->hud hideAnimated:YES afterDelay:1.5];
     }];
 }
 

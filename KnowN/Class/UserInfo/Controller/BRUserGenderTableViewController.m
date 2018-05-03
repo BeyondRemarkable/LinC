@@ -45,15 +45,15 @@
 - (void)saveBtn {
     hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [[BRClientManager sharedManager] updateSelfInfoWithKeys:@[@"gender"] values:@[self.gender] success:^(NSString *message) {
-        [hud hideAnimated:YES];
-        if (_delegate && [_delegate respondsToSelector:@selector(genderDidChangeTo:)]) {
-            [_delegate genderDidChangeTo:self.gender];
+        [self->hud hideAnimated:YES];
+        if (self.delegate && [self.delegate respondsToSelector:@selector(genderDidChangeTo:)]) {
+            [self.delegate genderDidChangeTo:self.gender];
         }
         [self.navigationController popViewControllerAnimated:YES];
     } failure:^(EMError *error) {
-        hud.mode = MBProgressHUDModeText;
-        hud.label.text = error.errorDescription;
-        [hud hideAnimated:YES afterDelay:1.5];
+        self->hud.mode = MBProgressHUDModeText;
+        self->hud.label.text = error.errorDescription;
+        [self->hud hideAnimated:YES afterDelay:1.5];
     }];
 }
 

@@ -41,6 +41,9 @@
 
     // Write data to file
     NSMutableArray *newRequestData = [[NSMutableArray alloc] initWithContentsOfFile: path];
+    if (newRequestData == nil) {
+        newRequestData = [NSMutableArray array];
+    }
 
     NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
     if ([dictData[@"loginUser"] isEqualToString:username]) {

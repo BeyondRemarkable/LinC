@@ -42,15 +42,15 @@
 - (void)saveBtn {
     hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [[BRClientManager sharedManager] updateSelfInfoWithKeys:@[@"signature"] values:@[self.whatsUpTextView.text] success:^(NSString *message) {
-        [hud hideAnimated:YES];
-        if (_delegate && [_delegate respondsToSelector:@selector(whatsUpDidChangeTo:)]) {
-            [_delegate whatsUpDidChangeTo:self.whatsUpTextView.text];
+        [self->hud hideAnimated:YES];
+        if (self.delegate && [self.delegate respondsToSelector:@selector(whatsUpDidChangeTo:)]) {
+            [self.delegate whatsUpDidChangeTo:self.whatsUpTextView.text];
         }
         [self.navigationController popViewControllerAnimated:YES];
     } failure:^(EMError *error) {
-        hud.mode = MBProgressHUDModeText;
-        hud.label.text = error.errorDescription;
-        [hud hideAnimated:YES afterDelay:1.5];
+        self->hud.mode = MBProgressHUDModeText;
+        self->hud.label.text = error.errorDescription;
+        [self->hud hideAnimated:YES afterDelay:1.5];
     }];
 }
 

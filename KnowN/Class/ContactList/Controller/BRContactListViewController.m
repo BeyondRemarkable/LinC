@@ -397,16 +397,16 @@ static NSString * const cellIdentifier = @"ContactListCell";
                 
                 [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:BRDataUpdateNotification object:nil]];
             } failure:^(EMError *aError) {
-                hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                hud.mode = MBProgressHUDModeText;
-                hud.label.text = aError.description;
-                [hud hideAnimated:YES afterDelay:1.5];
+                self->hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                self->hud.mode = MBProgressHUDModeText;
+                self->hud.label.text = aError.description;
+                [self->hud hideAnimated:YES afterDelay:1.5];
             }];
         } else {
-            hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            hud.mode = MBProgressHUDModeText;
-            hud.label.text = aError.errorDescription;
-            [hud hideAnimated:YES afterDelay:1.5];
+            self->hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            self->hud.mode = MBProgressHUDModeText;
+            self->hud.label.text = aError.errorDescription;
+            [self->hud hideAnimated:YES afterDelay:1.5];
         }
     }];
 }

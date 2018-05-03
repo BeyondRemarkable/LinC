@@ -102,15 +102,15 @@ static NSString * const cellIdentifier = @"groupCell";
             } else {
                 self.groupDescriptionLabel.text = aGroup.description;
             }
-            groupOwner = aGroup.owner;
-            groupSetting = aGroup.setting;
+            self->groupOwner = aGroup.owner;
+            self->groupSetting = aGroup.setting;
            
             [self.tableView reloadData];
-            [hud hideAnimated:YES];
+            [self->hud hideAnimated:YES];
         } else {
-            hud.mode = MBProgressHUDModeText;
-            hud.label.text = aError.errorDescription;
-            [hud hideAnimated:YES afterDelay:1.5];
+            self->hud.mode = MBProgressHUDModeText;
+            self->hud.label.text = aError.errorDescription;
+            [self->hud hideAnimated:YES afterDelay:1.5];
         }
     }];
 }

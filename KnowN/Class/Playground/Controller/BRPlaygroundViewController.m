@@ -60,10 +60,10 @@
         [self tableViewDidFinishRefresh:BRRefreshTableViewWidgetHeader reload:YES];
     } failure:^(EMError *error) {
         [self tableViewDidFinishRefresh:BRRefreshTableViewWidgetHeader reload:NO];
-        hud = [MBProgressHUD showHUDAddedTo:self.tableView animated:YES];
-        hud.mode = MBProgressHUDModeText;
-        hud.label.text = error.errorDescription;
-        [hud hideAnimated:YES afterDelay:1.5];
+        self->hud = [MBProgressHUD showHUDAddedTo:self.tableView animated:YES];
+        self->hud.mode = MBProgressHUDModeText;
+        self->hud.label.text = error.errorDescription;
+        [self->hud hideAnimated:YES afterDelay:1.5];
     }];
 }
 

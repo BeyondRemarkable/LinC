@@ -83,7 +83,7 @@ typedef enum : NSInteger {
         if(!aError){
 
 //            [[BRCoreDataManager sharedInstance] saveGroupToCoreData:aGroup withIcon:nil];
-            [hud hideAnimated:YES];
+            [self->hud hideAnimated:YES];
             // 退出创建界面
             BRMessageViewController *vc = [[BRMessageViewController alloc] initWithConversationChatter:aGroup.groupId conversationType:EMConversationTypeGroupChat];
             vc.title = aGroup.subject;
@@ -91,9 +91,9 @@ typedef enum : NSInteger {
                 self.dismissViewControllerCompletionBlock(vc);
             }];
         } else {
-            hud.mode = MBProgressHUDModeText;
-            hud.label.text = aError.errorDescription;
-            [hud hideAnimated:YES afterDelay:1.5];
+            self->hud.mode = MBProgressHUDModeText;
+            self->hud.label.text = aError.errorDescription;
+            [self->hud hideAnimated:YES afterDelay:1.5];
         }
     }];
 }

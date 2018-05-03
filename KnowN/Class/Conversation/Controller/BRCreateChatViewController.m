@@ -157,11 +157,11 @@
         hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         [[EMClient sharedClient].groupManager addMembers:self.buddyList toGroup:self.groupID message:nil completion:^(EMGroup *aGroup, EMError *aError) {
             if (!aError) {
-                hud.label.text = @" Successfully";
+                self->hud.label.text = @" Successfully";
                 [self performSelector:@selector(cancel) withObject:nil afterDelay:1.5];
             } else {
-                hud.label.text = aError.errorDescription;
-                [hud hideAnimated:YES afterDelay:1.5];
+                self->hud.label.text = aError.errorDescription;
+                [self->hud hideAnimated:YES afterDelay:1.5];
             }
         }];
     }

@@ -55,19 +55,19 @@
         
         if ([responseObject isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dict = (NSDictionary *)responseObject;
-            hud.label.text = dict[@"message"];
+            self->hud.label.text = dict[@"message"];
 
             if ([dict[@"status"] isEqualToString:@"success"]) {
             
                 [self performSelector:@selector(resetPassword) withObject:nil afterDelay:1.0f];
             } else {
-                [hud hideAnimated:YES afterDelay:1.5];
+                [self->hud hideAnimated:YES afterDelay:1.5];
             }
         }
 
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        hud.label.text = error.localizedDescription;
-        [hud hideAnimated:YES afterDelay:1.5];
+        self->hud.label.text = error.localizedDescription;
+        [self->hud hideAnimated:YES afterDelay:1.5];
     }];
 
 }

@@ -56,15 +56,15 @@ static NSString * const cellIdentifier = @"LocationListCell";
     NSString *newLocation = [NSString stringWithString:locationStr];
     newLocation = [newLocation trimString];
     [[BRClientManager sharedManager] updateSelfInfoWithKeys:@[@"location"] values:@[newLocation] success:^(NSString *message) {
-        [hud hideAnimated:YES];
-        if (_delegate && [_delegate respondsToSelector:@selector(locationDidUpdateTo:)]) {
-            [_delegate locationDidUpdateTo:newLocation];
+        [self->hud hideAnimated:YES];
+        if (self.delegate && [self.delegate respondsToSelector:@selector(locationDidUpdateTo:)]) {
+            [self.delegate locationDidUpdateTo:newLocation];
         }
         [self dismissViewControllerAnimated:YES completion:nil];
     } failure:^(EMError *error) {
-        hud.mode = MBProgressHUDModeText;
-        hud.label.text = error.errorDescription;
-        [hud hideAnimated:YES afterDelay:1.5];
+        self->hud.mode = MBProgressHUDModeText;
+        self->hud.label.text = error.errorDescription;
+        [self->hud hideAnimated:YES afterDelay:1.5];
     }];
 }
 

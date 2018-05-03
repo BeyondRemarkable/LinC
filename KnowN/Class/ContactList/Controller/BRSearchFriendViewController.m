@@ -89,7 +89,7 @@
 - (void)searchFriendID:(NSString *)friendID {
     hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [[BRClientManager sharedManager] getFriendInfoWithUsernames:[NSArray arrayWithObject:friendID] andSaveFlag:NO success:^(NSMutableArray *aList) {
-        [hud hideAnimated:YES];
+        [self->hud hideAnimated:YES];
         
         BRContactListModel *model = [aList firstObject];
         UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRFriendInfo" bundle:[NSBundle mainBundle]];
@@ -106,9 +106,9 @@
         // Push BRFriendInfoTableViewController
         [self.navigationController pushViewController:vc animated:YES];
     } failure:^(EMError *aError) {
-        hud.mode = MBProgressHUDModeText;
-        hud.label.text = aError.errorDescription;
-        [hud hideAnimated:YES afterDelay:1.5];
+        self->hud.mode = MBProgressHUDModeText;
+        self->hud.label.text = aError.errorDescription;
+        [self->hud hideAnimated:YES afterDelay:1.5];
     }];
 }
 

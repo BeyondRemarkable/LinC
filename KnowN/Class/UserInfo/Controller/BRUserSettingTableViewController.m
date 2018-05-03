@@ -139,19 +139,19 @@ typedef enum NSUInteger {
         [[EMClient sharedClient].options setIsAutoLogin:NO];
         
     } failure:^(EMError *error) {
-        hud.mode = MBProgressHUDModeText;
-        hud.label.text = error.errorDescription;
-        [hud hideAnimated:YES afterDelay:1.5];
+        self->hud.mode = MBProgressHUDModeText;
+        self->hud.label.text = error.errorDescription;
+        [self->hud hideAnimated:YES afterDelay:1.5];
     }];
 
     [[EMClient sharedClient] logout:YES completion:^(EMError *aError) {
         if (aError) {
-            hud.mode = MBProgressHUDModeText;
-            hud.label.text = @"Try again later.";
-            [hud hideAnimated:YES afterDelay:1.5];
+            self->hud.mode = MBProgressHUDModeText;
+            self->hud.label.text = @"Try again later.";
+            [self->hud hideAnimated:YES afterDelay:1.5];
         } else {
         // 显示登录界面
-        [hud hideAnimated:YES];
+        [self->hud hideAnimated:YES];
         UIStoryboard *sc = [UIStoryboard storyboardWithName:@"Account" bundle:[NSBundle mainBundle]];
         BRLoginViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRLoginViewController"];
         [[UIApplication sharedApplication].keyWindow setRootViewController:vc];

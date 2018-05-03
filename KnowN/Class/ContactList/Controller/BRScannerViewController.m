@@ -159,7 +159,7 @@
     hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [[BRClientManager sharedManager] getFriendInfoWithUsernames:userIDArr andSaveFlag:NO
     success:^(NSMutableArray *aList) {
-        [hud hideAnimated:YES];
+        [self->hud hideAnimated:YES];
         
         BRContactListModel *model = [aList firstObject];
         
@@ -177,9 +177,9 @@
         // Push BRFriendInfoTableViewController
         [self.navigationController pushViewController:vc animated:YES];
     } failure:^(EMError *aError) {
-        hud.mode = MBProgressHUDModeText;
-        hud.label.text = aError.errorDescription;
-        [hud hideAnimated:YES afterDelay:1.5];
+        self->hud.mode = MBProgressHUDModeText;
+        self->hud.label.text = aError.errorDescription;
+        [self->hud hideAnimated:YES afterDelay:1.5];
         dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5/*延迟执行时间*/ * NSEC_PER_SEC));
         
         dispatch_after(delayTime, dispatch_get_main_queue(), ^{

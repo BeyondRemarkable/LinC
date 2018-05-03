@@ -90,16 +90,16 @@
     
     // 用我们服务器做登录
     [[BRClientManager sharedManager] loginWithUsername:userName password:password success:^(NSString *username) {
-        [hud hideAnimated:YES];
+        [self->hud hideAnimated:YES];
         
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
         BRTabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:@"BRTabBarController"];
         [[UIApplication sharedApplication].keyWindow setRootViewController:vc];
     } failure:^(EMError *error) {
-        hud.mode = MBProgressHUDModeText;
-        hud.label.text = error.errorDescription;
-        hud.label.numberOfLines = 0;
-        [hud hideAnimated:YES afterDelay:1.5];
+        self->hud.mode = MBProgressHUDModeText;
+        self->hud.label.text = error.errorDescription;
+        self->hud.label.numberOfLines = 0;
+        [self->hud hideAnimated:YES afterDelay:1.5];
     }];
 }
 

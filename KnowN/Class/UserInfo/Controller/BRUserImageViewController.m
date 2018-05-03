@@ -119,16 +119,16 @@
     UIImage *image = info[UIImagePickerControllerEditedImage];
     NSData *imageData = UIImageJPEGRepresentation(image, 0.1);
     [[BRClientManager sharedManager] updateSelfInfoWithKeys:@[@"avatar"] values:@[imageData] success:^(NSString *message) {
-        [hud hideAnimated:YES];
+        [self->hud hideAnimated:YES];
         [self.imageView setImage:image];
-        if (_delegate && [_delegate respondsToSelector:@selector(userDidUpdateAvatarTo:)]) {
-            [_delegate userDidUpdateAvatarTo:image];
+        if (self.delegate && [self.delegate respondsToSelector:@selector(userDidUpdateAvatarTo:)]) {
+            [self.delegate userDidUpdateAvatarTo:image];
         }
         [self dismissViewControllerAnimated:YES completion:nil];
     } failure:^(EMError *error) {
-        hud.mode = MBProgressHUDModeText;
-        hud.label.text = error.errorDescription;
-        [hud hideAnimated:YES afterDelay:1.5];
+        self->hud.mode = MBProgressHUDModeText;
+        self->hud.label.text = error.errorDescription;
+        [self->hud hideAnimated:YES afterDelay:1.5];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self dismissViewControllerAnimated:YES completion:nil];
         });

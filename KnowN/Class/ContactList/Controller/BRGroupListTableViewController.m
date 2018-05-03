@@ -116,12 +116,12 @@ typedef enum : NSInteger {
         }
 //        [self.tableView reload RowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:1 inSection:1], nil] withRowAnimation:UITableViewRowAnimationNone];
         
-        [hud hideAnimated:YES];
+        [self->hud hideAnimated:YES];
 
      } failure:^(EMError *error) {
-         hud.mode = MBProgressHUDModeText;
-         hud.label.text = error.errorDescription;
-         [hud hideAnimated:YES afterDelay:1.5];
+         self->hud.mode = MBProgressHUDModeText;
+         self->hud.label.text = error.errorDescription;
+         [self->hud hideAnimated:YES afterDelay:1.5];
      }];
 }
 
@@ -235,10 +235,10 @@ typedef enum : NSInteger {
                         self.groupListArray = [[[EMClient sharedClient].groupManager getJoinedGroups] copy];
                         [self.tableView reloadData];
                     } else {
-                        hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                        hud.mode = MBProgressHUDModeText;
-                        hud.label.text = aError.errorDescription;
-                        [hud hideAnimated:YES afterDelay:1.5];
+                        self->hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                        self->hud.mode = MBProgressHUDModeText;
+                        self->hud.label.text = aError.errorDescription;
+                        [self->hud hideAnimated:YES afterDelay:1.5];
                     }
                 }];
             }];
@@ -260,10 +260,10 @@ typedef enum : NSInteger {
                     self.groupListArray = [[[EMClient sharedClient].groupManager getJoinedGroups] copy];
                     [self.tableView reloadData];
                 } else {
-                    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                    hud.mode = MBProgressHUDModeText;
-                    hud.label.text = aError.errorDescription;
-                    [hud hideAnimated:YES afterDelay:1.5];
+                    self->hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                    self->hud.mode = MBProgressHUDModeText;
+                    self->hud.label.text = aError.errorDescription;
+                    [self->hud hideAnimated:YES afterDelay:1.5];
                 }
             }];
         }
