@@ -47,13 +47,13 @@
 }
 
 - (void)tableViewDidTriggerHeaderRefresh {
-    NSDate *date = nil;
-    if (self.dataArray.count != 0) {
-        BRLectureVideoModel *model = [self.dataArray firstObject];
-        date = model.updateTime;
-    }
-    [[BRClientManager sharedManager] getVideoListWithNumberOfPages:0 numberOfVideosPerPage:0 after:date success:^(NSArray *videoModelArray) {
-        [[BRCoreDataManager sharedInstance] insertVideosToCoreData:videoModelArray];
+//    NSDate *date = nil;
+//    if (self.dataArray.count != 0) {
+//        BRLectureVideoModel *model = [self.dataArray firstObject];
+//        date = model.updateTime;
+//    }
+    [[BRClientManager sharedManager] getVideoListWithNumberOfPages:0 numberOfVideosPerPage:0 after:nil success:^(NSArray *videoModelArray) {
+        [[BRCoreDataManager sharedInstance] updateAllVideosWith:videoModelArray];
         BRLectureVideoModel *model = [self.dataArray lastObject];
         NSArray *fetchedVideos = [[BRCoreDataManager sharedInstance] fetchVideosWithNumber:-1 isBefore:NO time:model.updateTime];
         self.dataArray = [NSMutableArray arrayWithArray:model?fetchedVideos:videoModelArray];

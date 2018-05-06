@@ -57,6 +57,8 @@
 - (NSArray *)fetchGroupMembersByGroupID:(NSString *)groupID andGroupMemberUserNameArray:(NSArray *)groupMemberUserNameArray;
 /** 插入视频数据 */
 - (void)insertVideosToCoreData:(NSArray *)videoArray;
+/** 更新数据库中所有视频数据 */
+- (void)updateAllVideosWith:(NSArray *)videoArray;
 /** 获取一定量视频数据早(晚)于某时间 */
 - (NSArray *)fetchVideosWithNumber:(NSUInteger)numberOfVideos isBefore:(BOOL)isBefore time:(NSDate *)time;
 /** 保存到core data */

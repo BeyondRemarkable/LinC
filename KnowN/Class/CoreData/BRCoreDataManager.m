@@ -679,6 +679,18 @@ BRUserInfo *userInfoDic = nil;
 }
 
 /**
+ 更新数据库中所有视频数据
+ @param videoArray 从服务器获取的视频数据
+ */
+- (void)updateAllVideosWith:(NSArray *)videoArray {
+    BRUserInfo *userInfo = [self getUserInfo];
+    if (videoArray.count < userInfo.videos.count) {
+        [userInfo removeVideos:userInfo.videos];
+    }
+    [self insertVideosToCoreData:videoArray];
+}
+
+/**
  从数据库获取视频
  @param numberOfVideos 需要取的视频数量
  @param time 获取的视频将早(晚)于这个时间，nil则时间为当前时间
