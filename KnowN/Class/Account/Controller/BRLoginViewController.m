@@ -103,6 +103,12 @@
     }];
 }
 
+- (IBAction)clickForgetPassword {
+    UIStoryboard *sc = [UIStoryboard storyboardWithName:@"Account" bundle:[NSBundle mainBundle]];
+    BRResetPasswordViewController *vc = [sc instantiateViewControllerWithIdentifier:@"BRResetPasswordViewController"];
+    [self presentViewController:vc animated:YES completion:nil];
+}
+
 /**
  *  Close the keyboard
  */

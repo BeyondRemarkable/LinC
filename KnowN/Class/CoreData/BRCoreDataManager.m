@@ -502,6 +502,7 @@ BRUserInfo *userInfoDic = nil;
         for (BRFriendsInfo *oldMemberModel in oldGroupMembersArray) {
             if ([oldMemberModel.username isEqualToString:newGroupMemberModel.username]) {
                 isContains = YES;
+                break;
             }
         }
         if (isContains) {

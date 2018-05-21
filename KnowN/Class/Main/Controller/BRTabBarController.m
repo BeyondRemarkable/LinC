@@ -63,8 +63,7 @@
 //    MainTabBar *tabBar = [[MainTabBar alloc] init];
 //    [self setValue:tabBar forKey:@"tabBar"];
 //    [self.tabBar setBackgroundImage:[UIImage imageNamed:@"tabbar_background"]];
-    [BRAudioCallManager sharedManager];
-    [BRConfManager sharedManager];
+
     [self registerNotification];
 }
 
@@ -88,6 +87,10 @@
     
     // 获取未处理好友请求数，设置badge
     [self updateContactsBadge];
+    // 注册语音
+    [BRAudioCallManager sharedManager];
+    [BRConfManager sharedManager];
+
 }
 
 - (void)receivedNewFriendRequest:(NSNotification *)notification {

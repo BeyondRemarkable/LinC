@@ -209,7 +209,7 @@
  *  Cancel scan
  */
 - (IBAction)cancalButton:(id)sender {
-    
+    [self.navigationController setNavigationBarHidden: NO];
     [self.navigationController popToRootViewControllerAnimated:YES];
     [self dismissViewControllerAnimated:YES completion:nil];
 }

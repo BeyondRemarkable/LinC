@@ -7,34 +7,34 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>1012764371261-0h5dslp1otjglu2gh3as264tlgs54ol0.apps.googleusercontent.com</string>
+	<string>808602040885-q0ch5fa701ck6sb98e7m8rhq995nhef0.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.1012764371261-0h5dslp1otjglu2gh3as264tlgs54ol0</string>
+	<string>com.googleusercontent.apps.808602040885-q0ch5fa701ck6sb98e7m8rhq995nhef0</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBslL_yRu3doQyG1IY-t4AzzGM-aYws61c</string>
+	<string>AIzaSyADGr1GIqbtg35yG6pCyyzp4tr9GbNrXZw</string>
 	<key>GCM_SENDER_ID</key>
-	<string>1012764371261</string>
+	<string>808602040885</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.BeyondRemarkable.KnowN.dev</string>
 	<key>PROJECT_ID</key>
-	<string>linc-653f0</string>
+	<string>known-3d8a9</string>
 	<key>STORAGE_BUCKET</key>
-	<string>linc-653f0.appspot.com</string>
+	<string>known-3d8a9.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_APPINVITE_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_GCM_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1012764371261:ios:8e19bc5d31344d76</string>
+	<string>1:808602040885:ios:ea8c4b731f220de7</string>
 	<key>DATABASE_URL</key>
-	<string>https://linc-653f0.firebaseio.com</string>
+	<string>https://known-3d8a9.firebaseio.com</string>
 </dict>
 </plist>

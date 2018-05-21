@@ -26,17 +26,26 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+   
+    [[BRSDKHelper shareHelper] hyphenateApplication:application
+                      didFinishLaunchingWithOptions:launchOptions
+                                             appkey:kEaseMobAppKey
+                                       apnsCertName:kApnsCertName
+                                        otherConfig:@{kSDKConfigEnableConsoleLogger:[NSNumber numberWithBool:YES]}];
+    
     NSDictionary *requestData = [launchOptions valueForKey: UIApplicationLaunchOptionsRemoteNotificationKey];
-    NSLog(@"requestData---%@", requestData);
+    
     NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
+    NSLog(@"requestData--%@", requestData);
     if (requestData) {
         NSString *findRequestFlat = [requestData valueForKey:@"e"];
+        
         if (findRequestFlat && [findRequestFlat isEqualToString: kBRFriendRequestExtKey]) {
             // 收到好友请求
             NSString *messageBody = [requestData valueForKeyPath:@"aps.alert.body"];
-            if (!messageBody) {
+            
+            if (messageBody) {
                 messageBody = [messageBody componentsSeparatedByString:@":"][1];
-                
                 NSString *messageFrom = [requestData valueForKey:@"f"];
                 NSDictionary *friendDict = [NSDictionary dictionaryWithObjectsAndKeys:messageBody, @"message", messageFrom, @"userID",username, @"loginUser", nil];
                 
@@ -45,21 +54,22 @@
         } else if (findRequestFlat && [findRequestFlat hasPrefix:kBRGroupRequestExtKey]) {
             // 群请求
             NSString *messageBody = [requestData valueForKeyPath:@"aps.alert.body"];
-            if (!messageBody) {
+            if (messageBody) {
                 messageBody = [messageBody componentsSeparatedByString:@":"][1];
                 NSString *messageFrom = [requestData valueForKey:@"f"];
                 NSString *groupID = [findRequestFlat componentsSeparatedByString:@":"][1];
                 NSDictionary *groupMesDict = [NSDictionary dictionaryWithObjectsAndKeys:messageBody, @"message", messageFrom, @"userID", groupID, @"groupID", username, @"loginUser", nil];
                 [BRFileWithNewRequestData savedToFileName:newGroupRequestFile withData:groupMesDict];
             }
+        } else if (findRequestFlat && [findRequestFlat hasPrefix:KBRAudioConferenceInviteExtKey]) {
+            if ([[NSUserDefaults standardUserDefaults] objectForKey:@"e"]) {
+                [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"e"];
+            }
+            NSDictionary *confData = [NSDictionary dictionaryWithObject:findRequestFlat forKey:@"e"];
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            [userDefaults setObject:confData forKey:KBRAudioConferenceInviteExtKey];
         }
     }
-    
-    [[BRSDKHelper shareHelper] hyphenateApplication:application
-                      didFinishLaunchingWithOptions:launchOptions
-                                             appkey:kEaseMobAppKey
-                                       apnsCertName:kApnsCertName
-                                        otherConfig:@{kSDKConfigEnableConsoleLogger:[NSNumber numberWithBool:YES]}];
     
     if ([EMClient sharedClient].options.isAutoLogin) {
         // 之前登录过，可以显示主界面
@@ -101,7 +111,7 @@
 
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(nonnull NSDictionary *)userInfo fetchCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHandler {
-    NSLog(@"userInfo--%@", userInfo);
+    
 }
 
 //监听环信在线推送消息
@@ -168,6 +178,9 @@
             [UIApplication sharedApplication].applicationIconBadgeNumber +=1;
             [[UIApplication sharedApplication] scheduleLocalNotification:notification];
             return;
+        } if ([reqFlag hasPrefix:KBRAudioConferenceInviteExtKey]) {
+            NSDictionary *confData = [NSDictionary dictionaryWithObject:reqFlag forKey:@"e"];
+            [[NSUserDefaults standardUserDefaults] setObject:confData forKey:KBRAudioConferenceInviteExtKey];
         }
     }
 

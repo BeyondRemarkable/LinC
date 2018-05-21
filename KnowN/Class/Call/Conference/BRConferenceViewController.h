@@ -1,9 +1,6 @@
 //
-//  ConferenceViewController.h
-//  IosDemo
-//
-//  Created by XieYajie on 4/26/16.
-//  Copyright © 2016 dxstudio.com. All rights reserved.
+//  BRConferenceViewController.h
+//  Copyright © 2018 zhe wu. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -39,9 +36,9 @@ typedef enum {
 
 @interface BRConferenceViewController : UIViewController
 
-- (instancetype)initWithCreateConference:(NSMutableArray *)friendInfoArray;
-- (instancetype)initWithConferenceId:(NSString *)aConfId
-                             creater:(NSString *)aCreater;
+- (instancetype)initWithCreateConference:(NSMutableArray *)friendInfoArray andGroupID:(NSString *)groupID;
+- (instancetype)initWithJoinConferenceId:(NSString *)aConfId
+                                 creater:(NSString *)aCreater andGroupID: (NSString *)groupID;
 
 - (instancetype)initVideoCallWithIsCustomData:(BOOL)aIsCustom;
 

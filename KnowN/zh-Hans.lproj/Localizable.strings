@@ -53,6 +53,9 @@
 // Network
 "Not Reachable" = "无法连接";
 "Reachable via WWAN" = "通过WWAN可连接";
+"Network normal" = "网络正常。";
+"Network unstable" = "网络不稳定。";
+"Network disconnected" = "网络连接失败。";
 
 // Conversation
 "message.image1" = "[图片]";
@@ -105,16 +108,29 @@
 "No new friend request" = "没有新的好友请求";
 
 // Audio call
-"No response." = "无人接听。";
+"Not available." = "无人接听。";
 " reject your call." = " 拒绝接听。";
-" in the call..." = " 正在通话中。";
-"Connect failed." = "连接失败。";
-"Unsupported." = "不支持语音通话。";
+" is busy" = " 正在通话中。";
+"Connection Failed." = "连接失败。";
+"Video Calling Unsupported." = "不支持语音通话。";
 " offline." = " 不在线。";
-"Network disconnection" = "连接中断。";
-"No response and Hang up." = "无人接听并挂断。";
+"Network Disconnected" = "连接中断。";
+"No response and Call Ended." = "无人接听并挂断。";
 "Audio call" = "语音通话。";
 "Network status unstable" = "网络不稳定。";
 " hang up your call." = "已挂断。";
-"Invite Friend" = "邀请好友";
-"Add" = "添加";
+"Invite a Friend" = "邀请好友。";
+"Add" = "添加。";
+"Calling..." = "呼叫中。。。";
+"Incomimg call" = "等待接听。";
+"Waiting for a connection" = "等待连接。";
+"Creating audio conference failed." = "创建语音群聊失败。";
+"Loading audio conference failed." = "加载语音群聊失败。";
+"Audio conference error." = "语音群聊错误。";
+"Group members are not available." = "无人接听。";
+"Empty Chat Group." = "没有群成员。";
+" has joined to the conference." = " 加入群聊。";
+" left the conference." = " 离开了群聊。";
+"Conference call ended." = "群聊结束。";
+
+

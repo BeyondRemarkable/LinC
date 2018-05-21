@@ -104,7 +104,6 @@ typedef enum : NSUInteger {
         [_conversation markAllMessagesAsRead:nil];
     }
     
-    
     return self;
 }
 
@@ -1653,12 +1652,19 @@ typedef enum : NSUInteger {
             case BRCanRecord:
             {
                 if (self.conversation.type == EMConversationTypeGroupChat) {
-                    NSArray *friendsInfoArray = [[BRCoreDataManager sharedInstance] fetchGroupMembersByGroupID:self.conversation.conversationId andGroupMemberUserNameArray:nil];
+                    NSMutableArray *friendsInfoArray = [[[BRCoreDataManager sharedInstance] fetchGroupMembersByGroupID:self.conversation.conversationId andGroupMemberUserNameArray:nil] mutableCopy];
+                
+                    for (BRFriendsInfo *friensInfo in friendsInfoArray) {
+                        if ([[EMClient sharedClient].currentUsername isEqualToString:friensInfo.username]) {
+                            [friendsInfoArray removeObject:friensInfo];
+                            break;
+                        }
+                    }
                     
-                    BRConfUserSelectionViewController *controller = [[BRConfUserSelectionViewController alloc] initWithDataSource:friendsInfoArray selectedUsers:nil andCreateCon:YES];
+                    BRConfUserSelectionViewController *controller = [[BRConfUserSelectionViewController alloc] initWithDataSource:friendsInfoArray selectedUsers:nil andCreateCon:YES andGroupID:self.conversation.conversationId];
                     [self.navigationController pushViewController:controller animated:YES];
+                    
                 } else {
-
                     [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_CALL object:@{@"chatter":self.conversation.conversationId, @"type":[NSNumber numberWithInt:0]}];
                 }
             }

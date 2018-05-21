@@ -75,6 +75,11 @@
                                    messageType:EMChatTypeChat
                                     messageExt: @{@"em_apns_ext":@{@"extern":kBRFriendRequestExtKey}}];
     }
+    [[EMClient sharedClient].contactManager addContact:self.searchID message:self.userMessage.text completion:^(NSString *aUsername, EMError *aError) {
+        if (aError) {
+            NSLog(@"%@", aError);
+        }
+    }];
     
     [[EMClient sharedClient].chatManager sendMessage:message progress:nil completion:^(EMMessage *aMessage, EMError *aError) {
         hud.mode = MBProgressHUDModeText;

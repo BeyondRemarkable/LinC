@@ -120,6 +120,7 @@
 		E95827F81FD87D8B00362F92 /* BRGroupChatSettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E95827F71FD87D8B00362F92 /* BRGroupChatSettingTableViewController.m */; };
 		E95FA8CB1F7065C50023BB1C /* BRRequestMessageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E95FA8CA1F7065C50023BB1C /* BRRequestMessageTableViewController.m */; };
 		E964F38B1FB0F4AD007C8F5E /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E964F38A1FB0F4AD007C8F5E /* MessageUI.framework */; };
+		E96A8E5B20A5F6A90003BE75 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E96A8E5A20A5F6A80003BE75 /* GoogleService-Info.plist */; };
 		E96C7B671F87E09A00C0DC7E /* BRCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = E96C7B661F87E09A00C0DC7E /* BRCoreDataStack.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		E96C7B6A1F87E0B400C0DC7E /* BRCoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E96C7B691F87E0B400C0DC7E /* BRCoreDataManager.m */; };
 		E9874DC52072DE4F00C8F8BD /* NSString+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = E9874DA72072DE4E00C8F8BD /* NSString+Helper.m */; };
@@ -143,7 +144,6 @@
 		E9C5F3F81F75AE6D0073A86E /* BRNewFriendTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C5F3F71F75AE6D0073A86E /* BRNewFriendTableViewController.m */; };
 		E9C5F3FC1F75B2940073A86E /* BRNewFriendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C5F3FA1F75B2940073A86E /* BRNewFriendTableViewCell.m */; };
 		E9C5F3FD1F75B2940073A86E /* BRNewFriendTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9C5F3FB1F75B2940073A86E /* BRNewFriendTableViewCell.xib */; };
-		E9CACAD9206ED184006567C1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E9CACAD8206ED183006567C1 /* GoogleService-Info.plist */; };
 		E9CC14211F7C4E3C0070E4AC /* BRGroupListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CC14201F7C4E3C0070E4AC /* BRGroupListTableViewController.m */; };
 		E9E492462080FE1A00D37B81 /* BRConfManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E9E492392080FE1900D37B81 /* BRConfManager.m */; };
 		E9E492472080FE1A00D37B81 /* BRConfUserSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9E4923B2080FE1900D37B81 /* BRConfUserSelectionViewController.m */; };
@@ -464,6 +464,7 @@
 		E95FA8C91F7065C50023BB1C /* BRRequestMessageTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRRequestMessageTableViewController.h; sourceTree = "<group>"; };
 		E95FA8CA1F7065C50023BB1C /* BRRequestMessageTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRRequestMessageTableViewController.m; sourceTree = "<group>"; };
 		E964F38A1FB0F4AD007C8F5E /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		E96A8E5A20A5F6A80003BE75 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E96C7B541F85C8B100C0DC7E /* BRContactListCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BRContactListCoreData.xcdatamodel; sourceTree = "<group>"; };
 		E96C7B651F87E09A00C0DC7E /* BRCoreDataStack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRCoreDataStack.h; sourceTree = "<group>"; };
 		E96C7B661F87E09A00C0DC7E /* BRCoreDataStack.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BRCoreDataStack.m; sourceTree = "<group>"; };
@@ -509,7 +510,6 @@
 		E9C5F3F91F75B2940073A86E /* BRNewFriendTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRNewFriendTableViewCell.h; sourceTree = "<group>"; };
 		E9C5F3FA1F75B2940073A86E /* BRNewFriendTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRNewFriendTableViewCell.m; sourceTree = "<group>"; };
 		E9C5F3FB1F75B2940073A86E /* BRNewFriendTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BRNewFriendTableViewCell.xib; sourceTree = "<group>"; };
-		E9CACAD8206ED183006567C1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E9CC141F1F7C4E3C0070E4AC /* BRGroupListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRGroupListTableViewController.h; sourceTree = "<group>"; };
 		E9CC14201F7C4E3C0070E4AC /* BRGroupListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRGroupListTableViewController.m; sourceTree = "<group>"; };
 		E9E492392080FE1900D37B81 /* BRConfManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRConfManager.m; sourceTree = "<group>"; };
@@ -1113,8 +1113,8 @@
 				E90F7B561F670DC300333382 /* libopencore-amrnb.a */,
 				E90F7B571F670DC300333382 /* libopencore-amrwb.a */,
 				E90F7B581F670DC300333382 /* KnowN.pch */,
-				E9CACAD8206ED183006567C1 /* GoogleService-Info.plist */,
 				E90F7B5C1F670DC300333382 /* ProvincesAndCities.plist */,
+				E96A8E5A20A5F6A80003BE75 /* GoogleService-Info.plist */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -1542,7 +1542,6 @@
 				E9F3BD122044BC6D005B2F02 /* Button_Mute_active@3x.png in Resources */,
 				E9F3BD1B2044BC6D005B2F02 /* Button_Speaker_active@3x.png in Resources */,
 				E9F3BD1A2044BC6D005B2F02 /* Button_Speaker_active@2x.png in Resources */,
-				E9CACAD9206ED184006567C1 /* GoogleService-Info.plist in Resources */,
 				E9F3BD002044BC6D005B2F02 /* Button_Camera_disabled@3x.png in Resources */,
 				E9F3BD242044BC6D005B2F02 /* Button_Stats_disabled@3x.png in Resources */,
 				E9E4924B2080FE1A00D37B81 /* BRConferenceViewController.xib in Resources */,
@@ -1573,6 +1572,7 @@
 				E9F3BCFD2044BC6D005B2F02 /* Button_Camera_active@3x.png in Resources */,
 				E9F29BB21F7EE59E0061252D /* BRGroupMemberTableViewCell.xib in Resources */,
 				E9F3BCF52044BC6D005B2F02 /* Button_Answer.png in Resources */,
+				E96A8E5B20A5F6A90003BE75 /* GoogleService-Info.plist in Resources */,
 				E9F3BD132044BC6D005B2F02 /* Button_Mute_disabled.png in Resources */,
 				E9F3BD052044BC6D005B2F02 /* Button_End@2x.png in Resources */,
 				E9F3BD012044BC6D005B2F02 /* Button_Cancel_Call.png in Resources */,
@@ -2008,7 +2008,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CODE_SIGN_ENTITLEMENTS = KnowN/KnowN.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Yingwei Fan (3LYJJC4KNY)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2068,7 +2068,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CODE_SIGN_ENTITLEMENTS = KnowN/KnowN.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Yingwei Fan (3LYJJC4KNY)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";

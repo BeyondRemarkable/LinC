@@ -27,6 +27,10 @@
 #define kBRFriendRequestExtKey @"kBRFriendRequestExtKey"
 /** @brief 用来判断是否是群请求 */
 #define kBRGroupRequestExtKey @"kBRGroupRequestExtKey"
+/** @brief 用来判断是否是群语音请求 */
+#define KBRAudioConferenceInviteExtKey @"KBRAudioConferenceInviteExtKey"
+/** @brief 用来判断接收消息中ext中的特殊请求 */
+#define KBRSpecialExtKey @"KBRSpecialExtKey"
 @interface BRSDKHelper : NSObject <EMClientDelegate>
 
 /** @brief 当前是否有imagePickerViewController弹出 */

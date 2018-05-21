@@ -1,13 +1,11 @@
 //
-//  EMConfUserSelectionViewController.h
-//  ChatDemo-UI3.0
+//  BRConfUserSelectionViewController.h
 //
-//  Created by XieYajie on 8/31/16.
-//  Copyright © 2016 XieYajie. All rights reserved.
+//  Copyright © 2018 Zhe Wu. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-
+#import <MBProgressHUD.h>
 @protocol BRConfSelectionUserViewDelegate <NSObject>
 
 - (void)deselectUser:(NSString *)aUserName;
@@ -26,10 +24,13 @@
 @end
 
 @interface BRConfUserSelectionViewController : UIViewController
-
+{
+    MBProgressHUD *hud;
+}
 @property (copy) void (^selecteUserFinishedCompletion)(NSArray *selectedUsers);
 
 - (instancetype)initWithDataSource:(NSArray *)aDataSource
-                     selectedUsers:(NSArray *)aSelectedUsers andCreateCon:(BOOL) isCreateCon;
-
+                     selectedUsers:(NSArray *)aSelectedUsers andCreateCon:(BOOL) isCreateCon andGroupID:(NSString *)groupID;
+- (instancetype)initWithInviteMoreMembers:(NSArray *)aDataSource
+                            selectedUsers:(NSArray *)aSelectedUsers andCreateCon:(BOOL) isCreateCon andGroupID:(NSString *)groupID;
 @end
