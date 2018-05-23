@@ -255,7 +255,7 @@
 {
     [self.speakerOutButton setImage:[UIImage imageNamed:@"Button_Speaker_active"] forState:UIControlStateSelected];
     [self.muteButton setImage:[UIImage imageNamed:@"Button_Mute_active"] forState:UIControlStateSelected];
-    [self.enableCameraButton setImage:[UIImage imageNamed:@"conf_camera_on"] forState:UIControlStateSelected];
+    
     if (self.isCreater) {
         self.hangupButton.hidden = NO;
         self.answerButton.hidden = YES;
@@ -272,6 +272,8 @@
     self.videoMoreButton.hidden = YES;
     
     //3.3.9 new 自定义视频数据
+    self.enableCameraButton.hidden = YES;
+//    [self.enableCameraButton setImage:[UIImage imageNamed:@"conf_camera_on"] forState:UIControlStateSelected];
     //    if (self.videoModel != VIDEO_INPUT_MODE_NONE) {
     //        self.videoMoreButton.hidden = NO;
     //        self.enableCameraButton.hidden = YES;
@@ -474,7 +476,10 @@
     __weak typeof(self) weakSelf = self;
     [[EMClient sharedClient].conferenceManager inviteUserToJoinConference:self.conference userName:aUserName password:nil ext:jsonString error:&error];
     if (error) {
-        //        [weakSelf showHint:NSLocalizedString(@"alert.conference.inviteFail", @"Invite failed!")];
+        hud.label.text = NSLocalizedString(@"Invite failed.", nil);
+        [hud hideAnimated:YES afterDelay:1.5];
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate distantPast]];
+
     } else {
         NSString *externString = [[[[[[KBRAudioConferenceInviteExtKey stringByAppendingString:@":"] stringByAppendingString:weakSelf.conference.confId] stringByAppendingString:@":"] stringByAppendingString:self.groupID] stringByAppendingString:@":"] stringByAppendingString:[EMClient sharedClient].currentUsername];
         EMTextMessageBody *cmdChat = [[EMTextMessageBody alloc] initWithText:@"Invite audio conference"];
@@ -643,6 +648,9 @@
                 displayView.hidden = !aStream.enableVideo;
             } else if (oldStream.enableVoice != aStream.enableVoice) {
                 BRConfUserView *userView = [self.streamViews objectForKey:aStream.streamId];
+                if (!userView) {
+                    userView = [self.streamViews objectForKey:aStream.userName];
+                }
                 userView.isMuted = !aStream.enableVoice;
                 if (aStream.enableVoice) {
                     userView.status = EMAudioStatusConnected;

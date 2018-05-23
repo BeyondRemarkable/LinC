@@ -24,13 +24,13 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UserName" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HGZ-M1-xKT">
-                    <rect key="frame" x="0.0" y="84" width="96" height="36"/>
+                    <rect key="frame" x="0.0" y="89" width="96" height="31"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="conf_ring.png" translatesAutoresizingMaskIntoConstraints="NO" id="qpl-8U-xAB">
-                    <rect key="frame" x="96" y="84" width="24" height="36"/>
+                    <rect key="frame" x="96" y="89" width="24" height="31"/>
                 </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -40,18 +40,18 @@
                 <constraint firstItem="HGZ-M1-xKT" firstAttribute="width" secondItem="7Ow-VU-hti" secondAttribute="width" multiplier="0.8" id="7fq-gK-qss"/>
                 <constraint firstAttribute="bottom" secondItem="qpl-8U-xAB" secondAttribute="bottom" id="8ab-B3-rm9"/>
                 <constraint firstAttribute="trailing" secondItem="qpl-8U-xAB" secondAttribute="trailing" id="DD6-TN-IMc"/>
-                <constraint firstItem="qpl-8U-xAB" firstAttribute="top" secondItem="PfO-4m-41R" secondAttribute="bottom" id="DJn-YX-NQ6"/>
                 <constraint firstItem="dya-dv-KFG" firstAttribute="height" secondItem="7Ow-VU-hti" secondAttribute="height" multiplier="0.7" id="EDU-MC-AUk"/>
                 <constraint firstItem="qpl-8U-xAB" firstAttribute="leading" secondItem="HGZ-M1-xKT" secondAttribute="trailing" id="FFV-8R-Ad5"/>
                 <constraint firstItem="dya-dv-KFG" firstAttribute="leading" secondItem="7Ow-VU-hti" secondAttribute="leading" constant="5" id="IOt-72-AM8"/>
                 <constraint firstAttribute="bottom" secondItem="HGZ-M1-xKT" secondAttribute="bottom" id="PJF-0N-wtg"/>
-                <constraint firstItem="HGZ-M1-xKT" firstAttribute="top" secondItem="PfO-4m-41R" secondAttribute="bottom" id="Pdb-MA-dH4"/>
                 <constraint firstItem="PfO-4m-41R" firstAttribute="leading" secondItem="7Ow-VU-hti" secondAttribute="leading" id="Vdn-Yi-RMH"/>
                 <constraint firstItem="HGZ-M1-xKT" firstAttribute="leading" secondItem="7Ow-VU-hti" secondAttribute="leading" id="epl-QD-NFy"/>
                 <constraint firstItem="PfO-4m-41R" firstAttribute="centerX" secondItem="7Ow-VU-hti" secondAttribute="centerX" id="fjA-0s-teC"/>
                 <constraint firstItem="PfO-4m-41R" firstAttribute="top" secondItem="7Ow-VU-hti" secondAttribute="top" id="k4L-YZ-Py4"/>
                 <constraint firstItem="dya-dv-KFG" firstAttribute="top" secondItem="7Ow-VU-hti" secondAttribute="top" constant="5" id="kE6-Iv-gVj"/>
+                <constraint firstItem="qpl-8U-xAB" firstAttribute="top" secondItem="dya-dv-KFG" secondAttribute="bottom" id="sEj-YG-mK6"/>
                 <constraint firstAttribute="trailing" secondItem="PfO-4m-41R" secondAttribute="trailing" id="sWD-zL-feF"/>
+                <constraint firstItem="HGZ-M1-xKT" firstAttribute="top" secondItem="dya-dv-KFG" secondAttribute="bottom" id="tBR-Nb-7q8"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>

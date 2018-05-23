@@ -91,14 +91,6 @@ static BRConfManager *confManager = nil;
     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:nil];
     NSString *creater = [dic objectForKey:@"creater"];
     NSString *groupID = [dic objectForKey:@"groupID"];
-
-    if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateBackground) {
-        UILocalNotification *notification = [[UILocalNotification alloc] init];
-        notification.alertBody = [@"You have a incoming call from " stringByAppendingString: creater];
-        notification.alertAction = @"Open";
-        notification.soundName = UILocalNotificationDefaultSoundName;
-        [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
-    }
     
     if (aConfId && creater && groupID) {
         self.currentController = [[BRConferenceViewController alloc] initWithJoinConferenceId:aConfId creater:creater andGroupID:groupID];

@@ -132,5 +132,5 @@
 " has joined to the conference." = " 加入群聊。";
 " left the conference." = " 离开了群聊。";
 "Conference call ended." = "群聊结束。";
-
+"Invite failed." = "邀请失败。";
 
