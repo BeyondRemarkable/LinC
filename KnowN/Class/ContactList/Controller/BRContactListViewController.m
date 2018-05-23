@@ -6,6 +6,8 @@
 //  Copyright © 2017 BeyondRemarkable. All rights reserved.
 //
 #import <Foundation/Foundation.h>
+#import <MBProgressHUD.h>
+#import <MJRefresh.h>
 #import "BRContactListViewController.h"
 #import "BRContactListTableViewCell.h"
 #import "IUserModel.h"
@@ -14,30 +16,35 @@
 #import "BRFriendRequestTableViewController.h"
 #import "BRMessageViewController.h"
 #import "BRClientManager.h"
-#import <MJRefresh.h>
 #import "BRFileWithNewRequestData.h"
 #import "BRNewFriendTableViewController.h"
 #import "BRGroupListTableViewController.h"
-#import <MBProgressHUD.h>
 #import "BRCoreDataManager.h"
 #import "BRUserInfo+CoreDataClass.h"
 #import "BRFriendsInfo+CoreDataClass.h"
+#import "BRSearchResultTableViewController.h"
+#import "BRNavigationController.h"
+#import "BRSearchController.h"
 
-@interface BRContactListViewController () <EMContactManagerDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface BRContactListViewController () <EMContactManagerDelegate, UISearchControllerDelegate>
 {
     MBProgressHUD *hud;
 }
+@property (nonatomic, strong) NSMutableArray *contactSectionArray;
+@property (nonatomic, strong) NSMutableArray *sectionTitleArray;
+
 @property (nonatomic, strong) NSArray *storedListArray;
 @property (nonatomic, strong) NSArray *storedIconArray;
 
 @property (nonatomic, copy) NSString *friendUserID;
 @property (nonatomic, copy) NSString *friendMessage;
 
+/** 上一次从服务器获取好友信息的时间 */
 @property (nonatomic, strong) NSDate *lastUpdateTime;
 
-@end
+@property (nonatomic, strong) BRSearchController *searchController;
 
-@implementation BRContactListViewController
+@end
 
 typedef enum : NSInteger {
     TableViewSectionZero = 0,
@@ -46,15 +53,20 @@ typedef enum : NSInteger {
 
 typedef enum : NSInteger {
     TableViewNewFriend = 0,
-    TableVIewGroup,
+    TableViewGroup,
 } UITableViewRow;
+
+@implementation BRContactListViewController
 
 // Tableview cell identifier
 static NSString * const cellIdentifier = @"ContactListCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    //如果进入预编辑状态,searchBar消失(UISearchController套到TabBarController可能会出现这个情况),请添加下边这句话
+    self.definesPresentationContext = YES;
+    
     [self loadFriendsInfoFromCoreData];
     [self setUpTableView];
     [self setUpNavigationBarItem];
@@ -72,21 +84,16 @@ static NSString * const cellIdentifier = @"ContactListCell";
     [super viewWillAppear:animated];
     
     [self tableViewDidTriggerHeaderRefresh];
-}
-
-- (void)updateFriendRequestCell {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    if ([self.tableView cellForRowAtIndexPath:indexPath]) {
-        [self.tableView beginUpdates];
-        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-        [self.tableView endUpdates];
+    
+    if (self.searchController.active) {
+        self.tabBarController.tabBar.hidden = YES;
+    }
+    else {
+        self.tabBarController.tabBar.hidden = NO;
     }
 }
 
-- (void)receivedNewFriendRequest:(NSNotification *)notification {
-    [self updateFriendRequestCell];
-}
-
+#pragma mark - lazy loading
 /**
  *  Lazy load NSArray storedListArray
  *
@@ -112,6 +119,42 @@ static NSString * const cellIdentifier = @"ContactListCell";
     return _storedIconArray;
 }
 
+- (NSMutableArray *)sectionTitleArray {
+    if (_sectionTitleArray == nil) {
+        _sectionTitleArray = [NSMutableArray array];
+    }
+    return _sectionTitleArray;
+}
+
+- (NSMutableArray *)contactSectionArray {
+    if (_contactSectionArray == nil) {
+        _contactSectionArray = [NSMutableArray array];
+    }
+    return _contactSectionArray;
+}
+
+- (BRSearchController *)searchController {
+    if (_searchController == nil) {
+        BRSearchResultTableViewController *searchResultVc = [[BRSearchResultTableViewController alloc] initWithStyle:UITableViewStylePlain];
+        searchResultVc.dataArray = self.dataArray;
+        _searchController = [[BRSearchController alloc] initWithSearchResultsController:searchResultVc];
+        _searchController.searchResultsUpdater = searchResultVc;
+        searchResultVc.searchBar = _searchController.searchBar;
+        _searchController.delegate = self;
+        
+        // 修改searchBar外观
+        _searchController.searchBar.tintColor = [UIColor orangeColor];
+        _searchController.searchBar.barTintColor = BRColor(235, 235, 236);
+        _searchController.searchBar.placeholder = NSLocalizedString(@"Search Friend", nil);
+        //去掉searchController.searchBar的上下边框（黑线）
+        UIImageView *barImageView = [[[_searchController.searchBar.subviews firstObject] subviews] firstObject];
+        barImageView.layer.borderColor = BRColor(235, 235, 236).CGColor;
+        barImageView.layer.borderWidth = 1;
+    }
+    return _searchController;
+}
+
+#pragma mark - initialization methods
 /**
  * Set up tableView
  */
@@ -121,6 +164,13 @@ static NSString * const cellIdentifier = @"ContactListCell";
     self.tableView.estimatedSectionFooterHeight = 0;
     self.tableView.estimatedRowHeight = 0;
     self.tableView.rowHeight = 50.0;
+    self.tableView.sectionIndexColor = [UIColor grayColor];
+    self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
+    
+    //设置搜索headerView，使用一层UIView使得搜索框不会被sectionIndex挤压
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.width, self.searchController.searchBar.height)];
+    [headerView addSubview:self.searchController.searchBar];
+    self.tableView.tableHeaderView = headerView;
     //Register reuseable tableview cell
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([BRContactListTableViewCell class]) bundle:nil] forCellReuseIdentifier:cellIdentifier];
     
@@ -143,26 +193,20 @@ static NSString * const cellIdentifier = @"ContactListCell";
       从core data加载已经保存的好友数据
  */
 - (void)loadFriendsInfoFromCoreData {
-
-    BRUserInfo *userInfo = [[BRCoreDataManager sharedInstance] getUserInfo];
-    NSMutableArray *friendsModelArray = [NSMutableArray array];
-    for (BRFriendsInfo *friendsInfo in userInfo.friendsInfo) {
-        
-        BRContactListModel *contactModel = [[BRContactListModel alloc] init];
-        contactModel.username = friendsInfo.username;
-        contactModel.nickname = friendsInfo.nickname;
-        UIImage *avatar = [UIImage imageWithData: friendsInfo.avatar];
-        contactModel.avatarImage = avatar ? avatar : [UIImage imageNamed:@"user_default"];
-        contactModel.whatsUp = friendsInfo.whatsUp;
-        contactModel.gender = friendsInfo.gender;
-       
-        [friendsModelArray addObject:contactModel];
-    }
-    [friendsModelArray sortUsingComparator:^NSComparisonResult(BRContactListModel *left, BRContactListModel *right) {
-        return [left.username compare: right.username];
-    }];
-    self.dataArray = friendsModelArray;
+    self.dataArray = [[BRCoreDataManager sharedInstance] fetchAllFriends];
+    [self sectionalizeContacts:self.dataArray];
     [self tableViewDidFinishRefresh:BRRefreshTableViewWidgetHeader reload:YES];
+}
+
+- (void)setupNotifications {
+    [[EMClient sharedClient].contactManager addDelegate:self delegateQueue:dispatch_get_main_queue()];
+    // 注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFriendRequest:)
+                                                 name:kBRFriendRequestExtKey object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFriendRequest:)
+                                                 name:kBRGroupRequestExtKey object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFriendRequest:) name:BRFriendRequestUpdateNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateContactList:) name:BRContactUpdateNotification object:nil];
 }
 
 #pragma mark - button action
@@ -179,7 +223,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return self.sectionTitleArray.count;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -187,7 +231,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
     if (section == TableViewSectionZero ) {
         return self.storedListArray.count;
     } else {
-        return self.dataArray.count;
+        return [self.contactSectionArray[section] count];
     }
 }
 
@@ -211,7 +255,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
             }
         }
         // 有新群请求
-        if (indexPath.row == TableVIewGroup) {
+        if (indexPath.row == TableViewGroup) {
             NSUInteger groupRequestCount = [[BRFileWithNewRequestData countForNewRequestFromFile:newGroupRequestFile] integerValue];
             if (groupRequestCount) {
                 cell.badgeLabel.hidden = NO;
@@ -225,25 +269,31 @@ static NSString * const cellIdentifier = @"ContactListCell";
         
         BRContactListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         
-        id<IUserModel> contactListModel = [self.dataArray objectAtIndex:indexPath.row];
+        id<IUserModel> contactListModel = [self.contactSectionArray[indexPath.section] objectAtIndex:indexPath.row];
         cell.contactListModel = contactListModel;
+        cell.badgeLabel.hidden = YES;
 
         return cell;
     }
 }
 
+- (NSArray<NSString *> *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+    return self.sectionTitleArray;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
+    return index;
+}
+
 #pragma mark - UITableViewDelegate
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 20;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    return [[UIView alloc] init];
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 0.1;
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return nil;
+    }
+    else {
+        return self.sectionTitleArray[section];
+    }
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -251,18 +301,16 @@ static NSString * const cellIdentifier = @"ContactListCell";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     // 群聊天
     if (indexPath.section == TableViewSectionZero) {
-        if (indexPath.row == TableVIewGroup) {
+        if (indexPath.row == TableViewGroup) {
             BRGroupListTableViewController *vc = [[BRGroupListTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
             [self.navigationController pushViewController:vc animated:YES];
         }
         // 如果有好友请求，显示好友添加数量label
-        if (indexPath.row == TableViewNewFriend) {
-            BRContactListTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        else if (indexPath.row == TableViewNewFriend) {
             
             NSUInteger friendRequestCount = [[BRFileWithNewRequestData countForNewRequestFromFile:newFirendRequestFile] integerValue];
             
             if (friendRequestCount) {
-                cell.badgeLabel.text = [NSString stringWithFormat:@"%lu",(unsigned long)friendRequestCount];
                 BRNewFriendTableViewController *vc = [[BRNewFriendTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
                 [self.navigationController pushViewController:vc animated:YES];
             } else {
@@ -273,12 +321,10 @@ static NSString * const cellIdentifier = @"ContactListCell";
 
             }
         }
-        else if (indexPath.row == TableVIewGroup) {
-        }
     }
     // User contact list cell
-    if (indexPath.section == TableViewSectionOne) {
-        BRContactListModel *contactListModel = self.dataArray[indexPath.row];
+    else {
+        BRContactListModel *contactListModel = self.contactSectionArray[indexPath.section][indexPath.row];
         
         UIStoryboard *sc = [UIStoryboard storyboardWithName:@"BRFriendInfo" bundle:[NSBundle mainBundle]];
         
@@ -287,6 +333,38 @@ static NSString * const cellIdentifier = @"ContactListCell";
         vc.isFriend = YES;
         
         [self.navigationController pushViewController:vc animated:YES];
+    }
+}
+
+#pragma mark - Notification
+
+- (void)updateContactList:(NSNotification *)notification {
+    BRContactListModel *model = notification.object;
+    if (model) {
+        NSString *operation = notification.userInfo[@"Operation"];
+        if ([operation isEqualToString:@"delete"]) {
+            [self.dataArray removeObject:model];
+        }
+        else if ([operation isEqualToString:@"add"]) {
+            [self.dataArray addObject:model];
+        }
+        [self sectionalizeContacts:self.dataArray];
+        [self tableViewDidFinishRefresh:BRRefreshTableViewWidgetHeader reload:YES];
+    }
+}
+
+- (void)updateFriendRequest:(NSNotification *)notification {
+    [self updateFriendRequestCell];
+}
+
+#pragma mark - private
+
+- (void)updateFriendRequestCell {
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    if ([self.tableView cellForRowAtIndexPath:indexPath]) {
+        [self.tableView beginUpdates];
+        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        [self.tableView endUpdates];
     }
 }
 
@@ -306,16 +384,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
     __weak typeof(self) weakself = self;
     
     [[EMClient sharedClient].contactManager getContactsFromServerWithCompletion:^(NSArray *aList, EMError *aError) {
-        
         if (!aError) {
-            
-            // 服务器返回好友列表为空 但是本地好友列表不为空，删除全部好友
-            if (aList.count == 0 && self.dataArray.count != 0 ) {
-                [[BRCoreDataManager sharedInstance] deleteFriendByID:nil];
-                [self.dataArray removeAllObjects];
-                [self.tableView reloadData];
-                return;
-            }
             NSMutableArray *contactsSource = [NSMutableArray array];
             
             // remove the contact that is currently in the black list
@@ -328,66 +397,144 @@ static NSString * const cellIdentifier = @"ContactListCell";
                 }
             }
             
-            [[BRClientManager sharedManager] getUserInfoWithUsernames:contactsSource andSaveFlag:YES success:^(NSMutableArray *aList) {
+            [[BRClientManager sharedManager] getFriendInfoWithUsernames:contactsSource andSaveFlag:YES success:^(NSMutableArray *aList) {
                 [weakself.dataArray removeAllObjects];
                 [weakself.dataArray addObjectsFromArray:aList];
+                [weakself sectionalizeContacts:weakself.dataArray];
                 [weakself tableViewDidFinishRefresh:BRRefreshTableViewWidgetHeader reload:YES];
                 
                 [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:BRDataUpdateNotification object:nil]];
             } failure:^(EMError *aError) {
-                hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                hud.mode = MBProgressHUDModeText;
-                hud.label.text = aError.description;
-                [hud hideAnimated:YES afterDelay:1.5];
+                self->hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                self->hud.mode = MBProgressHUDModeText;
+                self->hud.label.text = aError.description;
+                [self->hud hideAnimated:YES afterDelay:1.5];
             }];
         } else {
-            hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            hud.mode = MBProgressHUDModeText;
-            hud.label.text = aError.errorDescription;
-            [hud hideAnimated:YES afterDelay:1.5];
+            self->hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            self->hud.mode = MBProgressHUDModeText;
+            self->hud.label.text = aError.errorDescription;
+            [self->hud hideAnimated:YES afterDelay:1.5];
         }
     }];
 }
 
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+/**
+ 将好友根据首字母分组
+ */
+- (NSArray *)sectionalizeContacts:(NSArray *)contactArray {
+    UILocalizedIndexedCollation *collation = [UILocalizedIndexedCollation currentCollation];
+    NSArray *allSectionTitles = [collation sectionTitles];
+    NSUInteger sectionTitlesCount = [allSectionTitles count];
+    NSMutableArray *sectionArray = [NSMutableArray arrayWithCapacity:sectionTitlesCount];
+    for (NSUInteger i = 0; i < sectionTitlesCount; i++) {
+        NSMutableArray *array = [NSMutableArray array];
+        [sectionArray addObject:array];
+    }
+    for (BRContactListModel *contactModel in contactArray) {
+        NSInteger section;
+        if (contactModel.nickname != nil) {
+            section = [collation sectionForObject:contactModel collationStringSelector:@selector(nickname)];
+        }
+        else {
+            section = [collation sectionForObject:contactModel collationStringSelector:@selector(username)];
+        }
+        
+        [sectionArray[section] addObject:contactModel];
+    }
+    
+    [self.sectionTitleArray removeAllObjects];
+    [self.sectionTitleArray addObject:@"🔍"];
+    [self.contactSectionArray removeAllObjects];
+    [self.contactSectionArray addObject:[NSMutableArray array]];
+    for (NSUInteger i = 0; i < sectionArray.count; i++) {
+        NSMutableArray *array = sectionArray[i];
+        if (array.count != 0) {
+            //将数组中的Model进行排序
+            [array sortUsingComparator:^NSComparisonResult(BRContactListModel*  _Nonnull model1, BRContactListModel*  _Nonnull model2) {
+                NSString *str1 = model1.nickname?model1.nickname:model1.username;
+                NSString *str2 = model2.nickname?model2.nickname:model2.username;
+                return [str1 localizedCompare:str2];
+            }];
+            
+            [self.sectionTitleArray addObject:allSectionTitles[i]];
+            [self.contactSectionArray addObject:array];
+        }
+    }
+    return self.contactSectionArray;
 }
 
 #pragma mark - EMContactManager delegate
 
 // 好友请求时的回调
-- (void)friendRequestDidReceiveFromUser:(NSString *)aUsername message:(NSString *)aMessage {
-    
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    
-    BRContactListTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-    
-    // 收到有效的邀请
-    if ((aUsername || aMessage) ) {
-        NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
-        NSDictionary *dataDict = [NSDictionary dictionaryWithObjectsAndKeys:aUsername, @"userID", aMessage, @"message",username, @"loginUser", nil];
-        [BRFileWithNewRequestData savedToFileName:newFirendRequestFile withData:dataDict];
-        
-    }
-    NSString *badgeCount = [BRFileWithNewRequestData countForNewRequestFromFile:newFirendRequestFile];
-    cell.badgeLabel.text = badgeCount;
-    cell.showBadge = YES;
-    [self.tableView reloadData];
-    self.tabBarItem.badgeValue = badgeCount;
-}
+//- (void)friendRequestDidReceiveFromUser:(NSString *)aUsername message:(NSString *)aMessage {
+//
+//    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+//
+//    BRContactListTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+//
+//    // 收到有效的邀请
+//    if ((aUsername || aMessage) ) {
+//        NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
+//        NSDictionary *dataDict = [NSDictionary dictionaryWithObjectsAndKeys:aUsername, @"userID", aMessage, @"message",username, @"loginUser", nil];
+//        [BRFileWithNewRequestData savedToFileName:newFirendRequestFile withData:dataDict];
+//
+//    }
+//    NSString *badgeCount = [BRFileWithNewRequestData countForNewRequestFromFile:newFirendRequestFile];
+//    cell.badgeLabel.text = badgeCount;
+//    cell.showBadge = YES;
+//    [self.tableView reloadData];
+//    self.tabBarItem.badgeValue = badgeCount;
+//}
 
 // 好友通过邀请时的回调， 通过服务器加载好友列表
 - (void)friendshipDidAddByUser:(NSString *)aUsername {
-    [self tableViewDidTriggerHeaderRefresh];
+    [[BRClientManager sharedManager] getFriendInfoWithUsernames:@[aUsername] andSaveFlag:YES success:^(NSMutableArray *modelArray) {
+        BRContactListModel *model = modelArray.firstObject;
+        NSNotification *notification = [NSNotification notificationWithName:BRContactUpdateNotification object:model userInfo:@{@"Operation":@"add"}];
+        [self updateContactList:notification];
+    } failure:^(EMError *error) {
+        
+    }];
 }
 
-//删除好友时，双方都会收到的回调
+// 删除好友时，双方都会收到的回调
 - (void)friendshipDidRemoveByUser:(NSString *)aUsername {
-    if (aUsername.length == 0 || [aUsername isKindOfClass:[NSNull class]]) {
+    if (aUsername == nil || aUsername.length == 0 || [aUsername isEqualToString:[EMClient sharedClient].currentUsername]) {
         return;
     }
     [[BRCoreDataManager sharedInstance] deleteFriendByID: [NSArray arrayWithObject:aUsername]];
-    [self tableViewDidTriggerHeaderRefresh];
+    for (BRContactListModel *model in self.dataArray) {
+        if ([model.username isEqualToString:aUsername]) {
+            NSNotification *notification = [NSNotification notificationWithName:BRContactUpdateNotification object:model userInfo:@{@"Operation":@"delete"}];
+            [self updateContactList:notification];
+            break;
+        }
+    }
+}
+
+#pragma mark - UISearchControllerDelegate
+
+- (void)willPresentSearchController:(UISearchController *)searchController {
+    self.tabBarController.tabBar.hidden = YES;
+}
+
+- (void)didDismissSearchController:(UISearchController *)searchController {
+    UITabBar *tabBar = self.tabBarController.tabBar;
+    tabBar.hidden = NO;
+    
+    // 适配iPhoneX的tabBar挤压问题
+    if (@available(iOS 11.0, *)) {
+        CGFloat bottomInset = tabBar.safeAreaInsets.bottom;
+        if (bottomInset > 0 && tabBar.height < 50 && (tabBar.height + bottomInset < 90)) {
+            tabBar.height += bottomInset;
+            tabBar.y -= bottomInset;
+        }
+    }
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

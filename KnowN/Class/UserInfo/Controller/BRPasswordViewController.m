@@ -53,12 +53,12 @@
         return;
     }
     [[BRClientManager sharedManager] updatePasswordWithCurrentPassword:self.oldPasswordTextField.text newPassword:self.updatePasswordTextField.text success:^(NSString *message) {
-        [hud hideAnimated:YES];
+        [self->hud hideAnimated:YES];
         [self.navigationController popViewControllerAnimated:YES];
     } failure:^(EMError *error) {
-        hud.mode = MBProgressHUDModeText;
-        hud.label.text = error.errorDescription;
-        [hud hideAnimated:YES afterDelay:1.5];
+        self->hud.mode = MBProgressHUDModeText;
+        self->hud.label.text = error.errorDescription;
+        [self->hud hideAnimated:YES afterDelay:1.5];
     }];
 }
 

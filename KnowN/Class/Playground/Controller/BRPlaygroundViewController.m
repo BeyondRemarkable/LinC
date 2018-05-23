@@ -47,23 +47,23 @@
 }
 
 - (void)tableViewDidTriggerHeaderRefresh {
-    NSDate *date = nil;
-    if (self.dataArray.count != 0) {
-        BRLectureVideoModel *model = [self.dataArray firstObject];
-        date = model.updateTime;
-    }
-    [[BRClientManager sharedManager] getVideoListWithNumberOfPages:0 numberOfVideosPerPage:0 after:date success:^(NSArray *videoModelArray) {
-        [[BRCoreDataManager sharedInstance] insertVideosToCoreData:videoModelArray];
+//    NSDate *date = nil;
+//    if (self.dataArray.count != 0) {
+//        BRLectureVideoModel *model = [self.dataArray firstObject];
+//        date = model.updateTime;
+//    }
+    [[BRClientManager sharedManager] getVideoListWithNumberOfPages:0 numberOfVideosPerPage:0 after:nil success:^(NSArray *videoModelArray) {
+        [[BRCoreDataManager sharedInstance] updateAllVideosWith:videoModelArray];
         BRLectureVideoModel *model = [self.dataArray lastObject];
         NSArray *fetchedVideos = [[BRCoreDataManager sharedInstance] fetchVideosWithNumber:-1 isBefore:NO time:model.updateTime];
         self.dataArray = [NSMutableArray arrayWithArray:model?fetchedVideos:videoModelArray];
         [self tableViewDidFinishRefresh:BRRefreshTableViewWidgetHeader reload:YES];
     } failure:^(EMError *error) {
         [self tableViewDidFinishRefresh:BRRefreshTableViewWidgetHeader reload:NO];
-        hud = [MBProgressHUD showHUDAddedTo:self.tableView animated:YES];
-        hud.mode = MBProgressHUDModeText;
-        hud.label.text = error.errorDescription;
-        [hud hideAnimated:YES afterDelay:1.5];
+        self->hud = [MBProgressHUD showHUDAddedTo:self.tableView animated:YES];
+        self->hud.mode = MBProgressHUDModeText;
+        self->hud.label.text = error.errorDescription;
+        [self->hud hideAnimated:YES afterDelay:1.5];
     }];
 }
 

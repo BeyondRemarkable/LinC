@@ -303,10 +303,10 @@ typedef enum : NSUInteger {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (weakSelf) {
                 BRMessageViewController *strongSelf = weakSelf;
-                [hud hideAnimated:YES];
+                [self->hud hideAnimated:YES];
                 if (error != nil) {
-                    hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                    hud.label.text = [NSString stringWithFormat:NSLocalizedString(@"chatroom.joinFailed",@"join chatroom \'%@\' failed"), chatroomId];
+                    self->hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                    self->hud.label.text = [NSString stringWithFormat:NSLocalizedString(@"chatroom.joinFailed",@"join chatroom \'%@\' failed"), chatroomId];
                 } else {
                     strongSelf.isJoinedChatroom = YES;
                     [strongSelf saveChatroom:chatroom];
@@ -326,23 +326,17 @@ typedef enum : NSUInteger {
 
 #pragma mark - EMChatManagerChatroomDelegate
 
-- (void)didReceiveUserJoinedChatroom:(EMChatroom *)aChatroom
-                            username:(NSString *)aUsername
-{
+- (void)userDidJoinChatroom:(EMChatroom *)aChatroom user:(NSString *)aUsername {
     hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.label.text = [NSString stringWithFormat:NSLocalizedString(@"chatroom.join", @"\'%@\'join chatroom\'%@\'"), aUsername, aChatroom.chatroomId];
 }
 
-- (void)didReceiveUserLeavedChatroom:(EMChatroom *)aChatroom
-                            username:(NSString *)aUsername
-{
+- (void)userDidLeaveChatroom:(EMChatroom *)aChatroom user:(NSString *)aUsername {
     hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.label.text = [NSString stringWithFormat:NSLocalizedString(@"chatroom.leave.hint", @"\'%@\'leave chatroom\'%@\'"), aUsername, aChatroom.chatroomId];
 }
 
-- (void)didReceiveKickedFromChatroom:(EMChatroom *)aChatroom
-                              reason:(EMChatroomBeKickedReason)aReason
-{
+- (void)didDismissFromChatroom:(EMChatroom *)aChatroom reason:(EMChatroomBeKickedReason)aReason {
     if ([_conversation.conversationId isEqualToString:aChatroom.chatroomId])
     {
         _isKicked = YES;
@@ -800,14 +794,14 @@ typedef enum : NSUInteger {
     void (^completion)(EMMessage *aMessage, EMError *error) = ^(EMMessage *aMessage, EMError *error) {
         if (!error)
         {
-            [hud hideAnimated:YES];
+            [self->hud hideAnimated:YES];
             [weakSelf _reloadTableViewDataWithMessage:aMessage];
         }
         else
         {
-            hud.mode = MBProgressHUDModeText;
-            hud.label.text = NSLocalizedString(@"message.thumImageFail", @"thumbnail for failure!");
-            [hud hideAnimated:YES afterDelay:1.5];
+            self->hud.mode = MBProgressHUDModeText;
+            self->hud.label.text = NSLocalizedString(@"message.thumImageFail", @"thumbnail for failure!");
+            [self->hud hideAnimated:YES afterDelay:1.5];
         }
     };
     
@@ -889,10 +883,10 @@ typedef enum : NSUInteger {
                     if (!error) {
                         [weakSelf _reloadTableViewDataWithMessage:model.message];
                     }else{
-                        hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                        hud.mode = MBProgressHUDModeText;
-                        hud.label.text = NSLocalizedString(@"message.thumImageFail", @"thumbnail for failure!");
-                        [hud hideAnimated:YES afterDelay:1.5];
+                        self->hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                        self->hud.mode = MBProgressHUDModeText;
+                        self->hud.label.text = NSLocalizedString(@"message.thumImageFail", @"thumbnail for failure!");
+                        [self->hud hideAnimated:YES afterDelay:1.5];
                     }
                 }];
             }
@@ -925,12 +919,12 @@ typedef enum : NSUInteger {
         } else {
             [[EMClient sharedClient].chatManager downloadMessageAttachment:model.message progress:nil completion:^(EMMessage *message, EMError *error) {
                 if (error == nil) {
-                    [hud hideAnimated:YES];
+                    [self->hud hideAnimated:YES];
                 }
                 else {
-                    hud.mode = MBProgressHUDModeText;
-                    hud.label.text = error.errorDescription;
-                    [hud hideAnimated:YES afterDelay:1.5];
+                    self->hud.mode = MBProgressHUDModeText;
+                    self->hud.label.text = error.errorDescription;
+                    [self->hud hideAnimated:YES afterDelay:1.5];
                 }
             }];
         }
@@ -983,7 +977,7 @@ typedef enum : NSUInteger {
 {
     __weak typeof(self) weakSelf = self;
     void (^refresh)(NSArray *messages) = ^(NSArray *messages) {
-        dispatch_async(_messageQueue, ^{
+        dispatch_async(self->_messageQueue, ^{
             //Format the message
             NSArray *formattedMessages = [weakSelf formatMessages:messages];
             
@@ -1042,14 +1036,14 @@ typedef enum : NSUInteger {
         if (!aError) {
             if (aMessages.count) {
                 refresh(aMessages);
-                _isLoadingMessages = NO;
+                self->_isLoadingMessages = NO;
             }
             else {
-                _isLoadingMessages = YES;
+                self->_isLoadingMessages = YES;
             }
         }
         else {
-            _isLoadingMessages = NO;
+            self->_isLoadingMessages = NO;
         }
     }];
 }
@@ -1275,8 +1269,8 @@ typedef enum : NSUInteger {
                         if (data != nil) {
                             [self sendImageMessageWithData:data];
                         } else {
-                            hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                            hud.label.text = NSLocalizedString(@"message.smallerImage", @"The image size is too large, please choose another one");
+                            self->hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                            self->hud.label.text = NSLocalizedString(@"message.smallerImage", @"The image size is too large, please choose another one");
                         }
                     }];
                 }
@@ -1501,7 +1495,7 @@ typedef enum : NSUInteger {
                         [(BRRecordView *)weakSelf.recordView recordButtonTouchDown];
                     }
                 }
-                _isRecording = YES;
+                self->_isRecording = YES;
                 BRRecordView *tmpView = (BRRecordView *)recordView;
                 tmpView.center = self.view.center;
                 [weakSelf.view addSubview:tmpView];
@@ -1513,7 +1507,7 @@ typedef enum : NSUInteger {
                 [[BRCDDeviceManager sharedInstance] asyncStartRecordingWithFileName:fileName completion:^(NSError *error)
                  {
                      if (error) {
-                         _isRecording = NO;
+                         self->_isRecording = NO;
                      }
                  }];
                 
@@ -1565,10 +1559,10 @@ typedef enum : NSUInteger {
                 [weakSelf sendVoiceMessageWithLocalPath:recordPath duration:aDuration];
             }
             else {
-                hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                hud.label.text = error.domain;
+                self->hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                self->hud.label.text = error.domain;
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [hud hideAnimated:YES];
+                    [self->hud hideAnimated:YES];
                 });
             }
         }];
@@ -1704,8 +1698,7 @@ typedef enum : NSUInteger {
 
 #pragma mark - EMChatManagerDelegate
 
-- (void)didReceiveMessages:(NSArray *)aMessages
-{
+- (void)messagesDidReceive:(NSArray *)aMessages {
     for (EMMessage *message in aMessages) {
         if ([self.conversation.conversationId isEqualToString:message.conversationId]) {
             [self addMessageToDataSource:message progress:nil];
@@ -1721,8 +1714,7 @@ typedef enum : NSUInteger {
     }
 }
 
-- (void)didReceiveCmdMessages:(NSArray *)aCmdMessages
-{
+- (void)cmdMessagesDidReceive:(NSArray *)aCmdMessages {
     for (EMMessage *message in aCmdMessages) {
         if ([self.conversation.conversationId isEqualToString:message.conversationId]) {
             hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -1732,82 +1724,79 @@ typedef enum : NSUInteger {
     }
 }
 
-- (void)didReceiveHasDeliveredAcks:(NSArray *)aMessages
-{
-    for(EMMessage *message in aMessages){
-        [self _updateMessageStatus:message];
-    }
-}
+//- (void)didReceiveHasDeliveredAcks:(NSArray *)aMessages
+//{
+//    for(EMMessage *message in aMessages){
+//        [self _updateMessageStatus:message];
+//    }
+//}
 
-- (void)didReceiveHasReadAcks:(NSArray *)aMessages
-{
-    for (EMMessage *message in aMessages) {
-        if (![self.conversation.conversationId isEqualToString:message.conversationId]){
-            continue;
-        }
-        
-        __block id<IMessageModel> model = nil;
-        __block BOOL isHave = NO;
-        [self.dataArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
-         {
-             if ([obj conformsToProtocol:@protocol(IMessageModel)])
-             {
-                 model = (id<IMessageModel>)obj;
-                 if ([model.messageId isEqualToString:message.messageId])
-                 {
-                     model.message.isReadAcked = YES;
-                     isHave = YES;
-                     *stop = YES;
-                 }
-             }
-         }];
-        
-        if(!isHave){
-            return;
-        }
-        
-        if (_delegate && [_delegate respondsToSelector:@selector(messageViewController:didReceiveHasReadAckForModel:)]) {
-            [_delegate messageViewController:self didReceiveHasReadAckForModel:model];
-        }
-        else{
-            [self.tableView reloadData];
-        }
-    }
-}
+//- (void)didReceiveHasReadAcks:(NSArray *)aMessages
+//{
+//    for (EMMessage *message in aMessages) {
+//        if (![self.conversation.conversationId isEqualToString:message.conversationId]){
+//            continue;
+//        }
+//
+//        __block id<IMessageModel> model = nil;
+//        __block BOOL isHave = NO;
+//        [self.dataArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
+//         {
+//             if ([obj conformsToProtocol:@protocol(IMessageModel)])
+//             {
+//                 model = (id<IMessageModel>)obj;
+//                 if ([model.messageId isEqualToString:message.messageId])
+//                 {
+//                     model.message.isReadAcked = YES;
+//                     isHave = YES;
+//                     *stop = YES;
+//                 }
+//             }
+//         }];
+//
+//        if(!isHave){
+//            return;
+//        }
+//
+//        if (_delegate && [_delegate respondsToSelector:@selector(messageViewController:didReceiveHasReadAckForModel:)]) {
+//            [_delegate messageViewController:self didReceiveHasReadAckForModel:model];
+//        }
+//        else{
+//            [self.tableView reloadData];
+//        }
+//    }
+//}
 
-- (void)didMessageStatusChanged:(EMMessage *)aMessage
-                          error:(EMError *)aError;
-{
+- (void)messageStatusDidChange:(EMMessage *)aMessage error:(EMError *)aError {
     [self _updateMessageStatus:aMessage];
 }
 
-- (void)didMessageAttachmentsStatusChanged:(EMMessage *)message
-                                     error:(EMError *)error{
-    if (!error) {
-        EMFileMessageBody *fileBody = (EMFileMessageBody*)[message body];
+- (void)messageAttachmentStatusDidChange:(EMMessage *)aMessage error:(EMError *)aError {
+    if (!aError) {
+        EMFileMessageBody *fileBody = (EMFileMessageBody*)[aMessage body];
         if ([fileBody type] == EMMessageBodyTypeImage) {
             EMImageMessageBody *imageBody = (EMImageMessageBody *)fileBody;
             if ([imageBody thumbnailDownloadStatus] == EMDownloadStatusSuccessed)
             {
-                [self _reloadTableViewDataWithMessage:message];
+                [self _reloadTableViewDataWithMessage:aMessage];
             }
         }else if([fileBody type] == EMMessageBodyTypeVideo){
             EMVideoMessageBody *videoBody = (EMVideoMessageBody *)fileBody;
             if ([videoBody thumbnailDownloadStatus] == EMDownloadStatusSuccessed)
             {
-                [self _reloadTableViewDataWithMessage:message];
+                [self _reloadTableViewDataWithMessage:aMessage];
             }
         }else if([fileBody type] == EMMessageBodyTypeVoice){
             if ([fileBody downloadStatus] == EMDownloadStatusSuccessed)
             {
-                [self _reloadTableViewDataWithMessage:message];
+                [self _reloadTableViewDataWithMessage:aMessage];
             }
         }
         
     }else{
         hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
-        hud.label.text = error.errorDescription;
+        hud.label.text = aError.errorDescription;
         [hud hideAnimated:YES afterDelay:1.5];
     }
 }
@@ -1963,11 +1952,11 @@ typedef enum : NSUInteger {
         NSArray *usernameArray = [usernameSet allObjects];
         
         // 从服务器获取成员信息
-        [[BRClientManager sharedManager] getUserInfoWithUsernames:usernameArray andSaveFlag:NO success:^(NSMutableArray *modelArray) {
+        [[BRClientManager sharedManager] getFriendInfoWithUsernames:usernameArray andSaveFlag:NO success:^(NSMutableArray *modelArray) {
             for (BRContactListModel *userModel in modelArray) {
                 self.dict[userModel.username] = userModel;
             }
-            [[BRCoreDataManager sharedInstance] saveGroupMembersToCoreData:modelArray toGroup:_conversation.conversationId];
+            [[BRCoreDataManager sharedInstance] saveGroupMembersToCoreData:modelArray toGroup:self.conversation.conversationId];
             for (id obj in self.dataArray) {
                 if (![obj isKindOfClass:[BRMessageModel class]]) {
                     continue;
@@ -2065,8 +2054,6 @@ typedef enum : NSUInteger {
         message.chatType = EMChatTypeChatRoom;
     }
     
-    BRCoreDataManager *manager = [BRCoreDataManager sharedInstance];
-    [manager insertConversationToCoreData:message];
     [[NSNotificationCenter defaultCenter] postNotificationName:BRDataUpdateNotification object:nil];
     
     __weak typeof(self) weakself = self;
@@ -2300,7 +2287,7 @@ typedef enum : NSUInteger {
         if ([splits count]) {
             for (NSString *split in splits) {
                 if (split.length) {
-                    NSString *atALl = NSLocalizedString(@"group.atAll", @"all");
+                    NSString *atALl = NSLocalizedString(@"group.at all", nil);
                     if (split.length >= atALl.length && [split compare:atALl options:NSCaseInsensitiveSearch range:NSMakeRange(0, atALl.length)] == NSOrderedSame) {
                         [targets removeAllObjects];
                         [targets addObject:kGroupMessageAtAll];

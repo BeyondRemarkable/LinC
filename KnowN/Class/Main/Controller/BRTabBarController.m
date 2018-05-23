@@ -44,7 +44,7 @@
         [self setupChildVc:chatsVc title:NSLocalizedString(@"Messages", nil) imageName:@"tabbar_conversationlist" selectedImageName:@"tabbar_conversationlist_selected"];
 
         // Add contact list view controller
-        BRContactListViewController *contactListVC = [[BRContactListViewController alloc] initWithStyle:UITableViewStyleGrouped];
+        BRContactListViewController *contactListVC = [[BRContactListViewController alloc] initWithStyle:UITableViewStylePlain];
         [self setupChildVc:contactListVC title:NSLocalizedString(@"Contacts", nil) imageName:@"tabbar_contactlist" selectedImageName:@"tabbar_contactlist_selected"];
         
         // Add user infromation view controller
@@ -69,6 +69,9 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
+    [BRAudioCallManager sharedManager];
+    [self registerNotification];
     
     NSArray *conversations = [[EMClient sharedClient].chatManager getAllConversations];
     // 获取未读消息数，设置badge，并更新群信息
@@ -139,7 +142,7 @@
     
     // 设置tabBarItem的文字颜色属性
     [childVc.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:BRColor(94, 94, 94)} forState:UIControlStateNormal];
-    [childVc.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:BRColor(22, 117, 179)} forState:UIControlStateSelected];
+    [childVc.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:BRColor(247, 106, 45)} forState:UIControlStateSelected];
     
     BRNavigationController *navigationVc = [[BRNavigationController alloc] initWithRootViewController:childVc];
     [self addChildViewController:navigationVc];

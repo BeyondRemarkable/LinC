@@ -21,15 +21,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_screen" translatesAutoresizingMaskIntoConstraints="NO" id="D4U-NY-OQB">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="boot_page_image" translatesAutoresizingMaskIntoConstraints="NO" id="vUp-qx-SEV">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                             </imageView>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="D4U-NY-OQB" secondAttribute="bottom" id="00O-xM-76N"/>
-                            <constraint firstAttribute="trailing" secondItem="D4U-NY-OQB" secondAttribute="trailing" id="esz-sd-P7h"/>
-                            <constraint firstItem="D4U-NY-OQB" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="g7V-Lk-fMF"/>
-                            <constraint firstItem="D4U-NY-OQB" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="gFb-kU-5YF"/>
+                            <constraint firstAttribute="bottom" secondItem="vUp-qx-SEV" secondAttribute="bottom" id="5xn-oG-usX"/>
+                            <constraint firstAttribute="trailing" secondItem="vUp-qx-SEV" secondAttribute="trailing" id="NRJ-8A-y58"/>
+                            <constraint firstItem="vUp-qx-SEV" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="PYS-TQ-M5n"/>
+                            <constraint firstItem="vUp-qx-SEV" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="fZg-Pd-Yhn"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -39,6 +39,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="launch_screen" width="1080" height="1921"/>
+        <image name="boot_page_image" width="414" height="736"/>
     </resources>
 </document>

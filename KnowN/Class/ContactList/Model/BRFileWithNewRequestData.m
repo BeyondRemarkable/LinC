@@ -10,7 +10,6 @@
 
 @implementation BRFileWithNewRequestData
 
-
 /**
     获取到ios document 文件目录
  
@@ -42,22 +41,25 @@
 
     // Write data to file
     NSMutableArray *newRequestData = [[NSMutableArray alloc] initWithContentsOfFile: path];
-    if (newRequestData.count == 0) {
+    if (newRequestData == nil) {
         newRequestData = [NSMutableArray array];
+    }
+
+    NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
+    if ([dictData[@"loginUser"] isEqualToString:username]) {
+        for (NSUInteger i = 0; i < newRequestData.count; i++) {
+            NSDictionary *dict = newRequestData[i];
+            if ([dict[@"userID"] isEqualToString:dictData[@"userID"]]) {
+                [newRequestData replaceObjectAtIndex:i withObject:dictData];
+                [newRequestData writeToFile:path atomically:YES];
+                return NO;
+            }
+        }
         [newRequestData addObject:dictData];
         [newRequestData writeToFile:path atomically:YES];
         return YES;
-    } else {
-        NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
-        for (NSDictionary *dict in newRequestData) {
-            if ([dictData[@"loginUser"] isEqualToString:username] && ![[dict allValues] containsObject:dictData[@"userID"]]) {
-                [newRequestData addObject:dictData];
-                [newRequestData writeToFile:path atomically:YES];
-                return YES;
-            }
-        }
-        return NO;
     }
+    return NO;
 }
 
 /**

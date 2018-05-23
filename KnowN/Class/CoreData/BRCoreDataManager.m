@@ -166,6 +166,30 @@ BRUserInfo *userInfoDic = nil;
 }
 
 /**
+ 获取所有的好友模型数据
+ 
+ 返回数据包含的数据类型为BRContactListModel
+ */
+- (NSMutableArray *)fetchAllFriends {
+    BRUserInfo *userInfo = [self getUserInfo];
+    NSMutableArray *friendsModelArray = [NSMutableArray array];
+    for (BRFriendsInfo *friendsInfo in userInfo.friendsInfo) {
+        
+        BRContactListModel *contactModel = [[BRContactListModel alloc] init];
+        contactModel.username = friendsInfo.username;
+        contactModel.nickname = friendsInfo.nickname;
+        UIImage *avatar = [UIImage imageWithData: friendsInfo.avatar];
+        contactModel.avatarImage = avatar ? avatar : [UIImage imageNamed:@"user_default"];
+        contactModel.whatsUp = friendsInfo.whatsUp;
+        contactModel.gender = friendsInfo.gender;
+        
+        [friendsModelArray addObject:contactModel];
+    }
+    
+    return friendsModelArray;
+}
+
+/**
  检查好友列表 如何数据不存在，插入数据，并保存
  如果数据存在，检查是否需要更新
  
@@ -318,41 +342,41 @@ BRUserInfo *userInfoDic = nil;
     
     BOOL isContains = NO;
     for (BRConversation *conversation in userInfo.conversation) {
-        
-        if (conversation.conversationId && [conversation.conversationId containsString: message.conversationId]) {
+        if (conversation.conversationId && [conversation.conversationId isEqualToString: message.conversationId]) {
             isContains = YES;
+            break;
         }
     }
-        //数据库中没有会话模型数据， 直接保存
-        if (!isContains) {
-            BRConversation *conversation =  [NSEntityDescription insertNewObjectForEntityForName:@"BRConversation" inManagedObjectContext:context];
-            conversation.conversationId = message.conversationId;
-//            conversation.chatType = message.chatType;
-//            conversation.latestMessageTitle = [NSString stringWithFormat:@"%@", message.body];
-//            conversation.latestMessageTime = message.timestamp;
-//            conversation.from = message.from;
-//            conversation.to = message.to;
-//            conversation.direction = message.direction;
-//            conversation.status = message.status;
-            
-            [userInfo addConversationObject:conversation];
-            [self saveData];
-        } else {
-            //已经保存会话模型，更新数据
-            for (BRConversation *conversation in userInfo.conversation) {
-                if ([conversation.conversationId isEqualToString:message.conversationId]) {
-                    conversation.conversationId = message.conversationId;
-//                    conversation.chatType = message.chatType;
-//                    conversation.latestMessageTitle = [NSString stringWithFormat:@"%@", message.body];
-//                    conversation.latestMessageTime = message.timestamp;
-//                    conversation.from = message.from;
-//                    conversation.to = message.to;
-//                    conversation.direction = message.direction;
-//                    conversation.status = message.status;
-                    [self saveData];
-                }
+    //数据库中没有会话模型数据， 直接保存
+    if (!isContains) {
+        BRConversation *conversation =  [NSEntityDescription insertNewObjectForEntityForName:@"BRConversation" inManagedObjectContext:context];
+        conversation.conversationId = message.conversationId;
+//        conversation.chatType = message.chatType;
+//        conversation.latestMessageTitle = [NSString stringWithFormat:@"%@", message.body];
+//        conversation.latestMessageTime = message.timestamp;
+//        conversation.from = message.from;
+//        conversation.to = message.to;
+//        conversation.direction = message.direction;
+//        conversation.status = message.status;
+        
+        [userInfo addConversationObject:conversation];
+        [self saveData];
+    } else {
+        //已经保存会话模型，更新数据
+        for (BRConversation *conversation in userInfo.conversation) {
+            if ([conversation.conversationId isEqualToString:message.conversationId]) {
+                conversation.conversationId = message.conversationId;
+//                conversation.chatType = message.chatType;
+//                conversation.latestMessageTitle = [NSString stringWithFormat:@"%@", message.body];
+//                conversation.latestMessageTime = message.timestamp;
+//                conversation.from = message.from;
+//                conversation.to = message.to;
+//                conversation.direction = message.direction;
+//                conversation.status = message.status;
+                [self saveData];
             }
         }
+    }
     
 }
 
@@ -653,6 +677,18 @@ BRUserInfo *userInfoDic = nil;
         }
     }
     [self saveData];
+}
+
+/**
+ 更新数据库中所有视频数据
+ @param videoArray 从服务器获取的视频数据
+ */
+- (void)updateAllVideosWith:(NSArray *)videoArray {
+    BRUserInfo *userInfo = [self getUserInfo];
+    if (videoArray.count < userInfo.videos.count) {
+        [userInfo removeVideos:userInfo.videos];
+    }
+    [self insertVideosToCoreData:videoArray];
 }
 
 /**

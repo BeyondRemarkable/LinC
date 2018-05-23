@@ -137,7 +137,7 @@ static BRAudioCallManager *callManager = nil;
     }
     if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateBackground) {
         UILocalNotification *notification = [[UILocalNotification alloc] init];
-        notification.alertBody = [@"You have a incoming call from " stringByAppendingString: aSession.remoteName];
+        notification.alertBody = [NSLocalizedString(@"Audio call.notification", nil) stringByAppendingString: aSession.remoteName];
         notification.alertAction = @"Open";
         notification.soundName = UILocalNotificationDefaultSoundName;
         [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
@@ -212,7 +212,7 @@ static BRAudioCallManager *callManager = nil;
                     break;
                 case EMCallEndReasonDecline:
                 {
-                    reasonStr = [aSession.remoteName stringByAppendingString:NSLocalizedString(@" reject your call.", nil)];
+                    reasonStr = [aSession.remoteName stringByAppendingString:NSLocalizedString(@"Auido call.reject", nil)];
                 }
                     break;
                 case EMCallEndReasonBusy:
@@ -232,7 +232,7 @@ static BRAudioCallManager *callManager = nil;
                     break;
                 case EMCallEndReasonRemoteOffline:
                 {
-                    reasonStr = [aSession.remoteName stringByAppendingString:NSLocalizedString(@" offline.", nil)];
+                    reasonStr = [aSession.remoteName stringByAppendingString:NSLocalizedString(@"Audio call.offline", nil)];
                 }
                     break;
                 default:
@@ -254,7 +254,7 @@ static BRAudioCallManager *callManager = nil;
         } else {
             hud = [MBProgressHUD showHUDAddedTo: [UIApplication sharedApplication].keyWindow animated:YES];
             hud.mode = MBProgressHUDModeText;
-            hud.label.text = [aSession.remoteName stringByAppendingString:NSLocalizedString(@" hang up your call.", nil)] ;
+            hud.label.text = [aSession.remoteName stringByAppendingString:NSLocalizedString(@"Audio call.hang up", nil)] ;
             [hud hideAnimated:YES afterDelay:1.5];
         }
     }

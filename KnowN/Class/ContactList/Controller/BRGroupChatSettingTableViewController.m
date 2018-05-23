@@ -102,15 +102,15 @@ static NSString * const cellIdentifier = @"groupCell";
             } else {
                 self.groupDescriptionLabel.text = aGroup.description;
             }
-            groupOwner = aGroup.owner;
-            groupSetting = aGroup.setting;
+            self->groupOwner = aGroup.owner;
+            self->groupSetting = aGroup.setting;
            
             [self.tableView reloadData];
-            [hud hideAnimated:YES];
+            [self->hud hideAnimated:YES];
         } else {
-            hud.mode = MBProgressHUDModeText;
-            hud.label.text = aError.errorDescription;
-            [hud hideAnimated:YES afterDelay:1.5];
+            self->hud.mode = MBProgressHUDModeText;
+            self->hud.label.text = aError.errorDescription;
+            [self->hud hideAnimated:YES afterDelay:1.5];
         }
     }];
 }
@@ -174,7 +174,7 @@ static NSString * const cellIdentifier = @"groupCell";
                 groupMembersArray = [[aResult.list mutableCopy] arrayByAddingObject:group.groupOwner];
             }
             // 获取群成员信息
-            [[BRClientManager sharedManager] getUserInfoWithUsernames:groupMembersArray andSaveFlag:NO success:^(NSMutableArray *groupMembersInfoArray) {
+            [[BRClientManager sharedManager] getFriendInfoWithUsernames:groupMembersArray andSaveFlag:NO success:^(NSMutableArray *groupMembersInfoArray) {
                 [groupMembersInfoArray sortUsingComparator:^NSComparisonResult(BRContactListModel *left, BRContactListModel *right) {
                     return [left.nickname compare: right.nickname];
                 }];
@@ -182,17 +182,17 @@ static NSString * const cellIdentifier = @"groupCell";
                 // 保存到数据库
                 [[BRCoreDataManager sharedInstance] saveGroupMembersToCoreData:groupMembersInfoArray toGroup:self.groupID];
                 
-                [hud hideAnimated:YES];
+                [self->hud hideAnimated:YES];
                 [self.tableView reloadData];
             } failure:^(EMError *error) {
-                hud.mode = MBProgressHUDModeText;
-                hud.label.text = error.errorDescription;
-                [hud hideAnimated:YES afterDelay:1.5];
+                self->hud.mode = MBProgressHUDModeText;
+                self->hud.label.text = error.errorDescription;
+                [self->hud hideAnimated:YES afterDelay:1.5];
             }];
         } else {
-            hud.mode = MBProgressHUDModeText;
-            hud.label.text = aError.errorDescription;
-            [hud hideAnimated:YES afterDelay:1.5];
+            self->hud.mode = MBProgressHUDModeText;
+            self->hud.label.text = aError.errorDescription;
+            [self->hud hideAnimated:YES afterDelay:1.5];
         }
         
     }];
@@ -291,14 +291,14 @@ static NSString * const cellIdentifier = @"groupCell";
     
     [[EMClient sharedClient].groupManager joinPublicGroup:self.groupID completion:^(EMGroup *aGroup, EMError *aError) {
         if (!aError) {
-            hud.mode = MBProgressHUDModeText;
-            hud.label.text = @"Join Successfully";
+            self->hud.mode = MBProgressHUDModeText;
+            self->hud.label.text = @"Join Successfully";
             [self performSelector:@selector(pushToGroupMessageBy:) withObject:aGroup afterDelay:1.5];
             
         } else {
-            hud.mode = MBProgressHUDModeText;
-            hud.label.text = aError.errorDescription;
-            [hud hideAnimated:YES afterDelay:1.5];
+            self->hud.mode = MBProgressHUDModeText;
+            self->hud.label.text = aError.errorDescription;
+            [self->hud hideAnimated:YES afterDelay:1.5];
         }
     }];
 }
@@ -335,10 +335,10 @@ static NSString * const cellIdentifier = @"groupCell";
         delete = [UIAlertAction actionWithTitle:@"Destory group" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
             
             [[EMClient sharedClient].groupManager destroyGroup:self.groupID finishCompletion:^(EMError *aError) {
-                hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                hud.mode = MBProgressHUDModeText;
+                self->hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                self->hud.mode = MBProgressHUDModeText;
                 if (!aError) {
-                    hud.label.text = @"Destory group successfully.";
+                    self->hud.label.text = @"Destory group successfully.";
                     [[BRCoreDataManager sharedInstance] deleteGroupByGoupID:self.groupID];
                     dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5/*延迟执行时间*/ * NSEC_PER_SEC));
                     
@@ -346,8 +346,8 @@ static NSString * const cellIdentifier = @"groupCell";
                         [self.navigationController popToRootViewControllerAnimated:YES];
                     });
                 } else {
-                    hud.label.text = aError.errorDescription;
-                    [hud hideAnimated:YES afterDelay:1.5];
+                    self->hud.label.text = aError.errorDescription;
+                    [self->hud hideAnimated:YES afterDelay:1.5];
                 }
             }];
         }];
@@ -355,10 +355,10 @@ static NSString * const cellIdentifier = @"groupCell";
         // 群成员退出群
         delete = [UIAlertAction actionWithTitle:@"Comfirm leave group" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
             [[EMClient sharedClient].groupManager  leaveGroup:self.groupID completion:^(EMError *aError) {
-                hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                hud.mode = MBProgressHUDModeText;
+                self->hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                self->hud.mode = MBProgressHUDModeText;
                 if (!aError) {
-                    hud.label.text = @"Leave group successfully.";
+                    self->hud.label.text = @"Leave group successfully.";
                     [[BRCoreDataManager sharedInstance] deleteGroupByGoupID:self.groupID];
                     dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5/*延迟执行时间*/ * NSEC_PER_SEC));
                     
@@ -366,8 +366,8 @@ static NSString * const cellIdentifier = @"groupCell";
                         [self.navigationController popToRootViewControllerAnimated:YES];
                     });
                 } else {
-                    hud.label.text = aError.errorDescription;
-                    [hud hideAnimated:YES afterDelay:1.5];
+                    self->hud.label.text = aError.errorDescription;
+                    [self->hud hideAnimated:YES afterDelay:1.5];
                 }
             }];
         }];

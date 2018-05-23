@@ -221,7 +221,7 @@
  @param successBlock successBlock userModelArray
  @param failureBlock failureBlock error
  */
-- (void)getUserInfoWithUsernames:(NSArray *)usernameList andSaveFlag:(BOOL) saveFlag success:(void (^)(NSMutableArray *))successBlock failure:(void (^)(EMError *))failureBlock {
+- (void)getFriendInfoWithUsernames:(NSArray *)usernameList andSaveFlag:(BOOL) saveFlag success:(void (^)(NSMutableArray *))successBlock failure:(void (^)(EMError *))failureBlock {
     // 如果传入数组为空
     if (usernameList.count == 0) {
         successBlock(nil);
@@ -245,7 +245,7 @@
     NSString *jsonStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     NSDictionary *parameters = @{@"key":@"username",@"value":jsonStr};
     
-    NSMutableArray *userModelArray = [NSMutableArray array];
+    NSMutableArray *friendModelArray = [NSMutableArray array];
     [manager POST:url parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dict = (NSDictionary *)responseObject;
         
@@ -272,13 +272,13 @@
                     });
                 }
                 
-                [userModelArray addObject:model];
+                [friendModelArray addObject:model];
             }
             dispatch_group_notify(group, dispatch_get_main_queue(), ^{
                 if (saveFlag) {
-                    [[BRCoreDataManager sharedInstance] saveFriendsInfoToCoreData:userModelArray];
+                    [[BRCoreDataManager sharedInstance] saveFriendsInfoToCoreData:friendModelArray];
                 }
-                successBlock(userModelArray);
+                successBlock(friendModelArray);
             });
         }
         else {
@@ -486,7 +486,7 @@
                 }
                 dispatch_group_async(dispathGroupMemberInfo, dispatch_get_global_queue(0, 0), ^{
                    dispatch_group_enter(dispathGroupMemberInfo);
-                    [self getUserInfoWithUsernames:groupMembersArray andSaveFlag:NO success:^(NSMutableArray *groupMembers) {
+                    [self getFriendInfoWithUsernames:groupMembersArray andSaveFlag:NO success:^(NSMutableArray *groupMembers) {
                         
                         NSMutableArray *membersIconArray = [NSMutableArray array];
                         for (NSInteger i = 0; i < groupMembers.count; i++) {

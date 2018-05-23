@@ -36,7 +36,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = BRColor(248, 248, 248);
+//    self.view.backgroundColor = BRColor(248, 248, 248);
+    self.view.backgroundColor = [UIColor whiteColor];
     _statusBarHidden = NO;
     [self setupSubviews];
     

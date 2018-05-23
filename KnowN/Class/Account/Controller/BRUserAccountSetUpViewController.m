@@ -155,7 +155,7 @@
 
             hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             [[BRClientManager sharedManager] getCodeWithEmail:email success:^{
-                [hud hideAnimated:YES];
+                [self->hud hideAnimated:YES];
                 [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
                     self.registerViewLeftConstraint.constant = 0;
                     self.registerViewRightConstraint.constant = 0;
@@ -171,9 +171,9 @@
                 // 清空emailTextField
                 self.emailTextField.text = @"";
             } failure:^(EMError *error) {
-                hud.mode = MBProgressHUDModeText;
-                hud.label.text = error.errorDescription;
-                [hud hideAnimated:YES afterDelay:1.5];
+                self->hud.mode = MBProgressHUDModeText;
+                self->hud.label.text = error.errorDescription;
+                [self->hud hideAnimated:YES afterDelay:1.5];
             }];
             break;
         }
@@ -192,7 +192,7 @@
             hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 
             [[BRClientManager sharedManager] getcodeWithPhoneNumber:phoneNumber success:^{
-                [hud hideAnimated:YES];
+                [self->hud hideAnimated:YES];
                 [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
                     self.registerViewLeftConstraint.constant = 0;
                     self.registerViewRightConstraint.constant = 0;
@@ -205,7 +205,7 @@
                     self.timer = [NSTimer scheduledTimerWithTimeInterval:60 repeats:NO block:^(NSTimer * _Nonnull timer) {
                         
                     }];
-                    [hud hideAnimated:YES];
+                    [self->hud hideAnimated:YES];
                     [self.userNameTextField becomeFirstResponder];
                 }];
                 
@@ -213,9 +213,9 @@
                 self.areaCodeTextField.text = @"";
                 self.phoneNumberTextField.text = @"";
             } failure:^(EMError *error) {
-                hud.mode = MBProgressHUDModeText;
-                hud.label.text = error.errorDescription;
-                [hud hideAnimated:YES afterDelay:1.5];
+                self->hud.mode = MBProgressHUDModeText;
+                self->hud.label.text = error.errorDescription;
+                [self->hud hideAnimated:YES afterDelay:1.5];
             }];
             break;
         }
@@ -246,41 +246,41 @@
         } completion:nil];
     }]];
     [alertController addAction:[UIAlertAction actionWithTitle:@"Resend code" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        self->hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         
         switch (self.registerType) {
             case BRRegisterTypeEmail: {
-                [[BRClientManager sharedManager] getCodeWithEmail:email success:^{
-                    hud.mode = MBProgressHUDModeText;
-                    hud.label.text = @"Sent successfully";
-                    [hud hideAnimated:YES afterDelay:1.5];
+                [[BRClientManager sharedManager] getCodeWithEmail:self->email success:^{
+                    self->hud.mode = MBProgressHUDModeText;
+                    self->hud.label.text = @"Sent successfully";
+                    [self->hud hideAnimated:YES afterDelay:1.5];
                 } failure:^(EMError *error) {
-                    hud.mode = MBProgressHUDModeText;
-                    hud.label.text = error.errorDescription;
-                    [hud hideAnimated:YES afterDelay:1.5];
+                    self->hud.mode = MBProgressHUDModeText;
+                    self->hud.label.text = error.errorDescription;
+                    [self->hud hideAnimated:YES afterDelay:1.5];
                 }];
                 break;
             }
                 
             case BRRegisterTypeMobile: {
                 if (self.timer.isValid) {
-                    hud.mode = MBProgressHUDModeText;
-                    hud.label.text = NSLocalizedString(@"Code is sent, please try again later", nil);
-                    [hud hideAnimated:YES afterDelay:2.0];
+                    self->hud.mode = MBProgressHUDModeText;
+                    self->hud.label.text = NSLocalizedString(@"Code is sent, please try again later", nil);
+                    [self->hud hideAnimated:YES afterDelay:2.0];
                     break;
                 }
-                [[BRClientManager sharedManager] getcodeWithPhoneNumber:phoneNumber success:^{
-                    hud.mode = MBProgressHUDModeText;
-                    hud.label.text = @"Sent successfully";
-                    [hud hideAnimated:YES afterDelay:1.5];
+                [[BRClientManager sharedManager] getcodeWithPhoneNumber:self->phoneNumber success:^{
+                    self->hud.mode = MBProgressHUDModeText;
+                    self->hud.label.text = @"Sent successfully";
+                    [self->hud hideAnimated:YES afterDelay:1.5];
                     
                     self.timer = [NSTimer scheduledTimerWithTimeInterval:60 repeats:NO block:^(NSTimer * _Nonnull timer) {
                         
                     }];
                 } failure:^(EMError *error) {
-                    hud.mode = MBProgressHUDModeText;
-                    hud.label.text = error.errorDescription;
-                    [hud hideAnimated:YES afterDelay:1.5];
+                    self->hud.mode = MBProgressHUDModeText;
+                    self->hud.label.text = error.errorDescription;
+                    [self->hud hideAnimated:YES afterDelay:1.5];
                 }];
                 break;
             }
@@ -310,23 +310,23 @@
     void (^successBlock)(NSString*, NSString*) = ^(NSString *username, NSString *password) {
         // 注册完成后执行登录
         [[BRClientManager sharedManager] loginWithUsername:username password:password success:^(NSString *username) {
-            [hud hideAnimated:YES];
+            [self->hud hideAnimated:YES];
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
             BRTabBarController *vc = [storyboard instantiateViewControllerWithIdentifier:@"BRTabBarController"];
             [[UIApplication sharedApplication].keyWindow setRootViewController:vc];
         } failure:^(EMError *error) {
-            hud.mode = MBProgressHUDModeText;
-            hud.label.text = error.errorDescription;
-            hud.label.numberOfLines = 0;
-            [hud hideAnimated:YES afterDelay:1.5];
+            self->hud.mode = MBProgressHUDModeText;
+            self->hud.label.text = error.errorDescription;
+            self->hud.label.numberOfLines = 0;
+            [self->hud hideAnimated:YES afterDelay:1.5];
         }];
     };
     
     void (^failureBlock)(EMError *) = ^(EMError *error) {
-        hud.mode = MBProgressHUDModeText;
-        hud.label.text = error.errorDescription;
-        hud.label.numberOfLines = 0;
-        [hud hideAnimated:YES afterDelay:1.5];
+        self->hud.mode = MBProgressHUDModeText;
+        self->hud.label.text = error.errorDescription;
+        self->hud.label.numberOfLines = 0;
+        [self->hud hideAnimated:YES afterDelay:1.5];
     };
     switch (self.registerType) {
         case BRRegisterTypeEmail:

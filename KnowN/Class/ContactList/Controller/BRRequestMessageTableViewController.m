@@ -27,11 +27,6 @@
     [self setUpNavigationBarItem];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 // Add save and cancel buttons to navigation bar
 - (void)setUpNavigationBarItem {
     
@@ -57,15 +52,15 @@
         [[EMClient sharedClient].groupManager applyJoinPublicGroup:self.groupID message:nil error:nil];
 
         [[EMClient sharedClient].chatManager sendMessage:message progress:nil completion:^(EMMessage *aMessage, EMError *aError) {
-            hud.mode = MBProgressHUDModeText;
+            self->hud.mode = MBProgressHUDModeText;
             if (aError) {
-                hud.label.text = aError.errorDescription;
+                self->hud.label.text = aError.errorDescription;
             }
             else {
-                hud.label.text = @"Send Successfully";
+                self->hud.label.text = @"Send Successfully";
                 [self performSelector:@selector(dismissVC) withObject:nil afterDelay:1.5];
             }
-            [hud hideAnimated:YES afterDelay:1.5];
+            [self->hud hideAnimated:YES afterDelay:1.5];
         }];
         
     } else {
@@ -82,23 +77,35 @@
     }];
     
     [[EMClient sharedClient].chatManager sendMessage:message progress:nil completion:^(EMMessage *aMessage, EMError *aError) {
-        hud.mode = MBProgressHUDModeText;
-        if (aError) {
-            hud.label.text = aError.errorDescription;
+        if (!aError) {
+            [[EMClient sharedClient].contactManager addContact:self.searchID message:self.userMessage.text completion:^(NSString *aUsername, EMError *aError) {
+                self->hud.mode = MBProgressHUDModeText;
+                if (!aError) {
+                    self->hud.label.text = @"Send Successfully";
+                    [self performSelector:@selector(dismissVC) withObject:nil afterDelay:1.5];
+                }
+                else {
+                    self->hud.label.text = aError.errorDescription;
+                }
+            }];
         }
         else {
-            hud.label.text = @"Send Successfully";
-            [self performSelector:@selector(dismissVC) withObject:nil afterDelay:1.5];
+            self->hud.mode = MBProgressHUDModeText;
+            self->hud.label.text = aError.errorDescription;
         }
-        [hud hideAnimated:YES afterDelay:1.5];
+        [self->hud hideAnimated:YES afterDelay:1.5];
     }];
    
 
 }
 
 - (void)dismissVC {
-    [self.navigationController popViewControllerAnimated:YES];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if (self.presentingViewController) {
+        [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    }
+    else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (void)cancelBtn {
