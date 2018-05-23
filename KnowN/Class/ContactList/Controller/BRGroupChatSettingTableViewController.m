@@ -146,6 +146,7 @@ static NSString * const cellIdentifier = @"groupCell";
         [groupMembersArray addObject:model];
         [self.groupMembersName addObject:model.username];
     }
+
     [groupMembersArray sortUsingComparator:^NSComparisonResult(BRContactListModel *left, BRContactListModel *right) {
         return [left.nickname compare: right.nickname];
     }];

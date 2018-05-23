@@ -115,7 +115,8 @@
 }
 
 //监听环信在线推送消息
--(void)didReceiveMessages:(NSArray *)aMessages{
+- (void)messagesDidReceive:(NSArray *)aMessages {
+    
     //判断是不是后台，如果是后台就发推送
     if (aMessages.count == 0) {
         return ;

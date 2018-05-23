@@ -136,4 +136,18 @@
 " left the conference." = " 离开了群聊。";
 "Conference call ended." = "群聊结束。";
 "Invite failed." = "邀请失败。";
+"Audio call.notification" = "语音通话来自";
+"Audio call.no response" = "无人接听";
+"Audio call.reject" = "对方拒绝接听";
+"Audio call.calling..." = " 正在通话中...";
+"Audio call.connection failed" = "连接失败";
+"Audio call.unsupported" = "不支持语音通话";
+"Audio call.offline" = "对方不在线";
+"Audio call.network disconnection" = "网络连接中断";
+"Audio call.no response and hang up" = "无人接听并挂断";
+"Audio call" = "语音通话";
+"Audio call.network status unstable" = "网络不稳定";
+"Audio call.hang up" = "对方已挂断";
 
+// Search
+"Search Friend" = "搜索好友";

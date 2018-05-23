@@ -70,14 +70,7 @@ static NSString * const cellIdentifier = @"ContactListCell";
     [self loadFriendsInfoFromCoreData];
     [self setUpTableView];
     [self setUpNavigationBarItem];
-    
-    [[EMClient sharedClient].contactManager addDelegate:self delegateQueue:nil];
-    
-    // 注册通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedNewFriendRequest:)
-                                                 name:kBRFriendRequestExtKey object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedNewFriendRequest:)
-                                                 name:kBRGroupRequestExtKey object:nil];
+    [self setupNotifications];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

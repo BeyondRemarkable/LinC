@@ -106,7 +106,7 @@ static BRAudioCallManager *callManager = nil;
 {
     [self hangupCallWithReason:EMCallEndReasonNoResponse];
     
-    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:NSLocalizedString(@"No response and Call Ended.", nil) preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:NSLocalizedString(@"Audio call.no response and hang up", nil) preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *action = [UIAlertAction actionWithTitle:NSLocalizedString(@"ok", @"OK") style:UIAlertActionStyleDefault handler:nil];
     [alertVC addAction:action];
     [self pushAlertView:alertVC];
@@ -207,7 +207,7 @@ static BRAudioCallManager *callManager = nil;
             switch (aReason) {
                 case EMCallEndReasonNoResponse:
                 {
-                    reasonStr = NSLocalizedString(@"Not available.", nil);
+                    reasonStr = NSLocalizedString(@"Audio call.no response", nil);
                 }
                     break;
                 case EMCallEndReasonDecline:
@@ -217,17 +217,17 @@ static BRAudioCallManager *callManager = nil;
                     break;
                 case EMCallEndReasonBusy:
                 {
-                    reasonStr = [aSession.remoteName stringByAppendingString:NSLocalizedString(@" is busy", nil)];
+                    reasonStr = [aSession.remoteName stringByAppendingString:NSLocalizedString(@"Audio call.calling...", nil)];
                 }
                     break;
                 case EMCallEndReasonFailed:
                 {
-                    reasonStr = NSLocalizedString(@"Connection failed.", nil);
+                    reasonStr = NSLocalizedString(@"Audio call.connection failed.", nil);
                 }
                     break;
                 case EMCallEndReasonUnsupported:
                 {
-                    reasonStr = NSLocalizedString(@"Video Calling Unsupported.", nil);
+                    reasonStr = NSLocalizedString(@"Audio call.unsupported", nil);
                 }
                     break;
                 case EMCallEndReasonRemoteOffline:
@@ -396,7 +396,7 @@ static BRAudioCallManager *callManager = nil;
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (error.code == EMErrorNetworkUnavailable) {
                     
-                    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:NSLocalizedString(@"Network Disconnected error.", nil) preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:NSLocalizedString(@"Audio call.network disconnection", nil) preferredStyle:UIAlertControllerStyleAlert];
                     UIAlertAction *action = [UIAlertAction actionWithTitle:NSLocalizedString(@"ok", @"OK") style:UIAlertActionStyleDefault handler:nil];
                     [alertVC addAction:action];
                     [self pushAlertView:alertVC];

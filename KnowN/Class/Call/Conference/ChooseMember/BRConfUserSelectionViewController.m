@@ -132,13 +132,6 @@
         BRGroup *group = [[[BRCoreDataManager sharedInstance] fetchGroupsWithGroupID:self.groupID] lastObject];
         [groupMembersArray addObject:group.groupOwner];
         
-        for (NSString *groupMember in groupMembersArray) {
-            if ([[EMClient sharedClient].currentUsername isEqualToString:groupMember]) {
-                [groupMembersArray removeObject:groupMember];
-                break;
-            }
-        }
-        
         if (!groupMembersArray.count) {
             UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:NSLocalizedString(@"Empty Chat Group.", nil) preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction *action = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleDefault handler:nil];
@@ -148,25 +141,34 @@
 
         if (!aError) {
             // 获取群成员信息
-            [[BRClientManager sharedManager] getUserInfoWithUsernames:groupMembersArray andSaveFlag:NO success:^(NSMutableArray *groupMembersInfoArray) {
+            [[BRClientManager sharedManager] getFriendInfoWithUsernames:groupMembersArray andSaveFlag:NO success:^(NSMutableArray *groupMembersInfoArray) {
                 [groupMembersInfoArray sortUsingComparator:^NSComparisonResult(BRContactListModel *left, BRContactListModel *right) {
                     return [left.nickname compare: right.nickname];
                 }];
 
                 // 保存到数据库
                 [[BRCoreDataManager sharedInstance] saveGroupMembersToCoreData:groupMembersInfoArray toGroup:self.groupID];
-                self.dataArray = [[BRCoreDataManager sharedInstance] fetchGroupMembersByGroupID:self.groupID andGroupMemberUserNameArray:nil];
-                [hud hideAnimated:YES];
+                NSMutableArray *groupMembersArray = [[[BRCoreDataManager sharedInstance] fetchGroupMembersByGroupID:self.groupID andGroupMemberUserNameArray:nil] mutableCopy];
+                
+                for (BRFriendsInfo *groupMemberInfo in groupMembersArray) {
+                    if ([[EMClient sharedClient].currentUsername isEqualToString:groupMemberInfo.username]) {
+                        [groupMembersArray removeObject:groupMemberInfo];
+                        break;
+                    }
+                }
+                self.dataArray = groupMembersArray;
+                
+                [self->hud hideAnimated:YES];
                 [self.tableView reloadData];
             } failure:^(EMError *error) {
-                hud.mode = MBProgressHUDModeText;
-                hud.label.text = error.errorDescription;
-                [hud hideAnimated:YES afterDelay:1.5];
+                self->hud.mode = MBProgressHUDModeText;
+                self->hud.label.text = error.errorDescription;
+                [self->hud hideAnimated:YES afterDelay:1.5];
             }];
         } else {
-            hud.mode = MBProgressHUDModeText;
-            hud.label.text = aError.errorDescription;
-            [hud hideAnimated:YES afterDelay:1.5];
+            self->hud.mode = MBProgressHUDModeText;
+            self->hud.label.text = aError.errorDescription;
+            [self->hud hideAnimated:YES afterDelay:1.5];
         }
     }];
 }

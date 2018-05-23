@@ -1390,7 +1390,6 @@
 		E9E492382080FE1900D37B81 /* Conference */ = {
 			isa = PBXGroup;
 			children = (
-				E968BB1D20B5D26900660C23 /* imgs */,
 				E9E4923A2080FE1900D37B81 /* ChooseMember */,
 				E9E492422080FE1900D37B81 /* BRConferenceViewController.h */,
 				E9E492452080FE1900D37B81 /* BRConferenceViewController.mm */,
@@ -1418,6 +1417,7 @@
 		E9F3BC822044BC6D005B2F02 /* Call */ = {
 			isa = PBXGroup;
 			children = (
+				E968BB1D20B5D26900660C23 /* imgs */,
 				E9E492382080FE1900D37B81 /* Conference */,
 				E9F3BC832044BC6D005B2F02 /* 1v1call */,
 			);

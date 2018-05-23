@@ -23,14 +23,14 @@ PODS:
   - FirebaseAnalytics (4.2.0):
     - FirebaseCore (~> 4.0)
     - FirebaseInstanceID (~> 2.0)
-    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
     - nanopb (~> 0.3)
   - FirebaseCore (4.0.20):
-    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
   - FirebaseInstanceID (2.0.10):
     - FirebaseCore (~> 4.0)
   - GoogleToolboxForMac/Defines (2.1.4)
-  - "GoogleToolboxForMac/NSData+zlib (2.1.4)":
+  - GoogleToolboxForMac/NSData+zlib (2.1.4):
     - GoogleToolboxForMac/Defines (= 2.1.4)
   - Hyphenate (3.4.0)
   - MBProgressHUD (1.1.0)
@@ -56,23 +56,6 @@ DEPENDENCIES:
   - SAMKeychain
   - SDWebImage
 
-SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
-    - AFNetworking
-    - Crashlytics
-    - Fabric
-    - Firebase
-    - FirebaseAnalytics
-    - FirebaseCore
-    - FirebaseInstanceID
-    - GoogleToolboxForMac
-    - Hyphenate
-    - MBProgressHUD
-    - MJRefresh
-    - nanopb
-    - SAMKeychain
-    - SDWebImage
-
 SPEC CHECKSUMS:
   AFNetworking: 8ac6017b94ea105479f7776e5288e48ae9c59bb4
   Crashlytics: dbb07d01876c171c5ccbdf7826410380189e452c
@@ -91,4 +74,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 03d74d250dd9475b71e6b35d7dfa0063dfe0ce07
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.4.0
