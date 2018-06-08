@@ -1718,7 +1718,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-KnowN/Pods-KnowN-frameworks.sh",
-				"${PODS_ROOT}/Hyphenate/iOS_IM_SDK_V3.4.0/HyphenateFullSDK/Hyphenate.framework",
+				"${PODS_ROOT}/Hyphenate/iOS_Pods_IMFullSDK_V3.4.1/Hyphenate.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
