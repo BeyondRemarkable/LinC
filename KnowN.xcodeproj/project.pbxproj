@@ -249,6 +249,19 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		27E6032020D2C12900AA7C2C /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		270BD1181F9835C000266E6A /* Location.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Location.plist; sourceTree = "<group>"; };
 		270BD11A1FA27B2700266E6A /* BRAboutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRAboutViewController.h; sourceTree = "<group>"; };
@@ -306,7 +319,6 @@
 		7644E4D020BABDE5A91405CF /* libPods-KnowN.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KnowN.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C9BD64024967E79CE634497 /* Pods-KnowN.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KnowN.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KnowN/Pods-KnowN.debug.xcconfig"; sourceTree = "<group>"; };
 		94F6AAD2F8CDC6DB43F6386A /* Pods-KnowN.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KnowN.release.xcconfig"; path = "Pods/Target Support Files/Pods-KnowN/Pods-KnowN.release.xcconfig"; sourceTree = "<group>"; };
-		CC84AAE8209BD2B2008A0175 /* KnowN.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = KnowN.entitlements; sourceTree = "<group>"; };
 		E90AE49E20474FCF00939518 /* libiconv.2.4.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.2.4.0.tbd; path = usr/lib/libiconv.2.4.0.tbd; sourceTree = SDKROOT; };
 		E90AE4A32049B1DA00939518 /* Hyphenate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Hyphenate.framework; sourceTree = "<group>"; };
 		E90F7AA61F670DC300333382 /* Account.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Account.storyboard; sourceTree = "<group>"; };
@@ -470,7 +482,6 @@
 		E90F7B751F670DC300333382 /* BRWhatsUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRWhatsUpViewController.h; sourceTree = "<group>"; };
 		E90F7B761F670DC300333382 /* BRWhatsUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRWhatsUpViewController.m; sourceTree = "<group>"; };
 		E936525320474BCE00F8810A /* libffmpeg-ios-full.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libffmpeg-ios-full.a"; sourceTree = "<group>"; };
-		E93D04D71FC4D966003EB109 /* KnowN.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KnowN.entitlements; sourceTree = "<group>"; };
 		E942AD5620250807000C91DD /* BRGroupModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRGroupModel.h; sourceTree = "<group>"; };
 		E942AD5720250807000C91DD /* BRGroupModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BRGroupModel.m; sourceTree = "<group>"; };
 		E95827F61FD87D8B00362F92 /* BRGroupChatSettingTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BRGroupChatSettingTableViewController.h; sourceTree = "<group>"; };
@@ -752,7 +763,6 @@
 		27CA03A31F38F21600D0F132 = {
 			isa = PBXGroup;
 			children = (
-				CC84AAE8209BD2B2008A0175 /* KnowN.entitlements */,
 				27CA03AE1F38F21600D0F132 /* KnowN */,
 				27CA03C81F38F21600D0F132 /* KnowNTests */,
 				27CA03D31F38F21600D0F132 /* KnowNUITests */,
@@ -775,7 +785,6 @@
 		27CA03AE1F38F21600D0F132 /* KnowN */ = {
 			isa = PBXGroup;
 			children = (
-				E93D04D71FC4D966003EB109 /* KnowN.entitlements */,
 				E90F7AA41F670DC300333382 /* Class */,
 				2744C4631FB68B2A007C5095 /* LaunchScreen.storyboard */,
 				27CA03AF1F38F21600D0F132 /* Supporting Files */,
@@ -1452,6 +1461,7 @@
 				D1E4854568957024059F0F63 /* [CP] Embed Pods Frameworks */,
 				64F738E78211E81266206397 /* [CP] Copy Pods Resources */,
 				E9CACADA206ED373006567C1 /* ShellScript */,
+				27E6032020D2C12900AA7C2C /* Embed App Extensions */,
 			);
 			buildRules = (
 			);

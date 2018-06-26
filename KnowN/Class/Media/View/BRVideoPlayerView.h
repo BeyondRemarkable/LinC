@@ -9,10 +9,10 @@
 #import <UIKit/UIKit.h>
 @class BRVideoPlayerView;
 
-typedef enum {
+typedef NS_ENUM(NSUInteger, BRVideoPlayerViewOrientation) {
     BRVideoPlayerViewOrientationNormal,
     BRVideoPlayerViewOrientationFullScreen
-} BRVideoPlayerViewOrientation;
+};
 
 @protocol BRVideoPlayerViewDelegate <NSObject>
 

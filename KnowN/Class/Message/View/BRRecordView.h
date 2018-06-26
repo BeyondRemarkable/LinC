@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-typedef enum{
+typedef NS_ENUM(NSUInteger, BRRecordViewType) {
     BRRecordViewTypeTouchDown,
     BRRecordViewTypeTouchUpInside,
     BRRecordViewTypeTouchUpOutside,
     BRRecordViewTypeDragInside,
     BRRecordViewTypeDragOutside,
-}BRRecordViewType;
+};
 
 @interface BRRecordView : UIView
 

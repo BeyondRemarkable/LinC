@@ -5,11 +5,11 @@
 
 #import <UIKit/UIKit.h>
 
-typedef enum {
+typedef NS_ENUM(NSUInteger, EMAudioStatus) {
     EMAudioStatusNone = 0,
     EMAudioStatusConnected,
     EMAudioStatusTalking,
-} EMAudioStatus;
+};
 
 @protocol BRConfUserViewDelegate <NSObject>
 

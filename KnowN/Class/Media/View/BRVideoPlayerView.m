@@ -11,7 +11,16 @@
 #import <MBProgressHUD.h>
 #import "BRVideoControlPanel.h"
 
+#define ConstraintIdentifier @"VideoPlayerViewSubViewConstraintIdentifier"
+
+typedef NS_ENUM(NSUInteger, BRVideoPlayerViewSizeMode) {
+    BRVideoPlayerViewSizeModeFrame,
+    BRVideoPlayerViewSizeModeConstraint
+};
+
 @interface BRVideoPlayerView () <BRVideoControlPanelDelegate>
+
+@property (nonatomic, assign) BRVideoPlayerViewSizeMode sizeMode;
 
 @property (nonatomic, strong) AVPlayer *player;
 @property (nonatomic, strong) AVPlayerItem *playerItem;
@@ -28,6 +37,9 @@
 @property (nonatomic, strong) MBProgressHUD *hud;
 
 @property (nonatomic, strong) UIView *originSuperView;
+@property (nonatomic, strong) NSMutableArray *originalSuperViewConstraints;
+@property (nonatomic, strong) NSMutableArray *originalSelfConstraints;
+@property (nonatomic, assign) CGRect originalFrame;
 @property (nonatomic, strong) NSLayoutConstraint *centerXConstraint;
 @property (nonatomic, strong) NSLayoutConstraint *centerYConstraint;
 @property (nonatomic, strong) NSLayoutConstraint *widthConstraint;
@@ -62,6 +74,7 @@
     _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapVideo:)];
     [self addGestureRecognizer:_tapGesture];
     
+    NSLayoutConstraint *constraint;
     // 添加playButton
     _playButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_playButton setImage:[UIImage imageNamed:@"play_big"] forState:UIControlStateNormal];
@@ -69,10 +82,18 @@
     [_playButton addTarget:self action:@selector(clickPlayButton:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:_playButton];
     _playButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [_playButton.widthAnchor constraintEqualToConstant:100].active = YES;
-    [_playButton.heightAnchor constraintEqualToAnchor:_playButton.widthAnchor].active = YES;
-    [_playButton.centerXAnchor constraintEqualToAnchor:self.centerXAnchor].active = YES;
-    [_playButton.centerYAnchor constraintEqualToAnchor:self.centerYAnchor].active = YES;
+    constraint = [_playButton.widthAnchor constraintEqualToConstant:100];
+    constraint.identifier = ConstraintIdentifier;
+    constraint.active = YES;
+    constraint = [_playButton.heightAnchor constraintEqualToAnchor:_playButton.widthAnchor];
+    constraint.identifier = ConstraintIdentifier;
+    constraint.active = YES;
+    constraint = [_playButton.centerXAnchor constraintEqualToAnchor:self.centerXAnchor];
+    constraint.identifier = ConstraintIdentifier;
+    constraint.active = YES;
+    constraint = [_playButton.centerYAnchor constraintEqualToAnchor:self.centerYAnchor];
+    constraint.identifier = ConstraintIdentifier;
+    constraint.active = YES;
     
     // 添加控制台
     _controlPanel = [[BRVideoControlPanel alloc] init];
@@ -80,15 +101,23 @@
     _controlPanel.backgroundColor = [UIColor colorWithWhite:0.5 alpha:0.3];
     [self addSubview:_controlPanel];
     _controlPanel.translatesAutoresizingMaskIntoConstraints = NO;
-    [_controlPanel.leadingAnchor constraintEqualToAnchor:self.leadingAnchor].active = YES;
-    [_controlPanel.trailingAnchor constraintEqualToAnchor:self.trailingAnchor].active = YES;
-    [_controlPanel.bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = YES;
+    constraint = [_controlPanel.leadingAnchor constraintEqualToAnchor:self.leadingAnchor];
+    constraint.identifier = ConstraintIdentifier;
+    constraint.active = YES;
+    constraint = [_controlPanel.trailingAnchor constraintEqualToAnchor:self.trailingAnchor];
+    constraint.identifier = ConstraintIdentifier;
+    constraint.active = YES;
+    constraint = [_controlPanel.bottomAnchor constraintEqualToAnchor:self.bottomAnchor];
+    constraint.identifier = ConstraintIdentifier;
+    constraint.active = YES;
     _controlPanelHeightConstraint = [_controlPanel.heightAnchor constraintEqualToConstant:controlPanelHeight + 2 * controlPanelPadding];
+    _controlPanelHeightConstraint.identifier = ConstraintIdentifier;
     _controlPanelHeightConstraint.active = YES;
 }
 
 - (void)setupDefaultProperties {
     self.contentMode = UIViewContentModeScaleAspectFit;
+    self.sizeMode = self.translatesAutoresizingMaskIntoConstraints?BRVideoPlayerViewSizeModeFrame:BRVideoPlayerViewSizeModeConstraint;
     _isShowDownloadProcess = NO;
     _fullScreenEnabled = NO;
     _rotateWithDevice = NO;
@@ -114,6 +143,20 @@
 }
 
 #pragma mark - getter
+
+- (NSMutableArray *)originalSuperViewConstraints {
+    if(_originalSuperViewConstraints == nil) {
+        _originalSuperViewConstraints = [NSMutableArray array];
+    }
+    return _originalSuperViewConstraints;
+}
+
+- (NSMutableArray *)originalSelfConstraints {
+    if(_originalSelfConstraints == nil) {
+        _originalSelfConstraints = [NSMutableArray array];
+    }
+    return _originalSelfConstraints;
+}
 
 - (MBProgressHUD *)hud {
     if (_hud == nil) {
@@ -152,6 +195,7 @@
 - (void)setFullScreenEnabled:(BOOL)fullScreenEnabled {
     _fullScreenEnabled = fullScreenEnabled;
     
+    NSLayoutConstraint *constraint;
     // 添加全屏按钮
     _fullScreenButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_fullScreenButton setBackgroundImage:[UIImage imageNamed:@"full_screen"] forState:UIControlStateNormal];
@@ -162,10 +206,17 @@
     CGFloat padding = 30.0;
     CGFloat width = 30.0;
     _fullScreenButtonTopConstraint = [_fullScreenButton.topAnchor constraintEqualToAnchor:self.topAnchor constant:padding];
+    _fullScreenButtonTopConstraint.identifier = ConstraintIdentifier;
     _fullScreenButtonTopConstraint.active = YES;
-    [_fullScreenButton.trailingAnchor constraintEqualToAnchor:self.trailingAnchor constant:-padding].active = YES;
-    [_fullScreenButton.widthAnchor constraintEqualToConstant:width].active = YES;
-    [_fullScreenButton.heightAnchor constraintEqualToAnchor:_fullScreenButton.widthAnchor].active = YES;
+    constraint = [_fullScreenButton.trailingAnchor constraintEqualToAnchor:self.trailingAnchor constant:-padding];
+    constraint.identifier = ConstraintIdentifier;
+    constraint.active = YES;
+    constraint = [_fullScreenButton.widthAnchor constraintEqualToConstant:width];
+    constraint.identifier = ConstraintIdentifier;
+    constraint.active = YES;
+    constraint = [_fullScreenButton.heightAnchor constraintEqualToAnchor:_fullScreenButton.widthAnchor];
+    constraint.identifier = ConstraintIdentifier;
+    constraint.active = YES;
 }
 
 - (void)setAutoPlayWhenReady:(BOOL)autoPlayWhenReady {
@@ -239,18 +290,37 @@
     // 普通转全屏
     if (self.orientation == BRVideoPlayerViewOrientationNormal) {
         self.orientation = BRVideoPlayerViewOrientationFullScreen;
-        [button setSelected:YES];
+
+        // 保存原父视图
         self.originSuperView = self.superview;
         
-        if (_delegate && [_delegate respondsToSelector:@selector(videoPlayerView:didChangeToOrientation:)]) {
-            [_delegate videoPlayerView:self didChangeToOrientation:self.orientation];
+        if(self.sizeMode == BRVideoPlayerViewSizeModeConstraint) {
+            // 保存原有的所有约束
+            for (NSLayoutConstraint *constraint in self.superview.constraints) {
+                if([constraint.firstItem isKindOfClass:[self class]]) {
+                    [self.superview removeConstraint:constraint];
+                    [self.originalSuperViewConstraints addObject:constraint];
+                }
+            }
+            for (NSLayoutConstraint *constraint in self.constraints) {
+                if(![constraint.identifier isEqualToString:ConstraintIdentifier]) {
+                    [self removeConstraint:constraint];
+                    [self.originalSelfConstraints addObject:constraint];
+                }
+            }
         }
+        else {
+            self.originalFrame = self.frame;
+        }
+        
+        // 将本view加到window上并旋转为全屏
         UIWindow *window = [UIApplication sharedApplication].keyWindow;
         [window addSubview:self];
+        self.translatesAutoresizingMaskIntoConstraints = NO;
         self.centerXConstraint = [self.centerXAnchor constraintEqualToAnchor:window.centerXAnchor];
         self.centerYConstraint = [self.centerYAnchor constraintEqualToAnchor:window.centerYAnchor];
-        self.widthConstraint = [self.widthAnchor constraintEqualToConstant:window.bounds.size.height];
-        self.heightConstraint = [self.heightAnchor constraintEqualToConstant:window.bounds.size.width];
+        self.widthConstraint = [self.widthAnchor constraintEqualToAnchor:window.heightAnchor];
+        self.heightConstraint = [self.heightAnchor constraintEqualToAnchor:window.widthAnchor];
         [UIView animateWithDuration:0.3 animations:^{
             self.centerXConstraint.active = YES;
             self.centerYConstraint.active = YES;
@@ -259,22 +329,42 @@
             [self.controlPanel compressControlSize];
             self.transform = CGAffineTransformMakeRotation(M_PI / 2);
         }];
+        
+        // 通知代理视频已经变成全屏
+        if (_delegate && [_delegate respondsToSelector:@selector(videoPlayerView:didChangeToOrientation:)]) {
+            [_delegate videoPlayerView:self didChangeToOrientation:self.orientation];
+        }
     }
     // 全屏转普通
     else if (self.orientation == BRVideoPlayerViewOrientationFullScreen) {
         self.orientation = BRVideoPlayerViewOrientationNormal;
-        [button setSelected:NO];
         
         [self removeConstraints:@[self.centerXConstraint, self.centerYConstraint, self.widthConstraint, self.heightConstraint]];
         [self.originSuperView addSubview:self];
-        if (_delegate && [_delegate respondsToSelector:@selector(videoPlayerView:didChangeToOrientation:)]) {
-            [_delegate videoPlayerView:self didChangeToOrientation:self.orientation];
+        self.originSuperView = nil;
+        if (self.sizeMode == BRVideoPlayerViewSizeModeConstraint) {
+            // 增加原来的约束
+            [self.superview addConstraints:self.originalSuperViewConstraints];
+            [self addConstraints:self.originalSelfConstraints];
+            [self.originalSuperViewConstraints removeAllObjects];
+            [self.originalSelfConstraints removeAllObjects];
         }
+        else {
+            self.translatesAutoresizingMaskIntoConstraints = YES;
+            self.frame = self.originalFrame;
+        }
+        
         [UIView animateWithDuration:0.3 animations:^{
             [self.controlPanel extendControlSize];
             self.transform = CGAffineTransformIdentity;
         }];
+        
+        // 通知代理视频已经变成小屏
+        if (_delegate && [_delegate respondsToSelector:@selector(videoPlayerView:didChangeToOrientation:)]) {
+            [_delegate videoPlayerView:self didChangeToOrientation:self.orientation];
+        }
     }
+    [button setSelected:!button.isSelected];
 }
 
 #pragma mark - private methods

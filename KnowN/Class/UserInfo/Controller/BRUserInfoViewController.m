@@ -37,14 +37,14 @@
 
 @implementation BRUserInfoViewController
 
-typedef enum : NSInteger {
+typedef NS_ENUM(NSUInteger, TableViewSection) {
     TableViewSectionZero = 0,
     TableViewSectionOne,
     TableViewSectionTwo
-} TableViewSession;
+};
 
 
-typedef enum NSUInteger {
+typedef NS_ENUM(NSUInteger, UserInfoCellName) {
     
     // Section zero
     UserImageCell = 0,
@@ -60,7 +60,7 @@ typedef enum NSUInteger {
     // Section Two
     UserSettingCell = 0,
     
-} UserInfoCellName;
+};
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];

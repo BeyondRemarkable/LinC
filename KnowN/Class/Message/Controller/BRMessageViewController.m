@@ -31,11 +31,11 @@
 #define KTransitionDuration 0.2
 #define IOS_VERSION [[UIDevice currentDevice] systemVersion]>=9.0
 
-typedef enum : NSUInteger {
+typedef NS_ENUM(NSUInteger, BRRecordResponse) {
     BRRequestRecord,
     BRCanRecord,
     BRCanNotRecord,
-} BRRecordResponse;
+};
 
 @implementation BRAtTarget
 - (instancetype)initWithUserId:(NSString*)userId andNickname:(NSString*)nickname
@@ -1063,28 +1063,14 @@ typedef enum : NSUInteger {
     {
         CGPoint location = [recognizer locationInView:self.tableView];
         NSIndexPath * indexPath = [self.tableView indexPathForRowAtPoint:location];
-        BOOL canLongPress = NO;
-        if (_dataSource && [_dataSource respondsToSelector:@selector(messageViewController:canLongPressRowAtIndexPath:)]) {
-            canLongPress = [_dataSource messageViewController:self
-                                   canLongPressRowAtIndexPath:indexPath];
-        }
-        
-        if (!canLongPress) {
-            return;
-        }
-        
-        if (_dataSource && [_dataSource respondsToSelector:@selector(messageViewController:didLongPressRowAtIndexPath:)]) {
-            [_dataSource messageViewController:self
-                    didLongPressRowAtIndexPath:indexPath];
-        }
-        else{
-            id object = [self.dataArray objectAtIndex:indexPath.row];
-            if (![object isKindOfClass:[NSString class]]) {
-                BRMessageCell *cell = (BRMessageCell *)[self.tableView cellForRowAtIndexPath:indexPath];
-                [cell becomeFirstResponder];
-                _menuIndexPath = indexPath;
-                [self showMenuViewController:cell.bubbleView andIndexPath:indexPath messageType:cell.model.bodyType];
-            }
+
+
+        id object = [self.dataArray objectAtIndex:indexPath.row];
+        if (![object isKindOfClass:[NSString class]]) {
+            BRMessageCell *cell = (BRMessageCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+            [cell becomeFirstResponder];
+            _menuIndexPath = indexPath;
+            [self showMenuViewController:cell.bubbleView andIndexPath:indexPath messageType:cell.model.bodyType];
         }
     }
 }

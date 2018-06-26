@@ -20,13 +20,13 @@
 
 @implementation BRUserInfoSetUpTableViewController
 
-typedef enum NSUInteger {
+typedef NS_ENUM(NSUInteger, UserSettingCell) {
     
     UserNameCell = 0,
     UserGenderCell,
     UserLocationCell,
     
-} UserSettingCell;
+};
 
 - (void)viewDidLoad {
     [super viewDidLoad];

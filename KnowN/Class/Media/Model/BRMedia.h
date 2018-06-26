@@ -9,12 +9,12 @@
 #import <Foundation/Foundation.h>
 #import <Photos/Photos.h>
 
-typedef enum : NSUInteger {
+typedef NS_ENUM(NSUInteger, BRMediaType) {
     BRMediaEmpty,
     BRMediaImage,
     BRMediaWebImage,
     BRMediaVideo,
-} BRMediaType;
+};
 
 @interface BRMedia : NSObject
 

@@ -11,10 +11,10 @@
 /** tabeleView的cell高度 */
 #define KCellDefaultHeight 50
 
-typedef enum : NSUInteger {
+typedef NS_ENUM(NSUInteger, BRRefreshTableViewWidget) {
     BRRefreshTableViewWidgetHeader,
     BRRefreshTableViewWidgetFooter,
-} BRRefreshTableViewWidget;
+};
 
 /** 带加载、刷新的Controller(包含UITableView) */
 @interface BRRefreshTableViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>

@@ -176,11 +176,11 @@
 - (void)videoPlayerView:(BRVideoPlayerView *)view didChangeToOrientation:(BRVideoPlayerViewOrientation)orientation {
     if (orientation == BRVideoPlayerViewOrientationNormal) {
         self.statusBarHidden = NO;
-        [self setupVideoViewConstraint];
+//        [self setupVideoViewConstraint];
     }
     else if (orientation == BRVideoPlayerViewOrientationFullScreen) {
         self.statusBarHidden = YES;
-        [view removeConstraints:@[self.videoTopConstraint, self.videoLeadingConstraint, self.videoTrailingConstraint, self.videoHeightConstraint]];
+//        [view removeConstraints:@[self.videoTopConstraint, self.videoLeadingConstraint, self.videoTrailingConstraint, self.videoHeightConstraint]];
     }
     [self setNeedsStatusBarAppearanceUpdate];
 }

@@ -32,11 +32,11 @@
 
 @implementation BRCreateGroupChatTableViewController
 
-typedef enum : NSInteger {
+typedef NS_ENUM(NSUInteger, UITableViewRow) {
     TableViewGroupName = 0,
     TableViewGroupDescription,
     TableViewGroupStyle,
-} UITableViewRow;
+};
 
 - (void)viewDidLoad {
     [super viewDidLoad];

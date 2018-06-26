@@ -36,7 +36,7 @@
     NSDictionary *requestData = [launchOptions valueForKey: UIApplicationLaunchOptionsRemoteNotificationKey];
     
     NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserNameKey];
-    NSLog(@"requestData--%@", requestData);
+    
     if (requestData) {
         NSString *findRequestFlat = [requestData valueForKey:@"e"];
         
@@ -83,27 +83,7 @@
     
     //初始化数据库
     [[BRCoreDataManager sharedInstance] managedObjectContext];
-    
-    EMPushOptions *emoptions = [[EMClient sharedClient] pushOptions];
-    
-    emoptions.displayStyle = EMPushDisplayStyleMessageSummary;
-    
-    [[EMClient sharedClient] updatePushOptionsToServer];
 
-    if([application respondsToSelector:@selector(registerForRemoteNotifications)]) {
-        
-        [application registerForRemoteNotifications];
-        
-        UIUserNotificationType notificationTypes = UIUserNotificationTypeBadge| UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
-        
-        UIUserNotificationSettings* settings = [UIUserNotificationSettings settingsForTypes: notificationTypes categories:nil];
-        
-        [application registerUserNotificationSettings:settings];
-        
-    }
-
-    //添加监听在线推送消息
-    [[EMClient sharedClient].chatManager addDelegate: self delegateQueue:dispatch_get_main_queue()];
     [FIRApp configure];
     
     return YES;
@@ -111,17 +91,13 @@
 
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(nonnull NSDictionary *)userInfo fetchCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHandler {
-    
+    NSLog(@"%@", userInfo);
 }
 
 //监听环信在线推送消息
 - (void)messagesDidReceive:(NSArray *)aMessages {
     
     //判断是不是后台，如果是后台就发推送
-    if (aMessages.count == 0) {
-        return ;
-    }
-
     for (EMMessage *message in aMessages) {
         UIApplicationState state =[[UIApplication sharedApplication] applicationState];
         switch (state) {
@@ -184,45 +160,45 @@
             [[NSUserDefaults standardUserDefaults] setObject:confData forKey:KBRAudioConferenceInviteExtKey];
         }
     }
-
-        EMMessageBody *messageBody = message.body;
-        NSString *messageStr = nil;
-        switch (messageBody.type) {
-                
-            case EMMessageBodyTypeText:
-                messageStr = ((EMTextMessageBody *)messageBody).text;
-                break;
-            case EMMessageBodyTypeImage:
-                messageStr = NSLocalizedString(@"Image Received.", @"Image");
-                break;
-            case EMMessageBodyTypeLocation:
-                messageStr = NSLocalizedString(@"Shared location.", @"Location");
-                break;
-            case EMMessageBodyTypeVoice:
-                messageStr = NSLocalizedString(@"Voice message", @"Voice");
-                break;
-            case EMMessageBodyTypeVideo:
-                messageStr = NSLocalizedString(@"Shared video", @"Video");
-                break;
-            default:
-                break;
-        }
-        
-        UILocalNotification *notification = [[UILocalNotification alloc] init];
-        BRFriendsInfo *friendInfo = [[BRCoreDataManager sharedInstance] fetchFriendInfoBy:message.from];
-        if (friendInfo.nickname) {
-            notification.alertTitle = friendInfo.nickname;
-        } else {
-            notification.alertTitle = friendInfo.username;
-        }
-        notification.fireDate = [NSDate date];
-        notification.alertAction = NSLocalizedString(@"open", @"Open");
-        notification.alertBody = messageStr;
-        notification.timeZone = [NSTimeZone defaultTimeZone];
-        [UIApplication sharedApplication].applicationIconBadgeNumber +=1;
-        
-        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-
+    
+    EMMessageBody *messageBody = message.body;
+    NSString *messageStr = nil;
+    switch (messageBody.type) {
+            
+        case EMMessageBodyTypeText:
+            messageStr = ((EMTextMessageBody *)messageBody).text;
+            break;
+        case EMMessageBodyTypeImage:
+            messageStr = NSLocalizedString(@"Image Received", @"Image");
+            break;
+        case EMMessageBodyTypeLocation:
+            messageStr = NSLocalizedString(@"Shared location", @"Location");
+            break;
+        case EMMessageBodyTypeVoice:
+            messageStr = NSLocalizedString(@"Voice message", @"Voice");
+            break;
+        case EMMessageBodyTypeVideo:
+            messageStr = NSLocalizedString(@"Shared video", @"Video");
+            break;
+        default:
+            break;
+    }
+    
+    UILocalNotification *notification = [[UILocalNotification alloc] init];
+    BRFriendsInfo *friendInfo = [[BRCoreDataManager sharedInstance] fetchFriendInfoBy:message.from];
+    if (friendInfo.nickname) {
+        notification.alertTitle = friendInfo.nickname;
+    } else {
+        notification.alertTitle = friendInfo.username;
+    }
+    notification.fireDate = [NSDate date];
+    notification.alertAction = NSLocalizedString(@"open", @"Open");
+    notification.alertBody = messageStr;
+    notification.timeZone = [NSTimeZone defaultTimeZone];
+    [UIApplication sharedApplication].applicationIconBadgeNumber +=1;
+    
+    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+    
 }
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
@@ -268,6 +244,7 @@
 #pragma mark - self-defined methods
 - (void)setupOptions {
     [[EMClient sharedClient] addDelegate:self delegateQueue:nil];
+    [[EMClient sharedClient].chatManager addDelegate: self delegateQueue:dispatch_get_main_queue()];
     [[EMClient sharedClient].options setIsAutoAcceptGroupInvitation:YES];
 }
 
@@ -280,6 +257,7 @@
 - (void)updateAuthorization {
     [[BRClientManager sharedManager] getSelfInfoWithSuccess:^(BRContactListModel *model) {
         [self showStoryboardWithName:@"Main" identifier:@"BRTabBarController"];
+        [[EMClient sharedClient] setApnsNickname:model.nickname];
     } failure:^(EMError *error) {
         if ([error.errorDescription containsString:@"(401)"]) {
             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];

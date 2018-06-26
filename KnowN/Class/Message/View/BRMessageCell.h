@@ -22,14 +22,14 @@
 
 extern CGFloat const BRMessageCellPadding;
 
-typedef enum{
+typedef NS_ENUM(NSUInteger, BRMessageCellTapEventType) {
     BRMessageCellEvenVideoBubbleTap,      /** @brief 视频消息cell点击 */
     BRMessageCellEventLocationBubbleTap,  /** @brief 位置消息cell点击 */
     BRMessageCellEventImageBubbleTap,     /** @brief 图片消息cell点击 */
     BRMessageCellEventAudioBubbleTap,     /** @brief 语音消息cell点击 */
     BRMessageCellEventFileBubbleTap,      /** @brief 文件消息cell点击 */
     BRMessageCellEventCustomBubbleTap,    /** @brief 自定义gif图片消息cell点击 */
-}BRMessageCellTapEventType;
+};
 
 @protocol BRMessageCellDelegate;
 @interface BRMessageCell : UITableViewCell <IModelChatCell>

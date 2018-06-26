@@ -33,10 +33,10 @@
 
 @implementation BRGroupListTableViewController
 
-typedef enum : NSInteger {
+typedef NS_ENUM(NSUInteger, TableViewSession) {
     TableViewNewGroupRequest = 0,
     TableViewGroupList,
-} TableViewSession;
+};
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];

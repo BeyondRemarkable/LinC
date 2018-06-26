@@ -46,17 +46,17 @@
 
 @implementation BRGroupChatSettingTableViewController
 
-typedef enum : NSInteger {
+typedef NS_ENUM(NSUInteger, TableViewSection) {
     TableViewGroupSetting = 0,
     TableViewGroupMembers,
-} TableViewSession;
+};
 
-typedef enum : NSInteger {
+typedef NS_ENUM(NSUInteger, TableViewRow) {
     TableViewGroupID = 0,
     TableViewGroupName,
     TableViewGroupQRCode,
     TableViewGroupDescription,
-} TableViewRow;
+};
 
 // Tableview cell identifier
 static NSString * const cellIdentifier = @"groupCell";

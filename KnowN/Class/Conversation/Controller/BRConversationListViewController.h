@@ -9,10 +9,10 @@
 #import "BRRefreshTableViewController.h"
 #import <Hyphenate/Hyphenate.h>
 
-typedef enum : NSUInteger {
+typedef NS_ENUM(NSUInteger, BRConversationListDeleteType) {
     BRConversationListDeleteConversationOnly,
     BRConversationListDeleteConversationWithMessages,
-} BRConversationListDeleteType;
+};
 
 @interface BRConversationListViewController : BRRefreshTableViewController <EMChatManagerDelegate, EMGroupManagerDelegate>
 /*!

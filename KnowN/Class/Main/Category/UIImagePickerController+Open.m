@@ -17,7 +17,7 @@
 
 - (void)openCameraWithSuccess:(void (^)(void))successBlock failure:(void (^)(void))failureBlock {
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        self.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        self.sourceType = UIImagePickerControllerSourceTypeCamera;
         self.mediaTypes = @[(NSString *)kUTTypeImage, (NSString *)kUTTypeMovie];
         AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
         if (authStatus == AVAuthorizationStatusNotDetermined) {

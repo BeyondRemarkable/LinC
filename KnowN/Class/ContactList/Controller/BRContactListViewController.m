@@ -46,15 +46,15 @@
 
 @end
 
-typedef enum : NSInteger {
+typedef NS_ENUM(NSUInteger, TableViewSection) {
     TableViewSectionZero = 0,
     TableViewSectionOne,
-} TableViewSession;
+};
 
-typedef enum : NSInteger {
+typedef NS_ENUM(NSUInteger, UITableViewRow) {
     TableViewNewFriend = 0,
     TableViewGroup,
-} UITableViewRow;
+};
 
 @implementation BRContactListViewController
 

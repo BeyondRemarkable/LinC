@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-typedef enum {
+typedef NS_ENUM(NSUInteger, BRRegisterType) {
     BRRegisterTypeEmail,
     BRRegisterTypeMobile
-} BRRegisterType;
+};
 
 @interface BRUserAccountSetUpViewController : UIViewController
 

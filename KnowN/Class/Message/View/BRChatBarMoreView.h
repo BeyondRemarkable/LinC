@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-typedef enum{
+typedef NS_ENUM(NSUInteger, BRChatToolbarType) {
     BRChatToolbarTypeChat,
     BRChatToolbarTypeGroup,
-}BRChatToolbarType;
+};
 
 @protocol BRChatBarMoreViewDelegate;
 @interface BRChatBarMoreView : UIView

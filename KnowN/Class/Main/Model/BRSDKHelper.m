@@ -97,17 +97,6 @@ static BRSDKHelper *helper = nil;
         UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:notificationTypes categories:nil];
         [application registerUserNotificationSettings:settings];
     }
-    
-#if !TARGET_IPHONE_SIMULATOR
-    if ([application respondsToSelector:@selector(registerForRemoteNotifications)]) {
-        [application registerForRemoteNotifications];
-    }else {
-        UIRemoteNotificationType notificationTypes = UIRemoteNotificationTypeBadge |
-        UIRemoteNotificationTypeSound |
-        UIRemoteNotificationTypeAlert;
-        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:notificationTypes];
-    }
-#endif
 }
 
 #pragma mark - init Hyphenate
@@ -127,6 +116,13 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     if ([otherConfig objectForKey:kSDKConfigEnableConsoleLogger]) {
         options.enableConsoleLog = YES;
     }
+    
+    EMPushOptions *pushOptions = [[EMClient sharedClient] pushOptions];
+    pushOptions.displayStyle = EMPushDisplayStyleMessageSummary;
+    pushOptions.displayName = NSLocalizedString(@"Message", nil);
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [[EMClient sharedClient] updatePushOptionsToServer];        
+    });
     
     BOOL isHttpsOnly = NO;
     if ([otherConfig objectForKey:@"httpsOnly"]) {

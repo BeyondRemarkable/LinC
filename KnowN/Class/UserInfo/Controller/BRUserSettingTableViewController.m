@@ -26,13 +26,13 @@
 
 @implementation BRUserSettingTableViewController
 
-typedef enum : NSInteger {
+typedef NS_ENUM(NSUInteger, TableViewSection) {
     TableViewSectionZero = 0,
     TableViewSectionOne,
     TableViewSectionTwo,
-} TableViewSession;
+};
 
-typedef enum NSUInteger {
+typedef NS_ENUM(NSUInteger, UserSetting) {
     
     // Section zero
     SettingGeneral = 0,
@@ -45,7 +45,7 @@ typedef enum NSUInteger {
     //Section Two
     SettingLogout = 0
     
-} UserSetting;
+};
 
 - (void)viewDidLoad {
     [super viewDidLoad];
