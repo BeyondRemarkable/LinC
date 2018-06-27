@@ -110,13 +110,13 @@
     //setup output
     AVCaptureMetadataOutput * output = [[AVCaptureMetadataOutput alloc]init];
     
-    [output setMetadataObjectsDelegate:self queue:dispatch_get_main_queue()];
-    output.metadataObjectTypes=@[AVMetadataObjectTypeQRCode,AVMetadataObjectTypeEAN13Code, AVMetadataObjectTypeEAN8Code, AVMetadataObjectTypeCode128Code];
     session = [[AVCaptureSession alloc]init];
     [session setSessionPreset:AVCaptureSessionPresetHigh];
     
     [session addInput:input];
     [session addOutput:output];
+    [output setMetadataObjectsDelegate:self queue:dispatch_get_main_queue()];
+    output.metadataObjectTypes=@[AVMetadataObjectTypeQRCode];
     
     self.scanlayer = [AVCaptureVideoPreviewLayer layerWithSession:session];
     self.scanlayer.videoGravity = AVLayerVideoGravityResizeAspectFill;

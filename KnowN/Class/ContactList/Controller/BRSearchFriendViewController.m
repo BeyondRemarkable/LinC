@@ -65,7 +65,7 @@
         self.searchID = nil;
         hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
-        hud.label.text = @"Can not add yourself.";
+        hud.label.text = @"Can not add yourself";
         [hud hideAnimated:YES afterDelay:1.5];
         return;
     }
